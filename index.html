@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rajesh Sood — Portfolio</title>
-  <meta name="description" content="Rajesh Sood — Staff Cloud Architect · DevSecOps · AI/ML Platform Engineering. Portfolio of projects, experience and skills." />
+  <title>Rajesh Sood — Senior Cloud & DevOps Engineer</title>
+  <meta name="description" content="Rajesh Sood — Senior Cloud & DevOps Engineer · AI/ML Platform Engineering · AWS · Kubernetes · Terraform · SRE. Portfolio of projects, experience and skills." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
@@ -289,6 +289,103 @@
     .pill-amber { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); color: #f59e0b; }
     .pill-rose  { background: rgba(244,63,94,0.08);  border-color: rgba(244,63,94,0.25);  color: #f43f5e; }
     .pill-violet{ background: rgba(139,92,246,0.08); border-color: rgba(139,92,246,0.25); color: #8b5cf6; }
+    .pill-green { background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.25);  color: #22c55e; }
+
+    /* ── Metrics strip ── */
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .metric-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── Certifications ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .cert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .cert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(0,201,167,0.1);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .cert-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+    .cert-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .cert-active { border-left: 3px solid var(--accent); }
+
+    /* ── Resume CTA ── */
+    .resume-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,201,167,0.08);
+      border: 1px solid rgba(0,201,167,0.25);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 100px;
+      transition: background 0.2s, border-color 0.2s;
+      margin-bottom: 56px;
+    }
+    .resume-cta:hover {
+      background: rgba(0,201,167,0.15);
+      border-color: rgba(0,201,167,0.4);
+    }
 
     /* ── Education ── */
     .edu-grid {
@@ -641,12 +738,41 @@
         <div class="hero-avatar">RS</div>
         <div class="hero-content">
           <div class="hero-eyebrow">Open to opportunities</div>
-          <h1>Rajesh <span class="highlight">Sood</span></h1>
-          <p class="hero-role">Staff Cloud Architect · DevSecOps · AI/ML Platform Engineering · Dublin, Ireland</p>
+          <h1>Rajesh <span class="highlight">Sood</span>, MBA</h1>
+          <p class="hero-role">Senior Cloud & DevOps Engineer · AI/ML Platform Engineering · AWS · Kubernetes · Terraform · SRE · Dublin, Ireland</p>
           <p class="hero-bio">
-            14+ years building secure, scalable cloud infrastructure for enterprises across FinTech, Telecom, and Global Manufacturing.
-            Deep expertise in AWS, Kubernetes, CI/CD, Infrastructure as Code, and Cloud Security — with a growing focus on AI/ML platform engineering and intelligent automation.
+            15+ years building secure, scalable cloud infrastructure for enterprises across FinTech, Telecom, and Global Manufacturing.
+            Lead DevOps and AI/ML platform engineering across multi-account AWS — architecting platforms that help engineering teams ship fast and scale reliably.
+            Deep expertise in AWS, Kubernetes, Terraform, and DevSecOps, with hands-on GenAI integration using Amazon Bedrock and Claude.
           </p>
+          <a class="resume-cta" href="Rajesh_Sood_Resume_2026.pdf" download>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume (PDF)
+          </a>
+        </div>
+      </div>
+
+      <div class="section-label">Impact at a Glance</div>
+      <div class="metrics-strip">
+        <div class="metric-card">
+          <span class="metric-value">$200K+</span>
+          <div class="metric-label">Cloud cost savings delivered</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">99.99%</span>
+          <div class="metric-label">Uptime SLA maintained</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">35%</span>
+          <div class="metric-label">Faster deploy cycles</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">15+</span>
+          <div class="metric-label">Years enterprise cloud experience</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">45%</span>
+          <div class="metric-label">MTTR reduction via observability</div>
         </div>
       </div>
 
@@ -659,6 +785,14 @@
         <span class="skill-pill pill-teal">S3 / RDS</span>
         <span class="skill-pill pill-teal">Amazon Bedrock</span>
         <span class="skill-pill pill-teal">SageMaker</span>
+        <span class="skill-pill pill-teal">Azure</span>
+        <span class="skill-pill pill-teal">GCP</span>
+        <span class="skill-pill pill-teal">Oracle OCI</span>
+        <!-- AI / GenAI -->
+        <span class="skill-pill pill-green">RAG Pipeline Design</span>
+        <span class="skill-pill pill-green">Claude / Titan LLM</span>
+        <span class="skill-pill pill-green">GitHub Copilot</span>
+        <span class="skill-pill pill-green">Cursor</span>
         <!-- IaC & Orchestration -->
         <span class="skill-pill pill-blue">Terraform</span>
         <span class="skill-pill pill-blue">CloudFormation</span>
@@ -671,21 +805,58 @@
         <span class="skill-pill pill-violet">GitHub Actions</span>
         <span class="skill-pill pill-violet">ArgoCD</span>
         <span class="skill-pill pill-violet">GitLab CI</span>
-        <!-- Observability -->
+        <!-- Observability & FinOps -->
         <span class="skill-pill pill-amber">Prometheus</span>
         <span class="skill-pill pill-amber">Grafana</span>
         <span class="skill-pill pill-amber">CloudWatch</span>
         <span class="skill-pill pill-amber">Splunk</span>
         <span class="skill-pill pill-amber">Datadog</span>
+        <span class="skill-pill pill-amber">SLO / SLI / Error Budget</span>
+        <span class="skill-pill pill-amber">FinOps Governance</span>
         <!-- Security -->
+        <span class="skill-pill pill-rose">Wiz</span>
         <span class="skill-pill pill-rose">Snyk</span>
         <span class="skill-pill pill-rose">SonarQube</span>
         <span class="skill-pill pill-rose">OWASP ZAP</span>
         <span class="skill-pill pill-rose">CIS Benchmarks</span>
+        <span class="skill-pill pill-rose">IAM Zero-Trust</span>
+        <span class="skill-pill pill-rose">SOC 2 / GDPR / HIPAA</span>
         <!-- Languages -->
         <span class="skill-pill pill-teal">Python</span>
         <span class="skill-pill pill-teal">Bash</span>
         <span class="skill-pill pill-teal">YAML / HCL</span>
+      </div>
+
+      <div class="section-label">Certifications</div>
+      <div class="cert-grid">
+        <div class="cert-card cert-active">
+          <div class="cert-icon">AWS<br>PRO</div>
+          <div>
+            <div class="cert-name">AWS Certified Solutions Architect – Professional</div>
+            <div class="cert-meta">Amazon Web Services · Valid Dec 2026</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon" style="background:rgba(0,120,215,0.1);color:#0078d7">AZ</div>
+          <div>
+            <div class="cert-name">Microsoft Azure Certified</div>
+            <div class="cert-meta">Microsoft</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon" style="background:rgba(66,133,244,0.1);color:#4285f4">GCP</div>
+          <div>
+            <div class="cert-name">Google Cloud Certified</div>
+            <div class="cert-meta">Google Cloud</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon" style="background:rgba(244,67,54,0.1);color:#f44336">OCI</div>
+          <div>
+            <div class="cert-name">Oracle Cloud Infrastructure Certified</div>
+            <div class="cert-meta">Oracle</div>
+          </div>
+        </div>
       </div>
 
       <div class="section-label">Education</div>
@@ -717,43 +888,47 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-header">
-            <div class="timeline-role">DevOps Engineer</div>
+            <div class="timeline-role">Senior DevOps Engineer</div>
             <span class="timeline-period">Oct 2023 – Present</span>
           </div>
           <div class="timeline-company">Workday · Dublin, Ireland</div>
           <div class="timeline-desc">
-            Leading Security &amp; DevOps initiatives — building and optimising robust CI/CD pipelines using AWS, Python, Terraform, and Jenkins.
-            Driving vulnerability management and remediation to strengthen AWS cloud security posture, ensuring compliance and resilience.
+            Architecting AI/ML platform infrastructure with SageMaker and integrating GenAI capabilities via Amazon Bedrock and Claude.
+            Driving SRE practices on EKS — maintaining 99.99% uptime SLA, owning incident command, and setting reliability standards.
+            Delivered 35% cycle-time reduction through CI/CD platform modernisation (Jenkins, GitHub Actions, Terraform).
+            Built AI-powered security automation with Wiz and Snyk, reducing vulnerability remediation time significantly.
+            Achieved $100K+ FinOps savings through Reserved Instance strategy and right-sizing governance.
+            Accelerated IaC velocity 25% using GitHub Copilot, Cursor, and Bedrock-assisted workflows.
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-header">
-            <div class="timeline-role">Cloud Infrastructure Engineer</div>
+            <div class="timeline-role">Cloud Infrastructure Engineer (SRE)</div>
             <span class="timeline-period">Sep 2022 – Oct 2023</span>
           </div>
           <div class="timeline-company">Protego Technologies Ltd · Dublin, Ireland</div>
           <div class="timeline-desc">
-            SRE for a FinTech client — managed cloud infrastructure with AWS, Terraform, Kubernetes, and Docker.
-            Led migration from Datadog to Splunk SignalFx, reducing monitoring costs.
-            Implemented CI/CD security integrations (Snyk, SonarQube, OWASP ZAP), reducing vulnerabilities by 40%.
-            Automated Kubernetes scaling and built monitoring pipelines with Prometheus, improving team efficiency by 20%.
+            SRE for a high-availability FinTech client — designed observability architecture that reduced MTTR by 45%.
+            Led migration from Datadog to Splunk SignalFx, cutting monitoring costs while improving signal coverage.
+            Implemented shift-left security in CI/CD (Snyk, SonarQube, OWASP ZAP), reducing vulnerabilities by 40%.
+            Automated Kubernetes HPA scaling and built Prometheus monitoring pipelines, improving team efficiency by 20%.
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-header">
-            <div class="timeline-role">Cloud SysOps Engineer</div>
-            <span class="timeline-period">Dec 2019 – Sep 2022</span>
+            <div class="timeline-role">Cloud SysOps Engineer (Lead)</div>
+            <span class="timeline-period">Dec 2019 – Aug 2022</span>
           </div>
-          <div class="timeline-company">Hilti Group (HAITS) · Kuala Lumpur, Malaysia</div>
+          <div class="timeline-company">Hilti Asia IT Services (HAITS) · Kuala Lumpur, Malaysia</div>
           <div class="timeline-desc">
-            Managed cloud operations, security, and compliance for Hilti's global AWS infrastructure (CIS, ISO, GDPR).
-            Spearheaded cost optimisation saving $120K annually through Reserved Instances and auto-scaling.
-            Designed CI/CD pipelines using CloudFormation and Ansible, reducing provisioning time by 60%.
-            Built self-healing infrastructure with AWS Lambda for automated remediation.
+            Led cloud operations, security, and compliance across Hilti's global AWS infrastructure spanning 10+ regions (CIS, ISO, SOC 2, GDPR).
+            Delivered $120K annual cost savings through Reserved Instance strategy and intelligent auto-scaling.
+            Standardised CI/CD pipelines using CloudFormation across regions, reducing provisioning time by 60%.
+            Built self-healing infrastructure with AWS Lambda for automated compliance remediation.
           </div>
         </div>
 
@@ -802,13 +977,25 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-header">
-            <div class="timeline-role">Sr. System Analyst</div>
-            <span class="timeline-period">Nov 2014 – Sep 2016</span>
+            <div class="timeline-role">Sr. IT OS Analyst</div>
+            <span class="timeline-period">Nov 2014 – Oct 2016</span>
           </div>
-          <div class="timeline-company">Optum · Noida, India</div>
+          <div class="timeline-company">Optum / UnitedHealth Group · Noida, India</div>
           <div class="timeline-desc">
             Provided enterprise IaaS cloud automation using HP BSA Suite, VMware vSphere, and vRA.
-            Managed Windows &amp; Linux provisioning, optimising infrastructure performance and security for healthcare systems.
+            Managed Windows &amp; Linux provisioning, optimising infrastructure performance and security for healthcare systems (HIPAA-compliant).
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-role">Systems Engineer</div>
+            <span class="timeline-period">2010 – 2014</span>
+          </div>
+          <div class="timeline-company">Dell International / HCL India · India</div>
+          <div class="timeline-desc">
+            Early career roles in enterprise IT infrastructure, systems administration, and technical support across large-scale environments.
           </div>
         </div>
 
@@ -1015,12 +1202,21 @@
           </div>
         </a>
 
+        <a class="contact-card" href="Rajesh_Sood_Resume_2026.pdf" download>
+          <div class="contact-icon ci-teal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Resume</div>
+            <div class="contact-value">Download PDF</div>
+          </div>
+        </a>
 
       </div>
 
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-        Based in <strong style="color:var(--text)">Dublin, Ireland</strong> (GMT timezone) · Response time within 24 hours ·
-        Initial consultation call (30 min, free) · Detailed project proposal within 48 hours
+        Based in <strong style="color:var(--text)">Dublin, Ireland</strong> (GMT timezone) · AWS Certified Solutions Architect – Professional ·
+        Response within 24 hours · Free 30-min initial consultation
       </p>
 
     </section>
