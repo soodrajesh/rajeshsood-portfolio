@@ -294,7 +294,7 @@
     /* ── Metrics strip ── */
     .metrics-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 16px;
       margin-bottom: 56px;
     }
@@ -302,8 +302,13 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px 24px;
+      padding: 24px 20px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
     }
     .metric-value {
       font-family: 'Syne', sans-serif;
@@ -314,12 +319,14 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      line-height: 1.1;
     }
     .metric-label {
       font-size: 0.78rem;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.45;
+      max-width: 120px;
     }
 
     /* ── Certifications ── */
