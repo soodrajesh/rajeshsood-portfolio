@@ -44,3 +44,4 @@ my-portfolio/
 
 - GitHub: [github.com/soodrajesh](https://github.com/soodrajesh)
 - LinkedIn: [linkedin.com/in/irajeshsood](https://www.linkedin.com/in/irajeshsood/)
+- Email: soodrajesh87@gmail.com
