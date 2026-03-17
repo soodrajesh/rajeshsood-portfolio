@@ -42,6 +42,5 @@ my-portfolio/
 
 ## Links
 
-- Full profile: [rajeshsoodit.wixsite.com/portfolio](https://rajeshsoodit.wixsite.com/portfolio)
 - GitHub: [github.com/soodrajesh](https://github.com/soodrajesh)
 - LinkedIn: [linkedin.com/in/irajeshsood](https://www.linkedin.com/in/irajeshsood/)
