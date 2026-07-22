@@ -1,0 +1,23 @@
+[
+  {
+    "file": "kubernetes-deployment-strategies.md",
+    "title": "Kubernetes Deployment Strategies: Blue-Green vs Canary vs Rolling",
+    "description": "Learn how to implement zero-downtime deployments using different Kubernetes strategies for safety and speed.",
+    "date": "2026-07-20",
+    "tags": "kubernetes, devops, deployment, best-practices"
+  },
+  {
+    "file": "aws-cost-optimization-tips.md",
+    "title": "AWS Cost Optimization: 5 Strategies to Reduce Your Cloud Bill",
+    "description": "Practical techniques for identifying waste, rightsizing instances, and optimizing RDS costs without sacrificing performance.",
+    "date": "2026-07-15",
+    "tags": "aws, cloud-architecture, cost-optimization"
+  },
+  {
+    "file": "terraform-modules-best-practices.md",
+    "title": "Terraform Modules: Structure, Versioning, and Testing",
+    "description": "Best practices for writing reusable, maintainable Terraform modules that scale across teams and environments.",
+    "date": "2026-07-10",
+    "tags": "terraform, infrastructure-as-code, devops"
+  }
+]

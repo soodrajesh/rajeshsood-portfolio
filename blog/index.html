@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Rajesh Sood</title>
+  <meta name="description" content="DevOps, Kubernetes, AWS, and Terraform insights from Rajesh Sood">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0f14;
+      --surface:   #111820;
+      --border:    #1e2a35;
+      --accent:    #00c9a7;
+      --accent2:   #3b82f6;
+      --text:      #e8edf2;
+      --muted:     #6b7f8f;
+      --radius:    14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 32px;
+    }
+    .logo span { color: var(--accent); }
+
+    .blog-hero {
+      margin-bottom: 32px;
+    }
+
+    .blog-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .blog-hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    /* Blog list */
+    .blog-list {
+      display: grid;
+      gap: 24px;
+    }
+
+    .blog-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all 0.2s ease;
+    }
+
+    .blog-card:hover {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(0,201,167,0.04) 0%, transparent 100%);
+      transform: translateY(-2px);
+    }
+
+    .blog-card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .blog-card-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .blog-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .blog-tag {
+      display: inline-block;
+      padding: 3px 9px;
+      background: rgba(0, 201, 167, 0.1);
+      border: 1px solid rgba(0, 201, 167, 0.2);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Loading/Empty states */
+    .loading, .empty {
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a href="/" class="logo">RS<span>.</span></a>
+      <div class="blog-hero">
+        <h1>Blog</h1>
+        <p>DevOps, cloud architecture, Kubernetes, and infrastructure best practices</p>
+      </div>
+    </header>
+
+    <main>
+      <div id="blog-list" class="blog-list">
+        <div class="loading">Loading posts...</div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2026 <a href="https://github.com/soodrajesh">Rajesh Sood</a> • DevOps Engineer & Cloud Architect</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14/dist/markdown-it.umd.js"></script>
+  <script>
+    const md = window.markdownit();
+
+    function parseFrontmatter(content) {
+      const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) return { meta: {}, content };
+
+      const meta = {};
+      match[1].split('\n').forEach(line => {
+        const [key, ...valueParts] = line.split(':');
+        if (key.trim()) {
+          meta[key.trim()] = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
+        }
+      });
+
+      return { meta, content: match[2] };
+    }
+
+    async function loadBlogPosts() {
+      try {
+        const response = await fetch('../api/blog-posts.json');
+        if (!response.ok) throw new Error('Failed to load posts');
+
+        const posts = await response.json();
+        const container = document.getElementById('blog-list');
+
+        if (posts.length === 0) {
+          container.innerHTML = '<div class="empty">No blog posts yet. Check back soon!</div>';
+          return;
+        }
+
+        container.innerHTML = posts
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .map(post => `
+            <a href="post.html?file=${encodeURIComponent(post.file)}" class="blog-card">
+              <div class="blog-card-title">${post.title}</div>
+              <div class="blog-card-desc">${post.description || ''}</div>
+              <div class="blog-card-meta">
+                <span>${new Date(post.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                ${post.tags ? post.tags.split(',').map(tag => `<span class="blog-tag">${tag.trim()}</span>`).join('') : ''}
+              </div>
+            </a>
+          `).join('');
+      } catch (error) {
+        console.error('Error loading posts:', error);
+        document.getElementById('blog-list').innerHTML = '<div class="empty">Error loading posts</div>';
+      }
+    }
+
+    loadBlogPosts();
+  </script>
+</body>
+</html>

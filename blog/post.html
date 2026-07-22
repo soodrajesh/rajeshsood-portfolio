@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Rajesh Sood</title>
+  <meta name="description" content="Blog post by Rajesh Sood">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/atom-one-dark.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0f14;
+      --surface:   #111820;
+      --border:    #1e2a35;
+      --accent:    #00c9a7;
+      --accent2:   #3b82f6;
+      --text:      #e8edf2;
+      --muted:     #6b7f8f;
+      --radius:    14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .logo span { color: var(--accent); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    /* Article */
+    article {
+      max-width: 100%;
+    }
+
+    .article-header {
+      margin-bottom: 32px;
+    }
+
+    .article-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 3px 9px;
+      background: rgba(0, 201, 167, 0.1);
+      border: 1px solid rgba(0, 201, 167, 0.2);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Content */
+    #content {
+      margin: 48px 0;
+    }
+
+    #content h1 {
+      font-size: 1.75rem;
+      margin: 40px 0 20px;
+      line-height: 1.2;
+    }
+
+    #content h2 {
+      font-size: 1.5rem;
+      margin: 36px 0 16px;
+      line-height: 1.2;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    #content h3 {
+      font-size: 1.25rem;
+      margin: 24px 0 12px;
+      line-height: 1.2;
+    }
+
+    #content p {
+      margin: 16px 0;
+    }
+
+    #content ul, #content ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    #content li {
+      margin: 8px 0;
+    }
+
+    #content blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      background: rgba(0, 201, 167, 0.05);
+      margin: 16px 0;
+      border-radius: 4px;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    #content code {
+      background: var(--surface);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #a1e4d2;
+    }
+
+    #content pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    #content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    #content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+
+    #content th, #content td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #content th {
+      background: var(--surface);
+      font-weight: 600;
+    }
+
+    #content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 201, 167, 0.3);
+      transition: all 0.2s;
+    }
+
+    #content a:hover {
+      border-bottom-color: var(--accent);
+      background: rgba(0, 201, 167, 0.1);
+    }
+
+    /* Loading/Error states */
+    .loading, .error {
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Highlight.js overrides */
+    .hljs {
+      background: transparent;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a href="/" class="logo">RS<span>.</span></a>
+      <a href="/blog/" class="back-link">← Back to blog</a>
+    </header>
+
+    <article>
+      <div class="article-header">
+        <h1 class="article-title" id="title">Loading...</h1>
+        <div class="article-meta" id="meta"></div>
+      </div>
+      <div id="content" class="loading">Loading post...</div>
+    </article>
+
+    <footer>
+      <p>© 2026 <a href="https://github.com/soodrajesh">Rajesh Sood</a> • DevOps Engineer & Cloud Architect</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14/dist/markdown-it.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/dist/highlight.min.js"></script>
+  <script>
+    const md = window.markdownit({
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
+          } catch (e) {
+            console.error('Highlight error:', e);
+          }
+        }
+        return '';
+      }
+    });
+
+    function parseFrontmatter(content) {
+      const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) return { meta: {}, content };
+
+      const meta = {};
+      match[1].split('\n').forEach(line => {
+        const [key, ...valueParts] = line.split(':');
+        if (key.trim()) {
+          meta[key.trim()] = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
+        }
+      });
+
+      return { meta, content: match[2] };
+    }
+
+    async function loadPost() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const file = params.get('file');
+
+        if (!file) {
+          document.getElementById('content').innerHTML = '<div class="error">No post specified</div>';
+          return;
+        }
+
+        const response = await fetch(`posts/${file}`);
+        if (!response.ok) throw new Error('Post not found');
+
+        const text = await response.text();
+        const { meta, content } = parseFrontmatter(text);
+
+        // Set title
+        document.title = `${meta.title} — Blog`;
+        document.querySelector('.article-title').textContent = meta.title;
+
+        // Set meta
+        const metaEl = document.getElementById('meta');
+        const date = new Date(meta.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+        metaEl.innerHTML = `
+          <span>${date}</span>
+          ${meta.tags ? meta.tags.split(',').map(tag => `<span class="article-tag">${tag.trim()}</span>`).join('') : ''}
+        `;
+
+        // Render content
+        document.getElementById('content').innerHTML = md.render(content);
+
+        // Apply syntax highlighting to code blocks
+        document.querySelectorAll('pre code').forEach(block => {
+          hljs.highlightElement(block);
+        });
+      } catch (error) {
+        console.error('Error loading post:', error);
+        document.getElementById('content').innerHTML = '<div class="error">Error loading post. Please try again.</div>';
+      }
+    }
+
+    loadPost();
+  </script>
+</body>
+</html>
