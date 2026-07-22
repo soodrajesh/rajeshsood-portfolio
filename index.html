@@ -71,6 +71,72 @@
     .blob-1 { width: 500px; height: 500px; background: var(--accent);  top: -120px; left: -100px; }
     .blob-2 { width: 400px; height: 400px; background: var(--accent2); bottom: -80px; right: -80px; }
 
+    /* Animations */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .tab-panel {
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .hero, .section-label, .project-card, .skill-tag {
+      animation: slideInUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .section-label { animation-delay: 0.1s; }
+    .project-card:nth-child(1) { animation-delay: 0.2s; }
+    .project-card:nth-child(2) { animation-delay: 0.3s; }
+    .project-card:nth-child(3) { animation-delay: 0.4s; }
+    .project-card:nth-child(n+4) { animation-delay: 0.5s; }
+
+    .skill-tag:nth-child(1) { animation-delay: 0.1s; }
+    .skill-tag:nth-child(2) { animation-delay: 0.15s; }
+    .skill-tag:nth-child(3) { animation-delay: 0.2s; }
+    .skill-tag:nth-child(4) { animation-delay: 0.25s; }
+    .skill-tag:nth-child(n+5) { animation-delay: 0.3s; }
+
+    /* Smooth transitions */
+    .project-card {
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .skill-tag {
+      transition: all 0.2s ease;
+    }
+
+    .skill-tag:hover {
+      transform: scale(1.05);
+    }
+
     /* Layout */
     .wrapper {
       position: relative;
@@ -1244,6 +1310,30 @@
         // Scroll to top of content area smoothly
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
+    });
+
+    // Scroll-based animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all project cards and skill tags that weren't already animated on load
+    document.querySelectorAll('.project-card, .skill-tag').forEach((el, idx) => {
+      if (idx > 0) {
+        el.style.opacity = '0';
+        observer.observe(el);
+      }
     });
 
     // Load latest blog posts
