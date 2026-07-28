@@ -1,3 +1,44 @@
 .DS_Store
 .vercel
 *.log
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# Credentials & API keys
+credentials.json
+*.key
+*.pem
+*.p8
+*.p12
+.aws/credentials
+.aws/config
+
+# Logs
+logs/
+
+# Dependencies
+node_modules/
+.venv/
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build
+dist/
+build/
+.next/
+out/
+.nuxt/
+
+# OS
+Thumbs.db
