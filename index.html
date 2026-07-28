@@ -214,18 +214,6 @@
     .tab-btn[aria-selected="true"] { color: var(--accent); }
     .tab-btn[aria-selected="true"]::after { transform: scaleX(1); }
 
-    .blog-link {
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 16px 4px 16px 18px;
-      white-space: nowrap;
-      transition: color 0.2s;
-    }
-    .blog-link::before { content: '/'; color: var(--border); margin-right: 4px; }
-    .blog-link:hover { color: var(--text); }
-
     /* ── Tab Panels ── */
     .tab-panel {
       display: none;
@@ -760,7 +748,6 @@
         <button class="tab-btn" id="tabbtn-projects" role="tab" aria-selected="false" aria-controls="tab-projects" tabindex="-1" data-tab="projects">projects</button>
         <button class="tab-btn" id="tabbtn-contact" role="tab" aria-selected="false" aria-controls="tab-contact" tabindex="-1" data-tab="contact">contact</button>
       </nav>
-      <a href="/blog/" class="blog-link">blog</a>
     </div>
   </div>
 
@@ -1065,14 +1052,6 @@
     ════════════════════════════════════════════ -->
     <section class="tab-panel" id="tab-projects" role="tabpanel" aria-labelledby="tabbtn-projects">
 
-      <!-- Latest Blog Posts -->
-      <div class="section-label">latest_blog_posts</div>
-      <div class="projects-grid" id="latest-posts" style="margin-bottom: 60px;">
-        <div style="grid-column: 1 / -1; text-align: center; padding: 48px 24px; color: var(--muted);">
-          <p>Loading posts...</p>
-        </div>
-      </div>
-
       <div class="section-label">github_projects</div>
 
       <div class="projects-grid">
@@ -1339,44 +1318,6 @@
       }
     });
 
-    // Load latest blog posts
-    async function loadLatestPosts() {
-      try {
-        const response = await fetch('/blog/api/blog-posts.json');
-        if (!response.ok) throw new Error('Failed to load posts');
-
-        const posts = await response.json();
-        const container = document.getElementById('latest-posts');
-
-        const latestThree = posts
-          .sort((a, b) => new Date(b.date) - new Date(a.date))
-          .slice(0, 3);
-
-        container.innerHTML = latestThree.map((post, idx) => `
-          <a class="project-card" href="/blog/post.html?file=${encodeURIComponent(post.file)}" target="_blank" rel="noopener">
-            <div class="project-num">0${idx + 1}</div>
-            <div class="project-title">${post.title}</div>
-            <div class="project-desc">
-              ${post.description || ''}
-            </div>
-            <div class="project-tags">
-              ${post.tags ? post.tags.split(',').map(tag => `<span class="project-tag">${tag.trim()}</span>`).join('') : ''}
-            </div>
-            <div class="project-footer">
-              <span class="project-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
-                Read post ↗
-              </span>
-            </div>
-          </a>
-        `).join('');
-      } catch (error) {
-        console.error('Error loading posts:', error);
-        document.getElementById('latest-posts').innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 48px 24px; color: var(--muted);">Blog posts unavailable</div>';
-      }
-    }
-
-    loadLatestPosts();
   </script>
 </body>
 </html>
