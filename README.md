@@ -1,9 +1,8 @@
 # Rajesh Sood — Portfolio
 
-Personal portfolio website for Rajesh Sood — Staff Cloud Architect · DevSecOps · AI/ML Platform Engineering.
+Personal portfolio website for Rajesh Sood — Staff Cloud & DevOps Engineer · DevSecOps · AI/ML Platform Engineering.
 
-Live at: **[rajesh-portfolio.vercel.app](https://rajesh-portfolio.vercel.app)**  
-Linked from: **[rajeshsood.vercel.app](https://rajeshsood.vercel.app)**
+Live at: **[rajeshsood-portfolio.vercel.app](https://rajeshsood-portfolio.vercel.app)**
 
 ## Structure
 
@@ -19,7 +18,7 @@ Single `index.html` with four tab sections:
 ## Tech Stack
 
 - Pure HTML + CSS + vanilla JS (no build step, no frameworks)
-- Fonts: Syne + DM Sans via Google Fonts
+- Fonts: Syne + DM Sans + IBM Plex Mono via Google Fonts
 - Deployed on Vercel
 
 ## Deployment
@@ -35,6 +34,7 @@ Single `index.html` with four tab sections:
 my-portfolio/
 ├── index.html                    # Full portfolio (single file)
 ├── Rajesh_Sood_Resume_2026.pdf   # Resume (linked for download)
+├── og-image.png                  # Social share preview image (1200x630)
 ├── vercel.json                   # Vercel config
 ├── .gitignore
 └── README.md
