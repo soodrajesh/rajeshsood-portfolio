@@ -3,6 +3,8 @@
   "trailingSlash": true,
   "rewrites": [
     { "source": "/checkmyurl/", "destination": "https://checkmyurl.vercel.app/" },
-    { "source": "/checkmyurl/:path*", "destination": "https://checkmyurl.vercel.app/:path*" }
+    { "source": "/checkmyurl/:path*", "destination": "https://checkmyurl.vercel.app/:path*" },
+    { "source": "/portfolio/", "destination": "https://rajeshsood-portfolio.vercel.app/" },
+    { "source": "/portfolio/:path*", "destination": "https://rajeshsood-portfolio.vercel.app/:path*" }
   ]
 }
