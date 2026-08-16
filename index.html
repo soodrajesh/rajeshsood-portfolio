@@ -112,7 +112,7 @@
     .wrapper {
       position: relative;
       z-index: 1;
-      max-width: 1100px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -178,7 +178,13 @@
     .header-links a:hover { color: var(--text); }
 
     /* ── Hero ── */
-    .hero { padding: 88px 0 64px; max-width: 760px; }
+    .hero {
+      padding: 88px 0 72px;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+    .hero-text { flex: 1 1 560px; max-width: 620px; }
     .hero-eyebrow {
       display: flex;
       align-items: center;
@@ -250,6 +256,74 @@
     }
     .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* ── Hero terminal panel ── */
+    .hero-panel {
+      flex: 1 1 380px;
+      max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px -20px rgba(0,0,0,0.6);
+    }
+    .hero-panel-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .hero-panel-bar span {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .hero-panel-bar .dot-1 { background: #e05252; }
+    .hero-panel-bar .dot-2 { background: #e0a34e; }
+    .hero-panel-bar .dot-3 { background: #4ea36f; }
+    .hero-panel-title {
+      margin-left: 8px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .hero-panel-body {
+      padding: 20px 22px 22px;
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      line-height: 1.9;
+    }
+    .hero-panel-line { color: var(--muted); }
+    .hero-panel-line .prompt { color: var(--accent); margin-right: 8px; }
+    .hero-panel-out { color: var(--text); margin: 2px 0 12px; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 18px;
+      margin-top: 4px;
+    }
+    .hero-stat b {
+      display: block;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .hero-stat span {
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+    .hero-panel-cursor {
+      display: inline-block;
+      width: 7px; height: 14px;
+      background: var(--accent);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: pulse 1.1s steps(2) infinite;
+    }
+
     /* ── Section label ── */
     .section-label {
       font-family: var(--mono);
@@ -270,7 +344,7 @@
     /* ── Project grid ── */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 16px;
       margin-bottom: 64px;
     }
@@ -336,9 +410,15 @@
     .footer-built { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
     .footer-built span { color: var(--accent); }
 
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; align-items: stretch; gap: 40px; }
+      .hero-text { max-width: none; }
+      .hero-panel { max-width: none; }
+    }
     @media (max-width: 680px) {
       .projects-grid { grid-template-columns: 1fr; }
       .hero { padding: 64px 0 48px; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -362,24 +442,45 @@
 
     <main>
       <section class="hero">
-        <div class="hero-eyebrow">staff cloud &amp; devops engineer, dublin</div>
-        <h1>I build infrastructure by day.<br />I build <em>products</em> with it by night.</h1>
-        <p class="hero-bio">
-          15+ years designing secure, scalable cloud platforms for FinTech, Telecom, and global manufacturing
-          teams. Outside the day job, I use the same standards — <strong>no dark patterns, no data collection,
-          nothing you can't verify</strong> — to build small tools I actually needed myself: finance calculators,
-          dev utilities, and a few apps that just made my own life easier.
-        </p>
-        <p class="hero-note">Everything below is free, runs in your browser, and shows its work.</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="/portfolio/">
-            View full portfolio
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7" /><path d="M7 7h10v10" /></svg>
-          </a>
-          <a class="btn-secondary" href="/Rajesh_Sood_Resume_2026.pdf" target="_blank" rel="noopener">
-            Download résumé
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M6 11l6 6 6-6"/><path d="M5 21h14"/></svg>
-          </a>
+        <div class="hero-text">
+          <div class="hero-eyebrow">staff cloud &amp; devops engineer, dublin</div>
+          <h1>I build infrastructure by day.<br />I build <em>products</em> with it by night.</h1>
+          <p class="hero-bio">
+            15+ years designing secure, scalable cloud platforms for FinTech, Telecom, and global manufacturing
+            teams. Outside the day job, I use the same standards — <strong>no dark patterns, no data collection,
+            nothing you can't verify</strong> — to build small tools I actually needed myself: finance calculators,
+            dev utilities, and a few apps that just made my own life easier.
+          </p>
+          <p class="hero-note">Everything below is free, runs in your browser, and shows its work.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="/portfolio/">
+              View full portfolio
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7" /><path d="M7 7h10v10" /></svg>
+            </a>
+            <a class="btn-secondary" href="/Rajesh_Sood_Resume_2026.pdf" target="_blank" rel="noopener">
+              Download résumé
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M6 11l6 6 6-6"/><path d="M5 21h14"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-panel" aria-hidden="true">
+          <div class="hero-panel-bar">
+            <span class="dot-1"></span><span class="dot-2"></span><span class="dot-3"></span>
+            <span class="hero-panel-title">~/rajesh</span>
+          </div>
+          <div class="hero-panel-body">
+            <div class="hero-panel-line"><span class="prompt">$</span>whoami</div>
+            <div class="hero-panel-out">rajesh sood, staff cloud engineer</div>
+            <div class="hero-panel-line"><span class="prompt">$</span>cat stats.json</div>
+            <div class="hero-stats">
+              <div class="hero-stat"><b>15+</b><span>years in cloud &amp; DevOps</span></div>
+              <div class="hero-stat"><b>99.99%</b><span>uptime SLA maintained</span></div>
+              <div class="hero-stat"><b>7</b><span>side projects shipped</span></div>
+              <div class="hero-stat"><b>$0</b><span>cost to use any of them</span></div>
+            </div>
+            <div class="hero-panel-line" style="margin-top: 14px;"><span class="prompt">$</span><span class="hero-panel-cursor"></span></div>
+          </div>
         </div>
       </section>
 
