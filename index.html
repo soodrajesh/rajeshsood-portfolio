@@ -25,6 +25,24 @@
   <meta name="twitter:description" content="Staff Cloud & DevOps Engineer who also ships his own products: free finance calculators, dev tools, and small apps." />
   <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
   <link rel="canonical" href="https://irajeshsood.com/" />
+  <!-- GA4, gtag.js loaded from googletagmanager.com (allowlisted in vercel.json's CSP).
+       anonymize_ip on; page_location strips the query string before any pageview
+       fires — same privacy posture as gogenops.com. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
