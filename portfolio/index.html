@@ -88,6 +88,20 @@
     a { color: inherit; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+    /* Visually hidden but available to assistive tech — used for the
+       per-tab <h1> on tabs that don't otherwise show one, so the page
+       always has an accessible level-one heading no matter which tab
+       is active. */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     /* Animations */
     @keyframes slideInUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -779,7 +793,7 @@
         </div>
       </div>
 
-      <div class="section-label">impact_at_a_glance</div>
+      <h2 class="section-label">impact_at_a_glance</h2>
       <div class="metrics-strip">
         <div class="metric-card">
           <span class="metric-value">$200K+</span>
@@ -803,7 +817,7 @@
         </div>
       </div>
 
-      <div class="section-label">skills_and_technologies</div>
+      <h2 class="section-label">skills_and_technologies</h2>
 
       <div class="skills-category">cloud</div>
       <div class="skills-grid">
@@ -873,7 +887,7 @@
         <span class="skill-pill">YAML / HCL</span>
       </div>
 
-      <div class="section-label">certifications</div>
+      <h2 class="section-label">certifications</h2>
       <div class="cert-grid">
         <div class="cert-card cert-active">
           <div class="cert-icon">AWS<br>PRO</div>
@@ -905,7 +919,7 @@
         </div>
       </div>
 
-      <div class="section-label">education</div>
+      <h2 class="section-label">education</h2>
       <div class="edu-grid">
         <div class="edu-card">
           <div class="edu-degree">MBA — Information Technology</div>
@@ -926,7 +940,9 @@
     ════════════════════════════════════════════ -->
     <section class="tab-panel" id="tab-experience" role="tabpanel" aria-labelledby="tabbtn-experience">
 
-      <div class="section-label">work_history</div>
+      <h1 class="sr-only">Experience</h1>
+
+      <h2 class="section-label">work_history</h2>
 
       <div class="timeline">
 
@@ -1053,7 +1069,9 @@
     ════════════════════════════════════════════ -->
     <section class="tab-panel" id="tab-projects" role="tabpanel" aria-labelledby="tabbtn-projects">
 
-      <div class="section-label">github_projects</div>
+      <h1 class="sr-only">Projects</h1>
+
+      <h2 class="section-label">github_projects</h2>
 
       <div class="projects-grid">
 
@@ -1184,7 +1202,7 @@
 
       </div>
 
-      <div class="section-label">live_apps</div>
+      <h2 class="section-label">live_apps</h2>
 
       <div class="projects-grid">
 
@@ -1303,7 +1321,7 @@
 
       </div>
 
-      <div class="section-label">mac_apps</div>
+      <h2 class="section-label">mac_apps</h2>
 
       <div class="projects-grid">
 
@@ -1427,7 +1445,9 @@
     ════════════════════════════════════════════ -->
     <section class="tab-panel" id="tab-contact" role="tabpanel" aria-labelledby="tabbtn-contact">
 
-      <div class="section-label">get_in_touch</div>
+      <h1 class="sr-only">Contact</h1>
+
+      <h2 class="section-label">get_in_touch</h2>
 
       <div class="availability-box">
         <h3>Currently Available For</h3>
