@@ -413,6 +413,28 @@
                   linear-gradient(135deg, var(--accent), var(--border)) border-box;
       border: 1px solid transparent;
     }
+    .card-badge {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(224,163,78,0.35);
+      border-radius: 999px;
+      padding: 3px 10px 3px 8px;
+    }
+    .card-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
 
     footer {
       border-top: 1px solid var(--border);
@@ -491,7 +513,7 @@
             <div class="hero-stats">
               <div class="hero-stat"><b>15+</b><span>years in cloud &amp; DevOps</span></div>
               <div class="hero-stat"><b>99.99%</b><span>uptime SLA maintained</span></div>
-              <div class="hero-stat"><b>12</b><span>side projects shipped</span></div>
+              <div class="hero-stat"><b>14</b><span>side projects shipped</span></div>
               <div class="hero-stat"><b>$0</b><span>cost to use any of them</span></div>
             </div>
             <div class="hero-panel-line" style="margin-top: 14px;"><span class="prompt">$</span><span class="hero-panel-cursor"></span></div>
@@ -569,6 +591,16 @@
 
       <h2 class="section-label">mac apps i've built</h2>
       <div class="projects-grid">
+
+        <a class="project-card flagship" href="https://github.com/soodrajesh/mac-paste-guard" target="_blank" rel="noopener">
+          <span class="card-badge">zero network</span>
+          <div class="project-card-top">
+            <h3>PasteGuard</h3>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </div>
+          <p>Blocks credentials and PII before they leave your Mac in a paste into Claude, ChatGPT or Cursor — verifiably zero network calls, not a promise.</p>
+          <span class="tag">github.com/soodrajesh/mac-paste-guard</span>
+        </a>
 
         <a class="project-card" href="https://github.com/soodrajesh/mac-tools" target="_blank" rel="noopener">
           <div class="project-card-top">
