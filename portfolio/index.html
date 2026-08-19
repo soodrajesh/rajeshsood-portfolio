@@ -581,6 +581,35 @@
     }
     .project-card:hover { border-color: var(--accent); }
 
+    .project-card.flagship {
+      background: linear-gradient(180deg, var(--surface), var(--surface)) padding-box,
+                  linear-gradient(135deg, var(--accent), var(--border)) border-box;
+      border: 1px solid transparent;
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(224,163,78,0.35);
+      border-radius: 999px;
+      padding: 3px 10px 3px 8px;
+    }
+    .card-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
     .project-num {
       font-family: var(--mono);
       font-size: 0.72rem;
@@ -1325,8 +1354,28 @@
 
       <div class="projects-grid">
 
-        <a class="project-card" href="https://github.com/soodrajesh/mac-tools" target="_blank" rel="noopener">
+        <a class="project-card flagship" href="https://github.com/soodrajesh/mac-paste-guard" target="_blank" rel="noopener">
+          <span class="card-badge">zero network</span>
           <div class="project-num">01</div>
+          <div class="project-title">PasteGuard</div>
+          <div class="project-desc">
+            Intercepts ⌘V into Claude, ChatGPT and Cursor and blocks credentials or PII before they leave your Mac — an active CGEventTap, not a passive scanner. Verifiably zero network calls: no CFNetwork or Network.framework symbol in the binary.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Swift</span>
+            <span class="project-tag">AppKit</span>
+            <span class="project-tag">CGEventTap</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              View on GitHub ↗
+            </span>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://github.com/soodrajesh/mac-tools" target="_blank" rel="noopener">
+          <div class="project-num">02</div>
           <div class="project-title">MacTools</div>
           <div class="project-desc">
             One menu bar app combining live CPU/MEM monitoring, clipboard history with a global paste picker, a calculator/calendar widget, and a scratch notepad. Supersedes three standalone predecessors.
@@ -1345,7 +1394,7 @@
         </a>
 
         <a class="project-card" href="https://github.com/soodrajesh/mac-cleanup" target="_blank" rel="noopener">
-          <div class="project-num">02</div>
+          <div class="project-num">03</div>
           <div class="project-title">DiskSweeper</div>
           <div class="project-desc">
             Native disk-cleanup app — scans caches and junk with sizes shown before anything moves. Everything goes through Trash first, nothing is auto-deleted.
@@ -1363,7 +1412,7 @@
         </a>
 
         <a class="project-card" href="https://github.com/soodrajesh/mac-dupes" target="_blank" rel="noopener">
-          <div class="project-num">03</div>
+          <div class="project-num">04</div>
           <div class="project-title">DupeFinder</div>
           <div class="project-desc">
             Finds duplicate files by content hash, not filename — same Trash-first safety model as DiskSweeper.
@@ -1381,7 +1430,7 @@
         </a>
 
         <a class="project-card" href="https://github.com/soodrajesh/mac-ocr" target="_blank" rel="noopener">
-          <div class="project-num">04</div>
+          <div class="project-num">05</div>
           <div class="project-title">SnapText</div>
           <div class="project-desc">
             Screenshot-to-text menu bar app — on-device OCR via Apple's Vision framework, capture a region and the text is already on your clipboard.
@@ -1400,7 +1449,7 @@
         </a>
 
         <a class="project-card" href="https://github.com/soodrajesh/mac-toolkit" target="_blank" rel="noopener">
-          <div class="project-num">05</div>
+          <div class="project-num">06</div>
           <div class="project-title">Toolbox</div>
           <div class="project-desc">
             Native PDF &amp; image toolkit — compress, merge, and convert, all offline except the one tool that isn't.
@@ -1418,7 +1467,7 @@
         </a>
 
         <a class="project-card" href="https://github.com/soodrajesh/claude-usage-menubar" target="_blank" rel="noopener">
-          <div class="project-num">06</div>
+          <div class="project-num">07</div>
           <div class="project-title">Claude Usage Menubar</div>
           <div class="project-desc">
             Shows your real Claude.ai session and weekly usage limits in the menu bar by driving an invisible, logged-in WKWebView — no public API exists for this.
