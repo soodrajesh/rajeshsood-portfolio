@@ -45,7 +45,11 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Only the weights this page actually renders (Syne 800; DM Sans 400 body / 600
+       for .hero-bio strong, which was previously unrequested and faux-bolded by the
+       browser; IBM Plex Mono 500) — trimmed from 10 font-file variants down to 4 so
+       the render-blocking chain to first paint of this text carries less weight. -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
