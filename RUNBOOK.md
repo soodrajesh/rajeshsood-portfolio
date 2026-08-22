@@ -19,6 +19,22 @@ niveshkaro.co.in) share one Grafana Cloud free-tier stack.
 - 3 global probes (Mumbai, London, N. Virginia) hit `https://irajeshsood.com/`
   every 60s and record success, latency, DNS time, HTTP status, SSL expiry.
 - Job label: `irajeshsood-portfolio`.
+- Four more checks cover the sub-apps proxied under this domain (see
+  `vercel.json` rewrites) — each is its own independent probe against its own
+  URL, not folded into the root check above. Added 2026-08-22, same settings
+  as the root check (60s frequency, 10s timeout, same 3 probes):
+  - `irajeshsood-subnet-calculator` → `/subnet-calculator/`
+  - `irajeshsood-checkmyurl` → `/checkmyurl/`
+  - `irajeshsood-notesmith` → `/notesmith/`
+  - `irajeshsood-my-portfolio` → `/portfolio/` (this repo's own nested
+    portfolio page — distinct from the root check, which is job
+    `irajeshsood-portfolio` above)
+- On the dashboard, the 3 original sites get individual "Health Overview"
+  stat tiles; these 4 sub-app checks get their own "irajeshsood.com —
+  Sub-Apps Health" row instead, and are also included in the `$job` filter
+  variable that drives Uptime %, Response Time, SSL expiry, Trends, and the
+  Detail Tables — so filtering/comparing across all 7 checks works from the
+  same dashboard controls.
 - Dashboard: `https://olivecookie379.grafana.net/d/website-apm-overview`
   ("Website APM — irajeshsood / gogenops / niveshkaro") — its top toolbar has
   a links bar (Alerting, Contact Points, RUM full detail, Synthetic Monitoring
@@ -28,7 +44,13 @@ niveshkaro.co.in) share one Grafana Cloud free-tier stack.
 
 ### Downtime alerting
 - Alert rule `irajeshsood.com is DOWN` fires if `probe_success` drops below 1
-  for 2+ minutes (i.e. any of the 3 probes fails for that long).
+  for 2+ minutes (i.e. any of the 3 probes fails for that long). Four more
+  rules follow the identical pattern for the sub-app checks above —
+  `irajeshsood.com/subnet-calculator is DOWN`,
+  `irajeshsood.com/checkmyurl is DOWN`, `irajeshsood.com/notesmith is DOWN`,
+  `irajeshsood.com/portfolio is DOWN` — same 2-minute threshold, same
+  contact point. All 7 rules live in the same `website-uptime-alerts` rule
+  group under the `Grafana Synthetic Monitoring` folder.
 - Notifies: soodrajesh87@gmail.com (contact point `raj-email`).
 - Manage rules: **Alerts & IRM → Alert rules** in the Grafana UI, or via
   `/api/v1/provisioning/alert-rules` (service account token in `api.env`,
