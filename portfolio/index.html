@@ -27,7 +27,12 @@
   <link rel="canonical" href="https://irajeshsood.com/portfolio/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Syne (700/800) and IBM Plex Mono (400/500/600/700) already matched
+       what's used. DM Sans was the wrong set: 300 and 300-italic aren't used
+       anywhere, while 600 and 700 — genuinely used on elements that don't
+       override away from the body's default --sans — weren't requested at
+       all and were being browser-faux-bolded from 400. -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
