@@ -25,6 +25,28 @@
   <meta name="twitter:description" content="Staff Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, and AI/ML platform engineering." />
   <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
   <link rel="canonical" href="https://irajeshsood.com/portfolio/" />
+
+  <!-- GA4, same measurement ID and unconditional pattern as the root
+       index.html (this is the same repo/deployment, not a separate one, so
+       there's no cross-deployment risk to hostname-gate against) — a visit
+       here is part of the same irajeshsood.com journey.
+       anonymize_ip on; page_location strips the query string. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Syne (700/800) and IBM Plex Mono (400/500/600/700) already matched
