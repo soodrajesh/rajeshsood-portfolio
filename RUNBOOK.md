@@ -20,7 +20,9 @@ niveshkaro.co.in) share one Grafana Cloud free-tier stack.
   every 60s and record success, latency, DNS time, HTTP status, SSL expiry.
 - Job label: `irajeshsood-portfolio`.
 - Dashboard: `https://olivecookie379.grafana.net/d/website-apm-overview`
-  ("Website APM — irajeshsood / gogenops / niveshkaro")
+  ("Website APM — irajeshsood / gogenops / niveshkaro") — its top toolbar has
+  a links bar (Alerting, Contact Points, RUM full detail, Synthetic Monitoring
+  config) so this one dashboard is the entry point into all 3 interfaces.
 - Public status page (no login): see the dashboard's Share > Public dashboard
   link, or ask for the current URL — it's the same dashboard, read-only.
 
@@ -31,6 +33,12 @@ niveshkaro.co.in) share one Grafana Cloud free-tier stack.
 - Manage rules: **Alerts & IRM → Alert rules** in the Grafana UI, or via
   `/api/v1/provisioning/alert-rules` (service account token in `api.env`,
   not committed to this repo).
+- Delivery confirmed end-to-end 2026-08-22 via the contact point's **Test**
+  button (Alerting → Notification configuration → raj-email → Test) — email
+  arrived. The Grafana API's test-notification endpoint is
+  broken/undocumented for this stack (`unknown integration type: ''`
+  regardless of request body, not in the OpenAPI spec) — always verify via
+  the UI Test button, not the API.
 
 ### Real User Monitoring (Grafana Faro)
 - App name in Faro: `irajeshsood.com`.
@@ -40,6 +48,13 @@ niveshkaro.co.in) share one Grafana Cloud free-tier stack.
 - Captures: page load timing, Core Web Vitals, JS errors, HTTP trace timing.
 - View data: **Observability → Frontend → personal-sites-rum** in Grafana.
 - Filter to this site specifically by `app.name = "irajeshsood.com"`.
+- **CORS note:** Faro's app settings have an "Allowed origins" allowlist
+  (Frontend → personal-sites-rum → Settings → Application). gogenops.com hit
+  a real production bug here (bare-apex origin wasn't allowlisted, silently
+  CORS-blocking all real telemetry — see gogenops's RUNBOOK for the full
+  story). This site's origin (`https://irajeshsood.com`) is allowlisted and
+  confirmed working, but if it's ever pointed at a `www` variant or a new
+  domain, check this list first.
 
 ## Content-Security-Policy
 
@@ -50,6 +65,9 @@ target, you must add it to `script-src` / `connect-src` in `vercel.json` or
 the browser will silently block it** — this bit us once already with Faro's
 telemetry endpoint (`connect-src` needed
 `https://faro-collector-prod-eu-west-6.grafana.net` added explicitly).
+`img-src` also allowlists `https://www.googletagmanager.com` — GTM's
+`gtag.js` falls back to an `<img>` pixel beacon at `googletagmanager.com/a?...`
+for some event types, which needs `img-src`, not just `script-src`/`connect-src`.
 
 Prefer self-hosting third-party scripts (as done for Faro) over widening
 `script-src` to a new external host, to keep the CSP's blast radius small.
