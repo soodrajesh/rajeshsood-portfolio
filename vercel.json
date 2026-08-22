@@ -20,7 +20,7 @@
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'sha256-ezW172+MsPqZ/GwXsxPioleuZ9z1wmiY+JN+39vjJ4Y=' 'sha256-FodjHIJ4DU7tSaDeBnp2MNMNNOaHgWWiozNQEJgUEEU=' 'sha256-7qoUlPIIfxW6GQwV7QncZvEgFeYWKTJe4crSDNbf1eQ=' 'sha256-1FlSGJ9euyPOV+BXON1vhln2VmwTVC4lKnUNC4sxWMo=' https://www.googletagmanager.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://va.vercel-scripts.com https://*.vercel-analytics.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+          "value": "default-src 'self'; script-src 'self' 'sha256-ezW172+MsPqZ/GwXsxPioleuZ9z1wmiY+JN+39vjJ4Y=' 'sha256-FodjHIJ4DU7tSaDeBnp2MNMNNOaHgWWiozNQEJgUEEU=' 'sha256-7qoUlPIIfxW6GQwV7QncZvEgFeYWKTJe4crSDNbf1eQ=' 'sha256-1FlSGJ9euyPOV+BXON1vhln2VmwTVC4lKnUNC4sxWMo=' 'sha256-tLU5RBMHCDhVW/t+CL2XiCiC1j2P1M2vs2Jbo304tH8=' https://www.googletagmanager.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://va.vercel-scripts.com https://*.vercel-analytics.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
         }
       ]
     }
