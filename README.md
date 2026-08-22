@@ -15,6 +15,12 @@ Single `index.html` with four tab sections:
 | Projects | 6 GitHub project cards with tech tags |
 | Contact | Email, GitHub, LinkedIn, Medium, availability |
 
+## Sub-pages
+
+This repo also serves `/portfolio/` (`portfolio/index.html`) — a separate, more detailed portfolio page with its own content and fonts, not generated from the root page. Its Contact tab has a collapsible "Contact me" form in addition to the existing contact-card links; the form posts cross-origin to `gogenops.com/api/contact`, a shared backend used by several of the maintainer's other sites.
+
+It also proxies (via `vercel.json` rewrites) three separately-deployed apps under this domain: `/subnet-calculator/`, `/checkmyurl/`, `/notesmith/` — each its own repo, own README.
+
 ## Tech Stack
 
 - Pure HTML + CSS + vanilla JS (no build step, no frameworks)
