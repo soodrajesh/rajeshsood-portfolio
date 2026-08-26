@@ -9,7 +9,7 @@
     { "source": "/notesmith/", "destination": "https://mynotesmith.vercel.app/" },
     { "source": "/notesmith/:path*", "destination": "https://mynotesmith.vercel.app/:path*" },
     { "source": "/invoice-generator/", "destination": "https://invoice-generator-react-seven.vercel.app/invoice-generator/" },
-    { "source": "/invoice-generator/:path*", "destination": "https://invoice-generator-react-seven.vercel.app/invoice-generator/:path*" }
+    { "source": "/invoice-generator/(.*)", "destination": "https://invoice-generator-react-seven.vercel.app/invoice-generator/$1" }
   ],
   "headers": [
     {
