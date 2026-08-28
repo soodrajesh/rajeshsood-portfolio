@@ -7,7 +7,7 @@
   <meta name="description" content="End-to-end cloud infrastructure: networking, compute, CI/CD, observability, security, and cost optimization. AWS Certified Solutions Architect – Professional, hands-on with GCP and Azure." />
   <meta name="author" content="Rajesh Sood" />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230b0d10%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%3E%3Ctspan%20fill%3D%22%23e0a34e%22%3ER%3C/tspan%3E%3Ctspan%20fill%3D%22%23e8ebee%22%3ES%3C/tspan%3E%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23161a22%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20font-family%3D%22Georgia,%20serif%22%20font-weight%3D%22700%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f4f3ef%22%3ERS%3C/text%3E%3C/svg%3E" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rajesh Sood — Cloud & DevOps Consulting" />
@@ -41,7 +41,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
   {
@@ -59,24 +59,23 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0a0c0f;
-      --surface:   #14171b;
-      --border:    #24282f;
-      --accent:    #e0a34e;
-      --text:      #f0f2f4;
-      --muted:     #909aa5;
-      --body:      #c9cfd6;
-      --sans: 'DM Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      --display: 'Syne', var(--sans);
+      --paper:     #f6f6f3;
+      --paper-raised: #ffffff;
+      --ink:       #14161b;
+      --ink-soft:  #52565f;
+      --muted:     #82868f;
+      --line:      #dcdcd7;
+      --accent:    #1f3a5c;
+      --accent-tint: #e8edf1;
+      --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --sans: 'Public Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
       --mono: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, monospace;
     }
 
-    html { scroll-behavior: smooth; background: var(--bg); }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 17px; min-height: 100vh; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.5; min-height: 100vh; }
 
-    /* ── Scroll reveal — content settles in as it enters view. Single,
-       consistent effect used throughout rather than scattered UI toys. ── */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -85,109 +84,107 @@
     a { color: inherit; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-    .wrapper { max-width: 980px; margin: 0 auto; padding: 0 28px; }
-    .wrapper-wide { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+    .wrapper { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+    .wrapper-wide { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
 
-    header { display: flex; align-items: center; justify-content: space-between; padding: 32px 0; }
-    .logo { font-family: var(--display); font-weight: 800; font-size: 1.15rem; text-decoration: none; }
-    .logo span { color: var(--accent); }
-    .header-links { display: flex; align-items: center; gap: 28px; font-size: .92rem; color: var(--muted); }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 40px 0 32px; }
+    .logo { font-family: var(--serif); font-weight: 700; font-size: 1.3rem; text-decoration: none; letter-spacing: -.01em; }
+    .header-links { display: flex; align-items: center; gap: 32px; font-size: .92rem; color: var(--ink-soft); }
     .header-links a { text-decoration: none; transition: color .2s; }
-    .header-links a:hover { color: var(--text); }
+    .header-links a:hover { color: var(--ink); }
 
-    section { padding: 5.5rem 0; }
-    section.tight { padding-top: 0; }
-    .hr { border: none; border-top: 1px solid var(--border); }
+    section { padding: 5rem 0; }
+    section.tight { padding-top: 1rem; }
+    .rule { border: none; border-top: 1px solid var(--line); }
 
-    .kicker { font-size: .95rem; color: var(--accent); font-weight: 600; margin-bottom: 1.25rem; }
-    h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 3.4vw, 2.5rem); letter-spacing: -.01em; line-height: 1.15; max-width: 24ch; margin-bottom: 1.25rem; }
-    .lede { font-size: 1.08rem; line-height: 1.75; color: var(--body); max-width: 46ch; }
+    .kicker { font-family: var(--mono); font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.4rem; }
+    h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(1.9rem, 3.2vw, 2.4rem); letter-spacing: -.01em; line-height: 1.2; max-width: 20ch; margin-bottom: 1.1rem; }
+    .lede { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); max-width: 46ch; }
 
     /* ── Hero ── */
-    .hero { padding: 4.5rem 0 5rem; }
-    .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1.06; letter-spacing: -.02em; max-width: 20ch; margin-bottom: 1.75rem; }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero .lede { font-size: 1.2rem; max-width: 52ch; margin-bottom: 2.5rem; }
+    .hero { padding: 2rem 0 4.5rem; }
+    .hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.12; letter-spacing: -.015em; max-width: 17ch; margin-bottom: 1.6rem; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero .lede { font-size: 1.18rem; max-width: 54ch; margin-bottom: 2.25rem; color: var(--ink-soft); }
     .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-    .btn { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; font-size: 1rem; padding: .95rem 1.6rem; border-radius: 3px; text-decoration: none; transition: opacity .15s, border-color .15s; }
-    .btn-primary { background: var(--accent); color: #17110a; }
-    .btn-primary:hover { opacity: .88; }
-    .btn-ghost { color: var(--text); border: 1px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--accent); }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; color: var(--muted); font-size: .95rem; }
+    .btn { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; font-size: .98rem; padding: .9rem 1.5rem; border-radius: 2px; text-decoration: none; transition: opacity .15s, border-color .15s, background .15s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: .87; }
+    .btn-ghost { color: var(--ink); border: 1px solid var(--line); background: var(--paper-raised); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; color: var(--muted); font-size: .92rem; }
 
     /* ── Credentials strip ── */
-    .creds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .creds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
     @media (max-width: 760px) { .creds { grid-template-columns: repeat(2, 1fr); } }
-    .cred { padding: 1.75rem 1.5rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .cred:nth-child(4n) { border-right: none; }
-    @media (max-width: 760px) { .cred:nth-child(2n) { border-right: none; } .cred:nth-child(4n) { border-right: 1px solid var(--border); } }
-    .cred-num { font-family: var(--display); font-weight: 800; font-size: 1.7rem; color: var(--accent); margin-bottom: .4rem; }
-    .cred-label { font-size: .92rem; color: var(--muted); line-height: 1.5; }
+    .cred { padding: 1.9rem 1.6rem; background: var(--paper-raised); }
+    .cred-num { font-family: var(--serif); font-weight: 700; font-size: 1.9rem; color: var(--accent); margin-bottom: .5rem; }
+    .cred-label { font-size: .9rem; color: var(--ink-soft); line-height: 1.55; }
 
-    /* ── Services — plain list, fully visible, no interaction required ── */
-    .service-list { display: grid; gap: 0; margin-top: 3rem; }
-    .service-row { display: grid; grid-template-columns: 8ch 1fr 1.5fr; gap: 2.5rem; padding: 2rem 0; border-top: 1px solid var(--border); align-items: baseline; }
-    .service-list .service-row:last-child { border-bottom: 1px solid var(--border); }
-    @media (max-width: 760px) { .service-row { grid-template-columns: 1fr; gap: .6rem; } }
-    .service-index { font-family: var(--display); font-weight: 800; font-size: 1.1rem; color: var(--border); }
-    .service-row h3 { font-family: var(--display); font-weight: 700; font-size: 1.25rem; }
-    .service-row p { color: var(--muted); font-size: .98rem; line-height: 1.65; }
-    .service-row p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(224,163,78,.4); }
+    /* ── Services ── */
+    .service-list { display: grid; gap: 0; margin-top: 2.75rem; }
+    .service-row { display: grid; grid-template-columns: 7ch 1fr 1.5fr; gap: 2.5rem; padding: 1.9rem 0; border-top: 1px solid var(--line); align-items: baseline; }
+    .service-list .service-row:last-child { border-bottom: 1px solid var(--line); }
+    @media (max-width: 760px) { .service-row { grid-template-columns: 1fr; gap: .5rem; } }
+    .service-index { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+    .service-row h3 { font-family: var(--serif); font-weight: 700; font-size: 1.2rem; }
+    .service-row p { color: var(--ink-soft); font-size: .96rem; line-height: 1.65; }
+    .service-row p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31,58,92,.35); }
     .service-row p a:hover { border-color: var(--accent); }
 
-    /* ── Reference architecture — clean SVG, no ASCII ── */
-    .arch-frame { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem 1.5rem; margin-top: 3rem; }
+    /* ── Reference architecture ── */
+    .arch-frame { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 3px; padding: 2.25rem 1.5rem; margin-top: 2.75rem; }
     .arch-frame svg { display: block; width: 100%; height: auto; }
-    .arch-caption { text-align: center; color: var(--muted); font-size: .92rem; margin-top: 1.5rem; }
+    .arch-caption { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 1.5rem; }
 
     /* ── Engagement models ── */
-    .model-list { margin-top: 3rem; display: grid; gap: 0; }
-    .model-row { display: grid; grid-template-columns: 10ch 1fr; gap: 2rem; padding: 1.75rem 0; border-top: 1px solid var(--border); }
-    .model-list .model-row:last-child { border-bottom: 1px solid var(--border); }
+    .model-list { margin-top: 2.75rem; display: grid; gap: 0; }
+    .model-row { display: grid; grid-template-columns: 10ch 1fr; gap: 2rem; padding: 1.6rem 0; border-top: 1px solid var(--line); }
+    .model-list .model-row:last-child { border-bottom: 1px solid var(--line); }
     @media (max-width: 640px) { .model-row { grid-template-columns: 1fr; gap: .4rem; } }
-    .model-row .model-name { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
-    .model-row p { color: var(--muted); font-size: .98rem; line-height: 1.6; }
+    .model-row .model-name { font-family: var(--serif); font-weight: 700; font-size: 1.08rem; }
+    .model-row p { color: var(--ink-soft); font-size: .96rem; line-height: 1.6; }
 
     /* ── Scenarios ── */
-    .scenario-list { margin-top: 3rem; display: grid; gap: 2.5rem; }
-    .scenario { padding-left: 1.5rem; border-left: 2px solid var(--border); }
+    .scenario-list { margin-top: 2.75rem; display: grid; gap: 2.25rem; }
+    .scenario { padding-left: 1.4rem; border-left: 2px solid var(--line); }
     .scenario.real { border-left-color: var(--accent); }
-    .scenario-tag { font-size: .85rem; color: var(--muted); margin-bottom: .5rem; }
+    .scenario-tag { font-family: var(--mono); font-size: .78rem; color: var(--muted); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .03em; }
     .scenario.real .scenario-tag { color: var(--accent); }
-    .scenario h3 { font-family: var(--display); font-weight: 700; font-size: 1.15rem; margin-bottom: .5rem; }
-    .scenario p { color: var(--muted); font-size: .98rem; line-height: 1.65; max-width: 62ch; }
-    .scenario a { display: inline-block; margin-top: .6rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(224,163,78,.4); font-size: .95rem; }
+    .scenario h3 { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; margin-bottom: .5rem; }
+    .scenario p { color: var(--ink-soft); font-size: .96rem; line-height: 1.65; max-width: 62ch; }
+    .scenario a { display: inline-block; margin-top: .6rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31,58,92,.35); font-size: .93rem; }
 
-    /* ── Projects — plain catalog, no filtering UI ── */
-    .project-list { margin-top: 3rem; display: grid; gap: 0; }
-    .project-row { display: block; padding: 1.75rem 0; border-top: 1px solid var(--border); text-decoration: none; color: inherit; }
-    .project-list .project-row:last-child { border-bottom: 1px solid var(--border); }
-    .project-row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .5rem; }
-    .project-row h3 { font-family: var(--display); font-weight: 700; font-size: 1.15rem; transition: color .15s; }
+    /* ── Projects ── */
+    .project-list { margin-top: 2.75rem; display: grid; gap: 0; }
+    .project-row { display: block; padding: 1.6rem 0; border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
+    .project-list .project-row:last-child { border-bottom: 1px solid var(--line); }
+    .project-row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .45rem; }
+    .project-row h3 { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; transition: color .15s; }
     .project-row:hover h3 { color: var(--accent); }
-    .project-row-arrow { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; transition: transform .15s, color .15s; }
+    .project-row-arrow { color: var(--muted); font-size: 1.05rem; flex-shrink: 0; transition: transform .15s, color .15s; }
     .project-row:hover .project-row-arrow { color: var(--accent); transform: translateX(3px); }
-    .project-row p { color: var(--muted); font-size: .96rem; line-height: 1.6; max-width: 68ch; }
-    .project-row .stack { color: var(--muted); font-size: .85rem; margin-top: .5rem; }
+    .project-row p { color: var(--ink-soft); font-size: .94rem; line-height: 1.6; max-width: 68ch; }
+    .project-row .stack { font-family: var(--mono); color: var(--muted); font-size: .8rem; margin-top: .5rem; }
 
     /* ── Certifications ── */
-    .cert-list { margin-top: 3rem; display: grid; gap: 0; }
-    .cert-row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; padding: 1.6rem 0; border-top: 1px solid var(--border); }
-    .cert-list .cert-row:last-child { border-bottom: 1px solid var(--border); }
+    .cert-list { margin-top: 2.75rem; display: grid; gap: 0; }
+    .cert-row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; padding: 1.5rem 0; border-top: 1px solid var(--line); }
+    .cert-list .cert-row:last-child { border-bottom: 1px solid var(--line); }
     @media (max-width: 600px) { .cert-row { grid-template-columns: 1fr; gap: .5rem; } }
-    .cert-name { font-family: var(--display); font-weight: 700; font-size: 1.08rem; }
-    .cert-meta { color: var(--muted); font-size: .92rem; margin-top: .3rem; line-height: 1.5; }
-    .cert-row a { color: var(--accent); text-decoration: none; font-size: .95rem; border-bottom: 1px solid rgba(224,163,78,.4); white-space: nowrap; }
+    .cert-name { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
+    .cert-meta { color: var(--ink-soft); font-size: .9rem; margin-top: .3rem; line-height: 1.5; }
+    .cert-row a { color: var(--accent); text-decoration: none; font-size: .93rem; border-bottom: 1px solid rgba(31,58,92,.35); white-space: nowrap; }
 
     /* ── Contact ── */
-    .contact-block { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 2rem 3rem; }
-    .contact-block a { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; font-size: 1.05rem; font-weight: 600; color: var(--text); transition: color .15s; }
+    .contact-block { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 1.75rem 3rem; }
+    .contact-block a { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; font-size: 1.02rem; font-weight: 600; color: var(--ink); transition: color .15s; }
     .contact-block a:hover { color: var(--accent); }
-    .contact-block svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .contact-block svg { width: 19px; height: 19px; flex-shrink: 0; color: var(--ink-soft); }
+    .contact-block a:hover svg { color: var(--accent); }
 
-    footer { padding: 3rem 0; text-align: center; }
-    .footer-copy { color: var(--muted); font-size: .9rem; }
+    footer { padding: 2.75rem 0; text-align: center; }
+    .footer-copy { color: var(--muted); font-size: .88rem; }
     .footer-copy a { text-decoration: none; }
     .footer-copy a:hover { color: var(--accent); }
   </style>
@@ -195,7 +192,7 @@
 <body>
   <div class="wrapper">
     <header>
-      <a class="logo" href="/"><span>R</span>S.</a>
+      <a class="logo" href="/">Rajesh Sood</a>
       <div class="header-links">
         <a href="/portfolio/">Portfolio</a>
         <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a>
@@ -219,13 +216,13 @@
     </section>
   </div>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper">
       <div class="creds">
         <div class="cred reveal"><div class="cred-num">Pro</div><div class="cred-label">AWS Solutions Architect, verified on Credly, expires Dec 2026</div></div>
-        <div class="cred-num-wrap cred"><div class="cred-num">7+</div><div class="cred-label">Public repositories of real infrastructure code, linked below</div></div>
+        <div class="cred reveal"><div class="cred-num">7+</div><div class="cred-label">Public repositories of real infrastructure code, linked below</div></div>
         <div class="cred reveal"><div class="cred-num">3</div><div class="cred-label">Clouds worked in hands-on — AWS-deep, GCP and Azure capable</div></div>
         <div class="cred reveal"><div class="cred-num">1</div><div class="cred-label">Point of contact, start to finish — no handoffs between teams</div></div>
       </div>
@@ -283,7 +280,7 @@
     </div>
   </section>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper-wide">
@@ -293,25 +290,25 @@
         <svg viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reference architecture, three lanes converging on EKS: shipping a change through CI, a security gate, and ArgoCD; serving traffic through Route 53, CloudFront, and an ALB; and staying operable through Prometheus, Grafana, and alerting. Hover a lane to trace it.">
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0 0L10 5L0 10z" fill="#3a4048"/>
+              <path d="M0 0L10 5L0 10z" fill="#b7bab2"/>
             </marker>
           </defs>
           <style>
-            .box { fill:#14171b; stroke:#24282f; stroke-width:1.5; rx:5; }
-            .hub-box { fill:rgba(224,163,78,.1); stroke:#e0a34e; stroke-width:1.5; rx:5; }
-            .lbl { font-family:'DM Sans',sans-serif; font-size:14px; fill:#f0f2f4; }
-            .lblSub { font-family:'DM Sans',sans-serif; font-size:11px; fill:#909aa5; }
-            .lane-label { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; fill:#e0a34e; letter-spacing:.03em; }
-            .edge { stroke:#3a4048; stroke-width:1.5; fill:none; marker-end:url(#arrow); }
+            .box { fill:#ffffff; stroke:#dcdcd7; stroke-width:1.5; rx:3; }
+            .hub-box { fill:#e8edf1; stroke:#1f3a5c; stroke-width:1.5; rx:3; }
+            .lbl { font-family:'Public Sans',sans-serif; font-size:14px; fill:#14161b; }
+            .lblSub { font-family:'Public Sans',sans-serif; font-size:11px; fill:#82868f; }
+            .lane-label { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; fill:#1f3a5c; letter-spacing:.04em; }
+            .edge { stroke:#b7bab2; stroke-width:1.5; fill:none; marker-end:url(#arrow); }
             .lane-group { cursor: pointer; transition: opacity .25s ease; }
             .lane-group .box { transition: stroke .2s ease; }
-            .arch-frame.hovering .lane-group:not(.active) { opacity: .3; }
-            .lane-group.active .box { stroke: #e0a34e; }
-            .lane-group.active .edge { stroke: #e0a34e; }
+            .arch-frame.hovering .lane-group:not(.active) { opacity: .32; }
+            .lane-group.active .box { stroke: #1f3a5c; }
+            .lane-group.active .edge { stroke: #1f3a5c; }
           </style>
 
           <g class="lane-group" data-lane="ship">
-            <text x="0" y="24" class="lane-label">SHIP A CHANGE</text>
+            <text x="0" y="22" class="lane-label">SHIP A CHANGE</text>
             <rect class="box" x="0" y="38" width="110" height="46"/><text x="55" y="66" text-anchor="middle" class="lbl">git push</text>
             <path class="edge" d="M110 61 H150"/>
             <rect class="box" x="150" y="38" width="130" height="46"/><text x="215" y="61" text-anchor="middle" class="lbl">CI</text><text x="215" y="76" text-anchor="middle" class="lblSub">build · test</text>
@@ -323,7 +320,7 @@
           </g>
 
           <g class="lane-group" data-lane="serve">
-            <text x="0" y="130" class="lane-label">SERVE TRAFFIC</text>
+            <text x="0" y="128" class="lane-label">SERVE TRAFFIC</text>
             <rect class="box" x="0" y="144" width="180" height="46"/><text x="90" y="167" text-anchor="middle" class="lbl">Route 53 + CDN</text>
             <path class="edge" d="M180 167 H220"/>
             <rect class="box" x="220" y="144" width="110" height="46"/><text x="275" y="172" text-anchor="middle" class="lbl">ALB</text>
@@ -339,7 +336,7 @@
           </g>
 
           <g class="lane-group" data-lane="operate">
-            <text x="0" y="238" class="lane-label">STAY OPERABLE</text>
+            <text x="0" y="236" class="lane-label">STAY OPERABLE</text>
             <path class="edge" d="M751 230 V273 H150"/>
             <rect class="box" x="150" y="250" width="200" height="46"/><text x="250" y="277" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
             <path class="edge" d="M350 273 H400"/>
@@ -351,7 +348,7 @@
     </div>
   </section>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper">
@@ -366,7 +363,7 @@
     </div>
   </section>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper">
@@ -394,7 +391,7 @@
     </div>
   </section>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper">
@@ -440,7 +437,7 @@
     </div>
   </section>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper">
@@ -463,7 +460,7 @@
     </div>
   </section>
 
-  <hr class="hr" />
+  <hr class="rule" />
 
   <section>
     <div class="wrapper">
