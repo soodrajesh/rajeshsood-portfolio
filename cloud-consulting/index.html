@@ -7,7 +7,7 @@
   <meta name="description" content="End-to-end cloud infrastructure: networking, compute, CI/CD, observability, security, and cost optimization. AWS Certified Solutions Architect – Professional, hands-on with GCP and Azure." />
   <meta name="author" content="Rajesh Sood" />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23161a22%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20font-family%3D%22Georgia,%20serif%22%20font-weight%3D%22700%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f4f3ef%22%3ERS%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%230a0b0d%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2243%22%20font-family%3D%22Arial,sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2226%22%20text-anchor%3D%22middle%22%20fill%3D%22%235b8cff%22%3ERS%3C/text%3E%3C/svg%3E" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rajesh Sood — Cloud & DevOps Consulting" />
@@ -41,7 +41,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
   {
@@ -59,397 +59,383 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --paper:     #f6f6f3;
-      --paper-raised: #ffffff;
-      --ink:       #14161b;
-      --ink-soft:  #52565f;
-      --muted:     #82868f;
-      --line:      #dcdcd7;
-      --accent:    #1f3a5c;
-      --accent-tint: #e8edf1;
-      --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-      --sans: 'Public Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      --bg:        #0a0b0d;
+      --raised:    #121317;
+      --raised-2:  #17181d;
+      --border:    rgba(255,255,255,.1);
+      --text:      #f5f6f7;
+      --text-soft: #b8bcc4;
+      --muted:     #797e88;
+      --accent:    #5b8cff;
+      --accent-tint: rgba(91,140,255,.13);
+      --sans: 'Hanken Grotesk', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
       --mono: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, monospace;
     }
 
-    html { scroll-behavior: smooth; background: var(--paper); }
-    body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.5; min-height: 100vh; }
-
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in-view { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 48px 48px, 48px 48px, auto;
+      color: var(--text); font-family: var(--sans); font-size: 17px; line-height: 1.5; min-height: 100vh;
     }
     a { color: inherit; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-    .wrapper { max-width: 920px; margin: 0 auto; padding: 0 32px; }
-    .wrapper-wide { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-
-    header { display: flex; align-items: center; justify-content: space-between; padding: 40px 0 32px; }
-    .logo { font-family: var(--serif); font-weight: 700; font-size: 1.3rem; text-decoration: none; letter-spacing: -.01em; }
-    .header-links { display: flex; align-items: center; gap: 32px; font-size: .92rem; color: var(--ink-soft); }
-    .header-links a { text-decoration: none; transition: color .2s; }
-    .header-links a:hover { color: var(--ink); }
-
-    section { padding: 5rem 0; }
-    section.tight { padding-top: 1rem; }
-    .rule { border: none; border-top: 1px solid var(--line); }
-
-    .kicker { font-family: var(--mono); font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.4rem; }
-    h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(1.9rem, 3.2vw, 2.4rem); letter-spacing: -.01em; line-height: 1.2; max-width: 20ch; margin-bottom: 1.1rem; }
-    .lede { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); max-width: 46ch; }
-
-    /* ── Hero — staggered entrance on load, not scroll-triggered (it's
-       already in view on arrival). ── */
-    .hero { padding: 2rem 0 4.5rem; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
     @keyframes settleIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
     .hero-in { opacity: 0; animation: settleIn .7s cubic-bezier(.2,.8,.2,1) forwards; }
-    .hero .kicker.hero-in { animation-delay: .05s; }
-    .hero h1.hero-in { animation-delay: .14s; }
-    .hero .lede.hero-in { animation-delay: .24s; }
-    .cta-row.hero-in { animation-delay: .34s; }
-    .hero-meta.hero-in { animation-delay: .42s; }
-    @media (prefers-reduced-motion: reduce) { .hero-in { opacity: 1; animation: none; } }
-    .hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.12; letter-spacing: -.015em; max-width: 17ch; margin-bottom: 1.6rem; }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-    .hero .lede { font-size: 1.18rem; max-width: 54ch; margin-bottom: 2.25rem; color: var(--ink-soft); }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-    .btn { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; font-size: .98rem; padding: .9rem 1.5rem; border-radius: 2px; text-decoration: none; transition: opacity .2s ease, border-color .2s ease, background .2s ease, transform .25s cubic-bezier(.2,.8,.2,1); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-in { opacity: 1; animation: none; }
+    }
+
+    .wrapper { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    .wrapper-nav { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── Sticky nav — always-visible CTA, real wayfinding ── */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(10,11,13,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+    .logo { font-family: var(--sans); font-weight: 800; font-size: 1.05rem; text-decoration: none; letter-spacing: -.01em; }
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: .9rem; color: var(--text-soft); }
+    .nav-links a:not(.btn) { text-decoration: none; transition: color .2s; }
+    .nav-links a:not(.btn):hover { color: var(--text); }
+    @media (max-width: 640px) { .nav-links a:not(.btn):not(.btn-nav-cta) { display: none; } }
+
+    section { padding: 5rem 0; }
+    section.tight { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+
+    .eyebrow-badge {
+      display: inline-flex; align-items: center; gap: .5rem; font-family: var(--mono); font-size: .78rem;
+      color: var(--accent); background: var(--accent-tint); border: 1px solid rgba(91,140,255,.3);
+      border-radius: 999px; padding: .4rem .9rem .4rem .7rem; margin-bottom: 1.5rem;
+    }
+    .eyebrow-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .kicker { font-family: var(--mono); font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    h2 { font-family: var(--sans); font-weight: 800; font-size: clamp(1.8rem, 3.2vw, 2.35rem); letter-spacing: -.02em; line-height: 1.18; margin-bottom: .9rem; }
+    .lede { font-size: 1.04rem; line-height: 1.65; color: var(--text-soft); max-width: 46ch; }
+    .section-head { margin-bottom: 2.5rem; }
+
+    /* ── Hero ── */
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; padding: 3.5rem 0 4rem; }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .hero h1 { font-family: var(--sans); font-weight: 800; font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height: 1.1; letter-spacing: -.025em; margin-bottom: 1.3rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero .lede { font-size: 1.08rem; max-width: 42ch; margin-bottom: 1.75rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .9rem; margin-bottom: 1.5rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; font-weight: 700; font-size: .95rem; padding: .85rem 1.4rem; border-radius: 999px; text-decoration: none; transition: opacity .2s ease, border-color .2s ease, transform .2s cubic-bezier(.2,.8,.2,1); }
     .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary { background: var(--accent); color: #05070d; }
     .btn-primary:hover { opacity: .9; }
-    .btn-ghost { color: var(--ink); border: 1px solid var(--line); background: var(--paper-raised); }
+    .btn-ghost { color: var(--text); border: 1px solid var(--border); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; color: var(--muted); font-size: .92rem; }
+    .btn-nav-cta { padding: .55rem 1.1rem; font-size: .85rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .55rem; }
+    .pill { display: inline-flex; align-items: center; font-family: var(--mono); font-size: .74rem; color: var(--text-soft); background: var(--raised); border: 1px solid var(--border); border-radius: 999px; padding: .4rem .8rem; }
 
-    /* ── Credentials strip ── */
-    .creds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-    @media (max-width: 760px) { .creds { grid-template-columns: repeat(2, 1fr); } }
-    .cred { padding: 1.9rem 1.6rem; background: var(--paper-raised); transition: background .25s ease; }
-    .cred:hover { background: var(--accent-tint); }
-    .cred-num { font-family: var(--serif); font-weight: 700; font-size: 1.9rem; color: var(--accent); margin-bottom: .5rem; }
-    .cred-label { font-size: .9rem; color: var(--ink-soft); line-height: 1.55; }
-
-    /* ── Services ── */
-    .service-list { display: grid; gap: 0; margin-top: 2.75rem; }
-    .service-row { display: grid; grid-template-columns: 7ch 1fr 1.5fr; gap: 2.5rem; padding: 1.9rem 0; border-top: 1px solid var(--line); align-items: baseline; }
-    .service-list .service-row:last-child { border-bottom: 1px solid var(--line); }
-    @media (max-width: 760px) { .service-row { grid-template-columns: 1fr; gap: .5rem; } }
-    .service-index { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
-    .service-row h3 { font-family: var(--serif); font-weight: 700; font-size: 1.2rem; }
-    .service-row p { color: var(--ink-soft); font-size: .96rem; line-height: 1.65; }
-    .service-row p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31,58,92,.35); }
-    .service-row p a:hover { border-color: var(--accent); }
-
-    /* ── Reference architecture ── */
-    .arch-frame { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 3px; padding: 2.25rem 1.5rem; margin-top: 2.75rem; }
+    /* ── Hero visual: the architecture diagram, framed like a product
+       screenshot — the page's actual visual payload, up top. ── */
+    .hero-visual-frame { background: var(--raised); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px -24px rgba(0,0,0,.6); }
+    .frame-titlebar { display: flex; align-items: center; gap: .45rem; padding: .7rem .9rem; background: rgba(255,255,255,.03); border-bottom: 1px solid var(--border); }
+    .frame-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .frame-dot.r { background: #ff5f56; } .frame-dot.y { background: #ffbd2e; } .frame-dot.g { background: #27c93f; }
+    .frame-label { margin-left: .4rem; font-family: var(--mono); font-size: .7rem; color: var(--muted); }
+    .arch-frame { padding: 1.5rem 1.1rem; }
     .arch-frame svg { display: block; width: 100%; height: auto; }
-    .arch-caption { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 1.5rem; }
+    .arch-caption { text-align: center; color: var(--muted); font-size: .82rem; padding: 0 1.1rem 1.25rem; }
 
-    /* ── Engagement models ── */
-    .model-list { margin-top: 2.75rem; display: grid; gap: 0; }
-    .model-row { display: grid; grid-template-columns: 10ch 1fr; gap: 2rem; padding: 1.6rem 0; border-top: 1px solid var(--line); }
-    .model-list .model-row:last-child { border-bottom: 1px solid var(--line); }
-    @media (max-width: 640px) { .model-row { grid-template-columns: 1fr; gap: .4rem; } }
-    .model-row .model-name { font-family: var(--serif); font-weight: 700; font-size: 1.08rem; }
-    .model-row p { color: var(--ink-soft); font-size: .96rem; line-height: 1.6; }
+    /* ── Icon card grids — services, engagement models, differentiators ── */
+    .icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .icon-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 900px) { .icon-grid, .icon-grid.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .icon-grid, .icon-grid.cols-4 { grid-template-columns: 1fr; } }
+    .icard {
+      background: var(--raised); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 1.3rem;
+      transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
+    }
+    .icard:hover { border-color: rgba(91,140,255,.4); background: var(--raised-2); transform: translateY(-3px); }
+    .icard-icon {
+      width: 2.5rem; height: 2.5rem; border-radius: 8px; background: var(--accent-tint); color: var(--accent);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+    }
+    .icard-icon svg { width: 1.35rem; height: 1.35rem; }
+    .icard h3 { font-family: var(--sans); font-weight: 700; font-size: 1.02rem; margin-bottom: .5rem; letter-spacing: -.01em; }
+    .icard p { color: var(--text-soft); font-size: .89rem; line-height: 1.55; }
+    .icard p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,140,255,.4); }
+    .icard.featured { border-color: rgba(91,140,255,.45); background: linear-gradient(160deg, var(--accent-tint), var(--raised) 60%); }
+    .icard .icard-tag { font-family: var(--mono); font-size: .68rem; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; margin-bottom: .6rem; display: block; }
+
+    /* ── Architecture diagram lane hover (shared with hero frame) ── */
+    .arch-frame svg .box { fill: var(--raised-2); stroke: var(--border); stroke-width: 1.5; rx: 4; }
+    .arch-frame svg .hub-box { fill: var(--accent-tint); stroke: var(--accent); stroke-width: 1.5; rx: 4; }
+    .arch-frame svg .lbl { font-family: var(--sans); font-size: 13px; fill: var(--text); }
+    .arch-frame svg .lblSub { font-family: var(--sans); font-size: 10px; fill: var(--muted); }
+    .arch-frame svg .lane-label { font-family: var(--mono); font-size: 10px; font-weight: 600; fill: var(--accent); letter-spacing: .04em; }
+    .arch-frame svg .edge { stroke: #40434c; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arch-frame svg .arrow-head { fill: #40434c; }
+    .arch-frame svg .lane-group.active .arrow-head { fill: var(--accent); }
+    .arch-frame svg .lane-group { cursor: pointer; transition: opacity .25s ease; }
+    .arch-frame.hovering svg .lane-group:not(.active) { opacity: .3; }
+    .arch-frame svg .lane-group.active .box { stroke: var(--accent); }
+    .arch-frame svg .lane-group.active .edge { stroke: var(--accent); }
 
     /* ── Scenarios ── */
-    .scenario-list { margin-top: 2.75rem; display: grid; gap: 2.25rem; }
-    .scenario { padding-left: 1.4rem; border-left: 2px solid var(--line); }
-    .scenario.real { border-left-color: var(--accent); }
-    .scenario-tag { font-family: var(--mono); font-size: .78rem; color: var(--muted); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .03em; }
-    .scenario.real .scenario-tag { color: var(--accent); }
-    .scenario h3 { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; margin-bottom: .5rem; }
-    .scenario p { color: var(--ink-soft); font-size: .96rem; line-height: 1.65; max-width: 62ch; }
-    .scenario a { display: inline-block; margin-top: .6rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31,58,92,.35); font-size: .93rem; }
+    .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 860px) { .scenario-grid { grid-template-columns: 1fr; } }
 
-
-    /* ── Certifications ── */
-    .cert-list { margin-top: 2.75rem; display: grid; gap: 0; }
-    .cert-row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; padding: 1.5rem 0; border-top: 1px solid var(--line); }
-    .cert-list .cert-row:last-child { border-bottom: 1px solid var(--line); }
-    @media (max-width: 600px) { .cert-row { grid-template-columns: 1fr; gap: .5rem; } }
-    .cert-name { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
-    .cert-meta { color: var(--ink-soft); font-size: .9rem; margin-top: .3rem; line-height: 1.5; }
-    .cert-row a { color: var(--accent); text-decoration: none; font-size: .93rem; border-bottom: 1px solid rgba(31,58,92,.35); white-space: nowrap; }
-
-    /* ── Contact ── */
-    .contact-block { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 1.75rem 3rem; }
-    .contact-block a { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; font-size: 1.02rem; font-weight: 600; color: var(--ink); transition: color .15s; }
-    .contact-block a:hover { color: var(--accent); }
-    .contact-block svg { width: 19px; height: 19px; flex-shrink: 0; color: var(--ink-soft); }
-    .contact-block a:hover svg { color: var(--accent); }
-
-    footer { padding: 2.75rem 0; text-align: center; }
-    .footer-copy { color: var(--muted); font-size: .88rem; }
-    .footer-copy a { text-decoration: none; }
+    footer.band { padding: 3rem 0 2.5rem; text-align: center; border-top: 1px solid var(--border); margin-top: 1rem; }
+    .footer-copy { color: var(--muted); font-size: .86rem; }
+    .footer-copy a { text-decoration: none; color: var(--text-soft); }
     .footer-copy a:hover { color: var(--accent); }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <header>
+  <nav class="nav">
+    <div class="wrapper-nav nav-inner">
       <a class="logo" href="/">Rajesh Sood</a>
-      <div class="header-links">
-        <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">Cost Audit Service</a>
-        <a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:soodrajesh87@gmail.com">Contact</a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary btn-nav-cta" href="mailto:soodrajesh87@gmail.com">Get in touch</a>
       </div>
-    </header>
+    </div>
+  </nav>
 
+  <div class="wrapper">
     <section class="hero tight">
-      <p class="kicker hero-in">AWS Certified Solutions Architect — Professional</p>
-      <h1 class="hero-in">Cloud infrastructure that works — designed, built, and kept running.</h1>
-      <p class="lede hero-in">
-        Networking and landing zones, compute and containers, CI/CD, observability, security, and cost control —
-        end to end, mostly on AWS, with hands-on GCP and Azure for teams that aren't. You work directly with the
-        person doing the work — not an account manager, not a bench of juniors.
-      </p>
-      <div class="cta-row hero-in">
-        <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">Get in touch</a>
-        <a class="btn btn-ghost" href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See a live service in action →</a>
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow-badge hero-in"><span class="dot"></span>AWS Certified Solutions Architect — Professional</span>
+          <h1 class="hero-in">Cloud infrastructure that works — designed, built, and <span>kept running</span>.</h1>
+          <p class="lede hero-in">
+            Networking and landing zones, compute and containers, CI/CD, observability, security, and cost control —
+            end to end, mostly on AWS, with hands-on GCP and Azure for teams that aren't. You work directly with the
+            person doing the work.
+          </p>
+          <div class="cta-row hero-in">
+            <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">Get in touch</a>
+            <a class="btn btn-ghost" href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See a live service →</a>
+          </div>
+          <div class="badge-row hero-in">
+            <span class="pill">Read-only, always</span>
+            <span class="pill">Fixed-fee engagements</span>
+            <span class="pill">GCP &amp; Azure capable</span>
+          </div>
+        </div>
+
+        <div class="hero-in" style="animation-delay:.15s">
+          <div class="hero-visual-frame">
+            <div class="frame-titlebar">
+              <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
+              <span class="frame-label">reference-architecture.svg</span>
+            </div>
+            <div class="arch-frame" id="arch-frame">
+              <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reference architecture, three lanes converging on EKS: shipping a change through CI, a security gate, and ArgoCD; serving traffic through Route 53, CloudFront, and an ALB; and staying operable through Prometheus, Grafana, and alerting. Hover a lane to trace it.">
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path class="arrow-head" d="M0 0L10 5L0 10z"/>
+                  </marker>
+                </defs>
+
+                <g class="lane-group" data-lane="ship">
+                  <text x="0" y="20" class="lane-label">SHIP A CHANGE</text>
+                  <rect class="box" x="0" y="34" width="150" height="42"/><text x="75" y="60" text-anchor="middle" class="lbl">CI · Security gate</text>
+                  <path class="edge" d="M150 55 H190"/>
+                  <rect class="box" x="190" y="34" width="130" height="42"/><text x="255" y="60" text-anchor="middle" class="lbl">ArgoCD sync</text>
+                  <path class="edge" d="M320 55 H356"/>
+                </g>
+
+                <g class="lane-group" data-lane="serve">
+                  <text x="0" y="128" class="lane-label">SERVE TRAFFIC</text>
+                  <rect class="box" x="0" y="142" width="180" height="42"/><text x="90" y="168" text-anchor="middle" class="lbl">Route 53 + CDN + ALB</text>
+                  <path class="edge" d="M180 163 H356"/>
+                </g>
+
+                <g class="hub-group">
+                  <rect class="hub-box" x="356" y="88" width="150" height="132"/>
+                  <text x="431" y="148" text-anchor="middle" class="lbl" font-weight="700">EKS</text>
+                  <text x="431" y="166" text-anchor="middle" class="lblSub">multi-AZ node groups</text>
+                </g>
+
+                <g class="lane-group" data-lane="operate">
+                  <text x="0" y="248" class="lane-label">STAY OPERABLE</text>
+                  <path class="edge" d="M431 220 V262 H180"/>
+                  <rect class="box" x="0" y="240" width="180" height="42"/><text x="90" y="266" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
+                </g>
+              </svg>
+            </div>
+            <p class="arch-caption">Hover a lane to trace it.</p>
+          </div>
+        </div>
       </div>
-      <p class="hero-meta hero-in"><span>Dublin, Ireland · GMT</span><span>·</span><span>Remote engagements worldwide</span></p>
     </section>
   </div>
 
-  <hr class="rule" />
-
-  <section>
+  <section id="services">
     <div class="wrapper">
-      <div class="creds">
-        <div class="cred reveal"><div class="cred-num">Pro</div><div class="cred-label">AWS Solutions Architect, verified on Credly, expires Dec 2026</div></div>
-        <div class="cred reveal"><div class="cred-num">Fixed</div><div class="cred-label">Every engagement quoted upfront — no open-ended hourly surprises</div></div>
-        <div class="cred reveal"><div class="cred-num">3</div><div class="cred-label">Clouds worked in hands-on — AWS-deep, GCP and Azure capable</div></div>
-        <div class="cred reveal"><div class="cred-num">1</div><div class="cred-label">Point of contact, start to finish — no handoffs between teams</div></div>
+      <div class="section-head">
+        <p class="kicker">Capability</p>
+        <h2>End-to-end, not just one layer.</h2>
+        <p class="lede">Eight layers, one point of contact. Everything here is a system I've built, not a slide I've presented.</p>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrapper">
-      <p class="kicker">Capability</p>
-      <h2>End-to-end, not just one layer.</h2>
-      <p class="lede">Eight layers, one engineer. Everything here is a system I've built, not a slide I've presented.</p>
-
-      <div class="service-list">
-        <div class="service-row reveal">
-          <span class="service-index">01</span>
+      <div class="icon-grid">
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M6 8.2V15.8M18 8.2V15.8M8.2 6H15.8M8.2 18H15.8"/></svg></div>
           <h3>Foundations &amp; Networking</h3>
-          <p>VPC design, multi-AZ subnetting, multi-account landing zones, and the IAM boundaries that keep one team's mistake from becoming everyone's incident.</p>
+          <p>VPC design, multi-account landing zones, and IAM boundaries that contain the blast radius.</p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">02</span>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
           <h3>Compute &amp; Containers</h3>
           <p>EC2, EKS/Kubernetes, ECS/Fargate, and Lambda — sized for the actual workload, not a guess.</p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">03</span>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M17 4v3h-3M7 20v-3h3"/></svg></div>
           <h3>CI/CD &amp; Infrastructure as Code</h3>
-          <p>Terraform, GitOps via ArgoCD, Jenkins, GitHub Actions — the pipeline that ships a change safely instead of a hand-run script at midnight.</p>
+          <p>Terraform, GitOps via ArgoCD, Jenkins, GitHub Actions — changes ship safely, not by hand at midnight.</p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">04</span>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 4 5-8 4 5"/><path d="M3 21h18"/></svg></div>
           <h3>Observability &amp; Monitoring</h3>
-          <p>Prometheus, Grafana, CloudWatch, and alerting scoped to page the person who can actually fix it — not everyone.</p>
+          <p>Prometheus, Grafana, CloudWatch, and alerting scoped to page the person who can fix it.</p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">05</span>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
           <h3>Security &amp; DevSecOps</h3>
-          <p>Least-privilege IAM, Trivy/SonarQube scanning gates, hardening baselines built in from the start — not bolted on after an audit.</p>
+          <p>Least-privilege IAM, Trivy/SonarQube scanning gates, hardening built in from the start.</p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">06</span>
+        <div class="icard reveal">
+          <span class="icard-tag">Live service</span>
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.2 1.1-2 2.5-2s2.5.8 2.5 2c0 2.5-5 1.8-5 4.3 0 1.2 1.1 2 2.5 2s2.5-.8 2.5-2"/></svg></div>
           <h3>Cost Optimization (FinOps)</h3>
-          <p>A live, running service: flat-fee AWS cost audits, read-only, with a prioritised savings roadmap. <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See the audit service →</a></p>
+          <p>A flat-fee, read-only AWS cost audit, running right now. <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See it →</a></p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">07</span>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg></div>
           <h3>AI/ML &amp; LLM Infrastructure</h3>
-          <p>SageMaker pipelines, Bedrock, and retrieval-augmented pipelines for internal tools that answer real operational questions.</p>
+          <p>SageMaker pipelines, Bedrock, and retrieval-augmented tools for internal use.</p>
         </div>
-        <div class="service-row reveal">
-          <span class="service-index">08</span>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16 12 12 0 0 1 0-16Z"/></svg></div>
           <h3>Multi-Cloud (GCP &amp; Azure)</h3>
-          <p>Most of the depth is AWS — the underlying skills transfer directly. Hands-on with Google Cloud and Azure infrastructure for teams not fully on AWS.</p>
+          <p>AWS-deep, hands-on elsewhere — for teams not fully on one cloud.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <section>
-    <div class="wrapper-wide">
-      <p class="kicker">How it fits together</p>
-      <h2>A typical build, end to end.</h2>
-      <div class="arch-frame">
-        <svg viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reference architecture, three lanes converging on EKS: shipping a change through CI, a security gate, and ArgoCD; serving traffic through Route 53, CloudFront, and an ALB; and staying operable through Prometheus, Grafana, and alerting. Hover a lane to trace it.">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0 0L10 5L0 10z" fill="#b7bab2"/>
-            </marker>
-          </defs>
-          <style>
-            .box { fill:#ffffff; stroke:#dcdcd7; stroke-width:1.5; rx:3; }
-            .hub-box { fill:#e8edf1; stroke:#1f3a5c; stroke-width:1.5; rx:3; }
-            .lbl { font-family:'Public Sans',sans-serif; font-size:14px; fill:#14161b; }
-            .lblSub { font-family:'Public Sans',sans-serif; font-size:11px; fill:#82868f; }
-            .lane-label { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; fill:#1f3a5c; letter-spacing:.04em; }
-            .edge { stroke:#b7bab2; stroke-width:1.5; fill:none; marker-end:url(#arrow); }
-            .lane-group { cursor: pointer; transition: opacity .25s ease; }
-            .lane-group .box { transition: stroke .2s ease; }
-            .arch-frame.hovering .lane-group:not(.active) { opacity: .32; }
-            .lane-group.active .box { stroke: #1f3a5c; }
-            .lane-group.active .edge { stroke: #1f3a5c; }
-          </style>
-
-          <g class="lane-group" data-lane="ship">
-            <text x="0" y="22" class="lane-label">SHIP A CHANGE</text>
-            <rect class="box" x="0" y="38" width="110" height="46"/><text x="55" y="66" text-anchor="middle" class="lbl">git push</text>
-            <path class="edge" d="M110 61 H150"/>
-            <rect class="box" x="150" y="38" width="130" height="46"/><text x="215" y="61" text-anchor="middle" class="lbl">CI</text><text x="215" y="76" text-anchor="middle" class="lblSub">build · test</text>
-            <path class="edge" d="M280 61 H320"/>
-            <rect class="box" x="320" y="38" width="150" height="46"/><text x="395" y="61" text-anchor="middle" class="lbl">Security gate</text><text x="395" y="76" text-anchor="middle" class="lblSub">Trivy · SonarQube</text>
-            <path class="edge" d="M470 61 H510"/>
-            <rect class="box" x="510" y="38" width="130" height="46"/><text x="575" y="66" text-anchor="middle" class="lbl">ArgoCD sync</text>
-            <path class="edge" d="M640 61 H676"/>
-          </g>
-
-          <g class="lane-group" data-lane="serve">
-            <text x="0" y="128" class="lane-label">SERVE TRAFFIC</text>
-            <rect class="box" x="0" y="144" width="180" height="46"/><text x="90" y="167" text-anchor="middle" class="lbl">Route 53 + CDN</text>
-            <path class="edge" d="M180 167 H220"/>
-            <rect class="box" x="220" y="144" width="110" height="46"/><text x="275" y="172" text-anchor="middle" class="lbl">ALB</text>
-            <path class="edge" d="M330 167 H676"/>
-          </g>
-
-          <g class="hub-group">
-            <rect class="hub-box" x="676" y="90" width="150" height="140"/>
-            <text x="751" y="155" text-anchor="middle" class="lbl" font-weight="700">EKS</text>
-            <text x="751" y="174" text-anchor="middle" class="lblSub">multi-AZ node groups</text>
-            <path class="edge" d="M826 160 H866"/>
-            <rect class="box" x="866" y="137" width="105" height="46"/><text x="918" y="160" text-anchor="middle" class="lbl">RDS /</text><text x="918" y="175" text-anchor="middle" class="lbl">DynamoDB</text>
-          </g>
-
-          <g class="lane-group" data-lane="operate">
-            <text x="0" y="236" class="lane-label">STAY OPERABLE</text>
-            <path class="edge" d="M751 230 V273 H150"/>
-            <rect class="box" x="150" y="250" width="200" height="46"/><text x="250" y="277" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
-            <path class="edge" d="M350 273 H400"/>
-            <rect class="box" x="400" y="250" width="150" height="46"/><text x="475" y="277" text-anchor="middle" class="lbl">Alerting</text>
-          </g>
-        </svg>
-      </div>
-      <p class="arch-caption">Hover a lane to trace it. Reference pattern, adapted per engagement — not every build needs every box, and this isn't tied to a specific client.</p>
-    </div>
-  </section>
-
-  <hr class="rule" />
-
-  <section>
+  <section id="how-it-works">
     <div class="wrapper">
-      <p class="kicker">Ways to work together</p>
-      <h2>Engagement models.</h2>
-      <div class="model-list">
-        <div class="model-row reveal"><span class="model-name">Assessment</span><p>A Well-Architected-style review of what you have now — what's risky, wasteful, or fragile, prioritised.</p></div>
-        <div class="model-row reveal"><span class="model-name">Implementation</span><p>Design and build it — from an empty account to a production-ready platform.</p></div>
-        <div class="model-row reveal"><span class="model-name">Managed Operations</span><p>Once it's live, I keep it running: monitoring, incident response, ongoing iteration.</p></div>
-        <div class="model-row reveal"><span class="model-name">Enablement</span><p>Get your own team comfortable operating what's been built — you're not locked into needing me forever.</p></div>
+      <div class="section-head">
+        <p class="kicker">Ways to work together</p>
+        <h2>Engagement models.</h2>
+      </div>
+      <div class="icon-grid cols-4">
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>Assessment</h3>
+          <p>A prioritised review of what's risky, wasteful, or fragile right now.</p>
+        </div>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <h3>Implementation</h3>
+          <p>Design and build it — empty account to production-ready.</p>
+        </div>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+          <h3>Managed Operations</h3>
+          <p>Once it's live, I keep it running: monitoring, incidents, iteration.</p>
+        </div>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Enablement</h3>
+          <p>Your team takes over — you're not locked into needing me forever.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <hr class="rule" />
+  <section>
+    <div class="wrapper">
+      <div class="section-head">
+        <p class="kicker">Why not an agency</p>
+        <h2>You hire the person doing the work.</h2>
+        <p class="lede">No account manager, no bench of juniors learning on your bill, no multi-week procurement process.</p>
+      </div>
+      <div class="icon-grid cols-4">
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></div>
+          <h3>Direct access</h3>
+          <p>You talk to the person writing the Terraform, not a relay.</p>
+        </div>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div>
+          <h3>Transparent pricing</h3>
+          <p>Quoted upfront — proven on the <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">live audit service</a>.</p>
+        </div>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H12v16H5.5A1.5 1.5 0 0 1 4 18.5Z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H12v16h6.5a1.5 1.5 0 0 0 1.5-1.5Z"/></svg></div>
+          <h3>Documented approach</h3>
+          <p>Written down, not tribal knowledge you take on faith.</p>
+        </div>
+        <div class="icard reveal">
+          <div class="icard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></div>
+          <h3>Fast start</h3>
+          <p>A scoping call, then a start date — no procurement maze.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section>
     <div class="wrapper">
-      <p class="kicker">Approach</p>
-      <h2>How I'd approach common engagements.</h2>
-      <p class="lede">Two are pattern descriptions — how I'd approach that kind of work. One is real and live right now.</p>
-      <div class="scenario-list">
-        <div class="scenario reveal">
-          <p class="scenario-tag">Approach pattern</p>
+      <div class="section-head">
+        <p class="kicker">Approach</p>
+        <h2>How I'd approach common engagements.</h2>
+        <p class="lede">Two are pattern descriptions. One is real and live right now.</p>
+      </div>
+      <div class="scenario-grid">
+        <div class="icard reveal">
+          <span class="icard-tag">Approach pattern</span>
           <h3>Landing zone from zero</h3>
-          <p>One unstructured AWS account, no real boundaries. Approach: a multi-account foundation — network segmentation, centralized logging and IAM — so every new workload starts on solid ground instead of firefighting later.</p>
+          <p>One unstructured AWS account. A multi-account foundation — segmentation, centralized logging and IAM — so every new workload starts on solid ground.</p>
         </div>
-        <div class="scenario reveal">
-          <p class="scenario-tag">Approach pattern</p>
+        <div class="icard reveal">
+          <span class="icard-tag">Approach pattern</span>
           <h3>Monolith to containers, no downtime</h3>
-          <p>An app running on a couple of hand-managed EC2 instances. Approach: containerize incrementally, stand up EKS alongside the existing setup, cut traffic over gradually, decommission the old instances once the new path is stable.</p>
+          <p>Containerize incrementally, stand up EKS alongside the existing setup, cut traffic over gradually.</p>
         </div>
-        <div class="scenario real reveal">
-          <p class="scenario-tag">Live service, not hypothetical</p>
+        <div class="icard featured reveal">
+          <span class="icard-tag">Live, not hypothetical</span>
           <h3>Know what you're spending, then fix it</h3>
-          <p>A flat-fee, read-only AWS cost audit — 12 resource analysers, a prioritised savings roadmap, optional hands-on remediation. This one isn't a pattern description, it's running right now.</p>
-          <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See the audit service →</a>
+          <p>A flat-fee, read-only AWS cost audit — a prioritised savings roadmap, optional hands-on remediation. <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See the audit service →</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <section>
-    <div class="wrapper">
-      <p class="kicker">Why not an agency</p>
-      <h2>You hire the person doing the work.</h2>
-      <p class="lede">No account manager, no bench of juniors learning on your bill, no multi-week procurement process.</p>
-      <div class="model-list">
-        <div class="model-row reveal"><span class="model-name">Direct access</span><p>You talk to the person writing the Terraform — not a project manager relaying your questions to someone else.</p></div>
-        <div class="model-row reveal"><span class="model-name">Transparent pricing</span><p>Quoted upfront before work starts. See it in practice on the <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">live cost-audit service</a> — flat fee, published, no surprises.</p></div>
-        <div class="model-row reveal"><span class="model-name">Documented approach</span><p>The methodology is written down, not tribal knowledge — you're not taking anything on faith.</p></div>
-        <div class="model-row reveal"><span class="model-name">Fast start</span><p>No multi-week sales cycle. A scoping call, then a start date.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule" />
-
-  <section>
-    <div class="wrapper">
-      <p class="kicker">Certifications</p>
-      <h2>What's actually verified.</h2>
-      <div class="cert-list">
-        <div class="cert-row reveal">
-          <div><div class="cert-name">AWS Certified Solutions Architect – Professional</div><div class="cert-meta">Verified · expires Dec 2026 · Amazon Web Services Training and Certification</div></div>
-          <a href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
-        </div>
-        <div class="cert-row reveal">
-          <div><div class="cert-name">Google Cloud</div><div class="cert-meta">Hands-on experience — Skills Boost badges, not a formal certification</div></div>
-          <a href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
-        </div>
-        <div class="cert-row reveal">
-          <div><div class="cert-name">Microsoft Azure</div><div class="cert-meta">Exam 533: Implementing Azure Infrastructure Solutions · since 2017</div></div>
-          <a href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule" />
-
-  <section>
-    <div class="wrapper">
+  <section id="contact">
+    <div class="wrapper" style="text-align:center;">
       <p class="kicker">Get in touch</p>
       <h2>Let's talk about what you're building.</h2>
-      <div class="contact-block">
-        <a href="mailto:soodrajesh87@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          soodrajesh87@gmail.com
-        </a>
-        <a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
+      <p class="lede" style="margin:0 auto 2rem;">AWS Certified Solutions Architect – Professional, verified on <a href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener" style="color:var(--accent);">Credly</a>. Hands-on GCP and Azure.</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">soodrajesh87@gmail.com</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </section>
 
-  <footer>
+  <footer class="band">
     <div class="wrapper">
       <p class="footer-copy">© 2026 Rajesh Sood · <a href="/portfolio/">Full portfolio &amp; CV →</a></p>
     </div>
