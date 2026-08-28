@@ -166,37 +166,6 @@
     .scenario p { color: var(--ink-soft); font-size: .96rem; line-height: 1.65; max-width: 62ch; }
     .scenario a { display: inline-block; margin-top: .6rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31,58,92,.35); font-size: .93rem; }
 
-    /* ── Code gallery — real excerpts from real repos ── */
-    .code-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
-    @media (max-width: 860px) { .code-gallery { grid-template-columns: 1fr; } }
-    .code-card {
-      background: #11151c; border-radius: 4px; overflow: hidden;
-      box-shadow: 0 1px 2px rgba(20,22,27,.06), 0 8px 24px -12px rgba(20,22,27,.18);
-      transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
-    }
-    .code-card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(20,22,27,.08), 0 16px 32px -12px rgba(20,22,27,.28); }
-    .code-card-head { display: flex; align-items: center; gap: .5rem; padding: .7rem .9rem; background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.08); }
-    .code-dot { width: 8px; height: 8px; border-radius: 50%; background: #3a4048; }
-    .code-file { font-family: var(--mono); font-size: .74rem; color: #9aa1ab; }
-    .code-body { font-family: var(--mono); font-size: .76rem; line-height: 1.65; color: #e4e6ea; padding: 1rem .95rem; overflow-x: auto; white-space: pre; }
-    .tok-comment { color: #6b7280; }
-    .tok-key { color: #7fb0d9; }
-    .tok-string { color: #d4a76a; }
-    .code-card-link { display: block; font-family: var(--mono); font-size: .74rem; color: #9aa1ab; padding: .7rem .95rem .85rem; border-top: 1px solid rgba(255,255,255,.08); text-decoration: none; transition: color .2s; }
-    .code-card-link:hover { color: #f0f2f4; }
-
-    /* ── Projects ── */
-    .project-list { margin-top: 2.75rem; display: grid; gap: 0; }
-    .project-row { display: block; padding: 1.6rem 0; border-top: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding-left .25s ease, border-color .25s ease; }
-    .project-list .project-row:last-child { border-bottom: 1px solid var(--line); }
-    .project-row:hover { padding-left: .6rem; border-color: var(--accent); }
-    .project-row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .45rem; }
-    .project-row h3 { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; transition: color .2s ease; }
-    .project-row:hover h3 { color: var(--accent); }
-    .project-row-arrow { color: var(--muted); font-size: 1.05rem; flex-shrink: 0; transition: transform .25s cubic-bezier(.2,.8,.2,1), color .2s ease; }
-    .project-row:hover .project-row-arrow { color: var(--accent); transform: translateX(4px); }
-    .project-row p { color: var(--ink-soft); font-size: .94rem; line-height: 1.6; max-width: 68ch; }
-    .project-row .stack { font-family: var(--mono); color: var(--muted); font-size: .8rem; margin-top: .5rem; }
 
     /* ── Certifications ── */
     .cert-list { margin-top: 2.75rem; display: grid; gap: 0; }
@@ -225,23 +194,23 @@
     <header>
       <a class="logo" href="/">Rajesh Sood</a>
       <div class="header-links">
-        <a href="/portfolio/">Portfolio</a>
-        <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">Cost Audit Service</a>
         <a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:soodrajesh87@gmail.com">Contact</a>
       </div>
     </header>
 
     <section class="hero tight">
       <p class="kicker hero-in">AWS Certified Solutions Architect — Professional</p>
-      <h1 class="hero-in">Cloud infrastructure, built by <em>one engineer</em> who's actually run it in production.</h1>
+      <h1 class="hero-in">Cloud infrastructure that works — designed, built, and kept running.</h1>
       <p class="lede hero-in">
         Networking and landing zones, compute and containers, CI/CD, observability, security, and cost control —
-        design through operation, mostly on AWS, with hands-on GCP and Azure experience for teams that aren't.
-        Every service below links to real, running code, not a slide.
+        end to end, mostly on AWS, with hands-on GCP and Azure for teams that aren't. You work directly with the
+        person doing the work — not an account manager, not a bench of juniors.
       </p>
       <div class="cta-row hero-in">
-        <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">Email me</a>
-        <a class="btn btn-ghost" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View AWS certification</a>
+        <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">Get in touch</a>
+        <a class="btn btn-ghost" href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See a live service in action →</a>
       </div>
       <p class="hero-meta hero-in"><span>Dublin, Ireland · GMT</span><span>·</span><span>Remote engagements worldwide</span></p>
     </section>
@@ -253,7 +222,7 @@
     <div class="wrapper">
       <div class="creds">
         <div class="cred reveal"><div class="cred-num">Pro</div><div class="cred-label">AWS Solutions Architect, verified on Credly, expires Dec 2026</div></div>
-        <div class="cred reveal"><div class="cred-num">7+</div><div class="cred-label">Public repositories of real infrastructure code, linked below</div></div>
+        <div class="cred reveal"><div class="cred-num">Fixed</div><div class="cred-label">Every engagement quoted upfront — no open-ended hourly surprises</div></div>
         <div class="cred reveal"><div class="cred-num">3</div><div class="cred-label">Clouds worked in hands-on — AWS-deep, GCP and Azure capable</div></div>
         <div class="cred reveal"><div class="cred-num">1</div><div class="cred-label">Point of contact, start to finish — no handoffs between teams</div></div>
       </div>
@@ -275,22 +244,22 @@
         <div class="service-row reveal">
           <span class="service-index">02</span>
           <h3>Compute &amp; Containers</h3>
-          <p>EC2, EKS/Kubernetes, ECS/Fargate, and Lambda, sized for the actual workload. See <a href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">GitOps-EKS-ArgoCD-Flask-Deployment</a>.</p>
+          <p>EC2, EKS/Kubernetes, ECS/Fargate, and Lambda — sized for the actual workload, not a guess.</p>
         </div>
         <div class="service-row reveal">
           <span class="service-index">03</span>
           <h3>CI/CD &amp; Infrastructure as Code</h3>
-          <p>Terraform, GitOps via ArgoCD, Jenkins, GitHub Actions — the pipeline that ships a change safely. See <a href="https://github.com/soodrajesh/DevSecOps-Platform-Jenkins-SonarQube" target="_blank" rel="noopener">DevSecOps-Platform-Jenkins-SonarQube</a>.</p>
+          <p>Terraform, GitOps via ArgoCD, Jenkins, GitHub Actions — the pipeline that ships a change safely instead of a hand-run script at midnight.</p>
         </div>
         <div class="service-row reveal">
           <span class="service-index">04</span>
           <h3>Observability &amp; Monitoring</h3>
-          <p>Prometheus, Grafana, CloudWatch, and alerting scoped to page the person who can fix it. See <a href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">Kubernetes-Prometheus-Grafana-Monitoring</a>.</p>
+          <p>Prometheus, Grafana, CloudWatch, and alerting scoped to page the person who can actually fix it — not everyone.</p>
         </div>
         <div class="service-row reveal">
           <span class="service-index">05</span>
           <h3>Security &amp; DevSecOps</h3>
-          <p>Least-privilege IAM, Trivy/SonarQube scanning gates, hardening baselines built in from the start. See <a href="https://github.com/soodrajesh/minikube-gitops-platform" target="_blank" rel="noopener">minikube-gitops-platform</a>.</p>
+          <p>Least-privilege IAM, Trivy/SonarQube scanning gates, hardening baselines built in from the start — not bolted on after an audit.</p>
         </div>
         <div class="service-row reveal">
           <span class="service-index">06</span>
@@ -300,7 +269,7 @@
         <div class="service-row reveal">
           <span class="service-index">07</span>
           <h3>AI/ML &amp; LLM Infrastructure</h3>
-          <p>SageMaker pipelines, Bedrock, retrieval-augmented pipelines for internal tools. See <a href="https://github.com/soodrajesh/SageMaker-ML-Pipeline-Terraform-Lambda" target="_blank" rel="noopener">SageMaker-ML-Pipeline-Terraform-Lambda</a> and <a href="https://github.com/soodrajesh/infra-runbook-rag" target="_blank" rel="noopener">infra-runbook-rag</a>.</p>
+          <p>SageMaker pipelines, Bedrock, and retrieval-augmented pipelines for internal tools that answer real operational questions.</p>
         </div>
         <div class="service-row reveal">
           <span class="service-index">08</span>
@@ -426,91 +395,14 @@
 
   <section>
     <div class="wrapper">
-      <p class="kicker">Real projects</p>
-      <h2>Not slideware — running code.</h2>
-      <p class="lede">Three excerpts, verbatim, from three of the repos below.</p>
-
-      <div class="code-gallery">
-        <div class="code-card reveal">
-          <div class="code-card-head"><span class="code-dot"></span><span class="code-file">eks-cluster.tf</span></div>
-          <pre class="code-body"><span class="tok-comment"># KMS-encrypted EKS cluster, logs retained 30d</span>
-<span class="tok-key">resource</span> <span class="tok-string">"aws_kms_key"</span> <span class="tok-string">"eks"</span> {
-  enable_key_rotation = <span class="tok-key">true</span>
-}
-
-<span class="tok-key">resource</span> <span class="tok-string">"aws_eks_cluster"</span> <span class="tok-string">"this"</span> {
-  encryption_config {
-    provider { key_arn = aws_kms_key.eks.arn }
-  }
-}</pre>
-          <a class="code-card-link" href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">GitOps-EKS-ArgoCD-Flask-Deployment ↗</a>
-        </div>
-
-        <div class="code-card reveal">
-          <div class="code-card-head"><span class="code-dot"></span><span class="code-file">networkpolicy.yaml</span></div>
-          <pre class="code-body"><span class="tok-key">apiVersion:</span> networking.k8s.io/v1
-<span class="tok-key">kind:</span> NetworkPolicy
-<span class="tok-key">metadata:</span>
-  <span class="tok-key">name:</span> <span class="tok-string">default-deny-ingress</span>
-<span class="tok-key">spec:</span>
-  <span class="tok-key">podSelector:</span> {}
-  <span class="tok-key">policyTypes:</span>
-    - Ingress
-<span class="tok-comment"># deny by default, allow-list from here</span></pre>
-          <a class="code-card-link" href="https://github.com/soodrajesh/minikube-gitops-platform" target="_blank" rel="noopener">minikube-gitops-platform ↗</a>
-        </div>
-
-        <div class="code-card reveal">
-          <div class="code-card-head"><span class="code-dot"></span><span class="code-file">servicemonitor.yaml</span></div>
-          <pre class="code-body"><span class="tok-key">apiVersion:</span> monitoring.coreos.com/v1
-<span class="tok-key">kind:</span> ServiceMonitor
-<span class="tok-key">metadata:</span>
-  <span class="tok-key">name:</span> <span class="tok-string">monitoring-stack-prometheus</span>
-<span class="tok-key">spec:</span>
-  <span class="tok-key">endpoints:</span>
-    - <span class="tok-key">port:</span> http
-      <span class="tok-key">interval:</span> <span class="tok-string">30s</span>
-      <span class="tok-key">path:</span> <span class="tok-string">/metrics</span></pre>
-          <a class="code-card-link" href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">Kubernetes-Prometheus-Grafana-Monitoring ↗</a>
-        </div>
-      </div>
-
-      <div class="project-list">
-        <a class="project-row reveal" href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>GitOps EKS ArgoCD Flask Deployment</h3><span class="project-row-arrow">↗</span></div>
-          <p>Terraform-provisioned EKS + ECR, ArgoCD reconciling a small Flask app's manifests.</p>
-          <p class="stack">Terraform · EKS · ArgoCD</p>
-        </a>
-        <a class="project-row reveal" href="https://github.com/soodrajesh/SageMaker-ML-Pipeline-Terraform-Lambda" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>SageMaker ML Pipeline (Terraform + Lambda)</h3><span class="project-row-arrow">↗</span></div>
-          <p>Lambda-orchestrated SageMaker training/inference pipeline, provisioned entirely via Terraform.</p>
-          <p class="stack">Terraform · SageMaker · Lambda</p>
-        </a>
-        <a class="project-row reveal" href="https://github.com/soodrajesh/DevSecOps-Platform-Jenkins-SonarQube" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>DevSecOps Platform — Jenkins + SonarQube</h3><span class="project-row-arrow">↗</span></div>
-          <p>Self-hosted Jenkins, SonarQube, and shift-left security scanners on a single EC2 host.</p>
-          <p class="stack">Jenkins · SonarQube · DevSecOps</p>
-        </a>
-        <a class="project-row reveal" href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>Kubernetes Prometheus Grafana Monitoring</h3><span class="project-row-arrow">↗</span></div>
-          <p>Helm-based Prometheus/Grafana/Alertmanager monitoring stack for Kubernetes.</p>
-          <p class="stack">Kubernetes · Prometheus · Grafana</p>
-        </a>
-        <a class="project-row reveal" href="https://github.com/soodrajesh/minikube-gitops-platform" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>Minikube GitOps Platform</h3><span class="project-row-arrow">↗</span></div>
-          <p>Lean GitOps platform: ArgoCD + kube-prometheus-stack + a sample app, app-of-apps pattern, non-root/NetworkPolicy/Trivy security baseline.</p>
-          <p class="stack">ArgoCD · GitOps · Trivy</p>
-        </a>
-        <a class="project-row reveal" href="https://github.com/soodrajesh/infra-runbook-rag" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>Infra Runbook RAG</h3><span class="project-row-arrow">↗</span></div>
-          <p>CLI that answers on-call questions over an infra repo's markdown docs — local embedding retrieval, OpenAI-generated, cited answers.</p>
-          <p class="stack">Python · RAG · SRE</p>
-        </a>
-        <a class="project-row reveal" href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">
-          <div class="project-row-head"><h3>AWS Cost Optimization CLI</h3><span class="project-row-arrow">↗</span></div>
-          <p>A Python CLI, not a Terraform demo: 12 resource analysers, prices findings against the live AWS Price List API. 54 tests, all run in CI. Now the engine behind a paid audit service — <a href="https://github.com/soodrajesh/aws-cost-audit-overview" target="_blank" rel="noopener" onclick="event.stopPropagation()">architecture &amp; IAM policy</a>.</p>
-          <p class="stack">Python · FinOps · CI</p>
-        </a>
+      <p class="kicker">Why not an agency</p>
+      <h2>You hire the person doing the work.</h2>
+      <p class="lede">No account manager, no bench of juniors learning on your bill, no multi-week procurement process.</p>
+      <div class="model-list">
+        <div class="model-row reveal"><span class="model-name">Direct access</span><p>You talk to the person writing the Terraform — not a project manager relaying your questions to someone else.</p></div>
+        <div class="model-row reveal"><span class="model-name">Transparent pricing</span><p>Quoted upfront before work starts. See it in practice on the <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">live cost-audit service</a> — flat fee, published, no surprises.</p></div>
+        <div class="model-row reveal"><span class="model-name">Documented approach</span><p>The methodology is written down, not tribal knowledge — you're not taking anything on faith.</p></div>
+        <div class="model-row reveal"><span class="model-name">Fast start</span><p>No multi-week sales cycle. A scoping call, then a start date.</p></div>
       </div>
     </div>
   </section>
@@ -553,17 +445,13 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           LinkedIn
         </a>
-        <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          GitHub
-        </a>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="wrapper">
-      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a> · <a href="/portfolio/">Full portfolio →</a></p>
+      <p class="footer-copy">© 2026 Rajesh Sood · <a href="/portfolio/">Full portfolio &amp; CV →</a></p>
     </div>
   </footer>
 
