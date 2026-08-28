@@ -101,15 +101,25 @@
     h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(1.9rem, 3.2vw, 2.4rem); letter-spacing: -.01em; line-height: 1.2; max-width: 20ch; margin-bottom: 1.1rem; }
     .lede { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); max-width: 46ch; }
 
-    /* ── Hero ── */
+    /* ── Hero — staggered entrance on load, not scroll-triggered (it's
+       already in view on arrival). ── */
     .hero { padding: 2rem 0 4.5rem; }
+    @keyframes settleIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-in { opacity: 0; animation: settleIn .7s cubic-bezier(.2,.8,.2,1) forwards; }
+    .hero .kicker.hero-in { animation-delay: .05s; }
+    .hero h1.hero-in { animation-delay: .14s; }
+    .hero .lede.hero-in { animation-delay: .24s; }
+    .cta-row.hero-in { animation-delay: .34s; }
+    .hero-meta.hero-in { animation-delay: .42s; }
+    @media (prefers-reduced-motion: reduce) { .hero-in { opacity: 1; animation: none; } }
     .hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.12; letter-spacing: -.015em; max-width: 17ch; margin-bottom: 1.6rem; }
     .hero h1 em { font-style: italic; color: var(--accent); }
     .hero .lede { font-size: 1.18rem; max-width: 54ch; margin-bottom: 2.25rem; color: var(--ink-soft); }
     .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-    .btn { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; font-size: .98rem; padding: .9rem 1.5rem; border-radius: 2px; text-decoration: none; transition: opacity .15s, border-color .15s, background .15s; }
+    .btn { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; font-size: .98rem; padding: .9rem 1.5rem; border-radius: 2px; text-decoration: none; transition: opacity .2s ease, border-color .2s ease, background .2s ease, transform .25s cubic-bezier(.2,.8,.2,1); }
+    .btn:hover { transform: translateY(-2px); }
     .btn-primary { background: var(--accent); color: #fff; }
-    .btn-primary:hover { opacity: .87; }
+    .btn-primary:hover { opacity: .9; }
     .btn-ghost { color: var(--ink); border: 1px solid var(--line); background: var(--paper-raised); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
     .hero-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; color: var(--muted); font-size: .92rem; }
@@ -117,7 +127,8 @@
     /* ── Credentials strip ── */
     .creds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
     @media (max-width: 760px) { .creds { grid-template-columns: repeat(2, 1fr); } }
-    .cred { padding: 1.9rem 1.6rem; background: var(--paper-raised); }
+    .cred { padding: 1.9rem 1.6rem; background: var(--paper-raised); transition: background .25s ease; }
+    .cred:hover { background: var(--accent-tint); }
     .cred-num { font-family: var(--serif); font-weight: 700; font-size: 1.9rem; color: var(--accent); margin-bottom: .5rem; }
     .cred-label { font-size: .9rem; color: var(--ink-soft); line-height: 1.55; }
 
@@ -155,15 +166,35 @@
     .scenario p { color: var(--ink-soft); font-size: .96rem; line-height: 1.65; max-width: 62ch; }
     .scenario a { display: inline-block; margin-top: .6rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31,58,92,.35); font-size: .93rem; }
 
+    /* ── Code gallery — real excerpts from real repos ── */
+    .code-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    @media (max-width: 860px) { .code-gallery { grid-template-columns: 1fr; } }
+    .code-card {
+      background: #11151c; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 1px 2px rgba(20,22,27,.06), 0 8px 24px -12px rgba(20,22,27,.18);
+      transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+    }
+    .code-card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(20,22,27,.08), 0 16px 32px -12px rgba(20,22,27,.28); }
+    .code-card-head { display: flex; align-items: center; gap: .5rem; padding: .7rem .9rem; background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .code-dot { width: 8px; height: 8px; border-radius: 50%; background: #3a4048; }
+    .code-file { font-family: var(--mono); font-size: .74rem; color: #9aa1ab; }
+    .code-body { font-family: var(--mono); font-size: .76rem; line-height: 1.65; color: #e4e6ea; padding: 1rem .95rem; overflow-x: auto; white-space: pre; }
+    .tok-comment { color: #6b7280; }
+    .tok-key { color: #7fb0d9; }
+    .tok-string { color: #d4a76a; }
+    .code-card-link { display: block; font-family: var(--mono); font-size: .74rem; color: #9aa1ab; padding: .7rem .95rem .85rem; border-top: 1px solid rgba(255,255,255,.08); text-decoration: none; transition: color .2s; }
+    .code-card-link:hover { color: #f0f2f4; }
+
     /* ── Projects ── */
     .project-list { margin-top: 2.75rem; display: grid; gap: 0; }
-    .project-row { display: block; padding: 1.6rem 0; border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
+    .project-row { display: block; padding: 1.6rem 0; border-top: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding-left .25s ease, border-color .25s ease; }
     .project-list .project-row:last-child { border-bottom: 1px solid var(--line); }
+    .project-row:hover { padding-left: .6rem; border-color: var(--accent); }
     .project-row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .45rem; }
-    .project-row h3 { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; transition: color .15s; }
+    .project-row h3 { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; transition: color .2s ease; }
     .project-row:hover h3 { color: var(--accent); }
-    .project-row-arrow { color: var(--muted); font-size: 1.05rem; flex-shrink: 0; transition: transform .15s, color .15s; }
-    .project-row:hover .project-row-arrow { color: var(--accent); transform: translateX(3px); }
+    .project-row-arrow { color: var(--muted); font-size: 1.05rem; flex-shrink: 0; transition: transform .25s cubic-bezier(.2,.8,.2,1), color .2s ease; }
+    .project-row:hover .project-row-arrow { color: var(--accent); transform: translateX(4px); }
     .project-row p { color: var(--ink-soft); font-size: .94rem; line-height: 1.6; max-width: 68ch; }
     .project-row .stack { font-family: var(--mono); color: var(--muted); font-size: .8rem; margin-top: .5rem; }
 
@@ -201,18 +232,18 @@
     </header>
 
     <section class="hero tight">
-      <p class="kicker">AWS Certified Solutions Architect — Professional</p>
-      <h1>Cloud infrastructure, built by <em>one engineer</em> who's actually run it in production.</h1>
-      <p class="lede">
+      <p class="kicker hero-in">AWS Certified Solutions Architect — Professional</p>
+      <h1 class="hero-in">Cloud infrastructure, built by <em>one engineer</em> who's actually run it in production.</h1>
+      <p class="lede hero-in">
         Networking and landing zones, compute and containers, CI/CD, observability, security, and cost control —
         design through operation, mostly on AWS, with hands-on GCP and Azure experience for teams that aren't.
         Every service below links to real, running code, not a slide.
       </p>
-      <div class="cta-row">
+      <div class="cta-row hero-in">
         <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">Email me</a>
         <a class="btn btn-ghost" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View AWS certification</a>
       </div>
-      <p class="hero-meta"><span>Dublin, Ireland · GMT</span><span>·</span><span>Remote engagements worldwide</span></p>
+      <p class="hero-meta hero-in"><span>Dublin, Ireland · GMT</span><span>·</span><span>Remote engagements worldwide</span></p>
     </section>
   </div>
 
@@ -397,6 +428,53 @@
     <div class="wrapper">
       <p class="kicker">Real projects</p>
       <h2>Not slideware — running code.</h2>
+      <p class="lede">Three excerpts, verbatim, from three of the repos below.</p>
+
+      <div class="code-gallery">
+        <div class="code-card reveal">
+          <div class="code-card-head"><span class="code-dot"></span><span class="code-file">eks-cluster.tf</span></div>
+          <pre class="code-body"><span class="tok-comment"># KMS-encrypted EKS cluster, logs retained 30d</span>
+<span class="tok-key">resource</span> <span class="tok-string">"aws_kms_key"</span> <span class="tok-string">"eks"</span> {
+  enable_key_rotation = <span class="tok-key">true</span>
+}
+
+<span class="tok-key">resource</span> <span class="tok-string">"aws_eks_cluster"</span> <span class="tok-string">"this"</span> {
+  encryption_config {
+    provider { key_arn = aws_kms_key.eks.arn }
+  }
+}</pre>
+          <a class="code-card-link" href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">GitOps-EKS-ArgoCD-Flask-Deployment ↗</a>
+        </div>
+
+        <div class="code-card reveal">
+          <div class="code-card-head"><span class="code-dot"></span><span class="code-file">networkpolicy.yaml</span></div>
+          <pre class="code-body"><span class="tok-key">apiVersion:</span> networking.k8s.io/v1
+<span class="tok-key">kind:</span> NetworkPolicy
+<span class="tok-key">metadata:</span>
+  <span class="tok-key">name:</span> <span class="tok-string">default-deny-ingress</span>
+<span class="tok-key">spec:</span>
+  <span class="tok-key">podSelector:</span> {}
+  <span class="tok-key">policyTypes:</span>
+    - Ingress
+<span class="tok-comment"># deny by default, allow-list from here</span></pre>
+          <a class="code-card-link" href="https://github.com/soodrajesh/minikube-gitops-platform" target="_blank" rel="noopener">minikube-gitops-platform ↗</a>
+        </div>
+
+        <div class="code-card reveal">
+          <div class="code-card-head"><span class="code-dot"></span><span class="code-file">servicemonitor.yaml</span></div>
+          <pre class="code-body"><span class="tok-key">apiVersion:</span> monitoring.coreos.com/v1
+<span class="tok-key">kind:</span> ServiceMonitor
+<span class="tok-key">metadata:</span>
+  <span class="tok-key">name:</span> <span class="tok-string">monitoring-stack-prometheus</span>
+<span class="tok-key">spec:</span>
+  <span class="tok-key">endpoints:</span>
+    - <span class="tok-key">port:</span> http
+      <span class="tok-key">interval:</span> <span class="tok-string">30s</span>
+      <span class="tok-key">path:</span> <span class="tok-string">/metrics</span></pre>
+          <a class="code-card-link" href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">Kubernetes-Prometheus-Grafana-Monitoring ↗</a>
+        </div>
+      </div>
+
       <div class="project-list">
         <a class="project-row reveal" href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">
           <div class="project-row-head"><h3>GitOps EKS ArgoCD Flask Deployment</h3><span class="project-row-arrow">↗</span></div>
