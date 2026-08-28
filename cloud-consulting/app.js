@@ -1,12 +1,33 @@
 // Loaded with `defer`, so the DOM below is fully parsed before this runs.
-// Two deliberate interactive moments — no framework, no CDN:
+// Three deliberate interactive moments — no framework, no CDN:
 // 1) Scroll reveal on repeated list items (a single consistent effect,
 //    not a different UI toy per section).
 // 2) Hover-to-trace on the architecture diagram — hovering a lane
 //    highlights just that lane's path through the system, which is a
 //    real demonstration of the thing being sold (system design), not
 //    decoration for its own sake.
+// 3) Theme toggle — dark/light choice persisted to localStorage; the
+//    saved choice is applied before first paint by theme-init.js, this
+//    only handles the click.
 (function () {
+  // --- Theme toggle ---
+  var themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      var root = document.documentElement;
+      var isLight = root.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        root.removeAttribute('data-theme');
+        localStorage.setItem('rs-theme', 'dark');
+        themeToggle.setAttribute('aria-label', 'Switch to light theme');
+      } else {
+        root.setAttribute('data-theme', 'light');
+        localStorage.setItem('rs-theme', 'light');
+        themeToggle.setAttribute('aria-label', 'Switch to dark theme');
+      }
+    });
+  }
+
   // --- Scroll reveal ---
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {

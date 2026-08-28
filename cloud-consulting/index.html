@@ -55,9 +55,15 @@
   }
   </script>
 
+  <!-- Theme toggle: apply the saved theme before first paint. -->
+  <script src="theme-init.js"></script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Dark is the default look regardless of OS preference — matches the
+       approved design. data-theme="light" (set by theme-init.js from a
+       saved toggle choice) overrides every token below. */
     :root {
       --bg:        #0a0b0d;
       --raised:    #121317;
@@ -68,18 +74,40 @@
       --muted:     #797e88;
       --accent:    #5b8cff;
       --accent-tint: rgba(91,140,255,.13);
+      --accent-border: rgba(91,140,255,.35);
+      --grid-line: rgba(255,255,255,.035);
+      --nav-bg:    rgba(10,11,13,.78);
+      --titlebar-bg: rgba(255,255,255,.03);
+      --line:      #40434c;
       --sans: 'Hanken Grotesk', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
       --mono: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    :root[data-theme="light"] {
+      --bg:        #f6f7f9;
+      --raised:    #ffffff;
+      --raised-2:  #eef0f3;
+      --border:    rgba(10,11,13,.1);
+      --text:      #0f1115;
+      --text-soft: #4b4f58;
+      --muted:     #82868f;
+      --accent:    #3f6fe0;
+      --accent-tint: rgba(63,111,224,.08);
+      --accent-border: rgba(63,111,224,.3);
+      --grid-line: rgba(10,11,13,.045);
+      --nav-bg:    rgba(246,247,249,.82);
+      --titlebar-bg: rgba(10,11,13,.025);
+      --line:      #cdd0d6;
     }
 
     html { scroll-behavior: smooth; background: var(--bg); }
     body {
       background:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
         var(--bg);
       background-size: 48px 48px, 48px 48px, auto;
       color: var(--text); font-family: var(--sans); font-size: 17px; line-height: 1.5; min-height: 100vh;
+      transition: background-color .25s ease, color .25s ease;
     }
     a { color: inherit; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -100,7 +128,8 @@
     /* ── Sticky nav — always-visible CTA, real wayfinding ── */
     .nav {
       position: sticky; top: 0; z-index: 20;
-      background: rgba(10,11,13,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      background: var(--nav-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: background-color .25s ease;
       border-bottom: 1px solid var(--border);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
@@ -110,12 +139,23 @@
     .nav-links a:not(.btn):hover { color: var(--text); }
     @media (max-width: 640px) { .nav-links a:not(.btn):not(.btn-nav-cta) { display: none; } }
 
+    .theme-toggle {
+      display: flex; align-items: center; justify-content: center; width: 2.15rem; height: 2.15rem;
+      border-radius: 50%; border: 1px solid var(--border); background: var(--raised); color: var(--text-soft);
+      cursor: pointer; transition: border-color .2s ease, color .2s ease;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
     section { padding: 5rem 0; }
     section.tight { padding-top: 3.5rem; padding-bottom: 3.5rem; }
 
     .eyebrow-badge {
       display: inline-flex; align-items: center; gap: .5rem; font-family: var(--mono); font-size: .78rem;
-      color: var(--accent); background: var(--accent-tint); border: 1px solid rgba(91,140,255,.3);
+      color: var(--accent); background: var(--accent-tint); border: 1px solid var(--accent-border);
       border-radius: 999px; padding: .4rem .9rem .4rem .7rem; margin-bottom: 1.5rem;
     }
     .eyebrow-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
@@ -144,7 +184,7 @@
     /* ── Hero visual: the architecture diagram, framed like a product
        screenshot — the page's actual visual payload, up top. ── */
     .hero-visual-frame { background: var(--raised); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px -24px rgba(0,0,0,.6); }
-    .frame-titlebar { display: flex; align-items: center; gap: .45rem; padding: .7rem .9rem; background: rgba(255,255,255,.03); border-bottom: 1px solid var(--border); }
+    .frame-titlebar { display: flex; align-items: center; gap: .45rem; padding: .7rem .9rem; background: var(--titlebar-bg); border-bottom: 1px solid var(--border); }
     .frame-dot { width: 9px; height: 9px; border-radius: 50%; }
     .frame-dot.r { background: #ff5f56; } .frame-dot.y { background: #ffbd2e; } .frame-dot.g { background: #27c93f; }
     .frame-label { margin-left: .4rem; font-family: var(--mono); font-size: .7rem; color: var(--muted); }
@@ -161,7 +201,7 @@
       background: var(--raised); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 1.3rem;
       transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
     }
-    .icard:hover { border-color: rgba(91,140,255,.4); background: var(--raised-2); transform: translateY(-3px); }
+    .icard:hover { border-color: var(--accent-border); background: var(--raised-2); transform: translateY(-3px); }
     .icard-icon {
       width: 2.5rem; height: 2.5rem; border-radius: 8px; background: var(--accent-tint); color: var(--accent);
       display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
@@ -169,8 +209,8 @@
     .icard-icon svg { width: 1.35rem; height: 1.35rem; }
     .icard h3 { font-family: var(--sans); font-weight: 700; font-size: 1.02rem; margin-bottom: .5rem; letter-spacing: -.01em; }
     .icard p { color: var(--text-soft); font-size: .89rem; line-height: 1.55; }
-    .icard p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,140,255,.4); }
-    .icard.featured { border-color: rgba(91,140,255,.45); background: linear-gradient(160deg, var(--accent-tint), var(--raised) 60%); }
+    .icard p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
+    .icard.featured { border-color: var(--accent-border); background: linear-gradient(160deg, var(--accent-tint), var(--raised) 60%); }
     .icard .icard-tag { font-family: var(--mono); font-size: .68rem; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; margin-bottom: .6rem; display: block; }
 
     /* ── Architecture diagram lane hover (shared with hero frame) ── */
@@ -179,8 +219,8 @@
     .arch-frame svg .lbl { font-family: var(--sans); font-size: 13px; fill: var(--text); }
     .arch-frame svg .lblSub { font-family: var(--sans); font-size: 10px; fill: var(--muted); }
     .arch-frame svg .lane-label { font-family: var(--mono); font-size: 10px; font-weight: 600; fill: var(--accent); letter-spacing: .04em; }
-    .arch-frame svg .edge { stroke: #40434c; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
-    .arch-frame svg .arrow-head { fill: #40434c; }
+    .arch-frame svg .edge { stroke: var(--line); stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arch-frame svg .arrow-head { fill: var(--line); }
     .arch-frame svg .lane-group.active .arrow-head { fill: var(--accent); }
     .arch-frame svg .lane-group { cursor: pointer; transition: opacity .25s ease; }
     .arch-frame.hovering svg .lane-group:not(.active) { opacity: .3; }
@@ -205,6 +245,10 @@
         <a href="#services">Services</a>
         <a href="#how-it-works">How it works</a>
         <a href="#contact">Contact</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+        </button>
         <a class="btn btn-primary btn-nav-cta" href="mailto:soodrajesh87@gmail.com">Get in touch</a>
       </div>
     </div>
