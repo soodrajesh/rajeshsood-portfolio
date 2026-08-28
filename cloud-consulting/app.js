@@ -1,35 +1,56 @@
 // Loaded with `defer`, so the DOM below is fully parsed before this runs.
-// Two independent, small interactive features — no framework, no CDN:
-// 1) Accordion service cards (click to expand what each capability covers)
-// 2) Category filter chips on the projects grid
+// Two deliberate interactive moments — no framework, no CDN:
+// 1) Scroll reveal on repeated list items (a single consistent effect,
+//    not a different UI toy per section).
+// 2) Hover-to-trace on the architecture diagram — hovering a lane
+//    highlights just that lane's path through the system, which is a
+//    real demonstration of the thing being sold (system design), not
+//    decoration for its own sake.
 (function () {
-  // --- Service card accordion ---
-  document.querySelectorAll('.service-head').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var card = btn.closest('.service-card');
-      var wasOpen = card.classList.contains('open');
-      // Only one open at a time keeps the section scannable rather than
-      // turning into a long scroll once several are expanded.
-      document.querySelectorAll('.service-card.open').forEach(function (c) {
-        c.classList.remove('open');
-      });
-      if (!wasOpen) card.classList.add('open');
-    });
-  });
+  // --- Scroll reveal ---
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    // No IntersectionObserver support: just show everything.
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }
 
-  // --- Project filter chips ---
-  var chips = document.querySelectorAll('.filter-chip');
-  var cards = document.querySelectorAll('#projects-grid .project-card');
-  chips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      chips.forEach(function (c) { c.classList.remove('active'); });
-      chip.classList.add('active');
-      var filter = chip.dataset.filter;
-      cards.forEach(function (card) {
-        var cats = (card.dataset.cat || '').split(' ');
-        var show = filter === 'all' || cats.indexOf(filter) !== -1;
-        card.style.display = show ? '' : 'none';
+  // --- Architecture diagram hover-to-trace ---
+  var archFrame = document.querySelector('.arch-frame');
+  if (archFrame) {
+    var lanes = archFrame.querySelectorAll('.lane-group');
+    lanes.forEach(function (lane) {
+      lane.addEventListener('mouseenter', function () {
+        archFrame.classList.add('hovering');
+        lane.classList.add('active');
+      });
+      lane.addEventListener('mouseleave', function () {
+        archFrame.classList.remove('hovering');
+        lane.classList.remove('active');
+      });
+      // Touch/keyboard: tapping or focusing a lane toggles it, since
+      // there's no hover state to rely on.
+      lane.setAttribute('tabindex', '0');
+      lane.addEventListener('focus', function () {
+        archFrame.classList.add('hovering');
+        lane.classList.add('active');
+      });
+      lane.addEventListener('blur', function () {
+        archFrame.classList.remove('hovering');
+        lane.classList.remove('active');
       });
     });
-  });
+  }
 })();
