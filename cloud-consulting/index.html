@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rajesh Sood — Cloud & DevOps Consulting | AWS · GCP · Azure</title>
+  <meta name="description" content="End-to-end cloud infrastructure: networking, compute, CI/CD, observability, security, and cost optimization. AWS Certified Solutions Architect – Professional, hands-on with GCP and Azure." />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230b0d10%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%3E%3Ctspan%20fill%3D%22%23e0a34e%22%3ER%3C/tspan%3E%3Ctspan%20fill%3D%22%23e8ebee%22%3ES%3C/tspan%3E%3C/text%3E%3C/svg%3E" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rajesh Sood — Cloud & DevOps Consulting" />
+  <meta property="og:description" content="End-to-end cloud infrastructure, mostly AWS: networking, compute, CI/CD, observability, security, cost optimization." />
+  <meta property="og:url" content="https://irajeshsood.com/cloud-consulting/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rajesh Sood — Cloud & DevOps Consulting" />
+  <meta name="twitter:description" content="End-to-end cloud infrastructure, mostly AWS: networking, compute, CI/CD, observability, security, cost optimization." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <link rel="canonical" href="https://irajeshsood.com/cloud-consulting/" />
+
+  <!-- Same GA4 property + unconditional pattern as /portfolio/ (same repo/deployment). -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Rajesh Sood — Cloud & DevOps Consulting",
+    "provider": { "@type": "Person", "name": "Rajesh Sood", "sameAs": ["https://github.com/soodrajesh", "https://www.linkedin.com/in/irajeshsood/", "https://www.credly.com/users/rajeshsood/badges/credly"] },
+    "areaServed": "Global",
+    "url": "https://irajeshsood.com/cloud-consulting/",
+    "description": "End-to-end cloud infrastructure consulting: networking, compute, CI/CD, observability, security, and cost optimization, primarily on AWS."
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0d10;
+      --surface:   #121519;
+      --surface2:  #16191e;
+      --border:    #232830;
+      --accent:    #e0a34e;
+      --accent-dim:rgba(224,163,78,0.12);
+      --text:      #e8ebee;
+      --muted:     #8b95a1;
+      --body:      #c3cad1;
+      --radius:    6px;
+      --sans: 'DM Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      --display: 'Syne', var(--sans);
+      --mono: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .wrapper { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Header (matches /portfolio/) ── */
+    header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 0; }
+    .logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; text-decoration: none; display: inline-flex; gap: 2px; }
+    .logo span { color: var(--accent); }
+    .header-links { display: flex; align-items: center; gap: 22px; font-family: var(--mono); font-size: 0.82rem; }
+    .header-links a { text-decoration: none; color: var(--body); display: inline-flex; align-items: center; gap: 6px; transition: color .2s; }
+    .header-links a:hover { color: var(--accent); }
+    @media (max-width: 560px) { .header-links a span.link-text { display: none; } }
+
+    /* ── Bands ── */
+    .band { padding: 4rem 0; border-top: 1px solid var(--border); }
+    .band:first-of-type { border-top: none; }
+    .band-alt { background: var(--surface2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .section-label { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: .04em; color: var(--muted); margin-bottom: 10px; text-align: center; }
+    h2.section-title { font-family: var(--display); font-weight: 800; font-size: clamp(1.5rem, 3vw, 2rem); text-align: center; margin-bottom: 2.5rem; letter-spacing: -.01em; }
+    p.section-intro { max-width: 42rem; margin: -1.75rem auto 2.5rem; text-align: center; color: var(--muted); font-size: .95rem; line-height: 1.6; }
+
+    /* ── Hero ── */
+    .hero { padding: 3rem 0 3.5rem; }
+    h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.08; letter-spacing: -.02em; max-width: 30rem; margin-bottom: 1.4rem; }
+    h1 .accent { color: var(--accent); }
+    .hero-lede { font-size: 1.05rem; line-height: 1.65; color: var(--body); max-width: 38rem; margin-bottom: 2rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 1.2rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--mono); font-weight: 600; font-size: .85rem; padding: .75rem 1.2rem; border-radius: var(--radius); text-decoration: none; border: 1px solid transparent; transition: transform .15s, border-color .15s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #1a1206; }
+    .btn-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .hero-note { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+
+    /* ── Trust strip ── */
+    .trust-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.25rem; }
+    .trust-item { display: flex; align-items: flex-start; gap: .8rem; max-width: 15rem; }
+    .trust-icon { width: 2.1rem; height: 2.1rem; flex-shrink: 0; border-radius: 6px; background: var(--accent-dim); border: 1px solid rgba(224,163,78,.3); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+    .trust-icon svg { width: 1.15rem; height: 1.15rem; }
+    .trust-item h4 { font-family: var(--display); font-size: .92rem; font-weight: 700; margin-bottom: .2rem; }
+    .trust-item p { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── Service cards (accordion) ── */
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .service-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .service-head { width: 100%; display: flex; align-items: center; gap: .9rem; padding: 1.1rem 1.2rem; background: none; border: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+    .service-icon { width: 2.3rem; height: 2.3rem; flex-shrink: 0; border-radius: 7px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+    .service-icon svg { width: 1.3rem; height: 1.3rem; }
+    .service-head-text { flex: 1; }
+    .service-head-text .num { font-family: var(--mono); font-size: .68rem; color: var(--accent); display: block; margin-bottom: .15rem; }
+    .service-head-text h3 { font-family: var(--display); font-size: 1rem; font-weight: 700; }
+    .service-chevron { flex-shrink: 0; width: 1rem; height: 1rem; color: var(--muted); transition: transform .2s; }
+    .service-card.open .service-chevron { transform: rotate(180deg); }
+    .service-body { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+    .service-card.open .service-body { max-height: 20rem; }
+    .service-body-inner { padding: 0 1.2rem 1.2rem 3.9rem; font-size: .85rem; color: var(--muted); line-height: 1.65; }
+    .service-body-inner a { color: var(--accent); text-decoration: underline; text-underline-offset: .2em; }
+
+    /* ── Reference architecture (self-contained CSS diagram, no CDN) ── */
+    .arch-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: grid; gap: 1.75rem; }
+    .arch-lane { display: grid; gap: .6rem; }
+    .lane-label { font-family: var(--mono); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+    .lane-row { display: flex; align-items: stretch; flex-wrap: wrap; gap: .5rem; overflow-x: auto; }
+    .arch-node {
+      font-family: var(--mono); font-size: .78rem; color: var(--text); background: var(--bg);
+      border: 1px solid var(--border); border-radius: 6px; padding: .55rem .8rem; white-space: nowrap;
+      display: flex; align-items: center; text-align: center; flex-direction: column; justify-content: center; gap: .1rem;
+    }
+    .arch-node small { color: var(--muted); font-size: .68rem; }
+    .arch-node.hub { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); font-weight: 600; }
+    .arch-node.dashed { border-style: dashed; color: var(--muted); }
+    .arch-arrow { color: var(--border); font-size: .95rem; display: flex; align-items: center; flex-shrink: 0; }
+    .arch-arrow.dashed { color: var(--muted); font-size: .8rem; letter-spacing: -1px; }
+    @media (max-width: 640px) { .lane-row { flex-direction: column; align-items: stretch; } .arch-arrow { transform: rotate(90deg); align-self: center; } .arch-arrow.dashed { transform: none; } }
+    .arch-caption { text-align: center; font-size: .8rem; color: var(--muted); margin-top: 1rem; }
+
+    /* ── Engagement models ── */
+    .engagement-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 800px) { .engagement-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .engagement-grid { grid-template-columns: 1fr; } }
+    .engagement-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.1rem; }
+    .engagement-card .step-no { font-family: var(--mono); color: var(--accent); font-size: .75rem; margin-bottom: .6rem; display: block; }
+    .engagement-card h3 { font-family: var(--display); font-size: .95rem; font-weight: 700; margin-bottom: .5rem; }
+    .engagement-card p { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Projects (reuses existing project-card language) ── */
+    .filter-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-bottom: 2rem; }
+    .filter-chip { font-family: var(--mono); font-size: .75rem; padding: .4rem .85rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer; transition: all .15s; }
+    .filter-chip:hover { border-color: var(--accent); color: var(--text); }
+    .filter-chip.active { background: var(--accent-dim); border-color: rgba(224,163,78,.5); color: var(--accent); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 12px; text-decoration: none; color: inherit; transition: border-color .2s, transform .2s; }
+    .project-card:hover { border-color: var(--accent); }
+    .project-num { font-family: var(--mono); font-size: .7rem; font-weight: 600; color: var(--accent); }
+    .project-title { font-family: var(--display); font-weight: 700; font-size: .98rem; line-height: 1.3; }
+    .project-desc { font-size: .84rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px 12px; font-family: var(--mono); font-size: .7rem; color: var(--muted); }
+    .project-tag::before { content: '#'; color: var(--border); }
+    .project-footer { display: flex; align-items: center; gap: .6rem; margin-top: 2px; flex-wrap: wrap; }
+    .project-link { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: .75rem; font-weight: 500; color: var(--muted); transition: color .2s; }
+    .project-card:hover .project-link { color: var(--accent); }
+    .project-link.secondary { color: var(--muted); text-decoration: underline; text-underline-offset: .2em; }
+
+    /* ── Scenarios ── */
+    .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    @media (max-width: 800px) { .scenario-grid { grid-template-columns: 1fr; } }
+    .scenario-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.2rem; display: flex; flex-direction: column; gap: .6rem; }
+    .scenario-card.real { border-color: rgba(224,163,78,.5); background: linear-gradient(180deg, var(--surface), var(--surface)) padding-box, linear-gradient(135deg, var(--accent), var(--border)) border-box; border: 1px solid transparent; }
+    .scenario-badge { font-family: var(--mono); font-size: .65rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+    .scenario-card.real .scenario-badge { color: var(--accent); }
+    .scenario-card h3 { font-family: var(--display); font-size: .98rem; font-weight: 700; }
+    .scenario-card p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .scenario-card a { font-family: var(--mono); font-size: .78rem; color: var(--accent); text-decoration: underline; text-underline-offset: .2em; margin-top: auto; }
+
+    /* ── Certifications ── */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.2rem; }
+    .cert-card.featured { border-color: var(--accent); }
+    .cert-status { font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); margin-bottom: .5rem; display: block; }
+    .cert-card:not(.featured) .cert-status { color: var(--muted); }
+    .cert-name { font-family: var(--display); font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+    .cert-meta { font-size: .8rem; color: var(--muted); line-height: 1.55; margin-bottom: .6rem; }
+    .cert-link { font-family: var(--mono); font-size: .75rem; color: var(--accent); text-decoration: underline; text-underline-offset: .2em; }
+
+    /* ── Contact ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; display: flex; align-items: center; gap: .7rem; text-decoration: none; color: inherit; font-family: var(--mono); font-size: .85rem; transition: border-color .2s; }
+    .contact-card:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-card svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    footer.band { text-align: center; padding: 2.5rem 0; }
+    .footer-copy { font-family: var(--mono); font-size: .78rem; color: var(--muted); }
+    .footer-copy a { text-decoration: none; }
+    .footer-copy a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/portfolio/"><span class="link-text">Portfolio</span></a>
+        <a href="https://github.com/soodrajesh" target="_blank" rel="noopener"><span class="link-text">GitHub</span></a>
+        <a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener"><span class="link-text">LinkedIn</span></a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">AWS Certified Solutions Architect — Professional · Cloud &amp; DevOps</p>
+      <h1>End-to-end cloud, built by one engineer who's <span class="accent">actually run it</span> in production.</h1>
+      <p class="hero-lede">
+        Networking and landing zones, compute and containers, CI/CD, observability, security, and cost control —
+        design through operation, mostly on AWS, with hands-on GCP and Azure experience for teams that aren't.
+        Not a slide deck. Every service below links to real, running code.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:soodrajesh87@gmail.com">Email me →</a>
+        <a class="btn btn-secondary" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">See the AWS cert on Credly →</a>
+      </div>
+      <p class="hero-note">Based in Dublin, Ireland (GMT) — remote engagements worldwide.</p>
+    </section>
+  </div>
+
+  <section class="band band-alt">
+    <div class="wrapper">
+      <p class="section-label">Why hand this to one person instead of a team</p>
+      <div class="trust-strip">
+        <div class="trust-item">
+          <span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <div><h4>AWS Certified — Professional</h4><p>Solutions Architect, verified on Credly, expires Dec 2026.</p></div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6 3 12l5 6M16 6l5 6-5 6"/></svg></span>
+          <div><h4>Real public repos</h4><p>Terraform, Kubernetes, CI/CD, monitoring — not diagrams, actual code.</p></div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></span>
+          <div><h4>Cross-cloud, AWS-deep</h4><p>Most depth is AWS; the same rigor carries over to GCP and Azure work.</p></div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V6a2 2 0 0 1 2-2h8l6 6v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 4v6h6"/></svg></span>
+          <div><h4>One point of contact</h4><p>No handoffs between a design team and a build team — same person, start to finish.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrapper">
+      <p class="section-label">Capability</p>
+      <h2 class="section-title">End-to-end, not just one layer</h2>
+      <p class="section-intro">Click a card for what it actually includes. Everything below is a layer I've built, not just read about.</p>
+      <div class="service-grid" id="service-grid">
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M6 8.2V15.8M18 8.2V15.8M8.2 6H15.8M8.2 18H15.8"/></svg></span>
+            <span class="service-head-text"><span class="num">01</span><h3>Foundations &amp; Networking</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            VPC design, multi-AZ subnetting, multi-account landing zones, and the IAM boundaries that keep one team's mistake from becoming everyone's incident. This is the layer everything else stands on — worth getting right before anything gets deployed onto it.
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></span>
+            <span class="service-head-text"><span class="num">02</span><h3>Compute &amp; Containers</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            EC2, EKS/Kubernetes, ECS/Fargate, and Lambda — sized for the actual workload, not a guess. See <a href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">GitOps-EKS-ArgoCD-Flask-Deployment</a> for a real Terraform-provisioned EKS setup.
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M17 4v3h-3M7 20v-3h3"/></svg></span>
+            <span class="service-head-text"><span class="num">03</span><h3>CI/CD &amp; Infrastructure as Code</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            Terraform, GitOps via ArgoCD, Jenkins, GitHub Actions — the pipeline that ships a change safely instead of a hand-run script at 11pm. <a href="https://github.com/soodrajesh/DevSecOps-Platform-Jenkins-SonarQube" target="_blank" rel="noopener">DevSecOps-Platform-Jenkins-SonarQube</a> is a real self-hosted example.
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 4 5-8 4 5"/><path d="M3 21h18"/></svg></span>
+            <span class="service-head-text"><span class="num">04</span><h3>Observability &amp; Monitoring</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            Prometheus, Grafana, CloudWatch, and alerting scoped to page the person who can actually fix it — not everyone. <a href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">Kubernetes-Prometheus-Grafana-Monitoring</a> is a real Helm-based stack.
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+            <span class="service-head-text"><span class="num">05</span><h3>Security &amp; DevSecOps</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            Least-privilege IAM, Trivy/SonarQube scanning gates, non-root/NetworkPolicy baselines — built in from the start, not bolted on after an audit. <a href="https://github.com/soodrajesh/minikube-gitops-platform" target="_blank" rel="noopener">minikube-gitops-platform</a> ships this baseline by default.
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.2 1.1-2 2.5-2s2.5.8 2.5 2c0 2.5-5 1.8-5 4.3 0 1.2 1.1 2 2.5 2s2.5-.8 2.5-2"/></svg></span>
+            <span class="service-head-text"><span class="num">06</span><h3>Cost Optimization (FinOps)</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            This one's a live, running service, not a bullet point: flat-fee AWS cost audits, read-only, with a prioritised savings roadmap and optional hands-on remediation. <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See the audit service →</a>
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg></span>
+            <span class="service-head-text"><span class="num">07</span><h3>AI/ML &amp; LLM Infrastructure</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            SageMaker training/inference pipelines, Bedrock, and retrieval-augmented pipelines for internal tools. <a href="https://github.com/soodrajesh/SageMaker-ML-Pipeline-Terraform-Lambda" target="_blank" rel="noopener">SageMaker-ML-Pipeline-Terraform-Lambda</a> and <a href="https://github.com/soodrajesh/infra-runbook-rag" target="_blank" rel="noopener">infra-runbook-rag</a> are both real, running examples.
+          </div></div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-head" type="button">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16 12 12 0 0 1 0-16Z"/></svg></span>
+            <span class="service-head-text"><span class="num">08</span><h3>Multi-Cloud (GCP &amp; Azure)</h3></span>
+            <svg class="service-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="service-body"><div class="service-body-inner">
+            Most of the depth here is AWS — but the underlying skills (networking, IaC, CI/CD, observability) transfer directly. Hands-on with Google Cloud (compute, app dev environments) and Azure infrastructure, for teams not fully on AWS or running hybrid.
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt">
+    <div class="wrapper">
+      <p class="section-label">How it fits together</p>
+      <h2 class="section-title">A typical build, end to end</h2>
+      <div class="arch-wrap">
+        <div class="arch-lane">
+          <span class="lane-label">Ship a change</span>
+          <div class="lane-row">
+            <span class="arch-node">git push</span><span class="arch-arrow">→</span>
+            <span class="arch-node">CI: build, test</span><span class="arch-arrow">→</span>
+            <span class="arch-node security">Security gate<br><small>Trivy / SonarQube</small></span><span class="arch-arrow">→</span>
+            <span class="arch-node">ArgoCD sync</span><span class="arch-arrow">→</span>
+            <span class="arch-node hub">EKS</span>
+          </div>
+        </div>
+        <div class="arch-lane">
+          <span class="lane-label">Serve traffic</span>
+          <div class="lane-row">
+            <span class="arch-node">Route 53 + CloudFront</span><span class="arch-arrow">→</span>
+            <span class="arch-node">ALB</span><span class="arch-arrow">→</span>
+            <span class="arch-node hub">EKS<br><small>multi-AZ node groups</small></span><span class="arch-arrow">→</span>
+            <span class="arch-node">RDS / DynamoDB</span>
+          </div>
+        </div>
+        <div class="arch-lane">
+          <span class="lane-label">Stay operable</span>
+          <div class="lane-row">
+            <span class="arch-node hub">EKS</span><span class="arch-arrow">→</span>
+            <span class="arch-node">Prometheus + Grafana</span><span class="arch-arrow">→</span>
+            <span class="arch-node">Alerting<br><small>scoped, not spam</small></span>
+            <span class="arch-arrow dashed">┄┄▶</span>
+            <span class="arch-node dashed">Cost audit loop</span>
+          </div>
+        </div>
+      </div>
+      <p class="arch-caption">Reference pattern, adapted per engagement — not every build needs every box, and this isn't tied to a specific client.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrapper">
+      <p class="section-label">Ways to work together</p>
+      <h2 class="section-title">Engagement models</h2>
+      <div class="engagement-grid">
+        <div class="engagement-card">
+          <span class="step-no">01</span>
+          <h3>Assessment</h3>
+          <p>A Well-Architected-style review of what you have now — what's risky, wasteful, or fragile, prioritised.</p>
+        </div>
+        <div class="engagement-card">
+          <span class="step-no">02</span>
+          <h3>Implementation</h3>
+          <p>Design and build it — from an empty account to a production-ready platform.</p>
+        </div>
+        <div class="engagement-card">
+          <span class="step-no">03</span>
+          <h3>Managed Operations</h3>
+          <p>Once it's live, I keep it running: monitoring, incident response, ongoing iteration.</p>
+        </div>
+        <div class="engagement-card">
+          <span class="step-no">04</span>
+          <h3>Enablement</h3>
+          <p>Get your own team comfortable operating what's been built — you're not locked into needing me forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt">
+    <div class="wrapper">
+      <p class="section-label">Approach</p>
+      <h2 class="section-title">How I'd approach common engagements</h2>
+      <p class="section-intro">Two are pattern descriptions — how I'd approach that kind of work. One is real and live right now.</p>
+      <div class="scenario-grid">
+        <div class="scenario-card">
+          <span class="scenario-badge">Approach pattern</span>
+          <h3>Landing zone from zero</h3>
+          <p>One unstructured AWS account, no real boundaries. Approach: a multi-account foundation — network segmentation, centralized logging and IAM — so every new workload starts on solid ground instead of firefighting later.</p>
+        </div>
+        <div class="scenario-card">
+          <span class="scenario-badge">Approach pattern</span>
+          <h3>Monolith to containers, no downtime</h3>
+          <p>An app running on a couple of hand-managed EC2 instances. Approach: containerize incrementally, stand up EKS alongside the existing setup, cut traffic over gradually, decommission the old instances only once the new path is stable.</p>
+        </div>
+        <div class="scenario-card real">
+          <span class="scenario-badge">Live service, not hypothetical</span>
+          <h3>Know what you're spending, then fix it</h3>
+          <p>A flat-fee, read-only AWS cost audit — 12 resource analysers, a prioritised savings roadmap, optional hands-on remediation. This one isn't a pattern description, it's running right now.</p>
+          <a href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">See the audit service →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrapper">
+      <p class="section-label">Real projects</p>
+      <h2 class="section-title">Not slideware — running code</h2>
+      <div class="filter-row" id="filter-row">
+        <button class="filter-chip active" data-filter="all" type="button">All</button>
+        <button class="filter-chip" data-filter="iac" type="button">Terraform / IaC</button>
+        <button class="filter-chip" data-filter="k8s" type="button">Kubernetes / EKS</button>
+        <button class="filter-chip" data-filter="cicd" type="button">CI/CD</button>
+        <button class="filter-chip" data-filter="observability" type="button">Observability</button>
+        <button class="filter-chip" data-filter="security" type="button">Security</button>
+        <button class="filter-chip" data-filter="ai" type="button">AI/ML</button>
+        <button class="filter-chip" data-filter="finops" type="button">FinOps</button>
+      </div>
+      <div class="projects-grid" id="projects-grid">
+
+        <a class="project-card" data-cat="k8s iac cicd" href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">
+          <div class="project-num">01</div>
+          <div class="project-title">GitOps EKS ArgoCD Flask Deployment</div>
+          <div class="project-desc">Terraform-provisioned EKS + ECR, ArgoCD reconciling a small Flask app's manifests.</div>
+          <div class="project-tags"><span class="project-tag">Terraform</span><span class="project-tag">EKS</span><span class="project-tag">ArgoCD</span></div>
+          <div class="project-footer"><span class="project-link">View on GitHub ↗</span></div>
+        </a>
+
+        <a class="project-card" data-cat="ai iac" href="https://github.com/soodrajesh/SageMaker-ML-Pipeline-Terraform-Lambda" target="_blank" rel="noopener">
+          <div class="project-num">02</div>
+          <div class="project-title">SageMaker ML Pipeline (Terraform + Lambda)</div>
+          <div class="project-desc">Lambda-orchestrated SageMaker training/inference pipeline, provisioned entirely via Terraform.</div>
+          <div class="project-tags"><span class="project-tag">Terraform</span><span class="project-tag">SageMaker</span><span class="project-tag">Lambda</span></div>
+          <div class="project-footer"><span class="project-link">View on GitHub ↗</span></div>
+        </a>
+
+        <a class="project-card" data-cat="cicd security" href="https://github.com/soodrajesh/DevSecOps-Platform-Jenkins-SonarQube" target="_blank" rel="noopener">
+          <div class="project-num">03</div>
+          <div class="project-title">DevSecOps Platform — Jenkins + SonarQube</div>
+          <div class="project-desc">Self-hosted Jenkins, SonarQube, and shift-left security scanners on a single EC2 host.</div>
+          <div class="project-tags"><span class="project-tag">Jenkins</span><span class="project-tag">SonarQube</span><span class="project-tag">DevSecOps</span></div>
+          <div class="project-footer"><span class="project-link">View on GitHub ↗</span></div>
+        </a>
+
+        <a class="project-card" data-cat="observability k8s" href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">
+          <div class="project-num">04</div>
+          <div class="project-title">Kubernetes Prometheus Grafana Monitoring</div>
+          <div class="project-desc">Helm-based Prometheus/Grafana/Alertmanager monitoring stack for Kubernetes.</div>
+          <div class="project-tags"><span class="project-tag">Kubernetes</span><span class="project-tag">Prometheus</span><span class="project-tag">Grafana</span></div>
+          <div class="project-footer"><span class="project-link">View on GitHub ↗</span></div>
+        </a>
+
+        <a class="project-card" data-cat="k8s security cicd" href="https://github.com/soodrajesh/minikube-gitops-platform" target="_blank" rel="noopener">
+          <div class="project-num">05</div>
+          <div class="project-title">Minikube GitOps Platform</div>
+          <div class="project-desc">Lean GitOps platform: ArgoCD + kube-prometheus-stack + a sample app, app-of-apps pattern, non-root/NetworkPolicy/Trivy security baseline.</div>
+          <div class="project-tags"><span class="project-tag">ArgoCD</span><span class="project-tag">GitOps</span><span class="project-tag">Trivy</span></div>
+          <div class="project-footer"><span class="project-link">View on GitHub ↗</span></div>
+        </a>
+
+        <a class="project-card" data-cat="ai" href="https://github.com/soodrajesh/infra-runbook-rag" target="_blank" rel="noopener">
+          <div class="project-num">06</div>
+          <div class="project-title">Infra Runbook RAG</div>
+          <div class="project-desc">CLI that answers on-call questions over an infra repo's markdown docs — local embedding retrieval, OpenAI-generated, cited answers.</div>
+          <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">RAG</span><span class="project-tag">SRE</span></div>
+          <div class="project-footer"><span class="project-link">View on GitHub ↗</span></div>
+        </a>
+
+        <a class="project-card" data-cat="finops" href="https://gogenops.com/aws-cost-saving/" target="_blank" rel="noopener">
+          <div class="project-num">07</div>
+          <div class="project-title">AWS Cost Optimization CLI</div>
+          <div class="project-desc">A Python CLI, not a Terraform demo: 12 resource analysers, prices findings against the live AWS Price List API. 54 tests, all run in CI. Now the engine behind a paid audit service.</div>
+          <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">FinOps</span><span class="project-tag">CI</span></div>
+          <div class="project-footer">
+            <span class="project-link">Get an audit ↗</span>
+            <a class="project-link secondary" href="https://github.com/soodrajesh/aws-cost-audit-overview" target="_blank" rel="noopener" onclick="event.stopPropagation()">architecture &amp; IAM policy</a>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt">
+    <div class="wrapper">
+      <p class="section-label">Certifications</p>
+      <h2 class="section-title">What's actually verified</h2>
+      <div class="cert-grid">
+        <div class="cert-card featured">
+          <span class="cert-status">Verified · expires Dec 2026</span>
+          <div class="cert-name">AWS Certified Solutions Architect – Professional</div>
+          <div class="cert-meta">Amazon Web Services Training and Certification.</div>
+          <a class="cert-link" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-status">Hands-on experience</span>
+          <div class="cert-name">Google Cloud</div>
+          <div class="cert-meta">Google Cloud Skills Boost badges: "Build a Website on Google Cloud," "Set Up an App Dev Environment on Google Cloud." Not a formal certification — real hands-on work.</div>
+          <a class="cert-link" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-status">Since 2017</span>
+          <div class="cert-name">Microsoft Azure</div>
+          <div class="cert-meta">Exam 533: Implementing Microsoft Azure Infrastructure Solutions. Early infrastructure exposure — not presented as a current credential.</div>
+          <a class="cert-link" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrapper">
+      <p class="section-label">Get in touch</p>
+      <h2 class="section-title">Let's talk about what you're building</h2>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:soodrajesh87@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          soodrajesh87@gmail.com
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-card" href="https://github.com/soodrajesh" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="band">
+    <div class="wrapper">
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a> · <a href="/portfolio/">Full portfolio →</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
