@@ -191,10 +191,17 @@
     .frame-dot { width: 9px; height: 9px; border-radius: 50%; }
     .frame-dot.r { background: #ff5f56; } .frame-dot.y { background: #ffbd2e; } .frame-dot.g { background: #27c93f; }
     .frame-label { margin-left: .4rem; font-family: var(--mono); font-size: .7rem; color: var(--muted); }
+    .frame-live { margin-left: auto; display: flex; align-items: center; gap: .4rem; font-family: var(--mono); font-size: .68rem; font-weight: 600; color: #27c93f; text-transform: uppercase; letter-spacing: .04em; }
+    .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #27c93f; animation: pulse-ring 2s ease-out infinite; }
+    @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(39,201,63,.55); } 70% { box-shadow: 0 0 0 6px rgba(39,201,63,0); } 100% { box-shadow: 0 0 0 0 rgba(39,201,63,0); } }
+    @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
     .arch-frame { padding: 1.5rem 1.1rem; }
     .arch-frame svg { display: block; width: 100%; height: auto; }
     .arch-frame svg.arch-diagram { display: none; }
     .arch-frame svg.arch-diagram.active { display: block; }
+    .arch-frame svg .status-pill { fill: rgba(39,201,63,.12); stroke: rgba(39,201,63,.4); stroke-width: 1; }
+    .arch-frame svg .status-dot { fill: #27c93f; }
+    .arch-frame svg .status-text { font-family: var(--mono); font-size: 10px; font-weight: 600; fill: #27c93f; }
     .arch-caption { text-align: center; color: var(--muted); font-size: .82rem; padding: 0 1.1rem 1.25rem; }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
@@ -342,9 +349,10 @@
             <div class="frame-titlebar">
               <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
               <span class="frame-label">reference-architecture.svg</span>
+              <span class="frame-live"><span class="pulse-dot" aria-hidden="true"></span>Live</span>
             </div>
             <div class="arch-frame" id="arch-frame">
-              <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reference architecture, three lanes converging on EKS: shipping a change through CI, a security gate, and ArgoCD; serving traffic through Route 53, CloudFront, and an ALB; and staying operable via Prometheus and Grafana. Hover a lane to trace it.">
+              <svg viewBox="0 0 760 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reference architecture, three lanes converging on EKS: shipping a change through GitHub, CI with a security gate, and ArgoCD sync; serving traffic through Route 53, CloudFront with WAF, and an ALB; EKS running multi-AZ node groups, healthy and backed by RDS; and staying operable via Prometheus, Grafana, and CloudWatch. Hover a lane to trace it.">
                 <defs>
                   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path class="arrow-head" d="M0 0L10 5L0 10z"/>
@@ -353,32 +361,45 @@
 
                 <g class="lane-group" data-lane="ship">
                   <text x="0" y="20" class="lane-label">SHIP A CHANGE</text>
-                  <rect class="box" x="0" y="34" width="150" height="42"/><text x="75" y="60" text-anchor="middle" class="lbl">CI · Security gate</text>
-                  <path class="edge" d="M150 55 H190"/>
-                  <rect class="box" x="190" y="34" width="130" height="42"/><text x="255" y="60" text-anchor="middle" class="lbl">ArgoCD sync</text>
-                  <path class="edge" d="M320 55 H356"/>
+                  <rect class="box" x="0" y="34" width="90" height="42"/><text x="45" y="60" text-anchor="middle" class="lbl">GitHub</text>
+                  <path class="edge" d="M90 55 H120"/>
+                  <rect class="box" x="120" y="34" width="170" height="42"/><text x="205" y="52" text-anchor="middle" class="lbl">CI</text><text x="205" y="67" text-anchor="middle" class="lblSub">Security gate</text>
+                  <path class="edge" d="M290 55 H320"/>
+                  <rect class="box" x="320" y="34" width="130" height="42"/><text x="385" y="60" text-anchor="middle" class="lbl">ArgoCD sync</text>
+                  <path class="edge" d="M450 55 H486"/>
                 </g>
 
                 <g class="lane-group" data-lane="serve">
                   <text x="0" y="128" class="lane-label">SERVE TRAFFIC</text>
-                  <rect class="box" x="0" y="142" width="180" height="42"/><text x="90" y="168" text-anchor="middle" class="lbl">Route 53 + CDN + ALB</text>
-                  <path class="edge" d="M180 163 H356"/>
+                  <rect class="box" x="0" y="142" width="90" height="42"/><text x="45" y="168" text-anchor="middle" class="lbl">Route 53</text>
+                  <path class="edge" d="M90 163 H120"/>
+                  <rect class="box" x="120" y="142" width="150" height="42"/><text x="195" y="160" text-anchor="middle" class="lbl">CloudFront</text><text x="195" y="175" text-anchor="middle" class="lblSub">+ WAF</text>
+                  <path class="edge" d="M270 163 H300"/>
+                  <rect class="box" x="300" y="142" width="90" height="42"/><text x="345" y="168" text-anchor="middle" class="lbl">ALB</text>
+                  <path class="edge" d="M390 163 H486"/>
                 </g>
 
                 <g class="hub-group">
-                  <rect class="hub-box" x="356" y="88" width="150" height="132"/>
-                  <text x="431" y="148" text-anchor="middle" class="lbl" font-weight="700">EKS</text>
-                  <text x="431" y="166" text-anchor="middle" class="lblSub">multi-AZ node groups</text>
+                  <rect class="hub-box" x="486" y="40" width="134" height="195"/>
+                  <text x="553" y="120" text-anchor="middle" class="lbl" font-weight="700">EKS</text>
+                  <text x="553" y="138" text-anchor="middle" class="lblSub">multi-AZ node groups</text>
+                  <rect class="status-pill" x="505" y="157" width="100" height="24" rx="12"/>
+                  <circle class="status-dot" cx="520" cy="169" r="3"/>
+                  <text x="530" y="173" class="status-text">3/3 healthy</text>
+                  <path class="edge" d="M620 130 H650"/>
+                  <rect class="box" x="650" y="100" width="90" height="60"/><text x="695" y="126" text-anchor="middle" class="lbl">RDS</text><text x="695" y="141" text-anchor="middle" class="lblSub">Multi-AZ</text>
+                  <path class="edge" d="M553 235 V257 H90 V278"/>
                 </g>
 
                 <g class="lane-group" data-lane="operate">
-                  <text x="0" y="248" class="lane-label">STAY OPERABLE</text>
-                  <path class="edge" d="M431 220 V262 H180"/>
-                  <rect class="box" x="0" y="240" width="180" height="42"/><text x="90" y="266" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
+                  <text x="0" y="264" class="lane-label">STAY OPERABLE</text>
+                  <rect class="box" x="0" y="278" width="180" height="42"/><text x="90" y="304" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
+                  <path class="edge" d="M180 299 H210"/>
+                  <rect class="box" x="210" y="278" width="140" height="42"/><text x="280" y="304" text-anchor="middle" class="lbl">CloudWatch</text>
                 </g>
               </svg>
             </div>
-            <p class="arch-caption">Hover a lane to trace it.</p>
+            <p class="arch-caption">GitOps in, multi-AZ out — the pattern behind every environment I build.</p>
           </div>
         </div>
       </div>
