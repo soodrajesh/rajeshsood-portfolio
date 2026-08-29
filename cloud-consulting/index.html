@@ -200,20 +200,20 @@
        anything. Same icon/card language as the Services section below
        (#services), just denser and without the paragraph copy — this
        is a preview, the full detail lives further down. ── */
-    .offer-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: .85rem; }
+    .offer-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
     .offer-tile {
-      display: block; background: var(--raised); border: 1px solid var(--border); border-radius: 10px;
-      padding: 1.1rem 1rem; text-decoration: none;
+      display: block; background: var(--raised); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.75rem 1.5rem; text-decoration: none;
       transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
     }
     .offer-tile:hover { border-color: var(--accent-border); background: var(--raised-2); transform: translateY(-2px); }
     .offer-tile-icon {
-      width: 2rem; height: 2rem; border-radius: 7px; background: var(--accent-tint); color: var(--accent);
-      display: flex; align-items: center; justify-content: center; margin-bottom: .65rem;
+      width: 3.25rem; height: 3.25rem; border-radius: 10px; background: var(--accent-tint); color: var(--accent);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem;
     }
-    .offer-tile-icon svg { width: 1.05rem; height: 1.05rem; }
-    .offer-tile h3 { font-family: var(--sans); font-weight: 700; font-size: .86rem; letter-spacing: -.005em; line-height: 1.35; color: var(--text); }
-    @media (max-width: 480px) { .offer-tiles { grid-template-columns: 1fr 1fr; } }
+    .offer-tile-icon svg { width: 1.75rem; height: 1.75rem; }
+    .offer-tile h3 { font-family: var(--sans); font-weight: 700; font-size: 1.05rem; letter-spacing: -.008em; line-height: 1.35; color: var(--text); }
+    @media (max-width: 480px) { .offer-tiles { grid-template-columns: 1fr; } }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
     .icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
