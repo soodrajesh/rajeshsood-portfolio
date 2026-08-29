@@ -150,6 +150,9 @@
     :root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
     :root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
+    /* Every nav-anchor target needs this, or the sticky nav covers the
+       top ~70px of whatever section a click/anchor jumps to. */
+    section[id] { scroll-margin-top: 90px; }
     section { padding: 5rem 0; }
     section.tight { padding-top: 3.5rem; padding-bottom: 3.5rem; }
 
@@ -183,7 +186,7 @@
 
     /* ── Hero visual: the architecture diagram, framed like a product
        screenshot — the page's actual visual payload, up top. ── */
-    .hero-visual-frame { background: var(--raised); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px -24px rgba(0,0,0,.6); }
+    .hero-visual-frame { background: var(--raised); border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px -24px rgba(0,0,0,.6); }
     .frame-titlebar { display: flex; align-items: center; gap: .45rem; padding: .7rem .9rem; background: var(--titlebar-bg); border-bottom: 1px solid var(--border); }
     .frame-dot { width: 9px; height: 9px; border-radius: 50%; }
     .frame-dot.r { background: #ff5f56; } .frame-dot.y { background: #ffbd2e; } .frame-dot.g { background: #27c93f; }
