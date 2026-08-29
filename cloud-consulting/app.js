@@ -121,13 +121,7 @@
       diagrams.forEach(function (d) { d.classList.toggle('active', d.dataset.arch === archKey); });
       bigArchFrame.querySelectorAll('.node.selected').forEach(function (n) { n.classList.remove('selected'); });
       if (frameLabel) frameLabel.textContent = frameFiles[archKey] || archKey + '.svg';
-      if (nodeDetail) {
-        nodeDetail.textContent = '';
-        var hint = document.createElement('p');
-        hint.className = 'node-detail-hint';
-        hint.textContent = 'Click any box above for what it actually does.';
-        nodeDetail.appendChild(hint);
-      }
+      if (nodeDetail) nodeDetail.textContent = '';
       var found = tabList.findIndex(function (t) { return t.dataset.arch === archKey; });
       if (found !== -1) rotateIndex = found;
     }
