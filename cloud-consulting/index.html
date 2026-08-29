@@ -193,6 +193,8 @@
     .frame-label { margin-left: .4rem; font-family: var(--mono); font-size: .7rem; color: var(--muted); }
     .arch-frame { padding: 1.5rem 1.1rem; }
     .arch-frame svg { display: block; width: 100%; height: auto; }
+    .arch-frame svg.arch-diagram { display: none; }
+    .arch-frame svg.arch-diagram.active { display: block; }
     .arch-caption { text-align: center; color: var(--muted); font-size: .82rem; padding: 0 1.1rem 1.25rem; }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
@@ -387,32 +389,33 @@
   <section id="architecture">
     <div class="wrapper">
       <div class="section-head">
-        <p class="kicker">Full picture</p>
-        <h2>Every layer, click to inspect.</h2>
-        <p class="lede">Fourteen components across three lanes. Filter a lane, or click any box for what it actually does.</p>
+        <p class="kicker">Reference architectures</p>
+        <h2>Patterns I actually build.</h2>
+        <p class="lede">Five common builds, cycling on their own — click a tab to stop it and dig in, or click any box for what it actually does.</p>
       </div>
 
-      <div class="filter-row" id="lane-filter">
-        <button class="filter-chip active" data-filter-lane="all" type="button">All layers</button>
-        <button class="filter-chip" data-filter-lane="cicd" type="button">Ship a change</button>
-        <button class="filter-chip" data-filter-lane="serve" type="button">Serve traffic</button>
-        <button class="filter-chip" data-filter-lane="observability" type="button">Stay operable</button>
+      <div class="filter-row" id="arch-tabs" role="tablist" aria-label="Reference architectures">
+        <button class="filter-chip active" data-arch="microservices" type="button" role="tab" aria-selected="true">Microservices</button>
+        <button class="filter-chip" data-arch="three-tier" type="button" role="tab" aria-selected="false">Three-tier web app</button>
+        <button class="filter-chip" data-arch="ai-ml" type="button" role="tab" aria-selected="false">AI / ML platform</button>
+        <button class="filter-chip" data-arch="onprem-migration" type="button" role="tab" aria-selected="false">On-prem → cloud migration</button>
+        <button class="filter-chip" data-arch="cloud-to-cloud" type="button" role="tab" aria-selected="false">Cloud-to-cloud migration</button>
       </div>
 
       <div class="hero-visual-frame">
         <div class="frame-titlebar">
           <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
-          <span class="frame-label">full-architecture.svg</span>
+          <span class="frame-label" id="frame-label">microservices.svg</span>
         </div>
         <div class="arch-frame" id="big-arch-frame">
-          <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Full reference architecture: a CI/CD lane (GitHub, CI build and test, security scan, ECR, ArgoCD sync) feeding into a VPC containing multi-AZ NAT gateways and EKS node groups; a traffic lane (Route 53, CloudFront and WAF, ALB) feeding the same VPC, which also connects to a Multi-AZ RDS instance; and an observability lane (CloudWatch, Prometheus and Grafana, Alerting) fed by EKS. Filter by lane above, or click any box for details.">
+          <svg class="arch-diagram active" data-arch="microservices" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Microservices reference architecture: a GitOps CI/CD lane (GitHub, CI build and test, security scan, ECR, ArgoCD sync) feeding into a VPC containing multi-AZ NAT gateways and an EKS cluster running the services; a traffic lane (Route 53, CloudFront and WAF, ALB) feeding the same VPC, which also connects to a Multi-AZ RDS instance; and an observability lane (CloudWatch, Prometheus and Grafana, Alerting) fed by EKS.">
             <defs>
               <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                 <path class="arrow-head" d="M0 0L10 5L0 10z"/>
               </marker>
             </defs>
 
-            <!-- Animated "deploy in progress" indicator, tracing the CI/CD -> EKS route. Purely decorative: aria-hidden. -->
+            <!-- Animated "deploy in progress" indicator, tracing the exact CI/CD -> EKS edge path below. Purely decorative: aria-hidden. -->
             <circle r="4" fill="var(--accent)" aria-hidden="true">
               <animateMotion dur="4.5s" repeatCount="indefinite" path="M55,53 L735,53 L735,290" />
             </circle>
@@ -434,11 +437,11 @@
               <g class="node" tabindex="0" role="button" data-name="ECR" data-detail="Private container registry — images built once, deployed everywhere.">
                 <rect class="box" x="490" y="30" width="110" height="46"/><text x="545" y="58" text-anchor="middle" class="lbl">ECR</text>
               </g>
-              <path class="edge" marker-end="url(#arrow2)" d="M600 53 H630"/>
+              <path class="edge" marker-end="url(#arrow2)" d="M600 53 H665"/>
               <g class="node" tabindex="0" role="button" data-name="ArgoCD Sync" data-detail="GitOps sync — cluster state always matches what's committed to Git, not a manual kubectl apply.">
-                <rect class="box" x="630" y="30" width="140" height="46"/><text x="700" y="58" text-anchor="middle" class="lbl">ArgoCD sync</text>
+                <rect class="box" x="665" y="30" width="140" height="46"/><text x="735" y="58" text-anchor="middle" class="lbl">ArgoCD sync</text>
               </g>
-              <path class="edge" marker-end="url(#arrow2)" d="M700 76 V255"/>
+              <path class="edge" marker-end="url(#arrow2)" d="M735 76 V255"/>
             </g>
 
             <g class="lane-group" data-lane="serve">
@@ -485,6 +488,143 @@
               <g class="node" tabindex="0" role="button" data-name="Alerting" data-detail="Routes alerts to the person who can actually act on them — not an all-hands page for a blip.">
                 <rect class="box" x="170" y="380" width="150" height="46"/><text x="245" y="408" text-anchor="middle" class="lbl">Alerting</text>
               </g>
+            </g>
+          </svg>
+
+          <svg class="arch-diagram" data-arch="three-tier" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three-tier web application: Route 53 and CloudFront with S3 for the presentation tier, an auto-scaled EC2/ECS application tier behind an ALB, and ElastiCache plus Multi-AZ RDS for the data tier.">
+            <defs>
+              <marker id="arrow3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arrow-head" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+            <text x="0" y="36" class="lane-label">PRESENTATION TIER</text>
+            <g class="node" tabindex="0" role="button" data-name="Route 53" data-detail="DNS entry point — routes users to the current active endpoint.">
+              <rect class="box" x="0" y="50" width="110" height="60"/><text x="55" y="85" text-anchor="middle" class="lbl">Route 53</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow3)" d="M110 80 H190"/>
+            <g class="node" tabindex="0" role="button" data-name="CloudFront + S3" data-detail="CDN-cached static frontend — HTML/JS/CSS served from the edge, not the app tier.">
+              <rect class="box" x="190" y="50" width="230" height="60"/><text x="305" y="76" text-anchor="middle" class="lbl">CloudFront</text><text x="305" y="91" text-anchor="middle" class="lblSub">+ S3 (static)</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow3)" d="M420 80 H500"/>
+            <g class="node" tabindex="0" role="button" data-name="ALB" data-detail="Load balances across the application tier's healthy instances.">
+              <rect class="box" x="500" y="50" width="120" height="60"/><text x="560" y="85" text-anchor="middle" class="lbl">ALB</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow3)" d="M560 110 V210"/>
+
+            <text x="420" y="196" class="lane-label">APPLICATION TIER</text>
+            <g class="node" tabindex="0" role="button" data-name="App Tier — Auto Scaling Group" data-detail="Stateless app servers (EC2/ECS) that scale out on load and back in when it drops.">
+              <rect class="hub-box" x="420" y="210" width="280" height="70"/><text x="560" y="244" text-anchor="middle" class="lbl" font-weight="700">App Tier</text><text x="560" y="259" text-anchor="middle" class="lblSub">EC2 / ECS · Auto Scaling</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow3)" d="M560 280 V320 H430 V360"/>
+            <path class="edge" marker-end="url(#arrow3)" d="M560 280 V320 H690 V360"/>
+
+            <text x="330" y="346" class="lane-label">DATA TIER</text>
+            <g class="node" tabindex="0" role="button" data-name="ElastiCache" data-detail="In-memory cache in front of the database — cuts read latency and load on RDS.">
+              <rect class="box" x="330" y="360" width="200" height="60"/><text x="430" y="395" text-anchor="middle" class="lbl">ElastiCache</text>
+            </g>
+            <g class="node" tabindex="0" role="button" data-name="RDS (Multi-AZ)" data-detail="The system of record — synchronous standby in a second AZ, automatic failover.">
+              <rect class="box" x="590" y="360" width="200" height="60"/><text x="690" y="386" text-anchor="middle" class="lbl">RDS</text><text x="690" y="401" text-anchor="middle" class="lblSub">Multi-AZ</text>
+            </g>
+          </svg>
+
+          <svg class="arch-diagram" data-arch="ai-ml" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI/ML platform: an S3 data lake feeds Glue ETL into a SageMaker Feature Store, SageMaker Training, and a Model Registry, deploying to a real-time SageMaker Endpoint monitored by CloudWatch for drift.">
+            <defs>
+              <marker id="arrow4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arrow-head" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+            <text x="0" y="36" class="lane-label">DATA &amp; TRAINING</text>
+            <g class="node" tabindex="0" role="button" data-name="S3 Data Lake" data-detail="Raw and curated data, versioned and lifecycle-managed — the single source of truth for training.">
+              <rect class="box" x="0" y="50" width="140" height="60"/><text x="70" y="76" text-anchor="middle" class="lbl">S3</text><text x="70" y="91" text-anchor="middle" class="lblSub">Data lake</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow4)" d="M140 80 H165"/>
+            <g class="node" tabindex="0" role="button" data-name="Glue ETL" data-detail="Serverless extract-transform-load — turns raw data into training-ready features.">
+              <rect class="box" x="165" y="50" width="140" height="60"/><text x="235" y="76" text-anchor="middle" class="lbl">Glue</text><text x="235" y="91" text-anchor="middle" class="lblSub">ETL</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow4)" d="M305 80 H330"/>
+            <g class="node" tabindex="0" role="button" data-name="SageMaker Feature Store" data-detail="Consistent features shared between training and real-time inference — no train/serve skew.">
+              <rect class="box" x="330" y="50" width="170" height="60"/><text x="415" y="76" text-anchor="middle" class="lbl">SageMaker</text><text x="415" y="91" text-anchor="middle" class="lblSub">Feature Store</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow4)" d="M500 80 H525"/>
+            <g class="node" tabindex="0" role="button" data-name="SageMaker Training" data-detail="Managed training jobs, scaled to the dataset — no idle GPU spend between runs.">
+              <rect class="box" x="525" y="50" width="170" height="60"/><text x="610" y="76" text-anchor="middle" class="lbl">SageMaker</text><text x="610" y="91" text-anchor="middle" class="lblSub">Training</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow4)" d="M695 80 H720"/>
+            <g class="node" tabindex="0" role="button" data-name="Model Registry" data-detail="Versioned, approved models — nothing reaches production without passing through here.">
+              <rect class="hub-box" x="720" y="50" width="170" height="60"/><text x="805" y="76" text-anchor="middle" class="lbl" font-weight="700">Model</text><text x="805" y="91" text-anchor="middle" class="lblSub">Registry</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow4)" d="M805 110 V210"/>
+
+            <text x="720" y="196" class="lane-label">SERVING</text>
+            <g class="node" tabindex="0" role="button" data-name="SageMaker Endpoint" data-detail="Real-time inference, auto-scaled to request volume.">
+              <rect class="box" x="720" y="210" width="170" height="70"/><text x="805" y="241" text-anchor="middle" class="lbl">SageMaker</text><text x="805" y="256" text-anchor="middle" class="lblSub">Endpoint</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow4)" d="M805 280 V330"/>
+            <g class="node" tabindex="0" role="button" data-name="CloudWatch (Model Monitoring)" data-detail="Tracks latency, error rate, and data drift — flags when a model needs retraining.">
+              <rect class="box" x="720" y="330" width="170" height="60"/><text x="805" y="356" text-anchor="middle" class="lbl">CloudWatch</text><text x="805" y="371" text-anchor="middle" class="lblSub">Model monitoring</text>
+            </g>
+          </svg>
+
+          <svg class="arch-diagram" data-arch="onprem-migration" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="On-premises to cloud migration: on-prem application servers and database connect over Direct Connect or VPN to AWS Application Migration Service and AWS Database Migration Service, which cut over to migrated EC2 instances and an RDS database in AWS.">
+            <defs>
+              <marker id="arrow5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arrow-head" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+            <text x="0" y="36" class="lane-label">ON-PREMISES (SOURCE)</text>
+            <g class="node" tabindex="0" role="button" data-name="On-Prem App Servers" data-detail="The current production estate — physical or virtualized, the starting point.">
+              <rect class="box" x="0" y="50" width="210" height="60"/><text x="105" y="76" text-anchor="middle" class="lbl">On-Prem</text><text x="105" y="91" text-anchor="middle" class="lblSub">App servers</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow5)" d="M210 80 H250 V215 H290"/>
+            <g class="node" tabindex="0" role="button" data-name="On-Prem Database" data-detail="Oracle / SQL Server / PostgreSQL running in the datacenter today.">
+              <rect class="box" x="0" y="300" width="210" height="60"/><text x="105" y="326" text-anchor="middle" class="lbl">On-Prem</text><text x="105" y="341" text-anchor="middle" class="lblSub">Database</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow5)" d="M210 330 H250 V215 H290"/>
+
+            <g class="node" tabindex="0" role="button" data-name="Direct Connect / VPN" data-detail="Private, low-latency link between the datacenter and AWS — migration traffic never touches the public internet.">
+              <rect class="hub-box" x="290" y="180" width="200" height="70"/><text x="390" y="211" text-anchor="middle" class="lbl" font-weight="700">Direct Connect</text><text x="390" y="226" text-anchor="middle" class="lblSub">/ VPN</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow5)" d="M490 215 H530 V80 H590"/>
+            <path class="edge" marker-end="url(#arrow5)" d="M490 215 H530 V330 H590"/>
+
+            <text x="590" y="36" class="lane-label">MIGRATION TOOLING</text>
+            <g class="node" tabindex="0" role="button" data-name="AWS MGN (Application Migration Service)" data-detail="Continuous block-level replication of servers — cutover is a short scheduled switch, not a rebuild.">
+              <rect class="box" x="590" y="50" width="190" height="60"/><text x="685" y="76" text-anchor="middle" class="lbl">AWS MGN</text><text x="685" y="91" text-anchor="middle" class="lblSub">App migration</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow5)" d="M780 80 H830"/>
+            <g class="node" tabindex="0" role="button" data-name="AWS DMS (Database Migration Service)" data-detail="Replicates the database with minimal downtime, including ongoing change-data-capture until cutover.">
+              <rect class="box" x="590" y="300" width="190" height="60"/><text x="685" y="326" text-anchor="middle" class="lbl">AWS DMS</text><text x="685" y="341" text-anchor="middle" class="lblSub">DB migration</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow5)" d="M780 330 H830"/>
+
+            <text x="830" y="36" class="lane-label">AWS (TARGET)</text>
+            <g class="node" tabindex="0" role="button" data-name="EC2 (Migrated Apps)" data-detail="The same application, now running natively in AWS.">
+              <rect class="box" x="830" y="50" width="150" height="60"/><text x="905" y="76" text-anchor="middle" class="lbl">EC2</text><text x="905" y="91" text-anchor="middle" class="lblSub">(Migrated)</text>
+            </g>
+            <g class="node" tabindex="0" role="button" data-name="RDS (Migrated Database)" data-detail="Managed, Multi-AZ — patching and failover are no longer someone's weekend.">
+              <rect class="box" x="830" y="300" width="150" height="60"/><text x="905" y="326" text-anchor="middle" class="lbl">RDS</text><text x="905" y="341" text-anchor="middle" class="lblSub">(Migrated)</text>
+            </g>
+          </svg>
+
+          <svg class="arch-diagram" data-arch="cloud-to-cloud" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cloud-to-cloud migration: workloads in a source cloud such as Azure or GCP replicate continuously to a target AWS environment, cut over gradually with Route 53 weighted routing, and are validated in CloudWatch throughout.">
+            <defs>
+              <marker id="arrow6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arrow-head" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+            <text x="0" y="46" class="lane-label">MIGRATE</text>
+            <g class="node" tabindex="0" role="button" data-name="Source Cloud (Azure / GCP)" data-detail="The current environment — VMs, managed databases, whatever's already running.">
+              <rect class="box" x="0" y="60" width="230" height="70"/><text x="115" y="91" text-anchor="middle" class="lbl">Source Cloud</text><text x="115" y="106" text-anchor="middle" class="lblSub">(Azure / GCP)</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow6)" d="M230 95 H280"/>
+            <g class="node" tabindex="0" role="button" data-name="Replication Pipeline" data-detail="Ongoing data and workload sync to AWS (DataSync, DMS, or a custom pipeline) — no big-bang cutover.">
+              <rect class="box" x="280" y="60" width="250" height="70"/><text x="405" y="91" text-anchor="middle" class="lbl">Replication</text><text x="405" y="106" text-anchor="middle" class="lblSub">Pipeline</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow6)" d="M530 95 H580"/>
+            <g class="node" tabindex="0" role="button" data-name="Target AWS Environment" data-detail="The equivalent AWS estate (EC2/RDS or managed equivalents), running in parallel during the transition.">
+              <rect class="hub-box" x="580" y="60" width="230" height="70"/><text x="695" y="91" text-anchor="middle" class="lbl" font-weight="700">Target AWS</text><text x="695" y="106" text-anchor="middle" class="lblSub">(EC2 + RDS)</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow6)" d="M695 130 V250"/>
+
+            <text x="580" y="236" class="lane-label">CUT OVER</text>
+            <g class="node" tabindex="0" role="button" data-name="Route 53 — Weighted Routing" data-detail="Shifts live traffic gradually — 5%, then 25%, then 100% — instead of flipping a switch.">
+              <rect class="box" x="580" y="250" width="230" height="60"/><text x="695" y="276" text-anchor="middle" class="lbl">Route 53</text><text x="695" y="291" text-anchor="middle" class="lblSub">Weighted routing</text>
+            </g>
+            <path class="edge" marker-end="url(#arrow6)" d="M695 310 V370"/>
+            <g class="node" tabindex="0" role="button" data-name="CloudWatch — Cutover Validation" data-detail="Watches error rates and latency on both environments through the cutover, so a rollback decision is data, not panic.">
+              <rect class="box" x="580" y="370" width="230" height="60"/><text x="695" y="396" text-anchor="middle" class="lbl">CloudWatch</text><text x="695" y="411" text-anchor="middle" class="lblSub">Cutover validation</text>
             </g>
           </svg>
         </div>

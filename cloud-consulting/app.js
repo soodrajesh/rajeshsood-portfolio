@@ -90,32 +90,73 @@
     });
   });
 
-  // --- Full architecture diagram: lane filter chips (click-to-lock,
-  // not just hover) + click-to-inspect nodes with a detail panel ---
+  // --- Architecture tabs: five reference builds sharing one frame.
+  // Auto-rotates like a slideshow every few seconds; the moment someone
+  // clicks a tab themselves, rotation stops for good — their pick, not
+  // the timer's, wins from then on. ---
   var bigArchFrame = document.getElementById('big-arch-frame');
-  var laneFilter = document.getElementById('lane-filter');
-  if (bigArchFrame && laneFilter) {
-    var filterChips = laneFilter.querySelectorAll('.filter-chip');
-    var bigLaneGroups = bigArchFrame.querySelectorAll('.lane-group');
-    filterChips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        filterChips.forEach(function (c) { c.classList.remove('active'); });
-        chip.classList.add('active');
-        var laneVal = chip.dataset.filterLane;
-        if (laneVal === 'all') {
-          bigArchFrame.classList.remove('hovering');
-          bigLaneGroups.forEach(function (g) { g.classList.remove('active'); });
-        } else {
-          bigArchFrame.classList.add('hovering');
-          bigLaneGroups.forEach(function (g) {
-            g.classList.toggle('active', g.dataset.lane === laneVal);
-          });
-        }
+  var archTabs = document.getElementById('arch-tabs');
+  var frameLabel = document.getElementById('frame-label');
+  var nodeDetail = document.getElementById('node-detail');
+  if (bigArchFrame && archTabs) {
+    var tabs = archTabs.querySelectorAll('.filter-chip');
+    var diagrams = bigArchFrame.querySelectorAll('.arch-diagram');
+    var tabList = Array.prototype.slice.call(tabs);
+    var frameFiles = {
+      microservices: 'microservices.svg',
+      'three-tier': 'three-tier-web-app.svg',
+      'ai-ml': 'ai-ml-platform.svg',
+      'onprem-migration': 'onprem-to-cloud-migration.svg',
+      'cloud-to-cloud': 'cloud-to-cloud-migration.svg'
+    };
+    var rotateIndex = 0;
+    var rotateTimer = null;
+
+    function activateArch(archKey) {
+      tabs.forEach(function (t) {
+        var isActive = t.dataset.arch === archKey;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      diagrams.forEach(function (d) { d.classList.toggle('active', d.dataset.arch === archKey); });
+      bigArchFrame.querySelectorAll('.node.selected').forEach(function (n) { n.classList.remove('selected'); });
+      if (frameLabel) frameLabel.textContent = frameFiles[archKey] || archKey + '.svg';
+      if (nodeDetail) {
+        nodeDetail.textContent = '';
+        var hint = document.createElement('p');
+        hint.className = 'node-detail-hint';
+        hint.textContent = 'Click any box above for what it actually does.';
+        nodeDetail.appendChild(hint);
+      }
+      var found = tabList.findIndex(function (t) { return t.dataset.arch === archKey; });
+      if (found !== -1) rotateIndex = found;
+    }
+
+    function stopRotation() {
+      if (rotateTimer) { clearInterval(rotateTimer); rotateTimer = null; }
+    }
+
+    function startRotation() {
+      stopRotation();
+      rotateTimer = setInterval(function () {
+        rotateIndex = (rotateIndex + 1) % tabList.length;
+        activateArch(tabList[rotateIndex].dataset.arch);
+      }, 6000);
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        stopRotation();
+        activateArch(tab.dataset.arch);
       });
     });
+
+    // Respect reduced-motion preferences: no unrequested auto-cycling.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      startRotation();
+    }
   }
 
-  var nodeDetail = document.getElementById('node-detail');
   if (bigArchFrame && nodeDetail) {
     var nodes = bigArchFrame.querySelectorAll('.node');
     nodes.forEach(function (node) {
