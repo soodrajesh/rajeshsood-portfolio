@@ -168,7 +168,7 @@
     .section-head { margin-bottom: 2.5rem; }
 
     /* ── Hero ── */
-    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; padding: 3.5rem 0 4rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: start; padding: 3.5rem 0 4rem; }
     @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
     .hero h1 { font-family: var(--sans); font-weight: 800; font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height: 1.1; letter-spacing: -.025em; margin-bottom: 1.3rem; }
     .hero h1 span { color: var(--accent); }
@@ -200,19 +200,19 @@
        anything. Same icon/card language as the Services section below
        (#services), just denser and without the paragraph copy — this
        is a preview, the full detail lives further down. ── */
-    .offer-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
+    .offer-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: .9rem; }
     .offer-tile {
       display: block; background: var(--raised); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1.75rem 1.5rem; text-decoration: none;
+      padding: 1.3rem 1.2rem; text-decoration: none;
       transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
     }
     .offer-tile:hover { border-color: var(--accent-border); background: var(--raised-2); transform: translateY(-2px); }
     .offer-tile-icon {
-      width: 3.25rem; height: 3.25rem; border-radius: 10px; background: var(--accent-tint); color: var(--accent);
-      display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem;
+      width: 2.6rem; height: 2.6rem; border-radius: 8px; background: var(--accent-tint); color: var(--accent);
+      display: flex; align-items: center; justify-content: center; margin-bottom: .8rem;
     }
-    .offer-tile-icon svg { width: 1.75rem; height: 1.75rem; }
-    .offer-tile h3 { font-family: var(--sans); font-weight: 700; font-size: 1.05rem; letter-spacing: -.008em; line-height: 1.35; color: var(--text); }
+    .offer-tile-icon svg { width: 1.4rem; height: 1.4rem; }
+    .offer-tile h3 { font-family: var(--sans); font-weight: 700; font-size: .95rem; letter-spacing: -.006em; line-height: 1.35; color: var(--text); }
     @media (max-width: 480px) { .offer-tiles { grid-template-columns: 1fr; } }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
