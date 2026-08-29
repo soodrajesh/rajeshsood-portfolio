@@ -191,18 +191,25 @@
     .frame-dot { width: 9px; height: 9px; border-radius: 50%; }
     .frame-dot.r { background: #ff5f56; } .frame-dot.y { background: #ffbd2e; } .frame-dot.g { background: #27c93f; }
     .frame-label { margin-left: .4rem; font-family: var(--mono); font-size: .7rem; color: var(--muted); }
-    .frame-live { margin-left: auto; display: flex; align-items: center; gap: .4rem; font-family: var(--mono); font-size: .68rem; font-weight: 600; color: #27c93f; text-transform: uppercase; letter-spacing: .04em; }
-    .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #27c93f; animation: pulse-ring 2s ease-out infinite; }
-    @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(39,201,63,.55); } 70% { box-shadow: 0 0 0 6px rgba(39,201,63,0); } 100% { box-shadow: 0 0 0 0 rgba(39,201,63,0); } }
-    @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
     .arch-frame { padding: 1.5rem 1.1rem; }
     .arch-frame svg { display: block; width: 100%; height: auto; }
     .arch-frame svg.arch-diagram { display: none; }
     .arch-frame svg.arch-diagram.active { display: block; }
-    .arch-frame svg .status-pill { fill: rgba(39,201,63,.12); stroke: rgba(39,201,63,.4); stroke-width: 1; }
-    .arch-frame svg .status-dot { fill: #27c93f; }
-    .arch-frame svg .status-text { font-family: var(--mono); font-size: 10px; font-weight: 600; fill: #27c93f; }
-    .arch-caption { text-align: center; color: var(--muted); font-size: .82rem; padding: 0 1.1rem 1.25rem; }
+
+    /* ── Hero visual: a real credential, not a mockup of one. No fake
+       app-window chrome here — just the actual AWS certification,
+       linked to the real Credly verification, plus the real stack. ── */
+    .credential-card { background: var(--raised); border: 1.5px solid var(--line); border-radius: 10px; padding: 2.1rem 1.9rem; box-shadow: 0 24px 64px -24px rgba(0,0,0,.6); }
+    .credential-header { display: flex; align-items: flex-start; gap: 1.15rem; }
+    .credential-medallion { flex: none; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--accent-tint); border: 1.5px solid var(--accent-border); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+    .credential-medallion svg { width: 1.7rem; height: 1.7rem; }
+    .credential-eyebrow { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .35rem; }
+    .credential-title { font-family: var(--sans); font-weight: 700; font-size: 1.2rem; color: var(--text); letter-spacing: -.01em; margin-bottom: .4rem; line-height: 1.3; }
+    .credential-link { font-size: .85rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
+    .credential-link:hover { border-color: var(--accent); }
+    .credential-divider { height: 1px; background: var(--border); margin: 1.6rem 0 1.2rem; }
+    .credential-label { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .8rem; }
+    .stack-pills { display: flex; flex-wrap: wrap; gap: .55rem; }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
     .icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
@@ -231,7 +238,7 @@
     .arch-frame svg .lbl { font-family: var(--sans); font-size: 13px; fill: var(--text); }
     .arch-frame svg .lblSub { font-family: var(--sans); font-size: 10px; fill: var(--muted); }
     .arch-frame svg .lane-label { font-family: var(--mono); font-size: 10px; font-weight: 600; fill: var(--accent); letter-spacing: .04em; }
-    .arch-frame svg .edge { stroke: var(--line); stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arch-frame svg .edge { stroke: var(--line); stroke-width: 1.5; fill: none; }
     .arch-frame svg .arrow-head { fill: var(--line); }
     .arch-frame svg .lane-group.active .arrow-head { fill: var(--accent); }
     .arch-frame svg .lane-group { cursor: pointer; transition: opacity .25s ease; }
@@ -239,10 +246,11 @@
     .arch-frame svg .lane-group.active .box { stroke: var(--accent); }
     .arch-frame svg .lane-group.active .edge { stroke: var(--accent); }
 
-    /* ── Full architecture diagram: lane filter chips + click-to-inspect
-       nodes + a detail panel. Reuses .arch-frame / .lane-group / .box /
-       .hub-box / .edge / .hovering / .active from the hero diagram —
-       same CSS drives both, so styling one keeps them consistent. ── */
+    /* ── Full architecture diagram: five tabs sharing one frame, with
+       click-to-inspect nodes and a detail panel. Each diagram supplies
+       its own marker id (arrow2..arrow6) since multiple SVGs share
+       this document; .box / .hub-box / .edge / .hovering / .active
+       are the common contract across all of them. ── */
     .filter-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.75rem; }
     .filter-chip {
       font-family: var(--mono); font-size: .78rem; padding: .45rem .95rem; border-radius: 999px;
@@ -345,61 +353,31 @@
         </div>
 
         <div class="hero-in" style="animation-delay:.15s">
-          <div class="hero-visual-frame">
-            <div class="frame-titlebar">
-              <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
-              <span class="frame-label">reference-architecture.svg</span>
-              <span class="frame-live"><span class="pulse-dot" aria-hidden="true"></span>Live</span>
+          <div class="credential-card">
+            <div class="credential-header">
+              <div class="credential-medallion" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9v-5L12 3Z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+              </div>
+              <div>
+                <p class="credential-eyebrow">Verified credential</p>
+                <h2 class="credential-title">AWS Certified Solutions Architect</h2>
+                <a class="credential-link" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">Professional · verify on Credly →</a>
+              </div>
             </div>
-            <div class="arch-frame" id="arch-frame">
-              <svg viewBox="0 0 760 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reference architecture, three lanes converging on EKS: shipping a change through GitHub, CI with a security gate, and ArgoCD sync; serving traffic through Route 53, CloudFront with WAF, and an ALB; EKS running multi-AZ node groups, healthy and backed by RDS; and staying operable via Prometheus, Grafana, and CloudWatch. Hover a lane to trace it.">
-                <defs>
-                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path class="arrow-head" d="M0 0L10 5L0 10z"/>
-                  </marker>
-                </defs>
-
-                <g class="lane-group" data-lane="ship">
-                  <text x="0" y="20" class="lane-label">SHIP A CHANGE</text>
-                  <rect class="box" x="0" y="34" width="90" height="42"/><text x="45" y="60" text-anchor="middle" class="lbl">GitHub</text>
-                  <path class="edge" d="M90 55 H120"/>
-                  <rect class="box" x="120" y="34" width="170" height="42"/><text x="205" y="52" text-anchor="middle" class="lbl">CI</text><text x="205" y="67" text-anchor="middle" class="lblSub">Security gate</text>
-                  <path class="edge" d="M290 55 H320"/>
-                  <rect class="box" x="320" y="34" width="130" height="42"/><text x="385" y="60" text-anchor="middle" class="lbl">ArgoCD sync</text>
-                  <path class="edge" d="M450 55 H486"/>
-                </g>
-
-                <g class="lane-group" data-lane="serve">
-                  <text x="0" y="128" class="lane-label">SERVE TRAFFIC</text>
-                  <rect class="box" x="0" y="142" width="90" height="42"/><text x="45" y="168" text-anchor="middle" class="lbl">Route 53</text>
-                  <path class="edge" d="M90 163 H120"/>
-                  <rect class="box" x="120" y="142" width="150" height="42"/><text x="195" y="160" text-anchor="middle" class="lbl">CloudFront</text><text x="195" y="175" text-anchor="middle" class="lblSub">+ WAF</text>
-                  <path class="edge" d="M270 163 H300"/>
-                  <rect class="box" x="300" y="142" width="90" height="42"/><text x="345" y="168" text-anchor="middle" class="lbl">ALB</text>
-                  <path class="edge" d="M390 163 H486"/>
-                </g>
-
-                <g class="hub-group">
-                  <rect class="hub-box" x="486" y="40" width="134" height="195"/>
-                  <text x="553" y="120" text-anchor="middle" class="lbl" font-weight="700">EKS</text>
-                  <text x="553" y="138" text-anchor="middle" class="lblSub">multi-AZ node groups</text>
-                  <rect class="status-pill" x="505" y="157" width="100" height="24" rx="12"/>
-                  <circle class="status-dot" cx="520" cy="169" r="3"/>
-                  <text x="530" y="173" class="status-text">3/3 healthy</text>
-                  <path class="edge" d="M620 130 H650"/>
-                  <rect class="box" x="650" y="100" width="90" height="60"/><text x="695" y="126" text-anchor="middle" class="lbl">RDS</text><text x="695" y="141" text-anchor="middle" class="lblSub">Multi-AZ</text>
-                  <path class="edge" d="M553 235 V257 H90 V278"/>
-                </g>
-
-                <g class="lane-group" data-lane="operate">
-                  <text x="0" y="264" class="lane-label">STAY OPERABLE</text>
-                  <rect class="box" x="0" y="278" width="180" height="42"/><text x="90" y="304" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
-                  <path class="edge" d="M180 299 H210"/>
-                  <rect class="box" x="210" y="278" width="140" height="42"/><text x="280" y="304" text-anchor="middle" class="lbl">CloudWatch</text>
-                </g>
-              </svg>
+            <div class="credential-divider"></div>
+            <p class="credential-label">Hands-on, not just certified in</p>
+            <div class="stack-pills">
+              <span class="pill">EKS &amp; ECS</span>
+              <span class="pill">Lambda</span>
+              <span class="pill">RDS &amp; DynamoDB</span>
+              <span class="pill">Terraform</span>
+              <span class="pill">ArgoCD</span>
+              <span class="pill">CloudFront &amp; WAF</span>
+              <span class="pill">Prometheus &amp; Grafana</span>
+              <span class="pill">IAM &amp; VPC</span>
+              <span class="pill">GCP</span>
+              <span class="pill">Azure</span>
             </div>
-            <p class="arch-caption">GitOps in, multi-AZ out — the pattern behind every environment I build.</p>
           </div>
         </div>
       </div>

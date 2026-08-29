@@ -54,19 +54,14 @@
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
   }
 
-  // --- Architecture diagram(s) hover-to-trace ---
-  // There are two: the compact hero diagram and the full one further down
-  // the page. Both share the same .arch-frame/.lane-group contract, so
-  // this wires up every frame found rather than just the first.
+  // --- Architecture diagram hover-to-trace ---
+  // The big diagram further down the page (five tabs) uses the
+  // .arch-frame/.lane-group contract — hovering a lane dims the rest.
+  // Its lanes already contain individually-focusable .node elements,
+  // so no separate lane-level tab stop is needed here.
   document.querySelectorAll('.arch-frame').forEach(function (archFrame) {
     var lanes = archFrame.querySelectorAll('.lane-group');
     lanes.forEach(function (lane) {
-      // The full diagram's lanes contain individually-clickable .node
-      // elements with their own keyboard focus — making the lane itself
-      // a second, redundant tab stop would be confusing. Only the hero
-      // diagram's lanes (no .node children) get lane-level keyboard focus.
-      var hasNodes = !!lane.querySelector('.node');
-
       lane.addEventListener('mouseenter', function () {
         archFrame.classList.add('hovering');
         lane.classList.add('active');
@@ -75,18 +70,6 @@
         archFrame.classList.remove('hovering');
         lane.classList.remove('active');
       });
-
-      if (!hasNodes) {
-        lane.setAttribute('tabindex', '0');
-        lane.addEventListener('focus', function () {
-          archFrame.classList.add('hovering');
-          lane.classList.add('active');
-        });
-        lane.addEventListener('blur', function () {
-          archFrame.classList.remove('hovering');
-          lane.classList.remove('active');
-        });
-      }
     });
   });
 
