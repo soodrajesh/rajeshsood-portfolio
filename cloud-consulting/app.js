@@ -54,11 +54,19 @@
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
   }
 
-  // --- Architecture diagram hover-to-trace ---
-  var archFrame = document.querySelector('.arch-frame');
-  if (archFrame) {
+  // --- Architecture diagram(s) hover-to-trace ---
+  // There are two: the compact hero diagram and the full one further down
+  // the page. Both share the same .arch-frame/.lane-group contract, so
+  // this wires up every frame found rather than just the first.
+  document.querySelectorAll('.arch-frame').forEach(function (archFrame) {
     var lanes = archFrame.querySelectorAll('.lane-group');
     lanes.forEach(function (lane) {
+      // The full diagram's lanes contain individually-clickable .node
+      // elements with their own keyboard focus — making the lane itself
+      // a second, redundant tab stop would be confusing. Only the hero
+      // diagram's lanes (no .node children) get lane-level keyboard focus.
+      var hasNodes = !!lane.querySelector('.node');
+
       lane.addEventListener('mouseenter', function () {
         archFrame.classList.add('hovering');
         lane.classList.add('active');
@@ -67,16 +75,67 @@
         archFrame.classList.remove('hovering');
         lane.classList.remove('active');
       });
-      // Touch/keyboard: tapping or focusing a lane toggles it, since
-      // there's no hover state to rely on.
-      lane.setAttribute('tabindex', '0');
-      lane.addEventListener('focus', function () {
-        archFrame.classList.add('hovering');
-        lane.classList.add('active');
+
+      if (!hasNodes) {
+        lane.setAttribute('tabindex', '0');
+        lane.addEventListener('focus', function () {
+          archFrame.classList.add('hovering');
+          lane.classList.add('active');
+        });
+        lane.addEventListener('blur', function () {
+          archFrame.classList.remove('hovering');
+          lane.classList.remove('active');
+        });
+      }
+    });
+  });
+
+  // --- Full architecture diagram: lane filter chips (click-to-lock,
+  // not just hover) + click-to-inspect nodes with a detail panel ---
+  var bigArchFrame = document.getElementById('big-arch-frame');
+  var laneFilter = document.getElementById('lane-filter');
+  if (bigArchFrame && laneFilter) {
+    var filterChips = laneFilter.querySelectorAll('.filter-chip');
+    var bigLaneGroups = bigArchFrame.querySelectorAll('.lane-group');
+    filterChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        filterChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        var laneVal = chip.dataset.filterLane;
+        if (laneVal === 'all') {
+          bigArchFrame.classList.remove('hovering');
+          bigLaneGroups.forEach(function (g) { g.classList.remove('active'); });
+        } else {
+          bigArchFrame.classList.add('hovering');
+          bigLaneGroups.forEach(function (g) {
+            g.classList.toggle('active', g.dataset.lane === laneVal);
+          });
+        }
       });
-      lane.addEventListener('blur', function () {
-        archFrame.classList.remove('hovering');
-        lane.classList.remove('active');
+    });
+  }
+
+  var nodeDetail = document.getElementById('node-detail');
+  if (bigArchFrame && nodeDetail) {
+    var nodes = bigArchFrame.querySelectorAll('.node');
+    nodes.forEach(function (node) {
+      function selectNode() {
+        nodes.forEach(function (n) { n.classList.remove('selected'); });
+        node.classList.add('selected');
+        var name = node.dataset.name || '';
+        var detail = node.dataset.detail || '';
+        nodeDetail.textContent = '';
+        var strong = document.createElement('strong');
+        strong.textContent = name;
+        nodeDetail.appendChild(strong);
+        nodeDetail.appendChild(document.createTextNode(' — ' + detail));
+      }
+      node.addEventListener('click', selectNode);
+      node.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectNode();
+        }
       });
     });
   }
