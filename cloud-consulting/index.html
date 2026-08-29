@@ -89,7 +89,7 @@
       --border:    rgba(10,11,13,.1);
       --text:      #0f1115;
       --text-soft: #4b4f58;
-      --muted:     #82868f;
+      --muted:     #6b7078;
       --accent:    #3f6fe0;
       --accent-tint: rgba(63,111,224,.08);
       --accent-border: rgba(63,111,224,.3);
@@ -132,12 +132,30 @@
       transition: background-color .25s ease;
       border-bottom: 1px solid var(--border);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; padding-bottom: 16px; }
     .logo { font-family: var(--sans); font-weight: 800; font-size: 1.05rem; text-decoration: none; letter-spacing: -.01em; }
     .nav-links { display: flex; align-items: center; gap: 28px; font-size: .9rem; color: var(--text-soft); }
     .nav-links a:not(.btn) { text-decoration: none; transition: color .2s; }
     .nav-links a:not(.btn):hover { color: var(--text); }
     @media (max-width: 640px) { .nav-links a:not(.btn):not(.btn-nav-cta) { display: none; } }
+
+    /* ── Mobile menu — the in-page nav links above just disappear at
+       640px with nothing replacing them; this restores a way to reach
+       them without scrolling manually. ── */
+    .nav-toggle {
+      display: none; align-items: center; justify-content: center; width: 38px; height: 38px;
+      background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--text); cursor: pointer; flex: none;
+    }
+    .nav-toggle svg { width: 1.15rem; height: 1.15rem; }
+    .nav-toggle .icon-close { display: none; }
+    .nav-toggle.open .icon-menu { display: none; }
+    .nav-toggle.open .icon-close { display: block; }
+    @media (max-width: 640px) { .nav-toggle { display: inline-flex; margin-left: 12px; } }
+    .mobile-nav-panel { display: none; flex-direction: column; max-width: 1080px; margin: 0 auto; padding: 4px 28px 18px; border-top: 1px solid var(--border); }
+    .mobile-nav-panel.open { display: flex; }
+    .mobile-nav-panel a:not(.btn) { padding: .8rem .2rem; text-decoration: none; color: var(--text-soft); font-size: .95rem; border-bottom: 1px solid var(--border); }
+    .mobile-nav-panel a:not(.btn):hover { color: var(--text); }
+    .mobile-nav-panel .btn { margin-top: .9rem; justify-content: center; }
 
     .theme-toggle {
       display: flex; align-items: center; justify-content: center; width: 2.15rem; height: 2.15rem;
@@ -178,6 +196,11 @@
     .btn:hover { transform: translateY(-2px); }
     .btn-primary { background: var(--accent); color: #05070d; }
     .btn-primary:hover { opacity: .9; }
+    /* Dark text on the dark-theme accent (#5b8cff) passes contrast comfortably
+       (~6.6:1); the same dark text on light theme's more saturated accent
+       (#3f6fe0) measures 4.37:1 — just under WCAG AA's 4.5:1 for bold text
+       this size. White text on that same background measures ~4.6:1. */
+    :root[data-theme="light"] .btn-primary { color: #fff; }
     .btn-ghost { color: var(--text); border: 1px solid var(--border); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
     .btn-nav-cta { padding: .55rem 1.1rem; font-size: .85rem; }
@@ -212,7 +235,7 @@
       display: flex; align-items: center; justify-content: center; margin-bottom: .8rem;
     }
     .offer-tile-icon svg { width: 1.4rem; height: 1.4rem; }
-    .offer-tile h3 { font-family: var(--sans); font-weight: 700; font-size: .95rem; letter-spacing: -.006em; line-height: 1.35; color: var(--text); }
+    .offer-tile-title { font-family: var(--sans); font-weight: 700; font-size: .95rem; letter-spacing: -.006em; line-height: 1.35; color: var(--text); margin: 0; }
     @media (max-width: 480px) { .offer-tiles { grid-template-columns: 1fr; } }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
@@ -221,7 +244,7 @@
     @media (max-width: 900px) { .icon-grid, .icon-grid.cols-4 { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .icon-grid, .icon-grid.cols-4 { grid-template-columns: 1fr; } }
     .icard {
-      background: var(--raised); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 1.3rem;
+      position: relative; background: var(--raised); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 1.3rem;
       transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
     }
     .icard:hover { border-color: var(--accent-border); background: var(--raised-2); transform: translateY(-3px); }
@@ -235,6 +258,11 @@
     .icard p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
     .icard.featured { border-color: var(--accent-border); background: linear-gradient(160deg, var(--accent-tint), var(--raised) 60%); }
     .icard .icard-tag { font-family: var(--mono); font-size: .68rem; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; margin-bottom: .6rem; display: block; }
+    /* In an icon-grid, a tag sits alongside an .icard-icon rather than
+       above a heading — keeping it in normal flow pushes that one card's
+       icon down relative to its untagged row siblings. Take it out of
+       flow instead, so every icon in the row still starts at the same y. */
+    .icon-grid .icard-tag { position: absolute; top: 1.5rem; right: 1.3rem; margin-bottom: 0; }
 
     /* ── Architecture diagram lane hover (shared with hero frame) ── */
     .arch-frame svg .box { fill: var(--raised-2); stroke: var(--border); stroke-width: 1.5; rx: 4; }
@@ -331,9 +359,21 @@
         </button>
         <a class="btn btn-primary btn-nav-cta js-open-contact" href="#contact-form">Get in touch</a>
       </div>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav-panel" aria-label="Open menu">
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav-panel" id="mobile-nav-panel" hidden>
+      <a href="#services">Services</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-primary js-open-contact" href="#contact-form">Get in touch</a>
     </div>
   </nav>
 
+  <main>
   <div class="wrapper">
     <section class="hero tight">
       <div class="hero-grid">
@@ -360,35 +400,35 @@
           <div class="offer-tiles">
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M6 8.2V15.8M18 8.2V15.8M8.2 6H15.8M8.2 18H15.8"/></svg></div>
-              <h3>Foundations &amp; Networking</h3>
+              <p class="offer-tile-title">Foundations &amp; Networking</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
-              <h3>Compute &amp; Containers</h3>
+              <p class="offer-tile-title">Compute &amp; Containers</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M17 4v3h-3M7 20v-3h3"/></svg></div>
-              <h3>CI/CD &amp; IaC</h3>
+              <p class="offer-tile-title">CI/CD &amp; IaC</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 4 5-8 4 5"/><path d="M3 21h18"/></svg></div>
-              <h3>Observability &amp; Monitoring</h3>
+              <p class="offer-tile-title">Observability &amp; Monitoring</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-              <h3>Security &amp; DevSecOps</h3>
+              <p class="offer-tile-title">Security &amp; DevSecOps</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.2 1.1-2 2.5-2s2.5.8 2.5 2c0 2.5-5 1.8-5 4.3 0 1.2 1.1 2 2.5 2s2.5-.8 2.5-2"/></svg></div>
-              <h3>Cost Optimization</h3>
+              <p class="offer-tile-title">Cost Optimization</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg></div>
-              <h3>AI/ML Infrastructure</h3>
+              <p class="offer-tile-title">AI/ML Infrastructure</p>
             </a>
             <a class="offer-tile" href="#services">
               <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16 12 12 0 0 1 0-16Z"/></svg></div>
-              <h3>Multi-Cloud (GCP &amp; Azure)</h3>
+              <p class="offer-tile-title">Multi-Cloud (GCP &amp; Azure)</p>
             </a>
           </div>
         </div>
@@ -605,6 +645,7 @@
       </form>
     </div>
   </section>
+  </main>
 
   <footer class="band">
     <div class="wrapper">

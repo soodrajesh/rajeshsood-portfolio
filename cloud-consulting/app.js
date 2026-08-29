@@ -34,6 +34,39 @@
     });
   }
 
+  // --- Mobile menu ---
+  // The in-page nav links are hidden below 640px with nothing to
+  // replace them; this panel is that replacement.
+  var navToggle = document.getElementById('nav-toggle');
+  var mobileNavPanel = document.getElementById('mobile-nav-panel');
+  if (navToggle && mobileNavPanel) {
+    function closeMobileNav() {
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
+      mobileNavPanel.classList.remove('open');
+      mobileNavPanel.hidden = true;
+    }
+    navToggle.addEventListener('click', function () {
+      var isOpen = mobileNavPanel.classList.contains('open');
+      if (isOpen) {
+        closeMobileNav();
+      } else {
+        navToggle.classList.add('open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navToggle.setAttribute('aria-label', 'Close menu');
+        mobileNavPanel.hidden = false;
+        mobileNavPanel.classList.add('open');
+      }
+    });
+    mobileNavPanel.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMobileNav);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileNavPanel.classList.contains('open')) closeMobileNav();
+    });
+  }
+
   // --- Scroll reveal ---
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
