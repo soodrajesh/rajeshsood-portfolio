@@ -196,20 +196,24 @@
     .arch-frame svg.arch-diagram { display: none; }
     .arch-frame svg.arch-diagram.active { display: block; }
 
-    /* ── Hero visual: a real credential, not a mockup of one. No fake
-       app-window chrome here — just the actual AWS certification,
-       linked to the real Credly verification, plus the real stack. ── */
-    .credential-card { background: var(--raised); border: 1.5px solid var(--line); border-radius: 10px; padding: 2.1rem 1.9rem; box-shadow: 0 24px 64px -24px rgba(0,0,0,.6); }
-    .credential-header { display: flex; align-items: flex-start; gap: 1.15rem; }
-    .credential-medallion { flex: none; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--accent-tint); border: 1.5px solid var(--accent-border); display: flex; align-items: center; justify-content: center; color: var(--accent); }
-    .credential-medallion svg { width: 1.7rem; height: 1.7rem; }
-    .credential-eyebrow { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .35rem; }
-    .credential-title { font-family: var(--sans); font-weight: 700; font-size: 1.2rem; color: var(--text); letter-spacing: -.01em; margin-bottom: .4rem; line-height: 1.3; }
-    .credential-link { font-size: .85rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
-    .credential-link:hover { border-color: var(--accent); }
-    .credential-divider { height: 1px; background: var(--border); margin: 1.6rem 0 1.2rem; }
-    .credential-label { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .8rem; }
-    .stack-pills { display: flex; flex-wrap: wrap; gap: .55rem; }
+    /* ── Hero visual: tiles of the actual offerings, not a mockup of
+       anything. Same icon/card language as the Services section below
+       (#services), just denser and without the paragraph copy — this
+       is a preview, the full detail lives further down. ── */
+    .offer-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: .85rem; }
+    .offer-tile {
+      display: block; background: var(--raised); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.1rem 1rem; text-decoration: none;
+      transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
+    }
+    .offer-tile:hover { border-color: var(--accent-border); background: var(--raised-2); transform: translateY(-2px); }
+    .offer-tile-icon {
+      width: 2rem; height: 2rem; border-radius: 7px; background: var(--accent-tint); color: var(--accent);
+      display: flex; align-items: center; justify-content: center; margin-bottom: .65rem;
+    }
+    .offer-tile-icon svg { width: 1.05rem; height: 1.05rem; }
+    .offer-tile h3 { font-family: var(--sans); font-weight: 700; font-size: .86rem; letter-spacing: -.005em; line-height: 1.35; color: var(--text); }
+    @media (max-width: 480px) { .offer-tiles { grid-template-columns: 1fr 1fr; } }
 
     /* ── Icon card grids — services, engagement models, differentiators ── */
     .icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
@@ -353,31 +357,39 @@
         </div>
 
         <div class="hero-in" style="animation-delay:.15s">
-          <div class="credential-card">
-            <div class="credential-header">
-              <div class="credential-medallion" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9v-5L12 3Z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
-              </div>
-              <div>
-                <p class="credential-eyebrow">Verified credential</p>
-                <h2 class="credential-title">AWS Certified Solutions Architect</h2>
-                <a class="credential-link" href="https://www.credly.com/users/rajeshsood/badges/credly" target="_blank" rel="noopener">Professional · verify on Credly →</a>
-              </div>
-            </div>
-            <div class="credential-divider"></div>
-            <p class="credential-label">Hands-on, not just certified in</p>
-            <div class="stack-pills">
-              <span class="pill">EKS &amp; ECS</span>
-              <span class="pill">Lambda</span>
-              <span class="pill">RDS &amp; DynamoDB</span>
-              <span class="pill">Terraform</span>
-              <span class="pill">ArgoCD</span>
-              <span class="pill">CloudFront &amp; WAF</span>
-              <span class="pill">Prometheus &amp; Grafana</span>
-              <span class="pill">IAM &amp; VPC</span>
-              <span class="pill">GCP</span>
-              <span class="pill">Azure</span>
-            </div>
+          <div class="offer-tiles">
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M6 8.2V15.8M18 8.2V15.8M8.2 6H15.8M8.2 18H15.8"/></svg></div>
+              <h3>Foundations &amp; Networking</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
+              <h3>Compute &amp; Containers</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M17 4v3h-3M7 20v-3h3"/></svg></div>
+              <h3>CI/CD &amp; IaC</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 4 5-8 4 5"/><path d="M3 21h18"/></svg></div>
+              <h3>Observability &amp; Monitoring</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+              <h3>Security &amp; DevSecOps</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.2 1.1-2 2.5-2s2.5.8 2.5 2c0 2.5-5 1.8-5 4.3 0 1.2 1.1 2 2.5 2s2.5-.8 2.5-2"/></svg></div>
+              <h3>Cost Optimization</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg></div>
+              <h3>AI/ML Infrastructure</h3>
+            </a>
+            <a class="offer-tile" href="#services">
+              <div class="offer-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16 12 12 0 0 1 0-16Z"/></svg></div>
+              <h3>Multi-Cloud (GCP &amp; Azure)</h3>
+            </a>
           </div>
         </div>
       </div>
