@@ -1,6 +1,10 @@
 {
   "cleanUrls": true,
   "trailingSlash": true,
+  "redirects": [
+    { "source": "/cloud-consulting", "destination": "https://gogenops.com/cloud-consulting/", "permanent": true },
+    { "source": "/cloud-consulting/(.*)", "destination": "https://gogenops.com/cloud-consulting/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/checkmyurl/", "destination": "https://checkmyurl.vercel.app/" },
     { "source": "/checkmyurl/:path*", "destination": "https://checkmyurl.vercel.app/:path*" },
