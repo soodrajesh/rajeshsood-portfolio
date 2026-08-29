@@ -227,6 +227,32 @@
     .arch-frame svg .lane-group.active .box { stroke: var(--accent); }
     .arch-frame svg .lane-group.active .edge { stroke: var(--accent); }
 
+    /* ── Full architecture diagram: lane filter chips + click-to-inspect
+       nodes + a detail panel. Reuses .arch-frame / .lane-group / .box /
+       .hub-box / .edge / .hovering / .active from the hero diagram —
+       same CSS drives both, so styling one keeps them consistent. ── */
+    .filter-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.75rem; }
+    .filter-chip {
+      font-family: var(--mono); font-size: .78rem; padding: .45rem .95rem; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--raised); color: var(--text-soft);
+      cursor: pointer; transition: all .2s ease;
+    }
+    .filter-chip:hover { border-color: var(--accent-border); color: var(--text); }
+    .filter-chip.active { background: var(--accent-tint); border-color: var(--accent-border); color: var(--accent); }
+
+    .arch-frame svg .node { cursor: pointer; }
+    .arch-frame svg .node .box,
+    .arch-frame svg .node .hub-box { transition: stroke .2s ease, stroke-width .2s ease, fill .2s ease; }
+    .arch-frame svg .node:hover .box,
+    .arch-frame svg .node:hover .hub-box { stroke: var(--accent); }
+    .arch-frame svg .node.selected .box,
+    .arch-frame svg .node.selected .hub-box { stroke: var(--accent); stroke-width: 2.25; fill: var(--accent-tint); }
+    .arch-frame svg .node:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .node-detail { padding: 1.1rem 1.3rem 1.3rem; border-top: 1px solid var(--border); font-size: .88rem; line-height: 1.55; color: var(--text-soft); min-height: 3.2em; }
+    .node-detail strong { color: var(--text); font-family: var(--sans); font-weight: 700; }
+    .node-detail-hint { color: var(--muted); font-style: italic; margin: 0; }
+
     /* ── Scenarios ── */
     .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     @media (max-width: 860px) { .scenario-grid { grid-template-columns: 1fr; } }
@@ -273,6 +299,7 @@
       <a class="logo" href="/">Rajesh Sood</a>
       <div class="nav-links">
         <a href="#services">Services</a>
+        <a href="#architecture">Architecture</a>
         <a href="#how-it-works">How it works</a>
         <a href="#contact">Contact</a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme">
@@ -353,6 +380,117 @@
       </div>
     </section>
   </div>
+
+  <section id="architecture">
+    <div class="wrapper-wide">
+      <div class="section-head">
+        <p class="kicker">Full picture</p>
+        <h2>Every layer, click to inspect.</h2>
+        <p class="lede">Fourteen components across three lanes. Filter a lane, or click any box for what it actually does.</p>
+      </div>
+
+      <div class="filter-row" id="lane-filter">
+        <button class="filter-chip active" data-filter-lane="all" type="button">All layers</button>
+        <button class="filter-chip" data-filter-lane="cicd" type="button">Ship a change</button>
+        <button class="filter-chip" data-filter-lane="serve" type="button">Serve traffic</button>
+        <button class="filter-chip" data-filter-lane="observability" type="button">Stay operable</button>
+      </div>
+
+      <div class="hero-visual-frame">
+        <div class="frame-titlebar">
+          <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
+          <span class="frame-label">full-architecture.svg</span>
+        </div>
+        <div class="arch-frame" id="big-arch-frame">
+          <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Full reference architecture: a CI/CD lane (GitHub, CI build and test, security scan, ECR, ArgoCD sync) feeding into a VPC containing multi-AZ NAT gateways and EKS node groups; a traffic lane (Route 53, CloudFront and WAF, ALB) feeding the same VPC, which also connects to a Multi-AZ RDS instance; and an observability lane (CloudWatch, Prometheus and Grafana, Alerting) fed by EKS. Filter by lane above, or click any box for details.">
+            <defs>
+              <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path class="arrow-head" d="M0 0L10 5L0 10z"/>
+              </marker>
+            </defs>
+
+            <!-- Animated "deploy in progress" indicator, tracing the CI/CD -> EKS route. Purely decorative: aria-hidden. -->
+            <circle r="4" fill="var(--accent)" aria-hidden="true">
+              <animateMotion dur="4.5s" repeatCount="indefinite" path="M55,53 L735,53 L735,290" />
+            </circle>
+
+            <g class="lane-group" data-lane="cicd">
+              <text x="0" y="16" class="lane-label">SHIP A CHANGE</text>
+              <g class="node" tabindex="0" role="button" data-name="GitHub" data-detail="Where a change starts — a pull request, reviewed and merged before anything builds.">
+                <rect class="box" x="0" y="30" width="110" height="46"/><text x="55" y="58" text-anchor="middle" class="lbl">GitHub</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M110 53 H140"/>
+              <g class="node" tabindex="0" role="button" data-name="CI: Build &amp; Test" data-detail="Compiles and runs the full test suite — fails fast, before anything ships.">
+                <rect class="box" x="140" y="30" width="140" height="46"/><text x="210" y="52" text-anchor="middle" class="lbl">CI</text><text x="210" y="67" text-anchor="middle" class="lblSub">Build &amp; test</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M280 53 H310"/>
+              <g class="node" tabindex="0" role="button" data-name="Security Scan" data-detail="Trivy container scanning + SonarQube static analysis — gates the pipeline before deploy.">
+                <rect class="box" x="310" y="30" width="150" height="46"/><text x="385" y="52" text-anchor="middle" class="lbl">Security scan</text><text x="385" y="67" text-anchor="middle" class="lblSub">Trivy · SonarQube</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M460 53 H490"/>
+              <g class="node" tabindex="0" role="button" data-name="ECR" data-detail="Private container registry — images built once, deployed everywhere.">
+                <rect class="box" x="490" y="30" width="110" height="46"/><text x="545" y="58" text-anchor="middle" class="lbl">ECR</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M600 53 H630"/>
+              <g class="node" tabindex="0" role="button" data-name="ArgoCD Sync" data-detail="GitOps sync — cluster state always matches what's committed to Git, not a manual kubectl apply.">
+                <rect class="box" x="630" y="30" width="140" height="46"/><text x="700" y="58" text-anchor="middle" class="lbl">ArgoCD sync</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M700 76 V255"/>
+            </g>
+
+            <g class="lane-group" data-lane="serve">
+              <text x="0" y="146" class="lane-label">SERVE TRAFFIC</text>
+              <g class="node" tabindex="0" role="button" data-name="Route 53" data-detail="DNS plus health-check-based failover — traffic only routes to endpoints that are actually healthy.">
+                <rect class="box" x="0" y="155" width="110" height="46"/><text x="55" y="183" text-anchor="middle" class="lbl">Route 53</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M110 178 H140"/>
+              <g class="node" tabindex="0" role="button" data-name="CloudFront + WAF" data-detail="Edge caching and DDoS absorption, plus a Web Application Firewall blocking common exploits before they reach the ALB.">
+                <rect class="box" x="140" y="155" width="180" height="46"/><text x="230" y="177" text-anchor="middle" class="lbl">CloudFront</text><text x="230" y="192" text-anchor="middle" class="lblSub">+ WAF</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M320 178 H350"/>
+              <g class="node" tabindex="0" role="button" data-name="ALB" data-detail="Distributes traffic across healthy targets in every AZ.">
+                <rect class="box" x="350" y="155" width="110" height="46"/><text x="405" y="183" text-anchor="middle" class="lbl">ALB</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M460 178 H600"/>
+
+              <rect x="600" y="180" width="270" height="160" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="4 4" rx="6"/>
+              <text x="612" y="197" class="lblSub" font-weight="600">Amazon VPC — multi-AZ</text>
+              <g class="node" tabindex="0" role="button" data-name="NAT Gateways" data-detail="Multi-AZ NAT — private-subnet resources reach the internet for updates without being reachable from it.">
+                <rect class="box" x="615" y="207" width="240" height="40"/><text x="735" y="232" text-anchor="middle" class="lbl">NAT Gateways (multi-AZ)</text>
+              </g>
+              <g class="node" tabindex="0" role="button" data-name="EKS" data-detail="Managed multi-AZ node groups, IRSA for pod-level IAM, cluster autoscaler sized to actual load.">
+                <rect class="hub-box" x="615" y="255" width="240" height="70"/><text x="735" y="284" text-anchor="middle" class="lbl" font-weight="700">EKS</text><text x="735" y="302" text-anchor="middle" class="lblSub">multi-AZ node groups</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M855 290 H890"/>
+              <g class="node" tabindex="0" role="button" data-name="RDS (Multi-AZ)" data-detail="Synchronous standby in a second AZ — automatic failover, no manual intervention.">
+                <rect class="box" x="890" y="265" width="100" height="50"/><text x="940" y="286" text-anchor="middle" class="lbl">RDS</text><text x="940" y="301" text-anchor="middle" class="lblSub">Multi-AZ</text>
+              </g>
+
+              <path class="edge" marker-end="url(#arrow2)" d="M735 325 V403 H710"/>
+            </g>
+
+            <g class="lane-group" data-lane="observability">
+              <text x="170" y="371" class="lane-label">STAY OPERABLE</text>
+              <g class="node" tabindex="0" role="button" data-name="CloudWatch" data-detail="Native AWS metrics and logs — the baseline every account already has, no extra setup.">
+                <rect class="box" x="560" y="380" width="150" height="46"/><text x="635" y="408" text-anchor="middle" class="lbl">CloudWatch</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M560 403 H540"/>
+              <g class="node" tabindex="0" role="button" data-name="Prometheus + Grafana" data-detail="Deeper application-level metrics and dashboards, self-hosted on the cluster.">
+                <rect class="box" x="350" y="380" width="190" height="46"/><text x="445" y="408" text-anchor="middle" class="lbl">Prometheus + Grafana</text>
+              </g>
+              <path class="edge" marker-end="url(#arrow2)" d="M350 403 H320"/>
+              <g class="node" tabindex="0" role="button" data-name="Alerting" data-detail="Routes alerts to the person who can actually act on them — not an all-hands page for a blip.">
+                <rect class="box" x="170" y="380" width="150" height="46"/><text x="245" y="408" text-anchor="middle" class="lbl">Alerting</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="node-detail" id="node-detail">
+          <p class="node-detail-hint">Click any box above for what it actually does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="services">
     <div class="wrapper">
