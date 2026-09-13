@@ -3,18 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Sets the theme before first paint, not after — running this any later
-       (e.g. in the closing-body script) would flash the wrong theme for a
-       frame on every load. Defaults to the OS preference the first time a
-       visitor arrives; an explicit toggle click overrides that and sticks
-       via localStorage from then on. -->
-  <script>
-    (function () {
-      var stored = localStorage.getItem('theme');
-      var theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
+  <!-- External file, not inline — this site's CSP allowlists inline
+       scripts by exact sha256 hash (see vercel.json), which an inline
+       script here would silently fail against on every edit. script-src
+       already trusts 'self', so a same-origin file needs no hash. Must run
+       before first paint (blocking, no defer) or the wrong theme flashes
+       for a frame on every load. -->
+  <script src="/theme-init.js"></script>
   <title>Rajesh Sood — Cloud Engineer & Builder</title>
   <meta name="description" content="Rajesh Sood — Staff Cloud & DevOps Engineer who also ships free finance calculators, dev tools, and native Mac apps, built and run the same way he'd build production infrastructure." />
   <meta name="keywords" content="Rajesh Sood, staff engineer, cloud architect, devops, AWS, Kubernetes, Terraform, side projects, indie builder, finance calculators" />
@@ -705,20 +700,8 @@
     </footer>
   </div>
 
+  <script src="/theme-toggle.js"></script>
   <script>
-    // Theme toggle — the actual switch is just flipping the attribute the
-    // blocking head script already set on first load; localStorage is what
-    // makes an explicit choice stick across visits instead of re-deriving
-    // from the OS preference every time.
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-      });
-    }
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
