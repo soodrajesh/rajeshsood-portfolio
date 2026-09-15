@@ -13,7 +13,7 @@ Operational runbook for this site: deploy, monitoring, alerting, and troubleshoo
 ## Monitoring stack (Grafana Cloud, stack `olivecookie379`)
 
 All three of soodrajesh87's personal sites (irajeshsood.com, gogenops.com,
-niveshkaro.co.in) share one Grafana Cloud free-tier stack.
+advaitio.com) share one Grafana Cloud free-tier stack.
 
 ### Synthetic uptime monitoring
 - 3 global probes (Mumbai, London, N. Virginia) hit `https://irajeshsood.com/`
@@ -36,7 +36,7 @@ niveshkaro.co.in) share one Grafana Cloud free-tier stack.
   Detail Tables — so filtering/comparing across all 7 checks works from the
   same dashboard controls.
 - Dashboard: `https://olivecookie379.grafana.net/d/website-apm-overview`
-  ("Website APM — irajeshsood / gogenops / niveshkaro") — its top toolbar has
+  ("Website APM — irajeshsood / gogenops / advaitio") — its top toolbar has
   a links bar (Alerting, Contact Points, RUM full detail, Synthetic Monitoring
   config) so this one dashboard is the entry point into all 3 interfaces.
 - Public status page (no login): see the dashboard's Share > Public dashboard

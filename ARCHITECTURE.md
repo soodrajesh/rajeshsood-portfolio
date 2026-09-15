@@ -93,7 +93,7 @@ split and was not fully updated after it.
 ### `index.html` — landing / hub (`/`)
 
 - Dark hero panel (fake terminal: `whoami`, `cat stats.json`) + two link grids:
-  **"things i've built"** (Portfolio, NiveshKaro, India/Irish tax calculators,
+  **"things i've built"** (Portfolio, Advaitio, India/Irish tax calculators,
   Subnet Calculator, Notesmith, CheckMyURL) and **"mac apps i've built"**
   (PasteGuard, MacTools, DiskSweeper, DupeFinder, SnapText, Toolbox, Claude Usage
   Menubar) — all external links to other repos/domains, none of it served from
@@ -186,7 +186,7 @@ separate deployments send for their own paths (a real bug fixed in `e2a6985`,
 no auto-hash-injection build step**. This is the same hand-computed-hash approach
 as gogenops.com (its repo has only a `scripts/build.sh`, no hash-injection step
 either — all 7 of its `script-src` hashes are pasted in by hand too). The outlier
-is niveshkaro.co.in's React app (`investment-calculator-india-react`), which has
+is advaitio.com's React app (`investment-calculator-india-react`), which has
 an actual `scripts/inject-csp-hash.mjs` that computes hashes at build time — that
 automation does not exist here or on gogenops. Every hash in this repo's
 `vercel.json` was computed by hand from the exact inline script text and must be
@@ -264,7 +264,7 @@ a single unified "analytics" concept:
 
 | System | Where it loads | Fires on |
 |---|---|---|
-| **GA4** (`G-LSL40CXDZK`) | Both `index.html` and `portfolio/index.html`, byte-identical inline config | Every visit to either page. **No hostname gate** — `gtag('config', ...)` fires unconditionally (only strips the URL's query string via `page_location`). This repo does *not* follow the hostname-gating pattern used on gogenops.com/niveshkaro.co.in; the comment added alongside `portfolio/index.html`'s GA4 script (`a336b56`) explains why: both pages are "the same repo/deployment, not a separate one, so there's no cross-deployment traffic to hostname-gate against" — a gate would only matter if this project were also reachable at a `*.vercel.app` preview URL people actually visit. |
+| **GA4** (`G-LSL40CXDZK`) | Both `index.html` and `portfolio/index.html`, byte-identical inline config | Every visit to either page. **No hostname gate** — `gtag('config', ...)` fires unconditionally (only strips the URL's query string via `page_location`). This repo does *not* follow the hostname-gating pattern used on gogenops.com/advaitio.com; the comment added alongside `portfolio/index.html`'s GA4 script (`a336b56`) explains why: both pages are "the same repo/deployment, not a separate one, so there's no cross-deployment traffic to hostname-gate against" — a gate would only matter if this project were also reachable at a `*.vercel.app` preview URL people actually visit. |
 | **Vercel Web Analytics** | `index.html` only (`window.va` stub + `/_vercel/insights/script.js`) | Root page visits only. **Not present on `/portfolio/`** — no Web Analytics data for the CV/tab page at all. |
 | **Grafana Faro (RUM)** | `index.html` only (`faro-web-sdk.iife.js` + `faro-web-tracing.iife.js` + `faro-init.js`, loaded first in `<head>`, self-hosted not CDN) | Root page visits only, same gap as Web Analytics. App name in Faro is `irajeshsood.com` (see `faro-init.js` / `RUNBOOK.md`) — it does not distinguish root from `/portfolio/` traffic even if it were loaded there, since both would report under the same app name. |
 
@@ -339,7 +339,7 @@ irajeshsood.com   (project: rajeshsood-portfolio,
    (`sha256-FodjHIJ4...` → `sha256-mlCamDVa...`), not a brand-new hash. Easy to
    miss if you're only scanning the diff for new `<script>` tags. There is no
    build step here that recomputes these automatically — same as gogenops.com,
-   which also pastes its hashes in by hand (niveshkaro.co.in's React app is the
+   which also pastes its hashes in by hand (advaitio.com's React app is the
    one with actual build-time hash injection, not this repo or gogenops) —
    every hash change here is a manual compute-and-paste into `vercel.json`.
 
@@ -360,7 +360,7 @@ irajeshsood.com   (project: rajeshsood-portfolio,
    added. GA4 is the only telemetry that actually observes `/portfolio/`
    traffic today.
 
-6. **GA4 has no hostname gate**, unlike the sibling gogenops.com/niveshkaro.co.in
+6. **GA4 has no hostname gate**, unlike the sibling gogenops.com/advaitio.com
    sites. If this project ever becomes reachable at a `*.vercel.app` preview URL
    that gets real traffic (e.g. a shared preview deployment), that traffic
    would count in the same GA4 property with no way to filter it out after the
@@ -376,7 +376,7 @@ irajeshsood.com   (project: rajeshsood-portfolio,
 - [ ] Remove the dead `sha256-1FlSGJ9euyPOV+...` CSP hash (Known Gotchas #1) —
       safe no-op cleanup, confirmed to match no current script on either page
 - [ ] Hostname-gate GA4 to `location.hostname === 'irajeshsood.com'`, matching
-      the gogenops.com/niveshkaro.co.in pattern, before any `*.vercel.app`
+      the gogenops.com/advaitio.com pattern, before any `*.vercel.app`
       preview link is shared publicly (Known Gotchas #6)
 - [ ] A small build-time hash-injection step (even a 10-line Node script run
       manually, not necessarily CI) would remove the "recompute every hash by
