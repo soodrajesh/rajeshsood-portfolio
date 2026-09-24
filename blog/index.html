@@ -75,6 +75,8 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
             <input id="post-search" type="search" placeholder="Search posts" autocomplete="off" />
           </label>
+          <details class="side-filters" id="side-filters" open>
+            <summary>Filter by topic &amp; date</summary>
           <p class="side-label">Browse</p>
           <div class="f-tree" id="cat-tree">
 <button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>67</b></button>
@@ -122,6 +124,7 @@
 <button class="f-btn f-sub" type="button" data-arc="2025-02"><span>February</span><b>18</b></button>
 </details>
           </div>
+          </details>
           <p class="side-note"><a href="/blog/feed.xml">RSS feed →</a></p>
         </aside>
         <section class="post-cards" id="post-list" aria-live="polite">

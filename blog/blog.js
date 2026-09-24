@@ -5,6 +5,9 @@
   var cards = Array.prototype.slice.call(list.querySelectorAll('.post-card'));
   var empty = document.getElementById('empty');
   var input = document.getElementById('post-search');
+  // Filters are always open on desktop, collapsed behind a toggle on phones so posts come first.
+  var sf = document.getElementById('side-filters');
+  if (sf && window.matchMedia('(max-width: 860px)').matches) sf.removeAttribute('open');
   var state = { cat: 'all', arc: 'all', q: '' };
 
   function apply() {
