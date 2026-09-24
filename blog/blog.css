@@ -131,3 +131,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 0; display: flex; al
 .follow-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; font-family: var(--mono); font-size: .8rem; }
 .follow-links a { color: var(--accent-ink); text-decoration: none; }
 .follow-links a:hover { text-decoration: underline; }
+
+.side-filters > summary { list-style: none; cursor: pointer; display: none; align-items: center; justify-content: space-between; margin-top: 12px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); font-size: .88rem; font-weight: 600; color: var(--text); }
+.side-filters > summary::-webkit-details-marker { display: none; }
+.side-filters > summary::after { content: '+'; font-family: var(--mono); color: var(--muted); }
+.side-filters[open] > summary::after { content: '\2212'; }
+@media (max-width: 860px) { .side-filters > summary { display: flex; } }
