@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Managing AWS Infra with Crossplane vs Terraform | Rajesh Sood</title>
+  <meta name="description" content="For years, I’ve used Terraform to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Managing AWS Infra with Crossplane vs Terraform" />
+  <meta property="og:description" content="For years, I’ve used Terraform to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Managing AWS Infra with Crossplane vs Terraform" />
+  <meta property="article:published_time" content="2025-08-15" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Managing AWS Infra with Crossplane vs Terraform" />
+  <meta name="twitter:description" content="For years, I’ve used Terraform to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Managing AWS Infra with Crossplane vs Terraform",
+  "datePublished": "2025-08-15",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "For years, I’ve used Terraform to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">IaC &amp; Config Management</p>
+      <h1>Managing AWS Infra with Crossplane vs Terraform</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-08-15">Aug 15, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>For years, I’ve used <strong>Terraform</strong> to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap. That awkward moment when you’re deploying apps with <code>kubectl</code> but then have to switch gears and run <code>terraform apply</code> for infrastructure changes? It’s like speaking two different languages in the same conversation.</p>
+<p>That’s when I found <strong>Crossplane</strong>.</p>
+<p>Crossplane lets you manage AWS resources using the <strong>same Kubernetes primitives</strong> you already know. No more context switching. No separate state files. Just <strong>pure YAML</strong> — for both apps and infrastructure.</p>
+<p>In this guide, I’ll walk you through a <strong>real-world Crossplane demo</strong> that provisions:</p>
+<ul><li><strong>RDS PostgreSQL</strong></li><li><strong>S3 buckets</strong></li><li><strong>Security groups</strong></li><li><strong>A sample application</strong></li></ul>
+<p>All <strong>managed through </strong><code><strong>kubectl</strong></code>.</p>
+<h2>What You’ll Learn</h2>
+<ul><li>Setting up Crossplane on Minikube</li><li>Configuring AWS providers &amp; credentials</li><li>Creating real AWS resources (VPC, RDS, S3, Security Groups)</li><li>Deploying a sample application</li><li>Monitoring &amp; troubleshooting</li><li>Cleanup &amp; best practices</li></ul>
+<h2>Why Crossplane Over Terraform?</h2>
+<p>Terraform isn’t going anywhere — it’s still excellent for many scenarios. But Crossplane has some unique strengths:</p>
+<p><strong>✅ Unified API</strong> — Everything is managed with <code>kubectl</code>. <strong>✅ GitOps Ready</strong> – Works seamlessly with ArgoCD and Flux. <strong>✅ RBAC for Infrastructure</strong> – Apply Kubernetes RBAC to cloud resources. <strong>✅ Real-time Monitoring</strong> – Leverage existing K8s observability tools.</p>
+<h2>1. Setting Up the Environment</h2>
+<h2>Prerequisites</h2>
+<p>Make sure you have:</p>
+<ul><li>Docker Desktop</li><li>Minikube</li><li>kubectl</li><li>AWS CLI with a configured profile</li><li>Helm 3.x</li></ul>
+<h2>Start Minikube with Adequate Resources</h2>
+<pre><code>minikube start --driver=docker --memory=6144 --cpus=4 --disk-size=20g
+minikube addons enable ingress
+minikube addons enable metrics-server
+minikube status
+kubectl get nodes</code></pre>
+<h2>2. Installing Crossplane</h2>
+<h2>Install the Crossplane Controller</h2>
+<pre><code>helm repo add crossplane-stable https://charts.crossplane.io/stable
+helm repo update</code></pre>
+<pre><code>helm install crossplane crossplane-stable/crossplane \
+  --namespace crossplane-system \
+  --create-namespace \
+  --wait</code></pre>
+<pre><code>kubectl get pods -n crossplane-system
+kubectl get crd | grep crossplane</code></pre>
+<h2>Install the AWS Provider</h2>
+<pre><code>cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-aws
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/provider-aws:v0.44.0
+EOF</code></pre>
+<pre><code>kubectl wait --for=condition=healthy provider.pkg.crossplane.io/provider-aws --timeout=600s
+kubectl get crd | grep aws</code></pre>
+<h2>3. Configuring AWS Credentials</h2>
+<pre><code>kubectl create secret generic aws-creds -n crossplane-system \
+  --from-literal=creds=&quot;[default]
+aws_access_key_id = $(aws configure get aws_access_key_id --profile raj-private)
+aws_secret_access_key = $(aws configure get aws_secret_access_key --profile raj-private)
+region = eu-west-1&quot;</code></pre>
+<p>Create the ProviderConfig:</p>
+<pre><code>cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: aws.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: aws-creds
+      key: creds
+EOF</code></pre>
+<h2>4. Creating AWS Infrastructure</h2>
+<p>Crossplane resources are just Kubernetes manifests. Here’s what we’ll build:</p>
+<h2>VPC</h2>
+<pre><code>apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: VPC
+metadata:
+  name: crossplane-demo-vpc
+spec:
+  forProvider:
+    region: eu-west-1
+    cidrBlock: 172.31.0.0/16
+    enableDnsHostnames: true
+    enableDnsSupport: true
+    tags:
+      Name: crossplane-demo-vpc
+      Environment: demo</code></pre>
+<h2>Security Groups</h2>
+<pre><code>apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: crossplane-demo-sg-app
+spec:
+  forProvider:
+    region: eu-west-1
+    vpcIdSelector:
+      matchLabels:
+        name: crossplane-demo-vpc
+    groupName: crossplane-demo-sg-app
+    description: Security group for demo application
+    tags:
+      Name: crossplane-demo-sg-app
+      Environment: demo</code></pre>
+<h2>RDS PostgreSQL</h2>
+<pre><code>apiVersion: rds.aws.crossplane.io/v1alpha1
+kind: RDSInstance
+metadata:
+  name: crossplane-demo-rds
+spec:
+  forProvider:
+    region: eu-west-1
+    dbInstanceClass: db.t3.micro
+    engine: postgres
+    engineVersion: &quot;13.22&quot;
+    dbName: demodb
+    masterUsername: dbuser
+    allocatedStorage: 20
+    storageType: gp2
+    storageEncrypted: true
+    publiclyAccessible: false
+    multiAZ: false
+    tags:
+      Name: crossplane-demo-rds
+      Environment: demo
+  writeConnectionSecretsToRef:
+    name: rds-connection
+    namespace: default</code></pre>
+<h2>S3 Bucket</h2>
+<pre><code>apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: crossplane-demo-bucket-2024-ireland
+spec:
+  forProvider:
+    region: eu-west-1
+    tags:
+      Name: crossplane-demo-bucket-2024-ireland
+      Environment: demo
+  deletionPolicy: Delete</code></pre>
+<h2>5. Deploying a Sample Application</h2>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+  namespace: sample-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app-service
+  namespace: sample-app
+spec:
+  selector:
+    app: sample-app
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer</code></pre>
+<h2>6. Testing &amp; Verification</h2>
+<ul><li><strong>Check all managed resources</strong>: <code>kubectl get managed</code></li><li><strong>Verify in AWS Console</strong>: <code>aws s3 ls --profile raj-private</code> <code>aws rds describe-db-instances --profile raj-private</code></li><li><strong>Access the app</strong>: <code>kubectl port-forward -n sample-app svc/sample-app-service 8080:80</code></li></ul>
+<h2>7. Monitoring &amp; Troubleshooting</h2>
+<ul><li><code>watch kubectl get managed</code> for real-time updates</li><li>Use <code>kubectl describe</code> on any resource for detailed events</li><li>Check AWS CLI for actual resource status</li></ul>
+<h2>8. Cleanup</h2>
+<pre><code>kubectl delete -f sample-app.yaml
+kubectl delete -f rds-instance.yaml --wait=false
+kubectl delete -f s3-bucket.yaml
+kubectl delete -f security-groups.yaml
+kubectl delete -f vpc.yaml</code></pre>
+<pre><code>helm uninstall crossplane -n crossplane-system
+minikube stop</code></pre>
+<h2>Key Takeaways</h2>
+<p><strong>The Good</strong></p>
+<ul><li>Unified workflow with <code>kubectl</code></li><li>Seamless GitOps integration</li><li>RBAC for infrastructure</li><li>Real-time feedback</li></ul>
+<p><strong>The Challenges</strong></p>
+<ul><li>Steeper learning curve without Kubernetes experience</li><li>Dependency management can be tricky</li><li>Some providers less mature</li></ul>
+<h2>FAQs</h2>
+<blockquote><strong><em>Is Crossplane production-ready?</em></strong><em> Yes — especially for AWS, GCP, and Azure providers.</em></blockquote>
+<blockquote><strong><em>How does it store state?</em></strong><em> In Kubernetes etcd — no separate files.</em></blockquote>
+<blockquote><strong><em>Can I migrate from Terraform?</em></strong><em> Yes, but not automatically. Start with new workloads.</em></blockquote>
+<h2>Conclusion</h2>
+<p>Crossplane flips the script on infrastructure-as-code by treating <strong>cloud resources as Kubernetes resources</strong>. If you’re already invested in Kubernetes, this can be a game-changer.</p>
+<p>The demo here created <strong>real AWS infrastructure</strong> — RDS, S3, Security Groups — <strong>entirely with YAML and </strong><code><strong>kubectl</strong></code>. That’s a powerful concept.</p>
+<p>🚀 <strong>Try it yourself:</strong> <a href="https://github.com/soodrajesh/crossplane-demo">GitHub Repo</a> 💬 <strong>Feedback?</strong> Connect with me</p>
+<p><em>Written by Rajesh Sood</em></p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

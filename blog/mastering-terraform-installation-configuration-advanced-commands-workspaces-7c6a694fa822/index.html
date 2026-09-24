@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Mastering Terraform: Install, Config &amp; Workspaces | Rajesh Sood</title>
+  <meta name="description" content="Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mastering Terraform: Install, Config &amp; Workspaces" />
+  <meta property="og:description" content="Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mastering Terraform: Install, Config &amp; Workspaces" />
+  <meta property="article:published_time" content="2025-02-15" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mastering Terraform: Install, Config &amp; Workspaces" />
+  <meta name="twitter:description" content="Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mastering Terraform: Install, Config & Workspaces",
+  "datePublished": "2025-02-15",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">IaC &amp; Config Management</p>
+      <h1>Mastering Terraform: Install, Config &amp; Workspaces</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-02-15">Feb 15, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<p>Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently. In this post, we’ll cover everything you need to get started with Terraform — from installation and configuration to advanced commands and workspaces. Plus, I’ll include a FAQ section with common technical interview questions and examples.</p>
+<figure><img src="/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Prerequisites</h2>
+<p>Before we begin, ensure you have the following installed on your local machine:</p>
+<ul><li><strong>Terraform</strong> (<a href="https://developer.hashicorp.com/terraform/install">Download &amp; Install</a>)</li><li><strong>AWS CLI</strong> (<a href="https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html">Install AWS CLI</a>)</li><li>An <strong>AWS account</strong> with IAM access to create resources</li></ul>
+<h2>Step 1: Installing Terraform</h2>
+<h2>macOS (via Homebrew)</h2>
+<pre><code>brew tap hashicorp/tap
+brew install hashicorp/tap/terraform</code></pre>
+<h2>Linux</h2>
+<pre><code>wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+unzip terraform_1.6.0_linux_amd64.zip
+sudo mv terraform /usr/local/bin/</code></pre>
+<h2>Windows (via Chocolatey)</h2>
+<pre><code>choco install terraform</code></pre>
+<p>Verify the installation:</p>
+<pre><code>terraform -v</code></pre>
+<h2>Step 2: Configuring Terraform for AWS</h2>
+<p>Create a <strong>main.tf</strong> file with a simple Terraform configuration for an AWS S3 bucket:</p>
+<pre><code>provider &quot;aws&quot; {
+  region = &quot;us-east-1&quot;
+}</code></pre>
+<pre><code>resource &quot;aws_s3_bucket&quot; &quot;my_bucket&quot; {
+  bucket = &quot;my-terraform-demo-bucket&quot;
+  acl    = &quot;private&quot;
+}</code></pre>
+<pre><code>output &quot;bucket_name&quot; {
+  value = aws_s3_bucket.my_bucket.id
+}</code></pre>
+<h2>Initializing Terraform</h2>
+<p>Run:</p>
+<pre><code>terraform init</code></pre>
+<p>This downloads required providers and initializes the working directory.</p>
+<h2>Planning and Applying Changes</h2>
+<pre><code>terraform plan
+terraform apply -auto-approve</code></pre>
+<p>This creates the S3 bucket in AWS.</p>
+<h2>Step 3: Advanced Terraform Commands</h2>
+<h2>1. terraform refresh — Updates state file with real-world changes</h2>
+<pre><code>terraform refresh</code></pre>
+<h2>2. terraform import — Imports existing resources into Terraform state</h2>
+<pre><code>terraform import aws_s3_bucket.my_bucket existing-bucket-name</code></pre>
+<h2>3. terraform taint — Marks a resource for recreation</h2>
+<pre><code>terraform taint aws_s3_bucket.my_bucket</code></pre>
+<h2>4. terraform state mv — Moves a resource within Terraform state</h2>
+<pre><code>terraform state mv aws_s3_bucket.my_bucket module.s3.aws_s3_bucket.new_bucket</code></pre>
+<h2>5. terraform destroy — Deletes all managed resources</h2>
+<pre><code>terraform destroy</code></pre>
+<h2>Step 4: Terraform Workspaces for Multi-Environment Management</h2>
+<p>Terraform <strong>workspaces</strong> enable you to manage multiple environments (e.g., dev, staging, prod) within the same configuration.</p>
+<h2>Creating and Switching Workspaces</h2>
+<pre><code>terraform workspace new dev
+terraform workspace new staging
+terraform workspace new prod</code></pre>
+<p>List workspaces:</p>
+<pre><code>terraform workspace list</code></pre>
+<p>Switch to a workspace:</p>
+<pre><code>terraform workspace select staging</code></pre>
+<p>Get current workspace:</p>
+<pre><code>terraform workspace show</code></pre>
+<h2>Using Workspaces in Configuration</h2>
+<pre><code>resource &quot;aws_s3_bucket&quot; &quot;my_bucket&quot; {
+  bucket = &quot;my-bucket-${terraform.workspace}&quot;
+}</code></pre>
+<p>This dynamically names your bucket based on the active workspace.</p>
+<h2>FAQs:</h2>
+<h2>Q1: What is Terraform state, and why is it important?</h2>
+<p><strong>A:</strong> Terraform state (<code>terraform.tfstate</code>) tracks infrastructure resources. Losing it can lead to Terraform creating duplicate resources.</p>
+<p>📌 <strong>Example:</strong></p>
+<pre><code>cat terraform.tfstate</code></pre>
+<h2>Q2: Difference between <code>terraform apply</code> and <code>terraform plan</code>?</h2>
+<p><strong>A:</strong></p>
+<ul><li><code>terraform plan</code> <strong>shows the execution plan</strong> before applying changes.</li><li><code>terraform apply</code> <strong>executes the planned changes</strong>.</li></ul>
+<p>📌 <strong>Example:</strong></p>
+<pre><code>terraform plan -out=tfplan
+terraform apply tfplan</code></pre>
+<h2>Q3: How does Terraform handle dependencies between resources?</h2>
+<p><strong>A:</strong> Terraform automatically determines the order of resource creation using implicit and explicit dependencies.</p>
+<p>📌 <strong>Implicit Dependency Example:</strong></p>
+<pre><code>resource &quot;aws_vpc&quot; &quot;main&quot; {
+  cidr_block = &quot;10.0.0.0/16&quot;
+}</code></pre>
+<pre><code>resource &quot;aws_subnet&quot; &quot;subnet1&quot; {
+  vpc_id = aws_vpc.main.id  # Implicit dependency
+  cidr_block = &quot;10.0.1.0/24&quot;
+}</code></pre>
+<p>📌 <strong>Explicit Dependency (</strong><code><strong>depends_on</strong></code><strong>)</strong></p>
+<pre><code>resource &quot;aws_instance&quot; &quot;example&quot; {
+  depends_on = [aws_security_group.sg]
+}</code></pre>
+<h2>Q4: How do you store Terraform state remotely?</h2>
+<p><strong>A:</strong> Use S3 with DynamoDB for state locking.</p>
+<p>📌 <strong>Example:</strong></p>
+<pre><code>terraform {
+  backend &quot;s3&quot; {
+    bucket         = &quot;my-terraform-state&quot;
+    key            = &quot;terraform.tfstate&quot;
+    region         = &quot;us-east-1&quot;
+    encrypt        = true
+    dynamodb_table = &quot;terraform-locks&quot;
+  }
+}</code></pre>
+<p>Run:</p>
+<pre><code>terraform init</code></pre>
+<h2>Q5: How does Terraform handle secret management?</h2>
+<p><strong>A:</strong></p>
+<ul><li><strong>Environment Variables</strong></li></ul>
+<pre><code>export AWS_ACCESS_KEY_ID=&quot;your-access-key&quot;
+export AWS_SECRET_ACCESS_KEY=&quot;your-secret-key&quot;</code></pre>
+<ul><li><strong>Use AWS Secrets Manager</strong></li><li><strong>Use HashiCorp Vault with the Terraform Vault provider</strong></li></ul>
+<h2>Conclusion</h2>
+<p>You’ve now mastered:</p>
+<p>✅ <strong>Installing and configuring Terraform</strong></p>
+<p>✅ <strong>Essential and advanced Terraform commands</strong></p>
+<p>✅ <strong>Using Terraform workspaces for multi-environment setups</strong></p>
+<p>✅ <strong>Common Terraform interview questions with examples</strong></p>
+<p>Terraform is a must-know tool for DevOps and Cloud Engineers. Keep learning, experimenting, and optimizing your infrastructure! 🚀</p>
+<p>If you found this helpful, <strong>follow me for more DevOps tutorials!</strong></p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

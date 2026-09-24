@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Deploying a Text-Gen AI App with AWS EKS &amp; GitOps | Rajesh Sood</title>
+  <meta name="description" content="A real-world implementation of a text generation AI app powered by a Generative AI API — OpenAI, AWS Bedrock, or Hugging Face." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Deploying a Text-Gen AI App with AWS EKS &amp; GitOps" />
+  <meta property="og:description" content="A real-world implementation of a text generation AI app powered by a Generative AI API — OpenAI, AWS Bedrock, or Hugging Face." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Deploying a Text-Gen AI App with AWS EKS &amp; GitOps" />
+  <meta property="article:published_time" content="2025-03-21" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Deploying a Text-Gen AI App with AWS EKS &amp; GitOps" />
+  <meta name="twitter:description" content="A real-world implementation of a text generation AI app powered by a Generative AI API — OpenAI, AWS Bedrock, or Hugging Face." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deploying a Text-Gen AI App with AWS EKS & GitOps",
+  "datePublished": "2025-03-21",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "A real-world implementation of a text generation AI app powered by a Generative AI API — OpenAI, AWS Bedrock, or Hugging Face."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">AI/ML Infrastructure</p>
+      <h1>Deploying a Text-Gen AI App with AWS EKS &amp; GitOps</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-21">Mar 21, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>This guide walks through a real-world implementation of a <strong>text generation AI application</strong> powered by a <strong>Generative AI API</strong> (e.g., OpenAI, AWS Bedrock, or Hugging Face). The app will be <strong>containerized, deployed on AWS EKS, and managed via GitOps</strong> using Terraform, Kubernetes, and Helm.</p>
+<h2>What This Guide Covers:</h2>
+<ul><li>Setting up an <strong>AI API token</strong> securely</li><li>Building a <strong>FastAPI-based AI app</strong></li><li><strong>Containerizing</strong> the application with Docker</li><li><strong>Deploying</strong> on AWS EKS</li><li>Using <strong>GitOps for automation</strong></li><li>Managing <strong>secrets securely</strong></li><li>Optimizing and troubleshooting deployments</li></ul>
+<h2>1. Setting Up Generative AI API Token</h2>
+<p>Most AI APIs require authentication via API tokens. Example services include:</p>
+<ul><li><strong>OpenAI GPT</strong> (API key from OpenAI platform)</li><li><strong>AWS Bedrock</strong> (IAM role-based authentication)</li><li><strong>Hugging Face API</strong> (Access token from Hugging Face)</li></ul>
+<h2>1.1. Storing API Token Securely in Kubernetes</h2>
+<p>Use Kubernetes Secrets to store the API token securely:</p>
+<pre><code>kubectl create secret generic ai-api-secret --from-literal=API_KEY=&#x27;your-api-key-here&#x27;</code></pre>
+<p>Alternatively, use <strong>AWS Secrets Manager</strong> or <strong>HashiCorp Vault</strong> for better security.</p>
+<h2>2. Building the AI-Powered App</h2>
+<p>Create a <strong>FastAPI-based application</strong> that interacts with a Generative AI API.</p>
+<h2>2.1. Install Dependencies</h2>
+<pre><code>pip install fastapi uvicorn requests python-dotenv</code></pre>
+<h2>2.2. Implement API Integration</h2>
+<p>Create <code>app.py</code> to interact with the AI API:</p>
+<pre><code>from fastapi import FastAPI
+import os
+import requests</code></pre>
+<pre><code>app = FastAPI()
+API_KEY = os.getenv(&quot;API_KEY&quot;)
+API_URL = &quot;https://api.openai.com/v1/completions&quot;</code></pre>
+<pre><code>@app.post(&quot;/generate&quot;)
+def generate_text(request: dict):
+    headers = {&quot;Authorization&quot;: f&quot;Bearer {API_KEY}&quot;, &quot;Content-Type&quot;: &quot;application/json&quot;}
+    data = {&quot;model&quot;: &quot;text-davinci-003&quot;, &quot;prompt&quot;: request[&quot;prompt&quot;], &quot;max_tokens&quot;: 100}
+    response = requests.post(API_URL, json=data, headers=headers)
+    return response.json()</code></pre>
+<h2>3. Containerizing the Application</h2>
+<h2>3.1. Create Dockerfile</h2>
+<pre><code>FROM python:3.9
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+CMD [&quot;uvicorn&quot;, &quot;app:app&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;, &quot;--port&quot;, &quot;8080&quot;]</code></pre>
+<h2>3.2. Build and Push to AWS ECR</h2>
+<pre><code>docker build -t text-gen-ai-app .
+docker tag text-gen-ai-app &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.&lt;AWS_REGION&gt;.amazonaws.com/text-gen-ai-app:v1
+docker push &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.&lt;AWS_REGION&gt;.amazonaws.com/text-gen-ai-app:v1</code></pre>
+<h2>4. Deploying on AWS EKS with GitOps</h2>
+<h2>4.1. Define Kubernetes Deployment</h2>
+<p>Create <code>deployment.yaml</code>:</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-gen-ai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: text-gen-ai
+  template:
+    metadata:
+      labels:
+        app: text-gen-ai
+    spec:
+      containers:
+      - name: text-gen-ai
+        image: &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.&lt;AWS_REGION&gt;.amazonaws.com/text-gen-ai-app:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-api-secret
+              key: API_KEY</code></pre>
+<h2>4.2. Apply Kubernetes Manifest</h2>
+<pre><code>kubectl apply -f deployment.yaml</code></pre>
+<h2>4.3. Expose the Application</h2>
+<p>Create <code>service.yaml</code>:</p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: text-gen-ai-service
+spec:
+  selector:
+    app: text-gen-ai
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer</code></pre>
+<p>Apply the service:</p>
+<pre><code>kubectl apply -f service.yaml</code></pre>
+<h2>5. Automating with GitOps &amp; Terraform</h2>
+<h2>5.1. Define Infrastructure with Terraform</h2>
+<p>Create <code>eks.tf</code>:</p>
+<pre><code>resource &quot;aws_eks_cluster&quot; &quot;main&quot; {
+  name     = &quot;text-gen-eks&quot;
+  role_arn = aws_iam_role.eks_role.arn
+  vpc_config {
+    subnet_ids = module.vpc.public_subnets
+  }
+}</code></pre>
+<p>Deploy with:</p>
+<pre><code>terraform init &amp;&amp; terraform apply -auto-approve</code></pre>
+<h2>5.2. Enable GitOps with ArgoCD</h2>
+<p>Install ArgoCD:</p>
+<pre><code>kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code></pre>
+<p>Deploy ArgoCD app:</p>
+<pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: text-gen-ai-app
+spec:
+  source:
+    repoURL: &quot;https://github.com/your-repo/text-gen-ai&quot;
+    path: &quot;k8s&quot;
+  destination:
+    server: &quot;https://kubernetes.default.svc&quot;
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true</code></pre>
+<p>Apply ArgoCD configuration:</p>
+<pre><code>kubectl apply -f argocd-app.yaml</code></pre>
+<h2>6. Testing the Deployment</h2>
+<h2>6.1. Find the External URL of the Service</h2>
+<pre><code>kubectl get svc text-gen-ai-service</code></pre>
+<p>Copy the <strong>EXTERNAL-IP</strong> and use it in the next step.</p>
+<h2>6.2. Send a Test Request</h2>
+<pre><code>curl -X POST &quot;http://&lt;your-lb-address&gt;/generate&quot; \
+     -H &quot;Content-Type: application/json&quot; \
+     -d &#x27;{&quot;prompt&quot;: &quot;What is the meaning of life?&quot;}&#x27;</code></pre>
+<h2>6.3. Check Logs for Debugging</h2>
+<pre><code>kubectl logs -l app=text-gen-ai -f</code></pre>
+<h2>6.4. Scale Up Deployment</h2>
+<pre><code>kubectl scale deployment text-gen-ai --replicas=5</code></pre>
+<h2>7. FAQs and Troubleshooting</h2>
+<h2>❓ How to secure API tokens in production?</h2>
+<p>✅ Use <strong>AWS Secrets Manager</strong>, <strong>Kubernetes Secrets</strong>, or <strong>Vault</strong> instead of hardcoding.</p>
+<h2>❓ How to monitor performance?</h2>
+<p>✅ Use <strong>Prometheus + Grafana</strong> for tracking API response times and Kubernetes health.</p>
+<h2>❓ What if API calls fail?</h2>
+<p>✅ Implement <strong>retry logic</strong> and <strong>fallback mechanisms</strong> for better fault tolerance.</p>
+<h2>Conclusion</h2>
+<p>This guide covered deploying a <strong>text generation AI app</strong> using <strong>AWS EKS, ECR, GitOps, Kubernetes, Docker, and Terraform</strong>. We included:</p>
+<ul><li><strong>AI API token security</strong></li><li><strong>Containerization</strong></li><li><strong>GitOps automation</strong></li><li><strong>Terraform-based EKS setup</strong></li></ul>
+<p>Would you like to see a real-world example added with logging, monitoring, and multi-region deployments? 🚀</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

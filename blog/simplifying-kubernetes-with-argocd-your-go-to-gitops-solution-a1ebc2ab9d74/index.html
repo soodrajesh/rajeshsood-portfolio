@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution | Rajesh Sood</title>
+  <meta name="description" content="Managing Kubernetes deployments across multiple environments can feel like herding cats." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution" />
+  <meta property="og:description" content="Managing Kubernetes deployments across multiple environments can feel like herding cats." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution" />
+  <meta property="article:published_time" content="2025-08-22" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution" />
+  <meta name="twitter:description" content="Managing Kubernetes deployments across multiple environments can feel like herding cats." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution",
+  "datePublished": "2025-08-22",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Managing Kubernetes deployments across multiple environments can feel like herding cats."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">GitOps &amp; Delivery</p>
+      <h1>Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-08-22">Aug 22, 2025</time><span>·</span><span>4 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution</h2>
+<p>Managing Kubernetes deployments across multiple environments can feel like herding cats. That’s where ArgoCD, a fantastic GitOps tool, comes in, making life easier by syncing your Kubernetes clusters with Git repos. I’ve put together a GitHub repository, <a href="https://github.com/soodrajesh/argocd-setup">soodrajesh/argocd-setup</a>, that’s packed with everything you need for a production-ready ArgoCD setup tailored for enterprise Kubernetes workflows. Let me walk you through what it offers, how to get started, and some handy code snippets to make it real. Plus, I’ll throw in some example commands and answer common questions at the end.</p>
+<h2>Why ArgoCD Rocks for GitOps</h2>
+<p>GitOps is a game-changer — using Git as the single source of truth for your infrastructure and apps. ArgoCD, a CNCF-graduated project, automates Kubernetes deployments, keeping things consistent and making rollbacks a breeze. My <code>argocd-setup</code> repo builds on that, adding enterprise-grade features like security, scalability, and monitoring to make your DevOps life smoother.</p>
+<h2>What’s in the Box?</h2>
+<ul><li><strong>One-Click Install</strong>: Deploy ArgoCD with a single command, baked with best practices.</li><li><strong>Security Focus</strong>: RBAC, TLS, and integrations with tools like AWS Secrets Manager and HashiCorp Vault.</li><li><strong>Multi-Environment Ready</strong>: Handles dev, staging, and production like a pro.</li><li><strong>High Availability</strong>: Built for production with a scalable HA setup.</li><li><strong>Monitoring Goodies</strong>: Prometheus metrics, Grafana dashboards, and alerts for when things go sideways.</li><li><strong>Backup &amp; Recovery</strong>: Automated scripts to save your bacon in a disaster.</li></ul>
+<h2>Getting Up and Running</h2>
+<p>Setting up ArgoCD with this repo is pretty straightforward, even for complex setups. Here’s how to dive in, with some code snippets and example commands to keep it real.</p>
+<h2>What You’ll Need</h2>
+<p>Before you start, make sure you’ve got:</p>
+<ul><li>A Kubernetes cluster (v1.20 or higher) with admin access.</li><li><code>kubectl</code> set up for your cluster.</li><li>Helm 3.x installed.</li><li>AWS CLI configured if you’re using EKS.</li><li>A Git repo for your apps.</li><li>(Optional) A domain name for ingress.</li></ul>
+<h2>Quick Start Steps</h2>
+<ol><li><strong>Clone and Configure</strong>Grab the repo and tweak the config to fit your setup:</li></ol>
+<ul><li><code>git clone https://github.com/soodrajesh/argocd-setup.git cd argocd-setup cp config/config.example.yaml config/config.yaml</code></li></ul>
+<p>Open <code>config/config.yaml</code> in your favorite editor and add your cluster details.</p>
+<p><strong>Example Command</strong>:</p>
+<ul><li><code>nano config/config.yaml</code></li></ul>
+<p><strong>Sample </strong><code><strong>config.yaml</strong></code><strong> Snippet</strong>:</p>
+<blockquote>cluster: name: “my-prod-cluster” region: “us-east-1”argocd: namespace: “argocd” version: “v2.8.4”</blockquote>
+<p><strong>2. Deploy ArgoCD</strong>Fire up the install script to get ArgoCD running</p>
+<ul><li><code>./scripts/install.sh</code></li></ul>
+<p>Want to use a custom config? Try this:</p>
+<ul><li><code>./scripts/install.sh --config config/production.yaml</code></li></ul>
+<p><strong>Example Command</strong>:</p>
+<ul><li><code>./scripts/install.sh --config config/production.yaml --ha</code></li></ul>
+<p><strong>Snippet from </strong><code><strong>install.sh</strong></code>:</p>
+<pre><code>#!/bin/bash
+CONFIG_FILE=&quot;config/config.yaml&quot;
+while [[ &quot;$#&quot; -gt 0 ]]; do
+    case $1 in
+        --config) CONFIG_FILE=&quot;$2&quot;; shift ;;
+        --ha) HA_ENABLED=&quot;true&quot; ;;
+    esac
+    shift
+done
+helm install argocd -n argocd --create-namespace -f &quot;$CONFIG_FILE&quot; .</code></pre>
+<p><strong>3. Access the ArgoCD UI</strong>Get the admin password and port-forward to the UI:</p>
+<ul><li><code>kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d kubectl port-forward svc/argocd-server -n argocd 8080:443</code></li></ul>
+<p>Then, head to <code>https://localhost:8080</code>, log in with username <code>admin</code> and the password you got.</p>
+<p><strong>Example Command</strong>:</p>
+<ul><li><code>kubectl port-forward svc/argocd-server -n argocd 8080:443 &amp;</code></li></ul>
+<h2>Keeping Things Secure</h2>
+<p>Security is a big deal in this repo. Here’s what you get:</p>
+<ul><li><strong>RBAC</strong>: Roles for admins, developers, and viewers, with LDAP/OIDC group support.</li><li><strong>Network Security</strong>: TLS for all communications and network policies to lock down pod traffic.</li><li><strong>Secret Management</strong>: Works with AWS Secrets Manager, Sealed Secrets, or HashiCorp Vault.</li></ul>
+<p><strong>Example RBAC Config Snippet</strong>:</p>
+<pre><code>security:
+  rbac:
+    enabled: true
+    policy: |
+      p, role:admin, applications, *, */*, allow
+      p, role:dev, applications, get, */*, allow
+      g, argocd-admins, role:admin</code></pre>
+<p><strong>Example Command to Apply RBAC</strong>:</p>
+<pre><code>kubectl apply -f config/production.yaml</code></pre>
+<h2>Deploying Your Apps</h2>
+<p>Deploying apps is a breeze with prebuilt manifests. Here’s an example <code>Application</code> manifest:</p>
+<p><strong>Sample Application Manifest</strong>:</p>
+<pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-cool-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-org/my-cool-app
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true</code></pre>
+<p>Apply it with:</p>
+<pre><code>./scripts/deploy-apps.sh applications/</code></pre>
+<p><strong>Example Command</strong>:</p>
+<pre><code>./scripts/deploy-apps.sh applications/my-cool-app.yaml</code></pre>
+<p><strong>Snippet from </strong><code><strong>deploy-apps.sh</strong></code>:</p>
+<pre><code>#!/bin/bash
+for app in applications/*.yaml; do
+    kubectl apply -f &quot;$app&quot;
+done</code></pre>
+<h2>Monitoring Your Setup</h2>
+<p>The repo hooks up Prometheus for metrics and Grafana for slick dashboards, plus alerts for sync issues. It also supports structured JSON logging and ELK/EFK stack integration.</p>
+<p><strong>Example Prometheus Config Snippet</strong>:</p>
+<pre><code>prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    namespace: monitoring</code></pre>
+<p><strong>Example Command to Check Metrics</strong>:</p>
+<pre><code>kubectl get servicemonitor -n monitoring</code></pre>
+<h2>High Availability and Multi-Cluster</h2>
+<p>For production, enable HA:</p>
+<pre><code>./scripts/install.sh --ha --config config/production.yaml</code></pre>
+<p><strong>Example HA Config Snippet</strong>:</p>
+<pre><code>argocd:
+  ha:
+    enabled: true
+    replicas: 3</code></pre>
+<p>Manage multiple clusters like this:</p>
+<pre><code>argocd cluster add my-prod-cluster
+./scripts/deploy-multi-cluster.sh</code></pre>
+<p><strong>Example Command</strong>:</p>
+<pre><code>argocd cluster list</code></pre>
+<h2>Troubleshooting Tips</h2>
+<p>If something goes wrong, use these scripts:</p>
+<ul><li>Check app status: <code>argocd app get my-cool-app</code></li><li>View logs: <code>argocd app logs my-cool-app</code></li><li>Force a sync: <code>argocd app sync my-cool-app --force</code></li></ul>
+<p><strong>Example Troubleshooting Command</strong>:</p>
+<pre><code>argocd app sync my-cool-app --force</code></pre>
+<p><strong>Snippet from </strong><code><strong>health-check.sh</strong></code>:</p>
+<pre><code>#!/bin/bash
+argocd app list | while read -r app; do
+    status=$(argocd app get &quot;$app&quot; --output json | jq -r &#x27;.status.health.status&#x27;)
+    echo &quot;Application $app health: $status&quot;
+done</code></pre>
+<h2>Why This Repo?</h2>
+<p>The <code>argocd-setup</code> repo makes Kubernetes management feel less like a chore. It’s got everything you need—automation, security, and monitoring—to handle complex setups with ease. Whether you’re running one cluster or juggling multiple environments, this setup has your back.</p>
+<h2>FAQs</h2>
+<h2>What’s ArgoCD, and why should I care?</h2>
+<p>ArgoCD is a GitOps tool that automates Kubernetes deployments by syncing with Git. It keeps things consistent and makes rollbacks super easy.</p>
+<h2>Does this work with non-AWS clusters?</h2>
+<p>Yup! It works with any Kubernetes cluster (v1.20+). Just tweak <code>config.yaml</code> for your environment.</p>
+<h2>How do I turn on high availability?</h2>
+<p>Set <code>ha.enabled: true</code> in your config and run <code>./scripts/install.sh --ha</code>.</p>
+<h2>What if my app sync fails?</h2>
+<p>Run <code>argocd app get my-cool-app</code> to check status, <code>argocd app logs my-cool-app</code> for logs, or <code>argocd app sync my-cool-app --force</code> to force a sync.</p>
+<h2>How can I help improve this project?</h2>
+<p>Fork the repo, create a feature branch, make your changes, and submit a pull request. Check the <a href="https://github.com/soodrajesh/argocd-setup#contributing">Contributing section</a> for more.</p>
+<p>If this repo saves you time, give it a star on <a href="https://github.com/soodrajesh/argocd-setup">GitHub</a>! Got questions? Hit up the repo’s issues page.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

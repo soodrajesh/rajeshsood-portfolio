@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Advanced Docker: A Deep Dive with Real-World Examples | Rajesh Sood</title>
+  <meta name="description" content="Docker has revolutionized the way we develop, package, and deploy applications." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Advanced Docker: A Deep Dive with Real-World Examples" />
+  <meta property="og:description" content="Docker has revolutionized the way we develop, package, and deploy applications." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Advanced Docker: A Deep Dive with Real-World Examples" />
+  <meta property="article:published_time" content="2025-03-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Advanced Docker: A Deep Dive with Real-World Examples" />
+  <meta name="twitter:description" content="Docker has revolutionized the way we develop, package, and deploy applications." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Advanced Docker: A Deep Dive with Real-World Examples",
+  "datePublished": "2025-03-05",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Docker has revolutionized the way we develop, package, and deploy applications."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Containers &amp; Docker</p>
+      <h1>Advanced Docker: A Deep Dive with Real-World Examples</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-05">Mar 5, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Docker has revolutionized the way we develop, package, and deploy applications. While basic Docker usage covers building and running containers, advanced techniques unlock better performance, security, and scalability.</p>
+<p>In this blog, we will explore <strong>advanced Docker concepts</strong> with real-world examples, best practices, troubleshooting tips, and FAQs.</p>
+<h2>1. Multi-Stage Builds for Optimized Images</h2>
+<h2>Problem: Large Docker Images</h2>
+<p>Many applications suffer from <strong>large image sizes</strong> because unnecessary dependencies are included.</p>
+<h2>Solution: Multi-Stage Builds</h2>
+<p>Multi-stage builds help in creating lightweight images by using temporary builder containers.</p>
+<h3>Example:</h3>
+<pre><code># Stage 1: Build
+FROM golang:1.19 as builder
+WORKDIR /app
+COPY . .
+RUN go build -o myapp</code></pre>
+<pre><code># Stage 2: Deploy lightweight container
+FROM alpine:latest
+WORKDIR /app
+COPY --from=builder /app/myapp .
+CMD [&quot;./myapp&quot;]</code></pre>
+<p>This reduces the final image size significantly.</p>
+<h2>2. Advanced Networking in Docker</h2>
+<h2>Problem: Containers Need Secure and Isolated Networks</h2>
+<p>Containers communicate over networks, but using <strong>default bridge networking</strong> can cause security risks.</p>
+<h2>Solution: Use User-Defined Networks</h2>
+<pre><code># Create a custom bridge network
+$ docker network create my_custom_network</code></pre>
+<pre><code># Run containers inside the network
+$ docker run -d --network=my_custom_network --name app1 nginx
+$ docker run -d --network=my_custom_network --name app2 alpine sleep 3600</code></pre>
+<p>With a custom network, <strong>DNS-based service discovery</strong> works automatically inside Docker.</p>
+<h2>3. Using Docker Compose for Multi-Container Applications</h2>
+<h2>Problem: Running Multiple Containers Manually is Cumbersome</h2>
+<p>Handling <strong>microservices</strong> manually can be complex.</p>
+<h2>Solution: Docker Compose</h2>
+<p>Docker Compose simplifies multi-container applications using YAML configuration.</p>
+<h3>Example:</h3>
+<pre><code>version: &#x27;3.8&#x27;
+services:
+  app:
+    image: node:16
+    ports:
+      - &quot;3000:3000&quot;
+    volumes:
+      - ./app:/app
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password</code></pre>
+<p>Start everything with a single command:</p>
+<pre><code>$ docker-compose up -d</code></pre>
+<h2>4. Optimizing Performance with Caching and Layering</h2>
+<h2>Problem: Slow Docker Builds</h2>
+<p>Frequent builds can be slow due to redundant steps.</p>
+<h2>Solution: Leverage Docker Layer Caching</h2>
+<pre><code># Order matters! Place static dependencies before dynamic code changes
+FROM node:16
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+CMD [&quot;node&quot;, &quot;index.js&quot;]</code></pre>
+<p>By copying dependencies first, Docker <strong>caches installed packages</strong>, reducing build times.</p>
+<h2>5. Securing Docker Containers</h2>
+<h2>Problem: Containers Run with Excessive Privileges</h2>
+<p>By default, containers run as <strong>root</strong>, which increases security risks.</p>
+<h2>Solution: Run as a Non-Root User</h2>
+<pre><code>FROM ubuntu
+RUN useradd -m appuser
+USER appuser
+CMD [&quot;/bin/bash&quot;]</code></pre>
+<p>This prevents privilege escalation inside the container.</p>
+<h2>6. Logging and Monitoring with Docker</h2>
+<h2>Problem: Debugging Containerized Applications</h2>
+<p>Containers generate logs, but they are ephemeral.</p>
+<h2>Solution: Use Docker Logging Drivers</h2>
+<pre><code>$ docker run --log-driver json-file nginx
+$ docker logs &lt;container_id&gt;</code></pre>
+<p>For production, use <strong>ELK (Elasticsearch, Logstash, Kibana) or Loki with Prometheus</strong> for logging.</p>
+<h2>FAQs</h2>
+<h2>Q1: How do I reduce Docker image sizes?</h2>
+<ul><li>Use <strong>multi-stage builds</strong></li><li>Base your image on <code>alpine:latest</code></li><li>Remove unnecessary dependencies</li></ul>
+<h2>Q2: How do I persist data across container restarts?</h2>
+<ul><li>Use <strong>volumes</strong> (<code>docker volume create mydata</code>)</li><li>Bind mount host directories (<code>-v /host/path:/container/path</code>)</li></ul>
+<h2>Q3: How can I update a running container without downtime?</h2>
+<ul><li>Use <strong>Rolling Updates</strong> in Docker Swarm or Kubernetes</li><li>Use <strong>Blue-Green Deployments</strong></li></ul>
+<h2>Q4: How can I debug a running container?</h2>
+<ul><li>Use <code>docker exec -it &lt;container_id&gt; /bin/bash</code></li><li>Check logs with <code>docker logs &lt;container_id&gt;</code></li></ul>
+<h2>Conclusion</h2>
+<p>Docker is a powerful tool, and mastering <strong>advanced concepts</strong> can greatly improve efficiency, security, and performance. By leveraging <strong>multi-stage builds, networking, security best practices, and logging</strong>, you can ensure <strong>scalable and resilient</strong> containerized applications.</p>
+<p>Let me know your thoughts and share your Docker experiences in the comments!</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

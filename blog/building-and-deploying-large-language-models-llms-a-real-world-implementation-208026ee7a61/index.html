@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Building and Deploying LLMs: A Real-World Guide | Rajesh Sood</title>
+  <meta name="description" content="Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building and Deploying LLMs: A Real-World Guide" />
+  <meta property="og:description" content="Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Building and Deploying LLMs: A Real-World Guide" />
+  <meta property="article:published_time" content="2025-03-21" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Building and Deploying LLMs: A Real-World Guide" />
+  <meta name="twitter:description" content="Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building and Deploying LLMs: A Real-World Guide",
+  "datePublished": "2025-03-21",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">AI/ML Infrastructure</p>
+      <h1>Building and Deploying LLMs: A Real-World Guide</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-21">Mar 21, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more. This guide walks through a real-world implementation of an LLM, covering:</p>
+<ul><li><strong>Pre-training and fine-tuning</strong> an LLM</li><li><strong>Deploying with Kubernetes</strong></li><li><strong>Optimizing inference for performance and cost</strong></li><li><strong>Scaling for production use</strong></li><li><strong>Best practices and troubleshooting</strong></li></ul>
+<h2>1. Training an LLM: From Scratch vs. Fine-Tuning</h2>
+<h2>1.1. Pre-training vs. Fine-Tuning</h2>
+<ul><li><strong>Pre-training</strong>: Training a model from scratch requires vast compute resources and datasets.</li><li><strong>Fine-tuning</strong>: Adapting a pre-trained model for a specific use case is more practical.</li></ul>
+<h2>1.2. Fine-Tuning an Open-Source LLM (LLaMA-2)</h2>
+<h3>Setup and Dependencies</h3>
+<p>Install necessary libraries:</p>
+<pre><code>pip install transformers datasets peft bitsandbytes accelerate torch</code></pre>
+<h3>Loading a Pre-Trained Model</h3>
+<pre><code>from transformers import AutoModelForCausalLM, AutoTokenizer</code></pre>
+<pre><code>model_name = &quot;meta-llama/Llama-2-7b&quot;
+model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)</code></pre>
+<h3>Preparing a Custom Dataset for Fine-Tuning</h3>
+<pre><code>from datasets import load_dataset</code></pre>
+<pre><code>dataset = load_dataset(&quot;json&quot;, data_files=&quot;custom_data.json&quot;)
+dataset = dataset[&quot;train&quot;].shuffle().select(range(10000))</code></pre>
+<h3>Fine-Tuning with PEFT (Parameter Efficient Fine-Tuning)</h3>
+<pre><code>from peft import LoraConfig, get_peft_model</code></pre>
+<pre><code>config = LoraConfig(r=8, lora_alpha=32, target_modules=[&quot;q_proj&quot;, &quot;v_proj&quot;])
+model = get_peft_model(model, config)</code></pre>
+<p>Train the model with Accelerate:</p>
+<pre><code>accelerate launch train.py --model_name meta-llama/Llama-2-7b --dataset custom_data.json</code></pre>
+<h2>2. Deploying LLM on Kubernetes</h2>
+<h2>2.1. Containerizing the Model with FastAPI</h2>
+<p>Create <code>app.py</code> for serving the model:</p>
+<pre><code>from fastapi import FastAPI
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch</code></pre>
+<pre><code>app = FastAPI()</code></pre>
+<pre><code>model_name = &quot;fine-tuned-llama-2&quot;
+model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)</code></pre>
+<pre><code>def generate_text(prompt):
+    inputs = tokenizer(prompt, return_tensors=&quot;pt&quot;)
+    outputs = model.generate(**inputs)
+    return tokenizer.decode(outputs[0])</code></pre>
+<pre><code>@app.post(&quot;/generate&quot;)
+def generate(request: dict):
+    return {&quot;response&quot;: generate_text(request[&quot;prompt&quot;])}</code></pre>
+<p>Create a <code>Dockerfile</code>:</p>
+<pre><code>FROM python:3.9
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+CMD [&quot;uvicorn&quot;, &quot;app:app&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;, &quot;--port&quot;, &quot;8080&quot;]</code></pre>
+<p>Build and push the Docker image:</p>
+<pre><code>docker build -t my-llm-app .
+docker tag my-llm-app myrepo/my-llm-app:v1
+docker push myrepo/my-llm-app:v1</code></pre>
+<h2>2.2. Deploying to Kubernetes</h2>
+<p>Create a <code>deployment.yaml</code>:</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: llm
+  template:
+    metadata:
+      labels:
+        app: llm
+    spec:
+      containers:
+      - name: llm
+        image: myrepo/my-llm-app:v1
+        ports:
+        - containerPort: 8080</code></pre>
+<p>Apply the deployment:</p>
+<pre><code>kubectl apply -f deployment.yaml</code></pre>
+<p>Expose the service:</p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: llm-service
+spec:
+  selector:
+    app: llm
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer</code></pre>
+<p>Apply the service:</p>
+<pre><code>kubectl apply -f service.yaml</code></pre>
+<p>Test API:</p>
+<pre><code>curl -X POST &quot;http://&lt;EXTERNAL-IP&gt;/generate&quot; -H &quot;Content-Type: application/json&quot; -d &#x27;{&quot;prompt&quot;: &quot;Hello, AI!&quot;}&#x27;</code></pre>
+<h2>3. Optimizing Performance and Scaling</h2>
+<h2>3.1. Using Quantization to Reduce Model Size</h2>
+<pre><code>from transformers import BitsAndBytesConfig</code></pre>
+<pre><code>quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+model = AutoModelForCausalLM.from_pretrained(model_name, quantization_config=quantization_config)</code></pre>
+<h2>3.2. Autoscaling LLM Pods</h2>
+<p>Enable Kubernetes autoscaler:</p>
+<pre><code>kubectl autoscale deployment llm-app --cpu-percent=50 --min=2 --max=10</code></pre>
+<h2>4. FAQs and Troubleshooting</h2>
+<h2>❓ How to reduce inference latency?</h2>
+<p>✅ Use <strong>tensor parallelism</strong> and <strong>model quantization</strong> to optimize inference.</p>
+<h2>❓ How to handle out-of-memory (OOM) errors?</h2>
+<p>✅ Reduce batch size, enable gradient checkpointing, or use a smaller model variant.</p>
+<h2>❓ How to deploy LLM on serverless architecture?</h2>
+<p>✅ Use <strong>AWS Lambda with Amazon SageMaker</strong> for cost-effective scaling.</p>
+<h2>❓ Can I use LLMs on edge devices?</h2>
+<p>✅ Yes! Use <strong>ONNX Runtime</strong> or <strong>TensorFlow Lite</strong> for optimized models on mobile or edge devices.</p>
+<h2>Conclusion</h2>
+<p>This guide demonstrated a <strong>real-world LLM implementation</strong>, from <strong>fine-tuning</strong> to <strong>deploying on Kubernetes</strong> and <strong>optimizing inference performance</strong>. Whether you’re building a chatbot, code assistant, or document summarizer, these strategies help in <strong>scaling LLMs efficiently</strong>. 🚀</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

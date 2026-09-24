@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Mastering Kubernetes Package Management with Helm | Rajesh Sood</title>
+  <meta name="description" content="Kubernetes simplifies container orchestration, but managing applications at scale can be challenging." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mastering Kubernetes Package Management with Helm" />
+  <meta property="og:description" content="Kubernetes simplifies container orchestration, but managing applications at scale can be challenging." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mastering Kubernetes Package Management with Helm" />
+  <meta property="article:published_time" content="2025-02-19" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mastering Kubernetes Package Management with Helm" />
+  <meta name="twitter:description" content="Kubernetes simplifies container orchestration, but managing applications at scale can be challenging." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mastering Kubernetes Package Management with Helm",
+  "datePublished": "2025-02-19",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Kubernetes simplifies container orchestration, but managing applications at scale can be challenging."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Helm &amp; Packaging</p>
+      <h1>Mastering Kubernetes Package Management with Helm</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-02-19">Feb 19, 2025</time><span>·</span><span>1 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<p>Kubernetes simplifies container orchestration, but managing applications at scale can be challenging. <strong>Helm</strong>, the package manager for Kubernetes, helps streamline deployment, versioning, and rollback of applications.</p>
+<p>In this guide, we’ll cover:</p>
+<ul><li>Installing and setting up Helm (<a href="https://helm.sh/docs/intro/install/">Install guide</a>)</li><li>Helm charts and repositories</li><li>Deploying applications with Helm</li><li>Advanced templating and customization</li><li>Managing releases and rollbacks</li><li>FAQs for troubleshooting and interview prep</li></ul>
+<h2>Prerequisites</h2>
+<p>Ensure you have:</p>
+<ul><li>A running Kubernetes cluster (minikube, kind, or cloud-based)</li><li>kubectl installed and configured</li><li>Helm installed</li></ul>
+<h2>Step 1: Installing Helm</h2>
+<h2>macOS &amp; Linux (via script)</h2>
+<pre><code>curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash</code></pre>
+<h2>Windows (via Chocolatey)</h2>
+<pre><code>choco install kubernetes-helm</code></pre>
+<p>Verify installation:</p>
+<pre><code>helm version</code></pre>
+<h2>Step 2: Understanding Helm Charts &amp; Repositories</h2>
+<p>Helm uses <strong>charts</strong> to define Kubernetes applications. A chart is a package containing YAML files, templates, and dependencies.</p>
+<h2>Add the official Helm repository:</h2>
+<pre><code>helm repo add stable https://charts.helm.sh/stable
+helm repo update</code></pre>
+<h2>List available charts:</h2>
+<pre><code>helm search repo stable</code></pre>
+<h2>Step 3: Deploying Applications with Helm</h2>
+<h2>Install Nginx using a Helm chart:</h2>
+<pre><code>helm install my-nginx stable/nginx-ingress</code></pre>
+<p>Verify deployment:</p>
+<pre><code>kubectl get pods</code></pre>
+<h2>Customize Values</h2>
+<p>Override default values with a custom values file:</p>
+<pre><code>controller:
+  replicaCount: 2</code></pre>
+<p>Install with custom values:</p>
+<pre><code>helm install my-nginx stable/nginx-ingress -f values.yaml</code></pre>
+<h2>Step 4: Managing Releases &amp; Rollbacks</h2>
+<h2>List Helm releases:</h2>
+<pre><code>helm list</code></pre>
+<h2>Upgrade a release:</h2>
+<pre><code>helm upgrade my-nginx stable/nginx-ingress --set controller.replicaCount=3</code></pre>
+<h2>Rollback to a previous version:</h2>
+<pre><code>helm rollback my-nginx 1</code></pre>
+<h2>Uninstall a release:</h2>
+<pre><code>helm uninstall my-nginx</code></pre>
+<h2>Step 5: Creating a Custom Helm Chart</h2>
+<p>Generate a new chart:</p>
+<pre><code>helm create mychart</code></pre>
+<p>Customize <strong>values.yaml</strong>:</p>
+<pre><code>replicaCount: 2
+image:
+  repository: nginx
+  tag: latest</code></pre>
+<p>Deploy the chart:</p>
+<pre><code>helm install myapp ./mychart</code></pre>
+<h2>FAQs:</h2>
+<h2>Q1: How do I troubleshoot Helm deployments?</h2>
+<p>Use the following commands:</p>
+<pre><code>helm status myapp
+kubectl get pods
+kubectl describe pod &lt;pod-name&gt;</code></pre>
+<h2>Q2: How do I list all Helm releases?</h2>
+<pre><code>helm list --all-namespaces</code></pre>
+<h2>Q3: How do I delete all Helm releases?</h2>
+<pre><code>helm list --short | xargs -L1 helm uninstall</code></pre>
+<h2>Q4: How do I use Helm in CI/CD pipelines?</h2>
+<p>Use Helm in GitHub Actions:</p>
+<pre><code>- name: Deploy with Helm
+  run: |
+    helm upgrade --install myapp ./mychart</code></pre>
+<h2>Q5: How do I store Helm releases in GitOps workflows?</h2>
+<p>Use Helmfile:</p>
+<pre><code>helmfile apply</code></pre>
+<h2>Conclusion</h2>
+<p>Helm makes Kubernetes application deployment efficient and scalable. In this guide, we covered:</p>
+<p>✅ Installing Helm and setting up repositories</p>
+<p>✅ Deploying applications with Helm charts</p>
+<p>✅ Managing releases, upgrades, and rollbacks</p>
+<p>✅ Creating custom Helm charts</p>
+<p>✅ FAQs for troubleshooting and best practices</p>
+<p>Master Helm to streamline Kubernetes workflows and manage applications effectively! 🚀</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

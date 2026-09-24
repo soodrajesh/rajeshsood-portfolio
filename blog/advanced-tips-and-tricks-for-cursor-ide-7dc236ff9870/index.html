@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Advanced Tips and Tricks for Cursor IDE | Rajesh Sood</title>
+  <meta name="description" content="I’ve been using Terraform, Python, Bash, Kubernetes, and Jenkins for years — lately, Cursor IDE has become my go-to for boosting productivity." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Advanced Tips and Tricks for Cursor IDE" />
+  <meta property="og:description" content="I’ve been using Terraform, Python, Bash, Kubernetes, and Jenkins for years — lately, Cursor IDE has become my go-to for boosting productivity." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Advanced Tips and Tricks for Cursor IDE" />
+  <meta property="article:published_time" content="2025-08-23" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Advanced Tips and Tricks for Cursor IDE" />
+  <meta name="twitter:description" content="I’ve been using Terraform, Python, Bash, Kubernetes, and Jenkins for years — lately, Cursor IDE has become my go-to for boosting productivity." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Advanced Tips and Tricks for Cursor IDE",
+  "datePublished": "2025-08-23",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "I’ve been using Terraform, Python, Bash, Kubernetes, and Jenkins for years — lately, Cursor IDE has become my go-to for boosting productivity."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Cursor &amp; IDEs</p>
+      <h1>Advanced Tips and Tricks for Cursor IDE</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-08-23">Aug 23, 2025</time><span>·</span><span>4 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<p>Hey folks, I’ve been using tools like Terraform, Python, Bash, Kubernetes, and Jenkins for years, and lately, Cursor IDE has become my go-to for boosting productivity. It’s basically VS Code on steroids with AI smarts baked in, and while it’s great out of the box, the real magic happens when you dive into the advanced stuff.</p>
+<p>I’ve used Cursor to refactor sprawling YAML configs, debug flaky Docker builds, and even generate Helm charts on the fly. In this post, I’ll share advanced Cursor tricks that go beyond the “hello world” level. These are the workflows, rules, and hacks that save me hours every week in real-world DevOps projects.</p>
+<h2>Mastering Prompts: The Heart of Cursor’s Power</h2>
+<p>Cursor thrives when you treat prompts like structured tickets. Instead of saying <em>“fix my Dockerfile,”</em> I’ll frame it like:</p>
+<pre><code>Fix this Dockerfile for a Node.js app.  
+- Base image: node:20-slim  
+- Run as non-root user  
+- Add multistage build for production  
+- Optimize for size under 200MB  
+- Validate with &#x27;docker build --no-cache&#x27;</code></pre>
+<p>This gives Cursor enough guardrails to generate <strong>production-grade, secure Dockerfiles</strong> instead of half-baked examples.</p>
+<p>Another underrated trick: use <strong>reference editors selectively</strong>. When I’m debugging Terraform, I’ll only open <code>main.tf</code> and <code>variables.tf</code>, then ask:</p>
+<blockquote><em>“Refactor this to use remote state (S3 + DynamoDB locking). Assume AWS provider is configured in providers.tf.”</em></blockquote>
+<p>Cursor then stitches the context cleanly, without drowning in unrelated files.</p>
+<p><strong>Pro tip:</strong> embed docs in prompts. For IAM policies, I’ll paste the AWS link and say:</p>
+<blockquote><em>“Write a policy with least privilege S3 read/write as per </em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_s3_rw-bucket.html"><em>AWS docs</em></a><em>.”</em></blockquote>
+<p>This avoids hallucinations and keeps Cursor grounded in real-world references.</p>
+<h2>Cursor Rules: Your Invisible Teammate</h2>
+<p>One of the most powerful yet underused features is <code><strong>.cursorrules</strong></code>. These are like “AI guardrails” that apply across the repo.</p>
+<p>Here’s an example from one of my Terraform repos:</p>
+<pre><code># .cursorrules
+- Always use Terraform modules from registry.terraform.io.  
+- Never hardcode AWS credentials; use providers.  
+- Tag every AWS resource with &#x27;owner&#x27; and &#x27;env&#x27;.  
+- Use least privilege IAM.  
+- K8s: prefer Deployments + Services, avoid naked Pods.  
+- YAML: always 2 spaces, no tabs.</code></pre>
+<p>This means when I ask Cursor <em>“write an EKS cluster module,”</em> it will <strong>automatically follow these rules</strong> without me repeating them in every prompt.</p>
+<p>I also keep <strong>global Cursor rules</strong> in my personal settings:</p>
+<pre><code>- Keep answers concise.  
+- Default language: TypeScript.  
+- Prefer IaC-first (Terraform, Helm) over manual configs.  
+- Explain trade-offs when there are multiple options.</code></pre>
+<p>Together, these act like an AI style guide, enforcing team standards.</p>
+<h2>Workflow Hacks: Cursor as a DevOps Sidecar</h2>
+<p>I treat Cursor like an extension of my CI/CD. Here’s how:</p>
+<ul><li><strong>Use Notepads for Patterns:</strong> I have a notepad called <em>CI/CD Templates</em> with GitHub Actions workflows. I just do <code>/notepad CI/CD Templates — adapt for multi-stage Docker build</code> and Cursor instantly tailors it.</li><li><strong>MCP Plugins:</strong> This is Cursor’s cheat code. With Kubernetes MCP enabled, I can literally type:</li></ul>
+<blockquote><em>“Check logs from pod </em><code><em>orders-api-78d8</em></code><em> in prod namespace.”</em></blockquote>
+<p>Cursor pulls the logs and suggests fixes — without me touching <code>kubectl</code>. Same for GitHub PRs:</p>
+<blockquote><em>“Review PR #1043 and suggest security fixes.”</em></blockquote>
+<ul><li><code><strong>.cursorignore</strong></code><strong>:</strong> Add <code>*.tfstate</code>, <code>.env</code>, <code>node_modules/</code> to reduce context bloat. I once had Cursor hallucinate secrets from <code>.env</code>; ignoring them fixed it.</li></ul>
+<h2>Debugging and Iteration: Beyond the Basics</h2>
+<p>Here’s where Cursor goes from nice-to-have to lifesaver:</p>
+<ul><li><strong>YOLO Mode:</strong> In agent settings, enable “run commands automatically.” Cursor can run <code>terraform validate</code>, <code>docker build</code>, or <code>pytest</code>. I once fixed a broken <code>docker-compose.yml</code> just by prompting:</li></ul>
+<blockquote><em>“Fix build errors and keep retrying </em><code><em>docker compose up --dry-run</em></code><em> until clean.”</em></blockquote>
+<p>It auto-iterated until it passed.</p>
+<ul><li><strong>Command K + I:</strong> Highlight code → Cmd+K → “Add lifecycle policy for cost optimization.” Or Cmd+I → “Explain this Terraform module.” These are faster than flipping back to full chat.</li><li><strong>Checkpoints:</strong> Before major refactors, I save a checkpoint. During a gnarly VPC migration, I restored twice after AI suggestions went sideways. Treat it like Git inside Cursor.</li></ul>
+<h2>Scaling Cursor for Big Projects</h2>
+<p>For monorepos or giant infra repos, Cursor can choke if you dump everything. My playbook:</p>
+<p><strong>Break into smaller files</strong>: Instead of <code>main.tf</code> with 2000 lines, split into modules. Cursor performs way better.</p>
+<p><strong>Use @file references:</strong> Ask:</p>
+<blockquote>“@main.tf @variables.tf — add an S3 bucket with versioning.”</blockquote>
+<p><strong>Commit often:</strong> AI-assisted changes can go rogue. Frequent commits = safe rollback.</p>
+<p><strong>Ask for options, not answers:</strong></p>
+<blockquote>“Give me 3 approaches for blue/green deployments in EKS with pros/cons.” Cursor’s comparisons are gold for design decisions.</blockquote>
+<h2>Efficiency Boosters: Shortcuts and Voice</h2>
+<p>I live on the keyboard. My daily set:</p>
+<ul><li><strong>Cmd+K</strong> → Inline edit</li><li><strong>Cmd+L</strong> → Open agent chat</li><li><strong>Cmd+Enter</strong> → Full repo context</li><li><strong>Cmd+Shift+S</strong> → Save to Composer</li><li><strong>Cmd+R</strong> → Reset chat</li></ul>
+<p>And don’t underestimate <strong>voice input</strong>. When sketching out architecture, I’ll just dictate:</p>
+<blockquote><em>“Plan an AWS multi-region failover setup with Route 53 + S3 CRR + Aurora Global.”</em></blockquote>
+<p>Cursor turns the ramble into diagrams, configs, and Terraform in one go.</p>
+<h2>Advanced DevOps Scenarios I’ve Used Cursor For</h2>
+<ul><li>Refactoring a Jenkinsfile into GitHub Actions, preserving conditional deploys.</li><li>Debugging flaky <code>Helm upgrade</code> by pasting the release diff.</li><li>Auto-generating Prometheus alerts and Grafana dashboards from metrics JSON.</li><li>Migrating 10+ Lambda functions from Node.js 14 → 20 in one shot.</li><li>Creating Terraform modules with built-in cost optimizations (like lifecycle rules on S3).</li></ul>
+<h2>Wrapping Up</h2>
+<p>Cursor isn’t just “AI inside VS Code.” With the right rules, MCP plugins, and workflows, it becomes an <strong>AI teammate for DevOps</strong> — catching issues before prod, enforcing standards, and automating boring scaffolding.</p>
+<p>These tips aren’t fluff; they’ve saved me late-night firefights more than once. My advice? Start small: add a <code>.cursorrules</code>, experiment with MCP, and commit often.</p>
+<p>If you’ve got your own battle-tested Cursor tricks, drop them in the comments. Always keen to swap war stories.</p>
+<p>Until next time — keep automating, and let the AI handle the drudgery.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

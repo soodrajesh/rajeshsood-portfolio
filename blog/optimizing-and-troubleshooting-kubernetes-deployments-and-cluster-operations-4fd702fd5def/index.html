@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Troubleshooting Kubernetes Deployments | Rajesh Sood</title>
+  <meta name="description" content="Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Troubleshooting Kubernetes Deployments" />
+  <meta property="og:description" content="Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Troubleshooting Kubernetes Deployments" />
+  <meta property="article:published_time" content="2025-03-18" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Troubleshooting Kubernetes Deployments" />
+  <meta name="twitter:description" content="Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Troubleshooting Kubernetes Deployments",
+  "datePublished": "2025-03-18",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Kubernetes</p>
+      <h1>Troubleshooting Kubernetes Deployments</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-18">Mar 18, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging. This guide provides a deep dive into:</p>
+<ul><li><strong>Optimizing Kubernetes deployments for performance and reliability</strong></li><li><strong>Common deployment issues and how to resolve them</strong></li><li><strong>Cluster operations best practices</strong></li><li><strong>Monitoring and troubleshooting real-world scenarios</strong></li><li><strong>FAQs and real-world use cases</strong></li></ul>
+<h2>1. Optimizing Kubernetes Deployments</h2>
+<h2>1.1. Best Practices for Kubernetes Deployments</h2>
+<p>✅ Use <strong>Rolling Updates</strong> for zero-downtime deployments:</p>
+<pre><code>kubectl set image deployment/my-app my-container=my-image:v2</code></pre>
+<p>✅ Use <strong>Resource Requests and Limits</strong> to prevent resource starvation:</p>
+<pre><code>resources:
+  requests:
+    cpu: &quot;250m&quot;
+    memory: &quot;512Mi&quot;
+  limits:
+    cpu: &quot;500m&quot;
+    memory: &quot;1Gi&quot;</code></pre>
+<p>✅ Use <strong>Liveness and Readiness Probes</strong> for better health checks:</p>
+<pre><code>livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 3
+  periodSeconds: 10</code></pre>
+<p>✅ Enable <strong>Horizontal Pod Autoscaler (HPA)</strong> for dynamic scaling:</p>
+<pre><code>kubectl autoscale deployment my-app --cpu-percent=50 --min=2 --max=10</code></pre>
+<h2>1.2. Troubleshooting Deployment Failures</h2>
+<p>✅ Check the deployment status:</p>
+<pre><code>kubectl get deployments my-app
+kubectl describe deployment my-app</code></pre>
+<p>✅ Inspect failing pods:</p>
+<pre><code>kubectl get pods | grep my-app
+kubectl logs my-app-xxxxx</code></pre>
+<p>✅ Debug using ephemeral containers:</p>
+<pre><code>kubectl debug my-app-xxxxx -it --image=busybox</code></pre>
+<h2>2. Cluster Operations Best Practices</h2>
+<h2>2.1. Node Management</h2>
+<p>✅ Check node status:</p>
+<pre><code>kubectl get nodes
+kubectl describe node &lt;node-name&gt;</code></pre>
+<p>✅ Cordon and drain nodes before maintenance:</p>
+<pre><code>kubectl cordon &lt;node-name&gt;
+kubectl drain &lt;node-name&gt; --ignore-daemonsets</code></pre>
+<p>✅ Upgrade cluster components:</p>
+<pre><code>kubectl apply -f new-kube-version.yaml</code></pre>
+<h2>2.2. Networking Issues and Solutions</h2>
+<p>✅ Check service connectivity:</p>
+<pre><code>kubectl get svc
+kubectl describe svc my-service</code></pre>
+<p>✅ Debug DNS resolution:</p>
+<pre><code>kubectl exec -it my-pod -- nslookup my-service</code></pre>
+<p>✅ Verify network policies:</p>
+<pre><code>kubectl get networkpolicies</code></pre>
+<h2>3. Monitoring and Logging</h2>
+<p>✅ Enable <strong>Kubernetes Metrics Server</strong>:</p>
+<pre><code>kubectl top pods
+kubectl top nodes</code></pre>
+<p>✅ Use <strong>Prometheus and Grafana</strong> for visualization:</p>
+<pre><code>helm install prometheus prometheus-community/kube-prometheus-stack</code></pre>
+<p>✅ View logs using <strong>Fluentd, Loki, or Elasticsearch</strong>:</p>
+<pre><code>kubectl logs my-pod --previous</code></pre>
+<h2>4. FAQs and Troubleshooting Scenarios</h2>
+<h2>❓ Pods Stuck in Pending State</h2>
+<p>✅ Check node resource availability:</p>
+<pre><code>kubectl describe pod my-pod
+kubectl get nodes -o wide</code></pre>
+<p>✅ Scale up the cluster if needed:</p>
+<pre><code>kubectl scale node-pool my-pool --replicas=3</code></pre>
+<h2>❓ Application CrashLoopBackOff</h2>
+<p>✅ Check logs:</p>
+<pre><code>kubectl logs my-pod</code></pre>
+<p>✅ Increase CPU/memory limits if needed.</p>
+<h2>❓ Service Not Accessible</h2>
+<p>✅ Check service and endpoint mappings:</p>
+<pre><code>kubectl get svc my-service
+kubectl get endpoints my-service</code></pre>
+<h2>Conclusion</h2>
+<p>By following best practices in <strong>Kubernetes deployments, cluster operations, and monitoring</strong>, you can optimize performance and minimize downtime. Regularly updating configurations, applying security patches, and leveraging monitoring tools ensures a smooth-running Kubernetes environment.</p>
+<p>Keep optimizing and troubleshooting like a pro!</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Kubernetes Common Errors &amp; How to Fix Them | Rajesh Sood</title>
+  <meta name="description" content="Kubernetes is a powerful but complex system, and errors are inevitable." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Common Errors &amp; How to Fix Them" />
+  <meta property="og:description" content="Kubernetes is a powerful but complex system, and errors are inevitable." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Kubernetes Common Errors &amp; How to Fix Them" />
+  <meta property="article:published_time" content="2025-03-01" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kubernetes Common Errors &amp; How to Fix Them" />
+  <meta name="twitter:description" content="Kubernetes is a powerful but complex system, and errors are inevitable." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kubernetes Common Errors & How to Fix Them",
+  "datePublished": "2025-03-01",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Kubernetes is a powerful but complex system, and errors are inevitable."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Kubernetes</p>
+      <h1>Kubernetes Common Errors &amp; How to Fix Them</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-01">Mar 1, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<p>Kubernetes is a powerful but complex system, and errors are inevitable. Whether you’re dealing with misconfigured YAML, networking issues, or Pod failures, troubleshooting efficiently is crucial. In this blog, we’ll explore common Kubernetes errors, their causes, and practical solutions with real-world examples.</p>
+<h2>1. CrashLoopBackOff</h2>
+<h2>🔹 Error Message:</h2>
+<pre><code>Back-off restarting failed container</code></pre>
+<h2>🔹 Possible Causes:</h2>
+<ul><li>Application crashes due to a misconfiguration</li><li>Missing dependencies or environment variables</li><li>Insufficient resources</li><li>Incorrect entrypoint command</li></ul>
+<h2>🔹 How to Fix:</h2>
+<ol><li><strong>Check logs for errors:</strong></li></ol>
+<ul><li><code>kubectl logs &lt;pod-name&gt; -n &lt;namespace&gt;</code></li></ul>
+<p><strong>2. Describe the pod for more insights</strong></p>
+<ul><li><code>kubectl describe pod &lt;pod-name&gt;</code></li></ul>
+<p><strong>3. Fix startup command issues in Deployment YAML:</strong></p>
+<ul><li><code>spec: containers: - name: my-app command: ["/bin/sh", "-c", "your-startup-command"]</code></li></ul>
+<p><strong>4. Increase resource limits if necessary:</strong></p>
+<ul><li><code>resources: requests: memory: "256Mi" cpu: "250m" limits: memory: "512Mi" cpu: "500m"</code></li></ul>
+<h2>2. ImagePullBackOff / ErrImagePull</h2>
+<h2>🔹 Error Message:</h2>
+<pre><code>Failed to pull image &quot;myregistry.com/myimage:latest&quot;: image not found</code></pre>
+<h2>🔹 Possible Causes:</h2>
+<ul><li>Image does not exist in the specified registry</li><li>Incorrect image tag</li><li>Registry authentication failure</li></ul>
+<h2>🔹 How to Fix:</h2>
+<ol><li><strong>Verify image name and tag:</strong></li></ol>
+<ul><li><code>docker pull myregistry.com/myimage:latest</code></li></ul>
+<p><strong>2. Check if credentials are required:</strong></p>
+<ul><li><code>kubectl get secret regcred --namespace=&lt;namespace&gt;</code></li></ul>
+<p><strong>3. Manually create a secret for authentication if needed:</strong></p>
+<ul><li><code>kubectl create secret docker-registry regcred --docker-server=myregistry.com --docker-username=&lt;username&gt; --docker-password=&lt;password&gt;</code></li></ul>
+<p><strong>4. Update Deployment YAML to use the secret:</strong></p>
+<ul><li><code>spec: containers: - name: my-app image: myregistry.com/myimage:latest imagePullSecrets: - name: regcred</code></li></ul>
+<h2>3. Node Not Ready</h2>
+<h2>🔹 Error Message:</h2>
+<pre><code>The node is not ready</code></pre>
+<h2>🔹 Possible Causes:</h2>
+<ul><li>Insufficient CPU/memory</li><li>Network issues</li><li>Node tainted with <code>NoSchedule</code></li></ul>
+<h2>🔹 How to Fix:</h2>
+<ol><li><strong>Check node status:</strong></li></ol>
+<ul><li><code>kubectl get nodes</code></li></ul>
+<p><strong>2. Describe node to find root cause:</strong></p>
+<ul><li><code>kubectl describe node &lt;node-name&gt;</code></li></ul>
+<p><strong>3. Remove taints if needed:</strong></p>
+<ul><li><code>kubectl taint nodes &lt;node-name&gt; key=value:NoSchedule-</code></li></ul>
+<p><strong>4. Check kubelet logs for errors:</strong></p>
+<ul><li><code>journalctl -u kubelet -f</code></li></ul>
+<h2>4. PersistentVolumeClaim Pending</h2>
+<h2>🔹 Error Message:</h2>
+<pre><code>Failed to provision volume with StorageClass &quot;standard&quot;</code></pre>
+<h2>🔹 Possible Causes:</h2>
+<ul><li>No available storage resources</li><li>Incorrect StorageClass reference</li><li>Insufficient disk space</li></ul>
+<h2>🔹 How to Fix:</h2>
+<ol><li><strong>Check the PVC status:</strong></li></ol>
+<ul><li><code>kubectl get pvc -n &lt;namespace&gt;</code></li></ul>
+<p><strong>2. Describe the PVC for more details:</strong></p>
+<ul><li><code>kubectl describe pvc &lt;pvc-name&gt;</code></li></ul>
+<p><strong>3. Ensure the requested StorageClass exists:</strong></p>
+<ul><li><code>kubectl get storageclass</code></li></ul>
+<p><strong>4. Manually bind PVC if necessary:</strong></p>
+<ul><li><code>kubectl patch pvc &lt;pvc-name&gt; -p '{"spec": {"storageClassName": "standard"}}'</code></li></ul>
+<h2>Advanced Kubernetes Debugging Techniques</h2>
+<h2>🔹 Get a pod’s detailed status:</h2>
+<pre><code>kubectl get pods -o wide</code></pre>
+<h2>🔹 Restart a failing pod:</h2>
+<pre><code>kubectl delete pod &lt;pod-name&gt;</code></pre>
+<h2>🔹 Check network policies blocking traffic:</h2>
+<pre><code>kubectl get networkpolicy -A</code></pre>
+<h2>🔹 Run a debug pod with full network access:</h2>
+<pre><code>kubectl run -it debug-pod --image=busybox -- sh</code></pre>
+<h2>FAQs</h2>
+<p><strong>1. How do I force delete a stuck pod?</strong></p>
+<pre><code>kubectl delete pod &lt;pod-name&gt; --force --grace-period=0</code></pre>
+<p><strong>2. How do I get logs from a crashed pod?</strong></p>
+<pre><code>kubectl logs --previous &lt;pod-name&gt;</code></pre>
+<p><strong>3. How do I check for node resource usage?</strong></p>
+<pre><code>kubectl top node</code></pre>
+<p><strong>4. How do I see which pods are using the most memory?</strong></p>
+<pre><code>kubectl top pod --sort-by=memory</code></pre>
+<p><strong>5. How do I debug DNS resolution issues in Kubernetes?</strong></p>
+<pre><code>kubectl exec -it &lt;pod-name&gt; -- nslookup myservice.default.svc.cluster.local</code></pre>
+<h2>Conclusion</h2>
+<p>Troubleshooting Kubernetes efficiently requires knowing the right commands and understanding common failure scenarios. By using the techniques and fixes outlined in this blog, you can diagnose and resolve Kubernetes errors quickly, ensuring smooth cluster operations.</p>
+<p>🚀 <strong>Stay ahead of Kubernetes challenges — debug smartly!</strong> 🚀</p>
+<p>Let me know if you’d like to add more advanced troubleshooting cases! 🔥</p>
+
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/kubernetes-common-errors-how-to-fix-them-8425673036dd" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

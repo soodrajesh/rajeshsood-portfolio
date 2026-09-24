@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Kubernetes Pods Failing: Advanced Troubleshooting | Rajesh Sood</title>
+  <meta name="description" content="Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Pods Failing: Advanced Troubleshooting" />
+  <meta property="og:description" content="Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Kubernetes Pods Failing: Advanced Troubleshooting" />
+  <meta property="article:published_time" content="2025-03-13" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kubernetes Pods Failing: Advanced Troubleshooting" />
+  <meta name="twitter:description" content="Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kubernetes Pods Failing: Advanced Troubleshooting",
+  "datePublished": "2025-03-13",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Kubernetes</p>
+      <h1>Kubernetes Pods Failing: Advanced Troubleshooting</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-13">Mar 13, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods. Understanding the root causes and resolving issues efficiently is crucial for maintaining application uptime and reliability.</p>
+<h2>In this guide, we’ll cover:</h2>
+<p>✅ Common reasons why Kubernetes pods fail</p>
+<p>✅ Real-world failure scenarios and troubleshooting steps</p>
+<p>✅ Advanced debugging techniques and best practices</p>
+<p>✅ Automated monitoring strategies for early failure detection</p>
+<h2>🚨 Common Reasons for Pod Failures</h2>
+<p>1️⃣ <strong>CrashLoopBackOff</strong> — The pod keeps restarting due to errors</p>
+<p>2️⃣ <strong>ImagePullBackOff / ErrImagePull</strong> — Issues pulling the container image</p>
+<p>3️⃣ <strong>OOMKilled</strong> — The pod exceeds memory limits and is terminated</p>
+<p>4️⃣ <strong>NodePressure / Evicted</strong> — The node runs out of resources</p>
+<p>5️⃣ <strong>ContainerCreating</strong> — The pod is stuck in the pending state</p>
+<p>6️⃣ <strong>Readiness/Liveness Probe Failures</strong> — Health checks fail repeatedly</p>
+<p>7️⃣ <strong>PersistentVolumeClaims (PVC) Issues</strong> — Storage-related failures</p>
+<p>8️⃣ <strong>Network Failures</strong> — DNS, connectivity, or CNI plugin issues</p>
+<h2>🔍 Real-World Scenarios &amp; Troubleshooting Steps</h2>
+<h2>1️⃣ CrashLoopBackOff</h2>
+<p><strong>Symptoms:</strong> The pod repeatedly crashes and restarts.</p>
+<pre><code>kubectl get pods
+kubectl describe pod &lt;pod-name&gt;
+kubectl logs &lt;pod-name&gt; -c &lt;container-name&gt;</code></pre>
+<p><strong>Potential Causes &amp; Fixes:</strong></p>
+<ul><li><strong>Application Errors</strong>: Check logs for stack traces and fix code.</li><li><strong>Incorrect Configurations</strong>: Verify environment variables and config maps.</li><li><strong>Missing Dependencies</strong>: Ensure all required services are running.</li><li><strong>Insufficient Resources</strong>: Increase CPU/Memory limits in the pod spec.</li></ul>
+<h2>2️⃣ ImagePullBackOff / ErrImagePull</h2>
+<p><strong>Symptoms:</strong> Pod fails to pull the container image.</p>
+<pre><code>kubectl describe pod &lt;pod-name&gt;</code></pre>
+<p><strong>Potential Causes &amp; Fixes:</strong></p>
+<ul><li><strong>Incorrect Image Name</strong>: Check the <code>image</code> field in the pod spec.</li><li><strong>Authentication Issues</strong>: Ensure the correct imagePullSecrets are used.</li><li><strong>Private Repository Access</strong>: Run <code>docker login</code> and create a Kubernetes secret.</li><li><strong>Image Tag Issues</strong>: Use fully qualified image names and valid tags.</li></ul>
+<pre><code>imagePullSecrets:
+  - name: my-docker-secret</code></pre>
+<h2>3️⃣ OOMKilled (Out of Memory Killed)</h2>
+<p><strong>Symptoms:</strong> Pod is terminated due to memory overuse.</p>
+<pre><code>kubectl describe pod &lt;pod-name&gt;
+kubectl get events --sort-by=&#x27;.lastTimestamp&#x27;</code></pre>
+<p><strong>Potential Causes &amp; Fixes:</strong></p>
+<ul><li><strong>Memory Leaks</strong>: Optimize application memory usage.</li><li><strong>Insufficient Memory Requests</strong>: Increase <code>resources.requests.memory</code>.</li><li><strong>Hard Limits Exceeded</strong>: Adjust <code>resources.limits.memory</code>.</li></ul>
+<pre><code>resources:
+  requests:
+    memory: &quot;512Mi&quot;
+  limits:
+    memory: &quot;1024Mi&quot;</code></pre>
+<h2>4️⃣ NodePressure / Pod Eviction</h2>
+<p><strong>Symptoms:</strong> Pods get evicted when node resources are exhausted.</p>
+<pre><code>kubectl get nodes
+kubectl describe node &lt;node-name&gt;</code></pre>
+<p><strong>Potential Causes &amp; Fixes:</strong></p>
+<ul><li><strong>High CPU/Memory Usage</strong>: Scale nodes or increase limits.</li><li><strong>Disk Pressure</strong>: Clean up old containers and logs.</li><li><strong>Pod Priority</strong>: Set higher priority for critical workloads.</li></ul>
+<pre><code>priorityClassName: high-priority</code></pre>
+<h2>5️⃣ Readiness/Liveness Probe Failures</h2>
+<p><strong>Symptoms:</strong> Pods fail health checks and restart.</p>
+<pre><code>kubectl describe pod &lt;pod-name&gt;</code></pre>
+<p><strong>Potential Causes &amp; Fixes:</strong></p>
+<ul><li><strong>Application Start-up Delay</strong>: Increase <code>initialDelaySeconds</code>.</li><li><strong>Incorrect Probe Paths</strong>: Ensure endpoints return 200 OK.</li><li><strong>TCP Connection Issues</strong>: Use <code>exec</code> probes instead of HTTP.</li></ul>
+<pre><code>livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10</code></pre>
+<h2>🛠️ Advanced Debugging Techniques</h2>
+<h2>1️⃣ Check Pod Logs</h2>
+<pre><code>kubectl logs &lt;pod-name&gt;
+kubectl logs &lt;pod-name&gt; -c &lt;container-name&gt; --previous</code></pre>
+<h2>2️⃣ Access a Running Pod</h2>
+<pre><code>kubectl exec -it &lt;pod-name&gt; -- /bin/sh</code></pre>
+<h2>3️⃣ Monitor Kubernetes Events</h2>
+<pre><code>kubectl get events --sort-by=&#x27;.lastTimestamp&#x27;</code></pre>
+<h2>4️⃣ Check Network Connectivity</h2>
+<pre><code>kubectl exec -it &lt;pod-name&gt; -- curl -I http://&lt;service-name&gt;:&lt;port&gt;</code></pre>
+<h2>🔥 Best Practices for Preventing Failures</h2>
+<p>✅ Use resource limits to prevent overuse</p>
+<p>✅ Implement proper logging and monitoring</p>
+<p>✅ Automate scaling with HPA (Horizontal Pod Autoscaler)</p>
+<p>✅ Run periodic liveness and readiness probes</p>
+<p>✅ Use rolling updates to prevent downtime</p>
+<h2>❓ FAQs</h2>
+<p>1️⃣ <strong>What should I do if my pod is stuck in </strong><code><strong>ContainerCreating</strong></code><strong>?</strong></p>
+<ul><li>Check <code>kubectl describe pod</code> for missing volume claims or CNI errors.</li></ul>
+<p>2️⃣ <strong>How do I fix DNS resolution issues in Kubernetes?</strong></p>
+<ul><li>Restart CoreDNS pods: <code>kubectl rollout restart deployment coredns -n kube-system</code></li></ul>
+<p>3️⃣ <strong>Can I automatically restart failed pods?</strong></p>
+<ul><li>Yes, set <code>restartPolicy: Always</code> in the pod spec.</li></ul>
+<p>4️⃣ <strong>How do I debug network failures between pods?</strong></p>
+<ul><li>Use <code>kubectl exec</code> to ping services and check firewall rules.</li></ul>
+<p>5️⃣ <strong>How can I detect pod failures before they impact users?</strong></p>
+<ul><li>Use Prometheus &amp; Grafana for real-time monitoring.</li></ul>
+<h2>🚀 Conclusion</h2>
+<p>Kubernetes pod failures are inevitable, but with structured troubleshooting and proactive monitoring, you can ensure system resilience. Implementing best practices like resource limits, automated probes, and centralized logging will significantly improve cluster reliability.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

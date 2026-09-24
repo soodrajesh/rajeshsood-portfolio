@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Mastering Observability: Prometheus to CloudWatch | Rajesh Sood</title>
+  <meta name="description" content="Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mastering Observability: Prometheus to CloudWatch" />
+  <meta property="og:description" content="Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mastering Observability: Prometheus to CloudWatch" />
+  <meta property="article:published_time" content="2025-03-03" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mastering Observability: Prometheus to CloudWatch" />
+  <meta name="twitter:description" content="Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mastering Observability: Prometheus to CloudWatch",
+  "datePublished": "2025-03-03",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Observability &amp; Monitoring</p>
+      <h1>Mastering Observability: Prometheus to CloudWatch</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-03">Mar 3, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively. In this blog, we will explore <strong>Prometheus, Grafana, Loki, OpenTelemetry, and AWS CloudWatch</strong>, how they integrate with each other, and real-world use cases.</p>
+<h2>What is Observability?</h2>
+<p>Observability is more than just monitoring; it provides deep insights into system performance, logs, metrics, and traces to detect and diagnose problems in real-time.</p>
+<h2>Core Pillars of Observability</h2>
+<ol><li><strong>Metrics</strong> (Prometheus, AWS CloudWatch)</li><li><strong>Logs</strong> (Loki, AWS CloudWatch Logs)</li><li><strong>Tracing</strong> (OpenTelemetry)</li></ol>
+<h2>Why Use These Tools?</h2>
+<p><strong>Prometheus: </strong>Metrics collection &amp; alerting</p>
+<p><strong>Grafana: </strong>Visualization &amp; dashboards</p>
+<p><strong>Loki: </strong>Log aggregation &amp; storage</p>
+<p><strong>OpenTelemetry: </strong>Distributed tracing</p>
+<p><strong>AWS CloudWatch: </strong>Cloud-native monitoring &amp; logging</p>
+<p>Together, these tools create a <strong>powerful observability stack</strong> that works across Kubernetes, cloud, and hybrid environments.</p>
+<h2>Step-by-Step Implementation</h2>
+<h2>1. Setting Up Prometheus for Metrics Collection</h2>
+<h3>Install Prometheus on Kubernetes:</h3>
+<pre><code>kubectl create namespace monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install prometheus prometheus-community/prometheus -n monitoring</code></pre>
+<h3>Expose Prometheus via NodePort:</h3>
+<pre><code>kubectl patch svc prometheus-server -n monitoring -p &#x27;{&quot;spec&quot;: {&quot;type&quot;: &quot;NodePort&quot;}}&#x27;</code></pre>
+<h2>2. Deploy Grafana for Visualization</h2>
+<h3>Install Grafana:</h3>
+<pre><code>helm install grafana grafana/grafana -n monitoring</code></pre>
+<h3>Port-forward Grafana:</h3>
+<pre><code>kubectl port-forward svc/grafana 3000:80 -n monitoring</code></pre>
+<ul><li>Default credentials: <code>admin / admin</code></li><li>Add Prometheus as a <strong>data source</strong> in Grafana.</li></ul>
+<h2>3. Configure Loki for Log Aggregation</h2>
+<h3>Install Loki and Promtail:</h3>
+<pre><code>helm install loki grafana/loki-stack -n monitoring</code></pre>
+<ul><li>Add <strong>Loki</strong> as a data source in Grafana.</li><li>Use Promtail to collect logs from Kubernetes pods.</li></ul>
+<h2>4. OpenTelemetry for Tracing</h2>
+<h3>Deploy OpenTelemetry Collector:</h3>
+<pre><code>kubectl apply -f https://github.com/open-telemetry/opentelemetry-collector/releases/latest/download/kubernetes.yaml</code></pre>
+<ul><li>Use OpenTelemetry SDK in applications for distributed tracing.</li></ul>
+<h2>5. AWS CloudWatch for Cloud-Native Monitoring</h2>
+<h3>Configure AWS CloudWatch Agent:</h3>
+<pre><code>aws ssm send-command --document-name &quot;AmazonCloudWatch-ManageAgent&quot; --targets &quot;InstanceIds=&lt;EC2-ID&gt;&quot; --parameters action=install
+destination=&lt;log-group&gt;</code></pre>
+<ul><li>Visualize logs and metrics in <strong>AWS CloudWatch Console</strong>.</li></ul>
+<h2>Real-World Use Cases</h2>
+<h2>1. Proactive Performance Monitoring</h2>
+<ul><li><strong>Prometheus</strong> tracks CPU, memory, and disk usage.</li><li><strong>Grafana</strong> displays trends in real-time dashboards.</li></ul>
+<h2>2. Centralized Logging for Microservices</h2>
+<ul><li><strong>Loki</strong> aggregates logs from Kubernetes clusters.</li><li><strong>OpenTelemetry</strong> traces transactions across services.</li></ul>
+<h2>3. Cloud &amp; On-Prem Hybrid Monitoring</h2>
+<ul><li><strong>AWS CloudWatch</strong> monitors cloud services.</li><li><strong>Prometheus &amp; Grafana</strong> monitor on-prem clusters.</li></ul>
+<h2>4. Security &amp; Compliance Monitoring</h2>
+<ul><li>Detect anomalies using <strong>Grafana Alerts</strong>.</li><li>Audit logs with <strong>CloudWatch Insights</strong>.</li></ul>
+<h2>Advanced Commands &amp; Troubleshooting</h2>
+<h2>Query Metrics in Prometheus</h2>
+<pre><code>curl http://localhost:9090/api/v1/query?query=up</code></pre>
+<h2>Search Logs in Loki</h2>
+<pre><code>kubectl logs -l app=myapp -n mynamespace | grep ERROR</code></pre>
+<h2>AWS CloudWatch Log Insights Example Query</h2>
+<pre><code>fields @timestamp, @message
+| filter @message like &quot;ERROR&quot;
+| sort @timestamp desc</code></pre>
+<h2>FAQs</h2>
+<h2>1. What is the difference between Prometheus and CloudWatch?</h2>
+<ul><li><strong>Prometheus</strong> is used for self-managed Kubernetes monitoring.</li><li><strong>CloudWatch</strong> is an AWS-native managed service.</li></ul>
+<h2>2. Can I use Grafana with CloudWatch?</h2>
+<p>Yes! Add CloudWatch as a <strong>data source</strong> in Grafana to visualize AWS metrics.</p>
+<h2>3. How do OpenTelemetry and AWS X-Ray work together?</h2>
+<p>OpenTelemetry can send tracing data to <strong>AWS X-Ray</strong> for deeper analysis.</p>
+<h2>4. How do I monitor Kubernetes logs effectively?</h2>
+<p>Use <strong>Loki + Promtail</strong> to centralize and search logs efficiently.</p>
+<h2>Conclusion</h2>
+<p>By combining <strong>Prometheus, Grafana, Loki, OpenTelemetry, and AWS CloudWatch</strong>, you can achieve <strong>end-to-end observability</strong> for your applications, whether on-prem or in the cloud. 🚀</p>
+<p>Would you like a hands-on tutorial on integrating these tools? Let me know in the comments! 🔥</p>
+
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

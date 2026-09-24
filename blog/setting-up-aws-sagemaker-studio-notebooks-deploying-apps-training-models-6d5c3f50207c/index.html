@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Setting Up AWS SageMaker Studio &amp; Training | Rajesh Sood</title>
+  <meta name="description" content="AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Setting Up AWS SageMaker Studio &amp; Training" />
+  <meta property="og:description" content="AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Setting Up AWS SageMaker Studio &amp; Training" />
+  <meta property="article:published_time" content="2025-03-09" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Setting Up AWS SageMaker Studio &amp; Training" />
+  <meta name="twitter:description" content="AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Setting Up AWS SageMaker Studio & Training",
+  "datePublished": "2025-03-09",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">AI/ML Infrastructure</p>
+      <h1>Setting Up AWS SageMaker Studio &amp; Training</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-09">Mar 9, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale. With built-in Jupyter notebooks, seamless model deployment, and integration with popular ML frameworks, SageMaker simplifies the entire ML workflow.</p>
+<h2>In this guide, we’ll:</h2>
+<p>✅ Set up <strong>AWS SageMaker Studio</strong> and <strong>Notebook Instances</strong>✅ Train and deploy a sample ML model using SageMaker✅ Use <strong>Amazon ECR</strong> for containerized ML models✅ Automate training &amp; deployment with <strong>AWS Lambda</strong> and <strong>GitHub Actions</strong></p>
+<h2>🚀 Architecture Overview</h2>
+<h2>Workflow Overview:</h2>
+<p>1️⃣ <strong>SageMaker Studio</strong> provides an interactive development environment.2️⃣ <strong>SageMaker Notebook Instances</strong> allow data preprocessing and model training.3️⃣ <strong>SageMaker Training Jobs</strong> handle distributed training on scalable instances.4️⃣ <strong>SageMaker Endpoints</strong> serve trained models via a REST API.5️⃣ <strong>Amazon ECR</strong> stores custom containerized ML models.6️⃣ <strong>GitHub Actions &amp; AWS Lambda</strong> automate model training and deployment.</p>
+<h2>1️⃣ Setting Up AWS SageMaker Studio</h2>
+<h2>Step 1: Create SageMaker Studio Domain</h2>
+<ol><li>Go to the <strong>AWS Console</strong> → <strong>SageMaker</strong> → <strong>SageMaker Studio</strong>.</li><li>Click <strong>Create domain</strong> and select <strong>IAM Role</strong> (Choose an existing role or create a new one).</li><li>Configure VPC, storage, and permissions as required.</li><li>Click <strong>Submit</strong> and wait for the domain setup to complete.</li></ol>
+<h2>Step 2: Launch SageMaker Studio</h2>
+<ol><li>Open SageMaker Studio from the AWS Console.</li><li>Select a <strong>JupyterLab</strong> environment.</li><li>Create a <strong>Notebook</strong> and choose a kernel (e.g., TensorFlow, PyTorch, Scikit-learn).</li><li>Verify installation by running:</li></ol>
+<ul><li><code>import tensorflow as tf print(tf.__version__)</code></li></ul>
+<h2>2️⃣ Training a Model in SageMaker Notebooks</h2>
+<h2>Step 1: Load Data</h2>
+<pre><code>import boto3
+import pandas as pd
+from sklearn.model_selection import train_test_split</code></pre>
+<pre><code>s3 = boto3.client(&#x27;s3&#x27;)
+bucket = &quot;your-data-bucket&quot;
+file_name = &quot;dataset.csv&quot;
+s3.download_file(bucket, file_name, file_name)
+data = pd.read_csv(file_name)
+train, test = train_test_split(data, test_size=0.2)</code></pre>
+<h2>Step 2: Train Model with SageMaker SDK</h2>
+<pre><code>import sagemaker
+from sagemaker.sklearn.estimator import SKLearn</code></pre>
+<pre><code>session = sagemaker.Session()
+role = &quot;arn:aws:iam::account-id:role/SageMakerExecutionRole&quot;</code></pre>
+<pre><code>estimator = SKLearn(entry_point=&quot;train.py&quot;,
+                     framework_version=&quot;0.23-1&quot;,
+                     role=role,
+                     instance_count=1,
+                     instance_type=&quot;ml.m5.large&quot;)</code></pre>
+<pre><code>estimator.fit({&quot;train&quot;: &quot;s3://your-data-bucket/train&quot;})</code></pre>
+<h2>Step 3: Deploy the Model</h2>
+<pre><code>predictor = estimator.deploy(instance_type=&quot;ml.m5.large&quot;, initial_instance_count=1)
+predictor.predict([[5.1, 3.5, 1.4, 0.2]])  # Example prediction</code></pre>
+<h2>3️⃣ Deploying ML Models with SageMaker Endpoints</h2>
+<h2>Step 1: Create SageMaker Model</h2>
+<pre><code>from sagemaker.model import Model</code></pre>
+<pre><code>model = Model(image_uri=&quot;your-ecr-image&quot;,
+              model_data=&quot;s3://your-bucket/model.tar.gz&quot;,
+              role=role)</code></pre>
+<h2>Step 2: Deploy Endpoint</h2>
+<pre><code>predictor = model.deploy(instance_type=&quot;ml.m5.large&quot;, initial_instance_count=1)</code></pre>
+<h2>4️⃣ Automating Training &amp; Deployment with GitHub Actions</h2>
+<h2>Step 1: Define GitHub Actions Workflow</h2>
+<p>Create <code>.github/workflows/deploy.yml</code>:</p>
+<pre><code>name: Train and Deploy Model</code></pre>
+<pre><code>on:
+  push:
+    branches:
+      - main</code></pre>
+<pre><code>jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Train Model
+        run: |
+          aws sagemaker create-training-job \
+            --training-job-name my-training-job \
+            --role-arn ${{ secrets.AWS_ROLE }} \
+            --algorithm-specification TrainingImage=&quot;your-ecr-image&quot; \
+            --input-data-config &quot;[{S3DataSource: {S3Uri: s3://your-data-bucket/train}}]&quot;</code></pre>
+<h2>🚀 Best Practices</h2>
+<p>✅ Use <strong>Amazon S3</strong> for large dataset storage.✅ Implement <strong>IAM roles &amp; policies</strong> for security.✅ Use <strong>CloudWatch Logs</strong> for real-time monitoring.✅ Automate workflows with <strong>GitHub Actions &amp; Lambda Functions</strong>.✅ Deploy models with <strong>AWS SageMaker Pipelines</strong> for production workloads.</p>
+<h2>❓ FAQs</h2>
+<p>1️⃣ <strong>How do I update my trained model?</strong></p>
+<ul><li>Retrain using the latest dataset and redeploy using <code>predictor.update_endpoint()</code>.</li></ul>
+<p>2️⃣ <strong>Can I use custom ML frameworks?</strong></p>
+<ul><li>Yes! Build a custom Docker image and push it to Amazon ECR.</li></ul>
+<p>3️⃣ <strong>What is the difference between SageMaker Studio &amp; Notebook Instances?</strong></p>
+<ul><li>Studio provides an integrated development environment, while Notebook Instances are managed Jupyter environments.</li></ul>
+<p>4️⃣ <strong>How do I monitor my deployed model?</strong></p>
+<ul><li>Use <strong>Amazon CloudWatch</strong> and <strong>SageMaker Model Monitor</strong>.</li></ul>
+<p>🚀 <strong>Conclusion</strong></p>
+<p>We successfully set up <strong>AWS SageMaker</strong>, trained a model, deployed it as an API, and automated the process using <strong>GitHub Actions</strong>. Mastering SageMaker enables scalable, production-ready machine learning workflows.</p>
+<p>💬 <strong>Are you using AWS SageMaker for your ML projects? Share your experience below!</strong> 👇</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

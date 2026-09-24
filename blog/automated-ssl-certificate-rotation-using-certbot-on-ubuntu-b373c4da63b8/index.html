@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Automated SSL Certificate Rotation Using Certbot on Ubuntu | Rajesh Sood</title>
+  <meta name="description" content="SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Automated SSL Certificate Rotation Using Certbot on Ubuntu" />
+  <meta property="og:description" content="SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Automated SSL Certificate Rotation Using Certbot on Ubuntu" />
+  <meta property="article:published_time" content="2025-03-15" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Automated SSL Certificate Rotation Using Certbot on Ubuntu" />
+  <meta name="twitter:description" content="SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Automated SSL Certificate Rotation Using Certbot on Ubuntu",
+  "datePublished": "2025-03-15",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Ops &amp; Security</p>
+      <h1>Automated SSL Certificate Rotation Using Certbot on Ubuntu</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-15">Mar 15, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers. However, SSL certificates expire periodically, requiring renewal to maintain security. Automating SSL certificate rotation ensures uninterrupted service and compliance with security best practices.</p>
+<p>This guide will cover:</p>
+<ul><li>SSL certificate management using Certbot on Ubuntu</li><li>Automating SSL certificate rotation with cron jobs</li><li>Advanced commands with examples</li><li>Best practices for SSL certificate management</li><li>Common issues and troubleshooting</li><li>FAQs</li></ul>
+<h2>1. Installing Certbot on Ubuntu</h2>
+<p>Certbot is an open-source tool for automatically managing SSL/TLS certificates from Let’s Encrypt.</p>
+<h2>A. Installing Certbot</h2>
+<pre><code>sudo apt update
+sudo apt install certbot python3-certbot-nginx -y</code></pre>
+<p>If using Apache, install Certbot with:</p>
+<pre><code>sudo apt install certbot python3-certbot-apache -y</code></pre>
+<h2>B. Obtaining an SSL Certificate</h2>
+<pre><code>sudo certbot --nginx -d example.com -d www.example.com</code></pre>
+<p>For Apache:</p>
+<pre><code>sudo certbot --apache -d example.com -d www.example.com</code></pre>
+<p>This command will:</p>
+<ol><li>Request a certificate from Let’s Encrypt</li><li>Verify domain ownership</li><li>Configure Nginx/Apache to use the SSL certificate</li></ol>
+<h2>2. Automating SSL Certificate Renewal</h2>
+<p>Let’s Encrypt certificates are valid for 90 days, so regular renewal is required.</p>
+<h2>A. Checking Renewal Status</h2>
+<p>To check existing certificates and expiry dates:</p>
+<pre><code>sudo certbot certificates</code></pre>
+<p>To manually renew certificates:</p>
+<pre><code>sudo certbot renew --dry-run</code></pre>
+<h2>B. Automating Renewal with Cron Job</h2>
+<p>Let’s Encrypt suggests running the renewal process twice daily.</p>
+<ol><li>Open the crontab editor:</li></ol>
+<blockquote><code>sudo crontab -e</code></blockquote>
+<p>2. Add the following cron job to renew SSL certificates automatically:</p>
+<blockquote><code>0 2 * * * certbot renew --quiet --post-hook "systemctl restart nginx"</code></blockquote>
+<p>This command runs at 2 AM daily, renewing certificates if needed and restarting Nginx.</p>
+<p>3. For Apache, replace <code>nginx</code> with <code>apache2</code>:</p>
+<blockquote><code>0 2 * * * certbot renew --quiet --post-hook "systemctl restart apache2"</code></blockquote>
+<h2>3. Advanced Certbot Commands</h2>
+<h2>A. Listing All Certificates</h2>
+<pre><code>sudo certbot certificates</code></pre>
+<h2>B. Deleting a Certificate</h2>
+<pre><code>sudo certbot delete --cert-name example.com</code></pre>
+<h2>C. Renewing a Specific Certificate</h2>
+<pre><code>sudo certbot renew --cert-name example.com --force-renewal</code></pre>
+<h2>D. Revoke a Certificate</h2>
+<pre><code>sudo certbot revoke --cert-path /etc/letsencrypt/live/example.com/fullchain.pem</code></pre>
+<h2>4. Best Practices for SSL Certificate Management</h2>
+<p>✅ Use <strong>wildcard certificates</strong> to secure multiple subdomains.</p>
+<pre><code>sudo certbot -d &quot;*.example.com&quot; --manual --preferred-challenges dns certonly</code></pre>
+<p>✅ Configure <strong>HTTP to HTTPS redirection</strong> in Nginx/Apache.</p>
+<p>✅ Automate certificate renewal using cron jobs.</p>
+<p>✅ Set up <strong>monitoring for expiry notifications</strong>.</p>
+<h2>5. Troubleshooting Common Issues</h2>
+<h2>❓ Why is my certificate renewal failing?</h2>
+<p>✅ Ensure port 80 (HTTP) and port 443 (HTTPS) are open.</p>
+<p>✅ Run a dry run: <code>sudo certbot renew --dry-run</code>.</p>
+<p>✅ Check logs: <code>sudo journalctl -u certbot --no-pager</code>.</p>
+<h2>❓ How to fix <code>Too Many Requests</code> error?</h2>
+<p>✅ Check the rate limits on Let’s Encrypt: <a href="https://letsencrypt.org/docs/rate-limits/">https://letsencrypt.org/docs/rate-limits/</a></p>
+<p>✅ Use the staging server for testing:</p>
+<pre><code>sudo certbot renew --staging</code></pre>
+<h2>❓ How to update Certbot to the latest version?</h2>
+<p>✅ Use Snap to install the latest Certbot version:</p>
+<pre><code>sudo snap install --classic certbot</code></pre>
+<h2>6. Bash Script for SSL Certificate Rotation with Cron</h2>
+<p>If Certbot renewal is failing intermittently, a Bash script can add an extra layer of automation.</p>
+<h2>A. Creating the Script</h2>
+<ol><li>Create a new script file:</li></ol>
+<blockquote><code>sudo nano /usr/local/bin/ssl_renew.sh</code></blockquote>
+<p>2. Add the following script:</p>
+<pre><code>#!/bin/bash
+certbot renew --quiet
+if [ $? -eq 0 ]; then
+    systemctl restart nginx
+    echo &quot;SSL certificate renewed and Nginx restarted successfully on $(date)&quot; &gt;&gt; /var/log/ssl_renew.log
+else
+    echo &quot;SSL renewal failed on $(date)&quot; &gt;&gt; /var/log/ssl_renew.log
+fi</code></pre>
+<p>3. Make the script executable:</p>
+<blockquote><code>sudo chmod +x /usr/local/bin/ssl_renew.sh</code></blockquote>
+<h2>B. Adding the Script to Cron</h2>
+<ol><li>Edit crontab:</li></ol>
+<blockquote><code>sudo crontab -e</code></blockquote>
+<p>2. Add the following line:</p>
+<blockquote><code>0 3 * * * /usr/local/bin/ssl_renew.sh</code></blockquote>
+<p>This runs the script every day at 3 AM.</p>
+<h2>Conclusion</h2>
+<p>Automating SSL certificate rotation ensures secure and uninterrupted HTTPS access. Using Certbot with cron jobs or a custom Bash script simplifies this process, reducing manual intervention. Implement these best practices to enhance security and ensure smooth certificate management.</p>
+<p>🚀 <strong>Stay Secure, Stay Automated!</strong></p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

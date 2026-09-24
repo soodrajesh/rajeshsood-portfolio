@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Azure DevOps CI/CD pipeline with Terraform | Rajesh Sood</title>
+  <meta name="description" content="An end-to-end Azure DevOps CI/CD pipeline with Terraform for a sample e-commerce application, using advanced patterns." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Azure DevOps CI/CD pipeline with Terraform" />
+  <meta property="og:description" content="An end-to-end Azure DevOps CI/CD pipeline with Terraform for a sample e-commerce application, using advanced patterns." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Azure DevOps CI/CD pipeline with Terraform" />
+  <meta property="article:published_time" content="2025-03-18" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Azure DevOps CI/CD pipeline with Terraform" />
+  <meta name="twitter:description" content="An end-to-end Azure DevOps CI/CD pipeline with Terraform for a sample e-commerce application, using advanced patterns." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Azure DevOps CI/CD pipeline with Terraform",
+  "datePublished": "2025-03-18",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "An end-to-end Azure DevOps CI/CD pipeline with Terraform for a sample e-commerce application, using advanced patterns."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">IaC &amp; Config Management</p>
+      <h1>Azure DevOps CI/CD pipeline with Terraform</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-18">Mar 18, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>To create a comprehensive Azure DevOps CI/CD pipeline with Terraform, we’ll implement an end-to-end workflow for a sample e-commerce application using advanced patterns. This guide includes troubleshooting for real-world scenarios and optimizations for enterprise environments.</p>
+<h2>Infrastructure Architecture</h2>
+<p>Our deployment will provision:</p>
+<ul><li><strong>Azure Kubernetes Service (AKS)</strong> cluster with managed identities</li><li><strong>Azure PostgreSQL Flexible Server</strong> with VNET integration</li><li><strong>Azure Front Door</strong> with Web Application Firewall (WAF)</li><li><strong>Azure Monitor</strong> workspace with diagnostic settings</li><li><strong>Key Vault</strong> for secret management</li></ul>
+<p><strong>Terraform Module Structure</strong>:</p>
+<pre><code>modules/
+├── network
+├── database
+├── kubernetes
+├── monitoring
+└── frontdoor
+environments/
+├── prod
+│   ├── main.tf
+│   ├── variables.tf
+│   └── terraform.tfvars
+└── staging</code></pre>
+<h2>Pipeline Implementation</h2>
+<h2>Multi-Stage YAML Pipeline</h2>
+<pre><code># azure-pipelines.yml
+variables:
+  TF_VERSION: 1.8.5
+  ENVIRONMENT: prod
+  BACKEND_SA: $(backendStorageAccount)</code></pre>
+<pre><code>stages:
+- stage: Validate
+  jobs:
+  - job: Lint
+    steps:
+    - script: terraform fmt -check -recursive
+    - task: terrascan@1
+      inputs:
+        scanType: &#x27;iac&#x27;
+        iacType: &#x27;terraform&#x27;</code></pre>
+<pre><code>- stage: Plan
+  dependsOn: Validate
+  jobs:
+  - job: TerraformPlan
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: $(TF_VERSION)
+    - script: |
+        terraform init -backend-config=&quot;storage_account_name=$(BACKEND_SA)&quot;
+        terraform plan -out=tfplan        
+      workingDirectory: environments/$(ENVIRONMENT)</code></pre>
+<pre><code>- stage: Approve
+  dependsOn: Plan
+  jobs:
+  - job: Approval
+    pool: server
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440</code></pre>
+<pre><code>- stage: Apply
+  dependsOn: Approve
+  jobs:
+  - job: TerraformApply
+    steps:
+    - script: terraform apply tfplan
+      workingDirectory: environments/$(ENVIRONMENT)</code></pre>
+<pre><code>- stage: Monitor
+  jobs:
+  - job: DeploymentCheck
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        script: |
+          az monitor activity-log list \
+            --resource-group $(resourceGroup) \
+            --query &quot;[?operationName.value==&#x27;Microsoft.Resources/deployments/write&#x27;]&quot;</code></pre>
+<h2>Advanced Configuration Patterns</h2>
+<h2>State Management with Azure Storage</h2>
+<pre><code># backend.tf
+terraform {
+  backend &quot;azurerm&quot; {
+    resource_group_name  = &quot;tfstate-rg&quot;
+    storage_account_name = &quot;sttfstate$(unique_string)&quot;
+    container_name       = &quot;tfstate&quot;
+    key                  = &quot;prod.terraform.tfstate&quot;
+    use_oidc             = true
+  }
+}</code></pre>
+<h2>Zero-Downtime Deployment</h2>
+<pre><code>resource &quot;azurerm_kubernetes_cluster&quot; &quot;aks&quot; {
+  lifecycle {
+    create_before_destroy = true
+  }
+  
+  automatic_channel_upgrade = &quot;patch&quot;
+  maintenance_window {
+    allowed {
+      day   = &quot;Saturday&quot;
+      hours = [2, 4]
+    }
+  }
+}</code></pre>
+<h2>Real-World Troubleshooting Scenarios</h2>
+<p><strong>Case 1: Authentication Failure During Init</strong> <em>Symptom</em>: <code>Error: Failed to get existing workspaces: storage: service returned error</code> <em>Solution</em>:</p>
+<ol><li>Verify Managed Identity has <strong>Storage Blob Data Contributor</strong> role</li><li>Enable network exceptions for Azure DevOps IP ranges in storage account</li><li>Use OIDC authentication instead of SAS tokens</li></ol>
+<pre><code># Add to backend configuration
+use_oidc = true</code></pre>
+<p><strong>Case 2: State Locking Conflicts</strong> <em>Symptom</em>: <code>Error acquiring state lock</code> <em>Resolution</em>:</p>
+<pre><code>terraform force-unlock LOCK_ID -force
+az storage blob lease break --container-name tfstate --blob-name prod.tflock</code></pre>
+<p><strong>Case 3: Pipeline Dependency Race Conditions</strong> <em>Mitigation</em>: Implement pipeline gates and deployment slots</p>
+<pre><code>- stage: BlueGreen
+  jobs:
+  - deployment: SlotSwap
+    environment: Production
+    strategy:
+      rolling:
+        preDeploy:
+          steps:
+          - script: terraform apply -target azurerm_web_app_slot.prod
+        deploy:
+          steps:
+          - script: az webapp deployment slot swap -g MyResourceGroup -n MyApp --slot staging</code></pre>
+<h2>Monitoring &amp; Observability</h2>
+<p><strong>terraform.tf</strong>:</p>
+<pre><code>module &quot;monitoring&quot; {
+  source = &quot;Azure/avm-res-insights-monitor/azurerm&quot;
+  
+  diagnostic_settings = {
+    &quot;aks-diag&quot; = {
+      target_resource_id = azurerm_kubernetes_cluster.aks.id
+      log_analytics_workspace_id = azurerm_log_analytics_workspace.main.id
+    }
+  }
+  
+  alert_rules = {
+    &quot;HighCPU&quot; = {
+      description = &quot;Average CPU &gt; 80%&quot;
+      condition   = &quot;avg Percentage CPU &gt; 80&quot;
+    }
+  }
+}</code></pre>
+<h2>Security Best Practices</h2>
+<ol><li><strong>Secret Management</strong>:</li></ol>
+<pre><code>data &quot;azurerm_key_vault_secret&quot; &quot;db_password&quot; {
+  name         = &quot;postgres-password&quot;
+  key_vault_id = azurerm_key_vault.main.id
+}</code></pre>
+<pre><code>resource &quot;azurerm_key_vault_access_policy&quot; &quot;devops&quot; {
+  key_vault_id = azurerm_key_vault.main.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azuread_service_principal.devops.object_id
+  
+  secret_permissions = [&quot;Get&quot;]
+}</code></pre>
+<ol><li><strong>Network Restrictions</strong>:</li></ol>
+<pre><code>resource &quot;azurerm_storage_account_network_rules&quot; &quot;tfstate&quot; {
+  default_action             = &quot;Deny&quot;
+  ip_rules                   = [&quot;52.237.103.0/24&quot;] # Azure DevOps IP range
+  virtual_network_subnet_ids = [azurerm_subnet.agents.id]
+}</code></pre>
+<h2>FAQ: Common Pipeline Issues</h2>
+<p><strong>Q: Pipeline fails with “Error: AuthorizationFailure”</strong> <em>A</em>:</p>
+<ol><li>Verify Service Principal has Contributor role at resource group level</li><li>Check storage account firewall rules allow Azure DevOps IPs</li><li>Enable managed identity authentication in pipeline settings</li></ol>
+<p><strong>Q: Terraform plan shows unexpected changes on every run</strong> <em>A</em>:</p>
+<ol><li>Use <code>ignore_changes</code> for cloud-generated tags:</li></ol>
+<pre><code>lifecycle {
+  ignore_changes = [tags[&quot;CreatedBy&quot;], tags[&quot;Timestamp&quot;]]
+}</code></pre>
+<p>2. Set explicit versions for AzureRM provider</p>
+<p>3. Use Terraform Cloud for remote execution consistency</p>
+<p><strong>Q: How to manage multiple environments?</strong> <em>A</em>: Implement workspace strategy:</p>
+<pre><code>terraform workspace new staging
+terraform workspace select prod</code></pre>
+<p>Combine with Azure DevOps variable groups for environment-specific configurations.</p>
+<p><strong>Q: Debugging failed pipeline runs</strong> <em>A</em>:</p>
+<ol><li>Enable debug logging:</li></ol>
+<pre><code>variables:
+  SYSTEM_DEBUG: true</code></pre>
+<p>2. Use Terraform console for state inspection</p>
+<p>3. Implement pipeline artifacts for plan files:</p>
+<pre><code>- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: $(System.DefaultWorkingDirectory)/tfplan
+    artifact: TerraformPlan</code></pre>
+<h2>Final Recommendations</h2>
+<ol><li><strong>Policy Enforcement</strong>: Use Azure Policy with Terraform validation</li><li><strong>Cost Control</strong>: Integrate Infracost in pipeline gates</li><li><strong>Drift Detection</strong>: Schedule daily Terraform plan runs</li><li><strong>Collaboration</strong>: Implement Terraform Cloud for team workflows</li></ol>
+<p>This implementation provides production-grade patterns while addressing real-world operational challenges. The combination of Azure DevOps pipeline capabilities with Terraform’s infrastructure management creates a robust framework for cloud-native application delivery.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

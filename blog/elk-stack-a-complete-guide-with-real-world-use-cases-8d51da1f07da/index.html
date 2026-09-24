@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>ELK Stack: A Complete Guide with Real-World Use Cases | Rajesh Sood</title>
+  <meta name="description" content="Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ELK Stack: A Complete Guide with Real-World Use Cases" />
+  <meta property="og:description" content="Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ELK Stack: A Complete Guide with Real-World Use Cases" />
+  <meta property="article:published_time" content="2025-03-03" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ELK Stack: A Complete Guide with Real-World Use Cases" />
+  <meta name="twitter:description" content="Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ELK Stack: A Complete Guide with Real-World Use Cases",
+  "datePublished": "2025-03-03",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Observability &amp; Monitoring</p>
+      <h1>ELK Stack: A Complete Guide with Real-World Use Cases</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-03">Mar 3, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security. The <strong>ELK Stack</strong> — comprising <strong>Elasticsearch, Logstash, and Kibana</strong> — is one of the most powerful solutions for centralized logging and observability.</p>
+<p>In this guide, we’ll explore:</p>
+<ul><li>What is ELK Stack and why use it?</li><li>Setting up ELK Stack in a real-world scenario</li><li>Configuring ingestion pipelines</li><li>Advanced log analytics with Kibana</li><li>Scaling and securing ELK</li><li>Common troubleshooting tips</li><li>FAQs</li></ul>
+<h2>What is ELK Stack?</h2>
+<p>The <strong>ELK Stack</strong> consists of three major components:</p>
+<ol><li><strong>Elasticsearch</strong> — A distributed search engine that stores and indexes logs.</li><li><strong>Logstash</strong> — A data pipeline that ingests, processes, and forwards logs.</li><li><strong>Kibana</strong> — A web UI to visualize logs and create dashboards.</li></ol>
+<h2>Why Use ELK?</h2>
+<ul><li><strong>Centralized Logging:</strong> Aggregate logs from multiple sources.</li><li><strong>Real-time Monitoring:</strong> Get instant visibility into system behavior.</li><li><strong>Advanced Search &amp; Filtering:</strong> Quickly find relevant logs.</li><li><strong>Security &amp; Compliance:</strong> Detect anomalies and prevent security threats.</li><li><strong>Integrates with Kubernetes, AWS, and cloud-native applications.</strong></li></ul>
+<h2>Setting Up ELK Stack on AWS (Real-World Example)</h2>
+<h2>Step 1: Deploy Elasticsearch on AWS</h2>
+<h3>Using AWS Managed Elasticsearch</h3>
+<pre><code>aws es create-elasticsearch-domain --domain-name my-elk-domain \
+    --elasticsearch-version 7.10 \
+    --elasticsearch-cluster-config InstanceType=m5.large.elasticsearch,InstanceCount=2 \
+    --ebs-options EBSEnabled=true,VolumeSize=50</code></pre>
+<p>For self-hosted deployment, you can use Docker:</p>
+<pre><code>docker run -d --name elasticsearch -p 9200:9200 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.10.0</code></pre>
+<h2>Step 2: Deploy Logstash for Log Processing</h2>
+<p>Create a configuration file <code>logstash.conf</code>:</p>
+<pre><code>input {
+  file {
+    path =&gt; &quot;/var/log/syslog&quot;
+    start_position =&gt; &quot;beginning&quot;
+  }
+}</code></pre>
+<pre><code>filter {
+  grok {
+    match =&gt; { &quot;message&quot; =&gt; &quot;%{SYSLOGTIMESTAMP:timestamp} %{GREEDYDATA:log}&quot; }
+  }
+}</code></pre>
+<pre><code>output {
+  elasticsearch {
+    hosts =&gt; [&quot;http://localhost:9200&quot;]
+    index =&gt; &quot;logs-%{+YYYY.MM.dd}&quot;
+  }
+}</code></pre>
+<p>Run Logstash:</p>
+<pre><code>logstash -f logstash.conf</code></pre>
+<h2>Step 3: Deploy Kibana for Log Visualization</h2>
+<pre><code>docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch docker.elastic.co/kibana/kibana:7.10.0</code></pre>
+<p>Access Kibana at <code><a href="http://localhost:5601">http://localhost:5601</a></code></p>
+<h2>Advanced Use Cases</h2>
+<h2>1. Integrating Kubernetes Logs with ELK</h2>
+<p>To collect logs from Kubernetes pods, deploy <strong>Filebeat</strong>:</p>
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/elastic/beats/7.10/deploy/kubernetes/filebeat-kubernetes.yaml</code></pre>
+<p>Configure <code>filebeat.yml</code> to send logs to Elasticsearch:</p>
+<pre><code>output.elasticsearch:
+  hosts: [&quot;http://elasticsearch:9200&quot;]</code></pre>
+<h2>2. Anomaly Detection with Machine Learning</h2>
+<p>Enable <strong>ML-based anomaly detection</strong> in Kibana to detect security threats:</p>
+<pre><code>POST _ml/anomaly_detectors/syslog_anomalies
+{
+  &quot;analysis_config&quot;: {
+    &quot;bucket_span&quot;: &quot;15m&quot;,
+    &quot;detectors&quot;: [
+      {
+        &quot;function&quot;: &quot;mean&quot;,
+        &quot;field_name&quot;: &quot;response_time&quot;
+      }
+    ]
+  },
+  &quot;data_description&quot;: {
+    &quot;time_field&quot;: &quot;@timestamp&quot;
+  }
+}</code></pre>
+<h2>3. Scaling ELK Stack</h2>
+<ul><li><strong>Elasticsearch Scaling:</strong></li></ul>
+<ol><li>Use multi-node clusters (<code>InstanceCount=3+</code>)</li></ol>
+<p>2. Enable <strong>sharding and replication</strong></p>
+<ul><li><strong>Logstash Scaling:</strong></li></ul>
+<ol><li>Use Kafka as a buffering layer</li></ol>
+<p>2. Deploy multiple Logstash instances behind a load balancer</p>
+<ul><li><strong>Kibana Scaling:</strong></li></ul>
+<ol><li>Deploy behind Nginx for multi-user access</li></ol>
+<h2>Common Errors &amp; Fixes</h2>
+<p><strong>Error1</strong>:<code>Max virtual memory areas vm.max_map_count [65530] is too low</code></p>
+<p><strong>Cause</strong>: Elasticsearch requires higher limits</p>
+<p><strong>Fix:</strong> Run <code>sysctl -w vm.max_map_count=26214</code></p>
+<p><strong>Error2: </strong><code>Logstash logs not showing in Elasticsearch</code><strong>Cause</strong>: Logstash pipeline misconfiguration</p>
+<p><strong>Fix: </strong>Check <code>logstash.log</code> for errors</p>
+<p><strong>Error3:</strong><code>Kibana not connecting to Elasticsearch</code></p>
+<p><strong>Cause</strong>: Elasticsearch not running or incorrect URL</p>
+<p><strong>Fix:</strong> Verify with <code>curl <a href="http://localhost:9200">http://localhost:9200</a></code></p>
+<h2>FAQs</h2>
+<h2>1. What’s the difference between ELK and EFK?</h2>
+<p>ELK uses Logstash for ingestion, while EFK (Elasticsearch, Fluentd, Kibana) uses Fluentd, which is lighter and Kubernetes-friendly.</p>
+<h2>2. How much does ELK cost on AWS?</h2>
+<p>Costs depend on data volume. AWS OpenSearch (managed Elasticsearch) reduces operational overhead but incurs storage and compute costs.</p>
+<h2>3. Can I use ELK for real-time monitoring?</h2>
+<p>Yes, ELK supports near real-time monitoring with Kibana dashboards and Elasticsearch alerting.</p>
+<h2>4. How do I secure ELK?</h2>
+<ul><li>Enable <strong>TLS</strong> for communication between nodes.</li><li>Use <strong>IAM roles</strong> for AWS Elasticsearch.</li><li>Restrict access with <strong>RBAC in Kibana</strong>.</li></ul>
+<h2>5. What’s the best alternative to ELK?</h2>
+<ul><li><strong>Datadog, Splunk, Loki (for Kubernetes logs)</strong> if you need managed observability solutions.</li></ul>
+<h2>Conclusion</h2>
+<p>ELK Stack provides a powerful and flexible way to collect, store, and analyze logs in real-time. Whether you are monitoring cloud-native apps, troubleshooting infrastructure, or ensuring security compliance, ELK helps uncover insights hidden in logs.</p>
+<p>🚀 <strong>Next Steps:</strong> Deploy ELK in your environment, create dashboards, and start optimizing log analytics!</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

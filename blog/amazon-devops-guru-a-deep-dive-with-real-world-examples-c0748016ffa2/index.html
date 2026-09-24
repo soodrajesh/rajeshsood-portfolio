@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Amazon DevOps Guru: A Deep Dive with Real-World Examples | Rajesh Sood</title>
+  <meta name="description" content="Amazon DevOps Guru is an AI-powered operations service that helps identify and fix issues in applications running on AWS." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Amazon DevOps Guru: A Deep Dive with Real-World Examples" />
+  <meta property="og:description" content="Amazon DevOps Guru is an AI-powered operations service that helps identify and fix issues in applications running on AWS." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Amazon DevOps Guru: A Deep Dive with Real-World Examples" />
+  <meta property="article:published_time" content="2025-02-20" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Amazon DevOps Guru: A Deep Dive with Real-World Examples" />
+  <meta name="twitter:description" content="Amazon DevOps Guru is an AI-powered operations service that helps identify and fix issues in applications running on AWS." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Amazon DevOps Guru: A Deep Dive with Real-World Examples",
+  "datePublished": "2025-02-20",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Amazon DevOps Guru is an AI-powered operations service that helps identify and fix issues in applications running on AWS."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Observability &amp; Monitoring</p>
+      <h1>Amazon DevOps Guru: A Deep Dive with Real-World Examples</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-02-20">Feb 20, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Amazon DevOps Guru is an <strong>AI-powered operations service</strong> that helps identify and fix issues in applications running on AWS. It continuously <strong>monitors infrastructure metrics, logs, and events</strong> to detect anomalies and recommend actionable insights to improve performance and reliability.</p>
+<p>This blog provides an <strong>in-depth guide</strong> on <strong>how to set up, configure, and use Amazon DevOps Guru effectively</strong> with <strong>real-world examples, advanced scenarios, and FAQs</strong> to help DevOps engineers enhance their observability and incident resolution workflows.</p>
+<h2>🚀 Why Use Amazon DevOps Guru?</h2>
+<h2>🔹 Key Benefits</h2>
+<ul><li><strong>Proactive Issue Detection:</strong> Uses ML to detect performance bottlenecks and anomalies.</li><li><strong>Automated Insights:</strong> Provides actionable recommendations to mitigate risks.</li><li><strong>Seamless AWS Integration:</strong> Works across AWS services like EC2, RDS, Lambda, and Kubernetes.</li><li><strong>Cost Optimization:</strong> Helps identify underutilized resources and inefficiencies.</li></ul>
+<h2>📌 Use Cases</h2>
+<ul><li><strong>Preventing Outages:</strong> Detect unusual CPU spikes in EC2 before an outage occurs.</li><li><strong>Troubleshooting Slow Database Queries:</strong> Identify slow RDS queries affecting application response time.</li><li><strong>Optimizing Lambda Performance:</strong> Detect memory allocation issues in serverless applications.</li><li><strong>Improving Kubernetes Reliability:</strong> Spot failing pods in Amazon EKS clusters before they impact users.</li></ul>
+<h2>🛠 Setting Up Amazon DevOps Guru</h2>
+<h2>✅ Prerequisites</h2>
+<ol><li><strong>AWS Account</strong> with admin privileges.</li><li><strong>IAM Permissions</strong> to manage DevOps Guru (<code>AmazonDevOpsGuruFullAccess</code> policy).</li><li><strong>Active AWS Services</strong> (EC2, RDS, Lambda, ECS, EKS, etc.) to monitor.</li></ol>
+<h2>🔧 Step-by-Step Setup</h2>
+<h3>Step 1: Enable DevOps Guru</h3>
+<pre><code>aws devops-guru update-account-settings --resource-coverage {COVERAGE}</code></pre>
+<p>Alternatively, enable it via <strong>AWS Console</strong>:</p>
+<ul><li>Navigate to <strong>AWS DevOps Guru</strong> → Click <strong>Enable DevOps Guru</strong>.</li><li>Choose <strong>Resource Coverage Scope</strong> (specific services or all AWS resources).</li></ul>
+<h3>Step 2: Define Analysis Scope</h3>
+<p>You can configure DevOps Guru to monitor:</p>
+<ul><li><strong>Entire AWS Account</strong></li><li><strong>Specific AWS Services</strong> (EC2, RDS, Lambda, etc.)</li><li><strong>Tags &amp; Resource Groups</strong></li></ul>
+<p>Example CLI command to set up <strong>EC2 monitoring</strong>:</p>
+<pre><code>aws devops-guru update-resource-collection --resource-collection {&quot;CloudFormation&quot;: [{&quot;StackNames&quot;: [&quot;MyAppStack&quot;]}]}</code></pre>
+<h3>Step 3: Configure Notification Channels</h3>
+<p>To send alerts via <strong>SNS (Slack, Email, PagerDuty)</strong>:</p>
+<pre><code>aws sns create-topic --name DevOpsGuruAlerts
+aws sns subscribe --topic-arn arn:aws:sns:us-east-1:123456789012:DevOpsGuruAlerts --protocol email --notification-endpoint you@example.com</code></pre>
+<h3>Step 4: Review Findings &amp; Insights</h3>
+<p>Once DevOps Guru is enabled, it starts analyzing logs, events, and metrics. Navigate to:</p>
+<ul><li><strong>AWS Console</strong> → <strong>DevOps Guru Dashboard</strong> to see insights.</li><li>Run CLI command to fetch insights:</li></ul>
+<pre><code>aws devops-guru list-insights --status-filter {&quot;Ongoing&quot;:{}}</code></pre>
+<h2>🏆 Advanced Real-World Scenarios</h2>
+<h2>1️⃣ Detecting High Latency in an RDS Database</h2>
+<p>Scenario: A production database in <strong>Amazon RDS (PostgreSQL)</strong> experiences intermittent slow queries.</p>
+<p>📌 <strong>How DevOps Guru Helps:</strong></p>
+<ul><li><strong>Detects Anomalies:</strong> Notifies high query execution times.</li><li><strong>Root Cause Analysis:</strong> Shows related EC2 instances under heavy load.</li><li><strong>Recommended Action:</strong> Suggests increasing <code>max_connections</code> or optimizing queries.</li></ul>
+<p>👉 <strong>Example AWS CLI to View Insights:</strong></p>
+<pre><code>aws devops-guru describe-insight --id insight-12345</code></pre>
+<h2>2️⃣ Identifying Memory Leaks in Lambda Functions</h2>
+<p>Scenario: A <strong>Lambda function</strong> used in a serverless app suddenly runs out of memory and fails.</p>
+<p>📌 <strong>How DevOps Guru Helps:</strong></p>
+<ul><li><strong>Detects Memory Spikes:</strong> Flags sudden memory exhaustion.</li><li><strong>Root Cause Analysis:</strong> Shows a loop consuming excess memory.</li><li><strong>Recommended Action:</strong> Suggests increasing memory allocation and optimizing recursion depth.</li></ul>
+<p>👉 <strong>Check Lambda Anomalies:</strong></p>
+<pre><code>aws devops-guru list-anomalies-for-insight --insight-id insight-67890</code></pre>
+<h2>3️⃣ Troubleshooting Failing Kubernetes Pods in Amazon EKS</h2>
+<p>Scenario: A <strong>Kubernetes cluster in Amazon EKS</strong> sees pod restarts due to high CPU.</p>
+<p>📌 <strong>How DevOps Guru Helps:</strong></p>
+<ul><li><strong>Detects Pod Failures:</strong> Identifies pods restarting frequently.</li><li><strong>Root Cause Analysis:</strong> Detects CPU throttling in worker nodes.</li><li><strong>Recommended Action:</strong> Suggests increasing CPU requests/limits or scaling nodes.</li></ul>
+<p>👉 <strong>Example Kubernetes CLI Command to View Pod Metrics:</strong></p>
+<pre><code>kubectl top pod --sort-by=cpu</code></pre>
+<h2>🎯 Best Practices for Using DevOps Guru</h2>
+<p>✅ <strong>Tag Resources Effectively</strong>: Helps filter insights by application/service.</p>
+<p>✅ <strong>Integrate with Slack or PagerDuty</strong>: Ensures instant alerts for critical issues.</p>
+<p>✅ <strong>Enable on Business-Critical Workloads</strong>: Prioritize production environments.</p>
+<p>✅ <strong>Review Recommendations Regularly</strong>: Improve response time and proactive remediation.</p>
+<h2>❓ FAQs</h2>
+<h2>Q1: How much does Amazon DevOps Guru cost?</h2>
+<p>DevOps Guru is a <strong>pay-as-you-go service</strong>. Costs depend on the number of monitored resources and detected anomalies.</p>
+<h2>Q2: How long does it take to detect anomalies?</h2>
+<p>It usually takes a few hours to analyze <strong>historical data and detect new issues</strong>.</p>
+<h2>Q3: Can DevOps Guru integrate with third-party tools?</h2>
+<p>Yes, it supports integrations with <strong>Slack, AWS Lambda, PagerDuty, CloudWatch, and SNS</strong> for notifications.</p>
+<h2>Q4: Does DevOps Guru replace traditional monitoring tools?</h2>
+<p>No, it <strong>complements</strong> tools like <strong>Prometheus, Datadog, or CloudWatch</strong> by providing <strong>AI-powered insights</strong>.</p>
+<h2>🔥 Conclusion</h2>
+<p>Amazon DevOps Guru is a <strong>powerful AI-driven tool</strong> that helps <strong>automate anomaly detection, root cause analysis, and proactive remediation</strong>. By integrating it into your AWS environment, you can <strong>reduce downtime, optimize performance, and improve incident response times</strong>.</p>
+<p>🚀 <strong>Start using DevOps Guru today</strong> to bring intelligence to your DevOps workflows and enhance cloud observability!</p>
+
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Deploying a Sample App with AWS EKS &amp; Terraform | Rajesh Sood</title>
+  <meta name="description" content="In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Deploying a Sample App with AWS EKS &amp; Terraform" />
+  <meta property="og:description" content="In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Deploying a Sample App with AWS EKS &amp; Terraform" />
+  <meta property="article:published_time" content="2025-03-09" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Deploying a Sample App with AWS EKS &amp; Terraform" />
+  <meta name="twitter:description" content="In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deploying a Sample App with AWS EKS & Terraform",
+  "datePublished": "2025-03-09",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">IaC &amp; Config Management</p>
+      <h1>Deploying a Sample App with AWS EKS &amp; Terraform</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-09">Mar 9, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments. AWS EKS (Elastic Kubernetes Service) allows teams to run Kubernetes clusters without managing the control plane, while Terraform helps with automated infrastructure provisioning.</p>
+<h2>In this guide, we’ll build an end-to-end DevOps pipeline to:</h2>
+<p>✅ Provision an EKS cluster with Terraform✅ Containerize a sample application using Docker✅ Push the image to Amazon ECR (Elastic Container Registry)✅ Deploy the app to Kubernetes using Helm✅ Automate everything with a GitHub Actions CI/CD pipeline</p>
+<h2>🚀 Architecture Overview</h2>
+<p>The workflow consists of the following steps:</p>
+<p>1️⃣ Terraform provisions AWS infrastructure (VPC, EKS, IAM roles, security groups)2️⃣ Docker builds &amp; pushes a containerized app to AWS ECR3️⃣ Kubernetes manifests (or Helm) deploy the app to the EKS cluster4️⃣ GitHub Actions automates CI/CD pipeline execution</p>
+<h2>1️⃣ Provisioning AWS EKS with Terraform</h2>
+<h2>Step 1: Install Prerequisites</h2>
+<p>Ensure you have the following installed:</p>
+<ul><li>Terraform (&gt;=1.5.0)</li><li>AWS CLI (<code>aws configure</code>)</li><li>Kubectl (<code>eksctl install</code>)</li><li>Helm (<code>helm install</code>)</li></ul>
+<h2>Step 2: Create Terraform Configuration for EKS</h2>
+<p><code><strong>main.tf</strong></code><strong> - Define the EKS cluster:</strong></p>
+<pre><code>provider &quot;aws&quot; {
+  region = &quot;us-east-1&quot;
+}</code></pre>
+<pre><code>resource &quot;aws_iam_role&quot; &quot;eks_cluster_role&quot; {
+  name = &quot;eks-cluster-role&quot;
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = &quot;sts:AssumeRole&quot;
+      Effect = &quot;Allow&quot;
+      Principal = { Service = &quot;eks.amazonaws.com&quot; }
+    }]
+  })
+}</code></pre>
+<pre><code>resource &quot;aws_eks_cluster&quot; &quot;my_eks&quot; {
+  name     = &quot;my-cluster&quot;
+  role_arn = aws_iam_role.eks_cluster_role.arn
+  
+  vpc_config {
+    subnet_ids = [aws_subnet.public_1.id, aws_subnet.public_2.id]
+  }
+}</code></pre>
+<pre><code>resource &quot;aws_eks_node_group&quot; &quot;node_group&quot; {
+  cluster_name    = aws_eks_cluster.my_eks.name
+  node_role_arn   = aws_iam_role.eks_cluster_role.arn
+  subnet_ids      = [aws_subnet.public_1.id, aws_subnet.public_2.id]
+  instance_types  = [&quot;t3.medium&quot;]
+  desired_size    = 2
+}</code></pre>
+<h2>Step 3: Apply Terraform Configuration</h2>
+<pre><code>terraform init
+terraform apply -auto-approve</code></pre>
+<p>Verify the cluster:</p>
+<pre><code>aws eks --region us-east-1 update-kubeconfig --name my-cluster
+kubectl get nodes</code></pre>
+<h2>2️⃣ Build and Push Docker Image to Amazon ECR</h2>
+<h2>Step 1: Create an ECR Repository</h2>
+<pre><code>aws ecr create-repository --repository-name my-app</code></pre>
+<h2>Step 2: Build and Push Docker Image</h2>
+<p><code><strong>Dockerfile</strong></code><strong> - Define containerized application:</strong></p>
+<pre><code>FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD [&quot;node&quot;, &quot;server.js&quot;]
+EXPOSE 3000</code></pre>
+<p>Authenticate and push to ECR:</p>
+<pre><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com</code></pre>
+<pre><code>docker build -t my-app .
+docker tag my-app:latest &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+docker push &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest</code></pre>
+<h2>3️⃣ Deploying to Kubernetes (EKS) using Helm</h2>
+<h2>Step 1: Create Kubernetes Deployment Manifest</h2>
+<p><code><strong>deployment.yaml</strong></code><strong> - Define Kubernetes deployment:</strong></p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+          ports:
+            - containerPort: 3000</code></pre>
+<p>Apply the deployment:</p>
+<pre><code>kubectl apply -f deployment.yaml
+kubectl get pods</code></pre>
+<h2>Step 2: Expose the Application</h2>
+<p><code><strong>service.yaml</strong></code><strong> - Define Kubernetes service:</strong></p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer</code></pre>
+<p>Apply the service:</p>
+<pre><code>kubectl apply -f service.yaml
+kubectl get svc</code></pre>
+<h2>4️⃣ Automating Everything with GitHub Actions</h2>
+<p><code><strong>.github/workflows/deploy.yaml</strong></code><strong> - Define CI/CD pipeline:</strong></p>
+<pre><code>name: CI/CD Pipeline</code></pre>
+<pre><code>on:
+  push:
+    branches:
+      - main</code></pre>
+<pre><code>jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2</code></pre>
+<pre><code>      - name: Login to AWS ECR
+        run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com</code></pre>
+<pre><code>      - name: Build and Push Docker Image
+        run: |
+          docker build -t my-app .
+          docker tag my-app:latest &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+          docker push &lt;account_id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest</code></pre>
+<pre><code>      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml</code></pre>
+<h2>🚀 Best Practices</h2>
+<p>✅ Use Terraform remote state with S3 + DynamoDB✅ Implement secrets management with AWS Secrets Manager✅ Use Helm charts for better Kubernetes deployments✅ Integrate AWS CloudWatch for monitoring</p>
+<h2>❓ FAQs</h2>
+<p>1️⃣ <strong>How do I update my app after changes?</strong></p>
+<ul><li>Push changes to main branch, and GitHub Actions will rebuild and deploy automatically.</li></ul>
+<p>2️⃣ <strong>How do I rollback a deployment?</strong></p>
+<ul><li><code>kubectl rollout undo deployment my-app</code></li></ul>
+<p>3️⃣ <strong>Can I integrate AWS ALB with EKS?</strong></p>
+<ul><li>Yes! Use the AWS ALB Ingress Controller to expose services via ALB.</li></ul>
+<p>4️⃣ <strong>How do I monitor the application?</strong></p>
+<ul><li>Use AWS CloudWatch and <code>kubectl logs -f &lt;pod-name&gt;</code> for debugging.</li></ul>
+<p><strong>Share your thoughts below! 👇</strong></p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
