@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Mastering MySQL: Basics, Advanced Commands, and Best Practices | Rajesh Sood</title>
+  <meta name="description" content="MySQL is one of the most widely used relational database management systems (RDBMS) in the world." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mastering MySQL: Basics, Advanced Commands, and Best Practices" />
+  <meta property="og:description" content="MySQL is one of the most widely used relational database management systems (RDBMS) in the world." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mastering MySQL: Basics, Advanced Commands, and Best Practices" />
+  <meta property="article:published_time" content="2025-03-17" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mastering MySQL: Basics, Advanced Commands, and Best Practices" />
+  <meta name="twitter:description" content="MySQL is one of the most widely used relational database management systems (RDBMS) in the world." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mastering MySQL: Basics, Advanced Commands, and Best Practices",
+  "datePublished": "2025-03-17",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "MySQL is one of the most widely used relational database management systems (RDBMS) in the world."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Databases</p>
+      <h1>Mastering MySQL: Basics, Advanced Commands, and Best Practices</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-17">Mar 17, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>MySQL is one of the most widely used relational database management systems (RDBMS) in the world. Whether you’re a beginner or an experienced database administrator, mastering MySQL can help optimize performance, ensure security, and manage large datasets efficiently.</p>
+<p>In this guide, we’ll cover: ✅ Basic and advanced MySQL commands with examples ✅ Connecting to MySQL from your laptop when running on an AWS EC2 instance ✅ Best practices for database management ✅ Common issues and troubleshooting ✅ FAQs</p>
+<h2>🔹 MySQL Basics</h2>
+<h2>1️⃣ Install MySQL on Linux (Ubuntu/Debian)</h2>
+<pre><code>sudo apt update
+sudo apt install mysql-server -y
+sudo systemctl start mysql
+sudo systemctl enable mysql</code></pre>
+<h2>2️⃣ Secure MySQL Installation</h2>
+<pre><code>sudo mysql_secure_installation</code></pre>
+<p><em>This will prompt you to set a root password and remove unnecessary settings for security.</em></p>
+<h2>3️⃣ Log into MySQL</h2>
+<pre><code>mysql -u root -p</code></pre>
+<h2>4️⃣ Create a Database</h2>
+<pre><code>CREATE DATABASE company_db;
+SHOW DATABASES;</code></pre>
+<h2>5️⃣ Create a User and Grant Permissions</h2>
+<pre><code>CREATE USER &#x27;admin&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;password&#x27;;
+GRANT ALL PRIVILEGES ON company_db.* TO &#x27;admin&#x27;@&#x27;localhost&#x27;;
+FLUSH PRIVILEGES;</code></pre>
+<h2>🔹 Advanced MySQL Commands</h2>
+<h2>1️⃣ Optimize Table Performance</h2>
+<pre><code>OPTIMIZE TABLE employees;</code></pre>
+<h2>2️⃣ Backup a MySQL Database</h2>
+<pre><code>mysqldump -u root -p company_db &gt; backup.sql</code></pre>
+<h2>3️⃣ Restore from a Backup</h2>
+<pre><code>mysql -u root -p company_db &lt; backup.sql</code></pre>
+<h2>4️⃣ Create an Index for Faster Queries</h2>
+<pre><code>CREATE INDEX idx_lastname ON employees (last_name);</code></pre>
+<h2>5️⃣ View Running Queries (Identify Slow Queries)</h2>
+<pre><code>SHOW PROCESSLIST;</code></pre>
+<h2>6️⃣ Kill a Running Query</h2>
+<pre><code>KILL &lt;process_id&gt;;</code></pre>
+<h2>🔹 Connecting to MySQL Running on an AWS EC2 Instance</h2>
+<h2>1️⃣ Allow Remote Access</h2>
+<ul><li>Modify MySQL configuration:</li></ul>
+<pre><code>sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></pre>
+<ul><li>Change <code>bind-address</code> from <code>127.0.0.1</code> to <code>0.0.0.0</code>:</li></ul>
+<pre><code>bind-address = 0.0.0.0</code></pre>
+<ul><li>Restart MySQL:</li></ul>
+<pre><code>sudo systemctl restart mysql</code></pre>
+<h2>2️⃣ Open MySQL Port in AWS Security Group</h2>
+<ul><li>Navigate to EC2 &gt; Security Groups</li><li>Edit Inbound Rules and allow <strong>port 3306</strong> from your IP (<code>your-laptop-ip/32</code>)</li></ul>
+<h2>3️⃣ Connect from Your Laptop</h2>
+<pre><code>mysql -h &lt;EC2-PUBLIC-IP&gt; -u admin -p</code></pre>
+<h2>🔹 Best Practices for MySQL</h2>
+<p>✅ <strong>Use Strong Passwords</strong> — Ensure all MySQL users have secure passwords.</p>
+<p>✅ <strong>Enable Backups</strong> — Use <code>mysqldump</code> or automated backup solutions.</p>
+<p>✅ <strong>Use Indexing</strong> – Improve performance by indexing frequently queried columns.</p>
+<p>✅ <strong>Limit User Privileges</strong> – Grant only necessary permissions.</p>
+<p>✅ <strong>Monitor Slow Queries</strong> – Enable slow query logging to optimize queries.</p>
+<pre><code>SET GLOBAL slow_query_log = 1;
+SET GLOBAL long_query_time = 2;</code></pre>
+<p>✅ <strong>Regularly Update MySQL</strong> — Keep your installation up to date.</p>
+<h2>❓ FAQs</h2>
+<h2>1️⃣ How do I reset the MySQL root password?</h2>
+<pre><code>sudo systemctl stop mysql
+sudo mysqld_safe --skip-grant-tables &amp;
+mysql -u root
+UPDATE mysql.user SET authentication_string=null WHERE User=&#x27;root&#x27;;
+FLUSH PRIVILEGES;
+ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;newpassword&#x27;;</code></pre>
+<h2>2️⃣ How do I check the size of my database?</h2>
+<pre><code>SELECT table_schema AS &#x27;Database&#x27;,
+SUM(data_length + index_length) / 1024 / 1024 AS &#x27;Size (MB)&#x27;
+FROM information_schema.tables
+GROUP BY table_schema;</code></pre>
+<h2>3️⃣ How do I grant remote access to a MySQL user?</h2>
+<pre><code>CREATE USER &#x27;admin&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;
+GRANT ALL PRIVILEGES ON company_db.* TO &#x27;admin&#x27;@&#x27;%&#x27;;
+FLUSH PRIVILEGES;</code></pre>
+<h2>4️⃣ My MySQL server is running, but I can’t connect remotely. What should I check?</h2>
+<ul><li>Ensure MySQL is listening on <code>0.0.0.0</code></li><li>Verify <code>port 3306</code> is open in the security group</li><li>Check firewall settings: <code>sudo ufw allow 3306/tcp</code></li></ul>
+<h2>5️⃣ How do I automatically restart MySQL if it crashes?</h2>
+<pre><code>sudo systemctl enable mysql</code></pre>
+<h2>🚀 Conclusion</h2>
+<p>MySQL is an essential database for developers, DevOps engineers, and database administrators. Understanding basic and advanced commands, optimizing performance, and ensuring security are key to running a reliable database.</p>
+<p>By following these best practices and troubleshooting techniques, you can efficiently manage MySQL databases, whether locally or on AWS EC2.</p>
+<p>💡 <strong>Next Steps:</strong></p>
+<p>🔹 Implement automated backups</p>
+<p>🔹 Optimize queries using EXPLAIN</p>
+<p>🔹 Secure MySQL with IAM-based authentication (for AWS RDS)</p>
+<p>Do you have more questions about MySQL? Drop them in the comments below! 🚀</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

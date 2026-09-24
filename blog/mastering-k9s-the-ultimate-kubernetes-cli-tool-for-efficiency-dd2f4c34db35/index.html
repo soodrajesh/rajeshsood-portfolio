@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency | Rajesh Sood</title>
+  <meta name="description" content="Managing Kubernetes clusters via the command line can be complex and time-consuming." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency" />
+  <meta property="og:description" content="Managing Kubernetes clusters via the command line can be complex and time-consuming." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency" />
+  <meta property="article:published_time" content="2025-02-20" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency" />
+  <meta name="twitter:description" content="Managing Kubernetes clusters via the command line can be complex and time-consuming." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency",
+  "datePublished": "2025-02-20",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Managing Kubernetes clusters via the command line can be complex and time-consuming."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Kubernetes</p>
+      <h1>Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-02-20">Feb 20, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/images/img-1.png" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Managing Kubernetes clusters via the command line can be complex and time-consuming. <strong>K9s</strong> is an open-source, terminal-based UI that simplifies the Kubernetes experience, allowing engineers to interact with clusters more efficiently.</p>
+<p>This guide covers everything from <strong>installing and configuring K9s</strong> to <strong>real-world advanced use cases, troubleshooting, and FAQs</strong>.</p>
+<h2>Why Use K9s?</h2>
+<p>K9s provides a more user-friendly and efficient way to manage Kubernetes clusters compared to <code>kubectl</code>. Here’s why it’s a game-changer:</p>
+<ul><li><strong>Real-time cluster monitoring</strong></li><li><strong>Faster navigation</strong> through namespaces, pods, and resources</li><li><strong>Enhanced debugging capabilities</strong></li><li><strong>Custom plugins</strong> for automation</li></ul>
+<h2>Installing K9s</h2>
+<h2>1. Install K9s on MacOS, Linux, or Windows</h2>
+<h3>MacOS:</h3>
+<pre><code>brew install derailed/k9s/k9s</code></pre>
+<h3>Linux:</h3>
+<pre><code>curl -sS https://webinstall.dev/k9s | bash</code></pre>
+<h3>Windows (via Chocolatey):</h3>
+<pre><code>choco install k9s</code></pre>
+<h2>Getting Started with K9s</h2>
+<h2>1. Launch K9s:</h2>
+<pre><code>k9s</code></pre>
+<p>By default, K9s connects to the current <code>kubectl</code> context and lists running pods.</p>
+<h2>2. Navigate Kubernetes Resources</h2>
+<ul><li>Press <code>:</code> to open the command prompt inside K9s.</li><li>Type <code>deployments</code> to view deployments.</li><li>Type <code>services</code> to list services.</li></ul>
+<h2>3. Switching Namespaces</h2>
+<pre><code>:ns default  # Switch to the default namespace
+:ns kube-system  # Switch to kube-system</code></pre>
+<h2>Real-World Advanced K9s Use Cases</h2>
+<h2>1. Troubleshooting Pod Issues</h2>
+<h3>View logs of a failing pod</h3>
+<ol><li>Select a pod (<code>up/down arrow keys</code> to navigate)</li><li>Press <code>l</code> (lowercase L) to view logs</li><li>Use <code>/</code> to search for error messages</li></ol>
+<h3>Inspect pod details</h3>
+<ol><li>Select a pod and press <code>d</code></li><li>View <strong>container restarts, resource usage, and labels</strong></li></ol>
+<h2>2. Managing Deployments Efficiently</h2>
+<h3>Scale a deployment</h3>
+<ol><li>Select the deployment</li><li>Press <code>s</code> and enter the desired replica count</li></ol>
+<h3>Restart a deployment</h3>
+<ol><li>Select the deployment</li><li>Press <code>r</code> to restart</li></ol>
+<h2>3. Customizing K9s with Plugins</h2>
+<p>K9s supports <strong>custom plugins</strong> for automation. Example: Add a shortcut to list all failed pods.</p>
+<h3>Create a plugin file:</h3>
+<pre><code>mkdir -p ~/.k9s/plugin
+cat &lt;&lt;EOF &gt; ~/.k9s/plugin/failed-pods.yaml
+plugin:
+  command: kubectl get pods --all-namespaces --field-selector=status.phase!=Running
+EOF</code></pre>
+<p>Now, run the plugin inside K9s:</p>
+<pre><code>:failed-pods</code></pre>
+<h2>4. Monitoring Cluster Resources in Real-Time</h2>
+<h3>View CPU and Memory Usage</h3>
+<pre><code>:top node  # View node resource utilization
+:top pod  # View pod-level resource consumption</code></pre>
+<h3>Inspect Network Policies</h3>
+<pre><code>:netpol  # Show applied Network Policies</code></pre>
+<h2>5. Applying Kubernetes YAML Directly from K9s</h2>
+<ol><li>Press <code>e</code> on a resource to edit its YAML in real-time.</li><li>Apply changes and <strong>watch Kubernetes reflect them instantly</strong>.</li></ol>
+<h2>Advanced K9s Commands and Shortcuts</h2>
+<p><code>:ctx</code>View and switch Kubernetes contexts</p>
+<p><code>:nodes</code>Show all cluster nodes</p>
+<p><code>:po -n kube-system</code>List pods in the kube-system namespace</p>
+<p><code>s</code>Scale a deployment interactively</p>
+<p><code>l</code>View logs of a pod</p>
+<p><code>r</code>Restart a pod or deployment</p>
+<p><code>Shift+D</code>Delete a resource</p>
+<h2>FAQs</h2>
+<h2>1. Can K9s work without <code>kubectl</code> installed?</h2>
+<p>No, K9s relies on <code>kubectl</code> under the hood.</p>
+<h2>2. How can I reset K9s configurations?</h2>
+<pre><code>rm -rf ~/.k9s</code></pre>
+<h2>3. Does K9s support multiple Kubernetes clusters?</h2>
+<p>Yes, use <code>:ctx</code> to switch between clusters.</p>
+<h2>4. How can I update K9s?</h2>
+<h3>MacOS:</h3>
+<pre><code>brew upgrade k9s</code></pre>
+<h3>Linux:</h3>
+<pre><code>curl -sS https://webinstall.dev/k9s | bash</code></pre>
+<h2>5. How do I create a custom view in K9s?</h2>
+<p>Modify the <code>~/.k9s/plugin/</code> directory with custom YAML configurations.</p>
+<h2>Conclusion</h2>
+<p>K9s is a powerful Kubernetes CLI tool that significantly improves cluster management and troubleshooting. By mastering K9s, DevOps engineers and SREs can work more efficiently and gain deeper insights into their Kubernetes environments.</p>
+<p><strong>Start using K9s today and take control of your Kubernetes clusters! 🚀</strong></p>
+
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

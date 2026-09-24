@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Advanced Docker Commands: Mastering Containers Like a Pro | Rajesh Sood</title>
+  <meta name="description" content="Docker is an essential tool for modern DevOps, enabling seamless containerization of applications." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Advanced Docker Commands: Mastering Containers Like a Pro" />
+  <meta property="og:description" content="Docker is an essential tool for modern DevOps, enabling seamless containerization of applications." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Advanced Docker Commands: Mastering Containers Like a Pro" />
+  <meta property="article:published_time" content="2025-03-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Advanced Docker Commands: Mastering Containers Like a Pro" />
+  <meta name="twitter:description" content="Docker is an essential tool for modern DevOps, enabling seamless containerization of applications." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Advanced Docker Commands: Mastering Containers Like a Pro",
+  "datePublished": "2025-03-05",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Docker is an essential tool for modern DevOps, enabling seamless containerization of applications."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Containers &amp; Docker</p>
+      <h1>Advanced Docker Commands: Mastering Containers Like a Pro</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-05">Mar 5, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Docker is an essential tool for modern DevOps, enabling seamless containerization of applications. While basic Docker commands are widely used, mastering advanced Docker commands can significantly enhance efficiency, security, and troubleshooting in containerized environments.</p>
+<p>This guide covers <strong>advanced Docker commands</strong>, real-world <strong>use cases</strong>, and <strong>best practices</strong> to help you optimize your workflows.</p>
+<h2>1. Managing Containers Efficiently</h2>
+<h2>1.1 Running Commands Inside a Running Container</h2>
+<ul><li>Use <code>docker exec</code> to run a command inside a running container without stopping it:</li><li><code>docker exec -it &lt;container_id&gt; bash</code></li></ul>
+<pre><code>Use case: Access a running container to debug an issue.</code></pre>
+<h2>1.2 Committing Changes to a Running Container</h2>
+<ul><li>Save the state of a container as a new image:</li><li><code>docker commit &lt;container_id&gt; my-custom-image</code></li><li><em>Use case:</em> Create a reusable image after manual changes inside a container.</li></ul>
+<h2>1.3 Viewing Changes in a Container’s Filesystem</h2>
+<ul><li>Identify modified files inside a container:</li><li><code>docker diff &lt;container_id&gt;</code></li><li><em>Use case:</em> Audit container modifications for security and debugging.</li></ul>
+<h2>2. Networking in Docker</h2>
+<h2>2.1 Creating a Custom Network</h2>
+<ul><li>Set up an isolated network for inter-container communication:</li><li><code>docker network create my_network</code></li><li><em>Use case:</em> Ensure secure and organized container communication.</li></ul>
+<h2>2.2 Connecting a Running Container to a Network</h2>
+<ul><li>Attach an existing container to a network dynamically:</li></ul>
+<pre><code>docker network connect my_network &lt;container_id&gt;</code></pre>
+<ul><li><em>Use case:</em> Link a container to a service without restarting it.</li></ul>
+<h2>2.3 Inspecting Network Configuration</h2>
+<ul><li>View detailed network information:</li><li><code>docker network inspect my_network</code></li><li><em>Use case:</em> Debug network connectivity issues.</li></ul>
+<h2>3. Debugging and Monitoring Containers</h2>
+<h2>3.1 Viewing Container Logs</h2>
+<ul><li>Monitor application logs:</li><li><code>docker logs -f &lt;container_id&gt;</code></li><li><em>Use case:</em> Debug application behavior in real-time.</li></ul>
+<h2>3.2 Inspecting Container Metadata</h2>
+<ul><li>View low-level details about a container:</li><li><code>docker inspect &lt;container_id&gt;</code></li><li><em>Use case:</em> Fetch environment variables, mounts, and networking details.</li></ul>
+<h2>3.3 Monitoring Container Resource Usage</h2>
+<ul><li>Get real-time CPU and memory usage:</li><li><code>docker stats</code></li><li><em>Use case:</em> Identify resource-hungry containers.</li></ul>
+<h2>4. Advanced Volume Management</h2>
+<h2>4.1 Listing Volumes</h2>
+<ul><li>Display all Docker volumes:</li><li><code>docker volume ls</code></li><li><em>Use case:</em> Track persistent storage in your containers.</li></ul>
+<h2>4.2 Removing Unused Volumes</h2>
+<ul><li>Free up storage by removing unused volumes:</li><li><code>docker volume prune</code></li><li>Use case: Avoid unnecessary disk usage.</li></ul>
+<h2>5. Security Best Practices in Docker</h2>
+<h2>5.1 Scanning Docker Images for Vulnerabilities</h2>
+<ul><li>Identify security vulnerabilities in images:</li><li><code>docker scan my-image</code></li><li><em>Use case:</em> Ensure compliance with security policies.</li></ul>
+<h2>5.2 Managing Trusted Images</h2>
+<ul><li>Enable content trust for Docker images:</li><li><code>export DOCKER_CONTENT_TRUST=1</code></li><li><em>Use case:</em> Ensure images are signed and verified before running.</li></ul>
+<h2>6. Real-World Use Cases</h2>
+<h2>6.1 Optimizing Docker Builds for Production</h2>
+<ul><li>Use multi-stage builds to reduce image size:</li></ul>
+<pre><code>FROM node:16 as build
+WORKDIR /app
+COPY . .
+RUN npm install &amp;&amp; npm run build
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html</code></pre>
+<ul><li><em>Use case:</em> Reduce attack surface and improve deployment speed.</li></ul>
+<h2>6.2 Running a Multi-Container App with Networking</h2>
+<ul><li>Start a containerized app using Docker Compose:</li></ul>
+<pre><code>version: &#x27;3.8&#x27;
+services:
+  web:
+    image: nginx
+    networks:
+      - my_network
+  db:
+    image: postgres
+    networks:
+      - my_network
+networks:
+  my_network:</code></pre>
+<ul><li><em>Use case:</em> Deploy interconnected services with ease.</li></ul>
+<h2>FAQs</h2>
+<h2>Q1: How can I find the container consuming the most resources?</h2>
+<p>Use <code>docker stats</code> to check resource usage per container.</p>
+<h2>Q2: How can I restart all running containers?</h2>
+<pre><code>docker restart $(docker ps -q)</code></pre>
+<h2>Q3: How do I clean up unused Docker resources?</h2>
+<pre><code>docker system prune -a</code></pre>
+<h2>Conclusion</h2>
+<p>Mastering advanced Docker commands enhances efficiency, security, and scalability in your containerized applications. Whether it’s optimizing builds, troubleshooting issues, or securing deployments, these commands are essential for every DevOps engineer.</p>
+<p><strong>What’s Next?</strong> Start applying these commands in your projects and explore <strong>Docker Swarm</strong> and <strong>Kubernetes</strong> for large-scale orchestration.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

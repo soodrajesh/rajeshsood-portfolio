@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>I Built a Runbook Search Tool That Cites Sources | Rajesh Sood</title>
+  <meta name="description" content="It’s 2:47 AM, PagerDuty just fired, and you know you wrote a runbook for this exact situation months ago — you just can’t remember where." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="I Built a Runbook Search Tool That Cites Sources" />
+  <meta property="og:description" content="It’s 2:47 AM, PagerDuty just fired, and you know you wrote a runbook for this exact situation months ago — you just can’t remember where." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-1.jpg" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="559" />
+  <meta property="og:image:alt" content="I Built a Runbook Search Tool That Cites Sources" />
+  <meta property="article:published_time" content="2026-08-23" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="I Built a Runbook Search Tool That Cites Sources" />
+  <meta name="twitter:description" content="It’s 2:47 AM, PagerDuty just fired, and you know you wrote a runbook for this exact situation months ago — you just can’t remember where." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-1.jpg" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Built a Runbook Search Tool That Cites Sources",
+  "datePublished": "2026-08-23",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/",
+  "image": "https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-1.jpg",
+  "description": "It’s 2:47 AM, PagerDuty just fired, and you know you wrote a runbook for this exact situation months ago — you just can’t remember where."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Dev Tools</p>
+      <h1>I Built a Runbook Search Tool That Cites Sources</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-08-23">Aug 23, 2026</time><span>·</span><span>10 min read</span></div>
+      <article class="article-body">
+<figure><img alt="Screenshot from the article" loading="lazy" src="/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-1.jpg"/></figure><p>It’s 2:47 AM. PagerDuty just went off. Something called PolicyConstraintSyncFailed is firing, and the only thing you know for certain is that you wrote a runbook for this exact situation four months ago, in a moment of great personal discipline, and you now cannot remember which file it's in, what it's called, or whether you ever actually finished writing it.</p><p>So you do what everyone does: you open the repo, you <br/>grep -ri "syncfailed" ., you get six matches across three files, half of them are Terraform variable names that happen to contain the word "sync," and you start reading top to bottom while the alert timer keeps ticking in the corner of your screen.</p><p>I’ve done this enough times that I finally sat down and built something to stop doing it. It’s called <a href="https://github.com/soodrajesh/infra-runbook-rag">infra-runbook-rag</a>, and the short version is: it's a small tool that answers on-call questions using your own docs, and now it also takes a real alert and tells you which runbook section it's about. Nothing fancier than that. But getting the boring parts right — the chunking, the retrieval, the "should this even call an LLM" decision — turned out to be the actual work, and that's what this post is about.</p><h2>The itch</h2><p>There are basically three ways people deal with “where’s the runbook for this”:</p><ol><li><strong>Grep and skim.</strong> Works, but it’s slow under pressure, and it has no idea that “reseal the demo secret” and “rotate the sealing key” are the same operation described two different ways in two different files.</li><li><strong>Dump everything into a general chatbot.</strong> This is the thing everyone reaches for now — paste your whole wiki into ChatGPT’s context window, or wire up a generic “chat with your docs” SaaS product. It works until it doesn’t, and when it doesn’t, you have no idea why. Did it hallucinate? Did it just not have that doc in context? You can’t tell, because the answer doesn’t point back to anything.</li><li><strong>Ask the person who wrote it.</strong> Great, if it’s 2:47 PM and they’re awake.</li></ol><p>What I actually wanted was something narrower and more honest: search <em>this repo’s own markdown</em>, and when it answers, tell me exactly which file and which section the answer came from — down to the paragraph, not just the filename. If it doesn’t know, say so. Don’t guess.</p><h2>What it actually is</h2><p><a href="https://github.com/soodrajesh/infra-runbook-rag"><strong>infra-runbook-rag</strong></a> its a Python CLI (plus a small Streamlit UI, plus — as of the most recent thing I added — a webhook receiver) that:</p><figure><img alt="Screenshot from the article" loading="lazy" src="/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-2.png"/></figure><ul><li>Ingests a repo’s markdown docs, chunks them by header, and embeds every chunk locally.</li><li>Answers a typed question by retrieving the closest chunks and asking an LLM to synthesize from <em>only</em> those excerpts, citing each claim.</li><li>Takes a real Prometheus Alertmanager payload and routes it to the runbook section most likely to explain it — no LLM call on that path, on purpose (more on that below).</li></ul><p>Here’s the whole flow, start to finish:</p><pre><code>rag ingest ../minikube-gitops-platform --glob "*.md"<br/># Embedding 56 chunks from ../minikube-gitops-platform ...<br/># Stored 56 chunks in rag.db<br/>rag ask "why would ArgoCD show policy-constraints as SyncFailed?"</code></pre><p>And the answer I actually got back, verbatim, the first time I ran this against a real sibling repo:</p><blockquote><em>ArgoCD may show </em><em>policy-constraints as </em><em>SyncFailed or </em><em>OutOfSync initially because it depends on </em><em>policy-templates' CRDs to exist first. If they have not finished reconciling yet, it could lead to this transient state. ArgoCD automatically retries to sync it with backoff until the dependencies are resolved, usually within a couple of minutes [RUNBOOK.md § 1. Spin it up (part 4/4)].</em></blockquote><p>That citation isn’t decorative. It’s the actual mechanism I built the tool around: [source_file § section name (part N/M)] — file, section, and which fragment of a long section, if it got split. Click through, and you're at the exact paragraph, not "somewhere in a 400-line file."</p><h2>How the pieces fit together</h2><p><strong>Chunking.</strong> The naive version of this splits a markdown file on ##/### headers and calls it a day. I did that first. It's wrong, and I'll get to exactly how wrong in a second, but the fix is simple: any section over 600 characters gets further split into paragraph-packed sub-chunks, so a single embedding vector never has to represent an entire five-paragraph "How to run this" section.</p><pre><code># rag/chunk.py<br/>MAX_CHUNK_CHARS = 600</code></pre><pre><code>def _split_long_text(text: str, max_chars: int) -&gt; list[str]:<br/>    """Split text into paragraph-packed chunks up to max_chars, never splitting<br/>    a paragraph (or a fenced code block) in half."""<br/>    ...</code></pre><p>That “never splitting a fenced code block in half” part matters more than it sounds like it should. Runbooks are full of shell commands. Splitting a code block mid-command produces a chunk that’s syntactically garbage and semantically useless — worse than not chunking it at all, because now it’s <em>actively</em> diluting the good match with noise.</p><p><strong>Embeddings.</strong> All local — sentence-transformers, all-MiniLM-L6-v2. No API key needed for this half, no cost, runs offline after the model downloads once. This was a deliberate choice: the embedding side runs on every ingest, potentially over hundreds of chunks, and I didn't want "can I re-index this repo" to depend on an API being up or a bill going up.</p><p><strong>Storage and retrieval.</strong> A SQLite table, brute-force cosine similarity in numpy. No FAISS, no pgvector, no managed vector database. A repo’s worth of docs is a few dozen chunks — brute force <em>is</em> the fast path here, and reaching for a real vector index would have been solving a problem I don’t have.</p><p><strong>Answering.</strong> This is the only part that touches a real API — OpenAI’s gpt-4o-mini, with a system prompt that's basically one sentence doing all the work:</p><pre><code>SYSTEM_PROMPT = (<br/>    "You are an on-call assistant answering questions about an infrastructure repo using only "<br/>    "the provided doc excerpts. Each excerpt is labeled with its source file and section. "<br/>    "Answer concisely, and after any claim, cite the excerpt it came from as "<br/>    "[source_file § section]. If the excerpts don't contain the answer, say so plainly instead "<br/>    "of guessing."<br/>)</code></pre><p>“Say so plainly instead of guessing” is the line I care most about in this whole codebase. An on-call tool that confidently makes something up is worse than no tool at all, because it costs you the time you would’ve spent actually finding the right answer, plus however long it takes you to notice it was wrong.</p><h2>The bug that actually taught me something</h2><p>Here’s the thing nobody tells you about RAG demos: they work great on the first three questions you try, because you subconsciously pick questions the naive version handles fine. Then you ask a real one and it falls over.</p><p>Mine fell over on: <em>“how do I rotate the secret?”</em></p><p>With header-only chunking, that question retrieved the “Prerequisites” section as its top match instead of the actual command, which was buried three paragraphs into a much longer “How to run this” section. Both sections mention secrets. “Prerequisites” is short and generic, so it gets a denser, more “on-topic-on-average” embedding — the actual command was diluted by four other paragraphs of unrelated setup instructions sharing its vector.</p><p>I confirmed it wasn’t a fluke by actually scoring it: 0.32 for the wrong section, and the real command wasn’t even in the top few results. After adding the paragraph-level sub-chunking and bumping the default retrieval count from 4 to 6, the same question surfaced the exact command as the top-scored chunk — 0.49 instead of 0.32 — and the generated answer quoted it correctly.</p><p>That’s not a huge fix. It’s a few dozen lines. But it’s the difference between a demo that works when you already know the answer and a tool that works when you don’t, and I wouldn’t have found it without actually trying to break it with a real question instead of a curated one.</p><figure><img alt="Screenshot from the article" loading="lazy" src="/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-3.png"/></figure><h2>Extending it: from “answer my question” to “explain this alert”</h2><p>The tool started as pure Q&amp;A. The thing I added most recently is different in kind, not just degree: instead of a human typing a question, it now takes a real Prometheus Alertmanager webhook payload and tells you which runbook section explains it.</p><pre><code>rag route examples/sample-alertmanager-payload.json</code></pre><pre><code>[firing] PolicyConstraintSyncFailed (severity=warning)<br/>✓ confident — top match 0.619</code></pre><pre><code>0.619  [RUNBOOK.md § 1. Spin it up (part 4/4)]<br/>0.604  [RUNBOOK.md § Troubleshooting (part 2/10)]<br/>0.445  [RUNBOOK.md § Troubleshooting (part 10/10)]<br/>0.410  [RUNBOOK.md § 4. Try the GitOps loop yourself (part 1/2)]</code></pre><figure><img alt="Screenshot from the article" loading="lazy" src="/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/images/img-4.png"/></figure><p>The interesting decision here isn’t the retrieval — it’s what I <em>didn’t</em> do: this path never calls an LLM. An alert firing (especially a flapping one that re-fires every few minutes) is not the place to add LLM latency and per-call cost to every single webhook delivery. rag ask stays the path for when a human wants a synthesized paragraph. rag route answers a narrower question fast — "which section is this about" — with a confidence score instead of prose:</p><pre><code>DEFAULT_CONFIDENCE_THRESHOLD = 0.35</code></pre><pre><code>def route_alert(store, alert, k=4, threshold=DEFAULT_CONFIDENCE_THRESHOLD):<br/>    query_embedding = embed([alert.query_text()])[0]<br/>    matches = store.top_k(query_embedding, k=k)<br/>    confident = bool(matches) and matches[0].score &gt;= threshold<br/>    return RouteResult(alert=alert, matches=matches, confident=confident)</code></pre><p>Below 0.35, it doesn’t guess — it says “no confident match, page a human” instead of pointing you at a plausible-looking wrong answer. I tested this both ways on purpose: a real on-topic alert scored 0.619 (confident), and a deliberately unrelated one (I made up a solar-panel-output alert, just to see) scored 0.165 and correctly came back not-confident. A wrong-but-confident suggestion in the middle of an incident is worse than an honest shrug.</p><p>There’s also a real webhook receiver behind this now, not just a CLI:</p><pre><code>uvicorn rag.webhook:app --port 8000</code></pre><p>YAML</p><pre><code># alertmanager.yml<br/>receivers:<br/>- name: runbook-router<br/>  webhook_configs:<br/>  - url: http://&lt;host&gt;:8000/alerts/route</code></pre><p><strong>Frequently Asked Questions</strong></p><p><strong>Why use SQLite and numpy instead of a dedicated vector database like pgvector or Qdrant?</strong></p><ul><li><strong>Scale:</strong> A single repository’s documentation usually yields anywhere from 20 to a few hundred chunks.</li><li><strong>Zero Infrastructure:</strong> Brute-force numpy cosine similarity over a few hundred 384-dimensional vectors takes less than 2 milliseconds on standard CPU hardware. Adding a managed or containerized vector database introduces deployment friction without performance benefits at this scale.</li></ul><p><strong>Why bypass the LLM entirely for the Alertmanager route (</strong>rag route<strong>)?</strong></p><ul><li><strong>Deterministic Speed:</strong> Alertwebhooks require immediate feedback during an incident. Local vector lookup delivers section matches in milliseconds.</li><li><strong>Cost &amp; Flapping:</strong> Flapping alerts can fire dozens of times in short succession. Running an LLM synthesis step on every payload introduces API latency and unnecessary infrastructure costs.</li></ul><p><strong>How does the ingestion process prevent code snippets from breaking during chunking?</strong></p><ul><li><strong>Fenced Block Awareness:</strong> The chunker tracks markdown code fence markers (```). If a section exceeds the 600-character threshold, the splitter packs paragraphs up to the boundary without ever slicing through active code blocks or single bash commands.</li></ul><p><strong>Can this tool hallucinate incorrect recovery steps during an outage?</strong></p><ul><li><strong>Strict Prompt Constraints:</strong> The system prompt forbids speculation, explicitly instructing the model to return a plain refusal if context is missing.</li><li><strong>Mandatory Inline Citations:</strong> Every statement is mapped to a explicit tag ([file § section (part N/M)]), allowing the reader to click directly into the source file to verify context.</li></ul><p><strong>How does local embedding performance hold up without GPU acceleration?</strong></p><ul><li><strong>Lightweight Architecture:</strong> The underlying model (all-MiniLM-L6-v2) runs efficiently on standard x86 and ARM CPUs. Ingesting 50–100 documentation chunks takes roughly 1 to 2 seconds total on a modern laptop CPU.</li></ul><p><strong>📢 Have questions or feedback? Drop a comment below or connect with me on Twitter/</strong><a href="https://x.com/spysood"><strong>X@spysood</strong></a><strong>!</strong></p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources-c9587661b6b9" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

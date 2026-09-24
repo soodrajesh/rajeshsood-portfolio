@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Rajesh Sood</title>
+  <link>https://irajeshsood.com/blog/</link>
+  <atom:link href="https://irajeshsood.com/blog/feed.xml" rel="self" type="application/rss+xml" />
+  <description>Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Staff Cloud &amp; DevOps Engineer.</description>
+  <language>en</language>
+  <lastBuildDate>Wed, 23 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>KEDA and Karpenter on GKE: Event-Driven Autoscaling</title>
+    <link>https://irajeshsood.com/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Scale pods on Pub/Sub queue depth with KEDA and provision right-sized nodes with Karpenter on GKE Standard, both dropping to zero when idle.</description>
+  </item>
+  <item>
+    <title>I Built a Runbook Search Tool That Cites Sources</title>
+    <link>https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/</guid>
+    <pubDate>Sun, 23 Aug 2026 09:00:00 GMT</pubDate>
+    <description>It’s 2:47 AM, PagerDuty just fired, and you know you wrote a runbook for this exact situation months ago — you just can’t remember where.</description>
+  </item>
+  <item>
+    <title>Optimizing Cursor for Consumption Pricing</title>
+    <link>https://irajeshsood.com/blog/cursor-how-to-optimize-your-ai-coding-workflow-for-consumption-pricing/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/cursor-how-to-optimize-your-ai-coding-workflow-for-consumption-pricing/</guid>
+    <pubDate>Sat, 11 Jul 2026 09:00:00 GMT</pubDate>
+    <description>If you log into Cursor soon, you are going to notice a massive shift under the hood.</description>
+  </item>
+  <item>
+    <title>Ultimate Guide to Model Context Protocol (MCP)</title>
+    <link>https://irajeshsood.com/blog/the-ultimate-guide-to-model-context-protocol-mcp/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/the-ultimate-guide-to-model-context-protocol-mcp/</guid>
+    <pubDate>Wed, 08 Jul 2026 09:00:00 GMT</pubDate>
+    <description>The AI landscape shifted dramatically with the introduction of the Model Context Protocol (MCP) , open-sourced by Anthropic.</description>
+  </item>
+  <item>
+    <title>Free Network Troubleshooting Tool That Runs Entirely in Your Browser</title>
+    <link>https://irajeshsood.com/blog/free-network-troubleshooting-tool-that-runs-entirely-in-your-browser/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/free-network-troubleshooting-tool-that-runs-entirely-in-your-browser/</guid>
+    <pubDate>Fri, 27 Mar 2026 09:00:00 GMT</pubDate>
+    <description>When something breaks at 2am, the last thing you want is six tabs open trying to figure out whether it&#x27;s DNS, SSL, or the site just being down.</description>
+  </item>
+  <item>
+    <title>Running Ollama Locally: LLMs on Your Laptop</title>
+    <link>https://irajeshsood.com/blog/running-ollama-locally-how-to-run-powerful-llms-on-your-laptop-no-subscription/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/running-ollama-locally-how-to-run-powerful-llms-on-your-laptop-no-subscription/</guid>
+    <pubDate>Thu, 22 Jan 2026 09:00:00 GMT</pubDate>
+    <description>Run ChatGPT-level AI locally using Ollama. No subscriptions, no data leaks, no internet required.</description>
+  </item>
+  <item>
+    <title>Mastering Claude Code: Basics to Agentic Flows</title>
+    <link>https://irajeshsood.com/blog/mastering-claude-code-from-beginner-basics-to-advanced-agentic-workflows/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-claude-code-from-beginner-basics-to-advanced-agentic-workflows/</guid>
+    <pubDate>Sun, 14 Dec 2025 09:00:00 GMT</pubDate>
+    <description>Anthropic’s Claude Code stands out for one reason: it lives in your terminal and behaves like a real engineering partner.</description>
+  </item>
+  <item>
+    <title>AI Document Pipeline with AWS ECS &amp; Bedrock</title>
+    <link>https://irajeshsood.com/blog/building-an-ai-powered-document-processing-pipeline-with-aws-ecs-and-amazon-bedrock/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/building-an-ai-powered-document-processing-pipeline-with-aws-ecs-and-amazon-bedrock/</guid>
+    <pubDate>Sat, 18 Oct 2025 09:00:00 GMT</pubDate>
+    <description>In today’s data-driven world, processing and extracting insights from documents at scale is a common challenge.</description>
+  </item>
+  <item>
+    <title>DevOps learnings from The Phoenix and Unicorn Project</title>
+    <link>https://irajeshsood.com/blog/devops-learnings-from-the-phoenix-and-unicorn-project/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/devops-learnings-from-the-phoenix-and-unicorn-project/</guid>
+    <pubDate>Sat, 18 Oct 2025 09:00:00 GMT</pubDate>
+    <description>Ever feel like your AI/ML projects are a mythical beast — part unicorn dream, part phoenix inferno?</description>
+  </item>
+  <item>
+    <title>Building an End-to-End MLOps Pipeline on AWS SageMaker</title>
+    <link>https://irajeshsood.com/blog/building-an-end-to-end-mlops-pipeline-on-aws-sagemaker/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/building-an-end-to-end-mlops-pipeline-on-aws-sagemaker/</guid>
+    <pubDate>Sun, 07 Sep 2025 09:00:00 GMT</pubDate>
+    <description>An open-source pipeline that automates training on SageMaker end to end — Terraform for infra, Docker for a custom PyTorch model.</description>
+  </item>
+  <item>
+    <title>Exploring Cursor CLI: An AI-Powered Terminal</title>
+    <link>https://irajeshsood.com/blog/exploring-cursor-cli-the-ai-powered-terminal-tool-thats-changing-how-we-code/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/exploring-cursor-cli-the-ai-powered-terminal-tool-thats-changing-how-we-code/</guid>
+    <pubDate>Fri, 29 Aug 2025 09:00:00 GMT</pubDate>
+    <description>If you’ve spent way too many hours glued to the terminal, you know how clunky it feels to switch contexts for AI help on your code.</description>
+  </item>
+  <item>
+    <title>Advanced Tips and Tricks for Cursor IDE</title>
+    <link>https://irajeshsood.com/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/</guid>
+    <pubDate>Sat, 23 Aug 2025 09:00:00 GMT</pubDate>
+    <description>I’ve been using Terraform, Python, Bash, Kubernetes, and Jenkins for years — lately, Cursor IDE has become my go-to for boosting productivity.</description>
+  </item>
+  <item>
+    <title>AI-Powered IDEs: Cursor vs Windsurf vs Kiro</title>
+    <link>https://irajeshsood.com/blog/ai-powered-ides-cursor-vs-windsurf-vs-kiro-f7f7795f0c9c/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/ai-powered-ides-cursor-vs-windsurf-vs-kiro-f7f7795f0c9c/</guid>
+    <pubDate>Fri, 22 Aug 2025 09:00:00 GMT</pubDate>
+    <description>As a developer, I can tell you: AI-powered IDEs are a godsend.</description>
+  </item>
+  <item>
+    <title>Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution</title>
+    <link>https://irajeshsood.com/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/</guid>
+    <pubDate>Fri, 22 Aug 2025 09:00:00 GMT</pubDate>
+    <description>Managing Kubernetes deployments across multiple environments can feel like herding cats.</description>
+  </item>
+  <item>
+    <title>AI Document Processing System: MCP, ECS &amp; S3</title>
+    <link>https://irajeshsood.com/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/</guid>
+    <pubDate>Fri, 15 Aug 2025 09:00:00 GMT</pubDate>
+    <description>How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol</description>
+  </item>
+  <item>
+    <title>Managing AWS Infra with Crossplane vs Terraform</title>
+    <link>https://irajeshsood.com/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/</guid>
+    <pubDate>Fri, 15 Aug 2025 09:00:00 GMT</pubDate>
+    <description>For years, I’ve used Terraform to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap.</description>
+  </item>
+  <item>
+    <title>Building Large Language Models (LLMs) in Machine Learning</title>
+    <link>https://irajeshsood.com/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/</guid>
+    <pubDate>Fri, 21 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Large Language Models (LLMs) have revolutionized natural language processing, enabling text generation, summarization, and code completion.</description>
+  </item>
+  <item>
+    <title>Building and Deploying LLMs: A Real-World Guide</title>
+    <link>https://irajeshsood.com/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/</guid>
+    <pubDate>Fri, 21 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more.</description>
+  </item>
+  <item>
+    <title>Deploying a Text-Gen AI App with AWS EKS &amp; GitOps</title>
+    <link>https://irajeshsood.com/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/</guid>
+    <pubDate>Fri, 21 Mar 2025 09:00:00 GMT</pubDate>
+    <description>A real-world implementation of a text generation AI app powered by a Generative AI API — OpenAI, AWS Bedrock, or Hugging Face.</description>
+  </item>
+  <item>
+    <title>Azure DevOps CI/CD pipeline with Terraform</title>
+    <link>https://irajeshsood.com/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/</guid>
+    <pubDate>Tue, 18 Mar 2025 09:00:00 GMT</pubDate>
+    <description>An end-to-end Azure DevOps CI/CD pipeline with Terraform for a sample e-commerce application, using advanced patterns.</description>
+  </item>
+  <item>
+    <title>Crossplane Automation for Cloud-Native Apps</title>
+    <link>https://irajeshsood.com/blog/implementing-and-managing-crossplane-automation-for-cloud-native-applications-84296928e016/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/implementing-and-managing-crossplane-automation-for-cloud-native-applications-84296928e016/</guid>
+    <pubDate>Tue, 18 Mar 2025 09:00:00 GMT</pubDate>
+    <description>As cloud-native applications continue to evolve, managing multi-cloud and hybrid environments efficiently becomes critical.</description>
+  </item>
+  <item>
+    <title>Troubleshooting Kubernetes Deployments</title>
+    <link>https://irajeshsood.com/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/</guid>
+    <pubDate>Tue, 18 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging.</description>
+  </item>
+  <item>
+    <title>Cloud Security Engineer Job Responsibilities: A Comprehensive Guide</title>
+    <link>https://irajeshsood.com/blog/cloud-security-engineer-job-responsibilities-a-comprehensive-guide-2542de599670/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/cloud-security-engineer-job-responsibilities-a-comprehensive-guide-2542de599670/</guid>
+    <pubDate>Mon, 17 Mar 2025 09:00:00 GMT</pubDate>
+    <description>With the rise of cloud computing, security has become a top concern for organizations.</description>
+  </item>
+  <item>
+    <title>Immutable Infrastructure with Blue-Green Deployments using Terraform</title>
+    <link>https://irajeshsood.com/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/</guid>
+    <pubDate>Mon, 17 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Immutable Infrastructure ensures deployed instances remain unchanged after deployment, reducing configuration drift and improving stability.</description>
+  </item>
+  <item>
+    <title>Mastering MySQL: Basics, Advanced Commands, and Best Practices</title>
+    <link>https://irajeshsood.com/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/</guid>
+    <pubDate>Mon, 17 Mar 2025 09:00:00 GMT</pubDate>
+    <description>MySQL is one of the most widely used relational database management systems (RDBMS) in the world.</description>
+  </item>
+  <item>
+    <title>Automated SSL Certificate Rotation Using Certbot on Ubuntu</title>
+    <link>https://irajeshsood.com/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/</guid>
+    <pubDate>Sat, 15 Mar 2025 09:00:00 GMT</pubDate>
+    <description>SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers.</description>
+  </item>
+  <item>
+    <title>AWS Databases: Types &amp; Best Practices</title>
+    <link>https://irajeshsood.com/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/</guid>
+    <pubDate>Sat, 15 Mar 2025 09:00:00 GMT</pubDate>
+    <description>AWS offers a wide range of database solutions for different workloads — from relational databases to NoSQL and in-memory databases.</description>
+  </item>
+  <item>
+    <title>Open Policy Agent (OPA): A Security Guide</title>
+    <link>https://irajeshsood.com/blog/open-policy-agent-opa-a-comprehensive-guide-for-cloud-and-kubernetes-security-36881c23eb10/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/open-policy-agent-opa-a-comprehensive-guide-for-cloud-and-kubernetes-security-36881c23eb10/</guid>
+    <pubDate>Sat, 15 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Security, compliance, and policy enforcement are crucial aspects of managing cloud and containerized environments.</description>
+  </item>
+  <item>
+    <title>Generative AI Skills Roadmap for DevOps Engineers</title>
+    <link>https://irajeshsood.com/blog/generative-ai-for-devops-cloud-engineers-future-career-skills-roadmap-406461aa7b66/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/generative-ai-for-devops-cloud-engineers-future-career-skills-roadmap-406461aa7b66/</guid>
+    <pubDate>Thu, 13 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Generative AI is reshaping industries, and DevOps/Cloud Engineers are no exception.</description>
+  </item>
+  <item>
+    <title>Kubernetes Management: A Comprehensive Guide with Real-World Examples</title>
+    <link>https://irajeshsood.com/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/</guid>
+    <pubDate>Thu, 13 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets.</description>
+  </item>
+  <item>
+    <title>Kubernetes Pods Failing: Advanced Troubleshooting</title>
+    <link>https://irajeshsood.com/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/</guid>
+    <pubDate>Thu, 13 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods.</description>
+  </item>
+  <item>
+    <title>Deploying an App with AWS EKS, Terraform &amp; ArgoCD</title>
+    <link>https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-argocd-gitlab-kubernetes-docker-ecr-bdc21527af41/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-argocd-gitlab-kubernetes-docker-ecr-bdc21527af41/</guid>
+    <pubDate>Sun, 09 Mar 2025 09:00:00 GMT</pubDate>
+    <description>In modern DevOps workflows, Infrastructure as Code (IaC) and GitOps practices streamline software delivery.</description>
+  </item>
+  <item>
+    <title>Deploying a Sample App with AWS EKS &amp; Terraform</title>
+    <link>https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/</guid>
+    <pubDate>Sun, 09 Mar 2025 09:00:00 GMT</pubDate>
+    <description>In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments.</description>
+  </item>
+  <item>
+    <title>Setting Up AWS SageMaker Studio &amp; Training</title>
+    <link>https://irajeshsood.com/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/</guid>
+    <pubDate>Sun, 09 Mar 2025 09:00:00 GMT</pubDate>
+    <description>AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale.</description>
+  </item>
+  <item>
+    <title>AWS CDK: The Future of Infrastructure as Code</title>
+    <link>https://irajeshsood.com/blog/aws-cdk-the-future-of-infrastructure-as-code-72c9d68828f5/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/aws-cdk-the-future-of-infrastructure-as-code-72c9d68828f5/</guid>
+    <pubDate>Fri, 07 Mar 2025 09:00:00 GMT</pubDate>
+    <description>AWS Cloud Development Kit (CDK) is revolutionizing how developers define cloud infrastructure.</description>
+  </item>
+  <item>
+    <title>Azure DevOps: The Ultimate Guide</title>
+    <link>https://irajeshsood.com/blog/azure-devops-the-ultimate-guide-a32b1d067609/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/azure-devops-the-ultimate-guide-a32b1d067609/</guid>
+    <pubDate>Fri, 07 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Azure DevOps has become a go-to platform for managing CI/CD, infrastructure automation, and agile workflows.</description>
+  </item>
+  <item>
+    <title>Mastering HTTP Proxy Servers: Apache vs. Nginx</title>
+    <link>https://irajeshsood.com/blog/mastering-http-proxy-servers-apache-vs-nginx-ab1d80eae21a/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-http-proxy-servers-apache-vs-nginx-ab1d80eae21a/</guid>
+    <pubDate>Fri, 07 Mar 2025 09:00:00 GMT</pubDate>
+    <description>In modern web architectures, HTTP proxy servers play a crucial role in load balancing, caching, security, and request routing.</description>
+  </item>
+  <item>
+    <title>Argo CD: The Ultimate GitOps Continuous Deployment Tool</title>
+    <link>https://irajeshsood.com/blog/argo-cd-the-ultimate-gitops-continuous-deployment-tool-880b2f949a18/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/argo-cd-the-ultimate-gitops-continuous-deployment-tool-880b2f949a18/</guid>
+    <pubDate>Thu, 06 Mar 2025 09:00:00 GMT</pubDate>
+    <description>In the modern DevOps landscape, GitOps has emerged as a revolutionary approach to continuous delivery.</description>
+  </item>
+  <item>
+    <title>Azure Automation &amp; DevOps Pipeline Optimization</title>
+    <link>https://irajeshsood.com/blog/automate-operational-tasks-using-azure-automation-optimize-azure-devops-pipelines-063fd83a49b0/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/automate-operational-tasks-using-azure-automation-optimize-azure-devops-pipelines-063fd83a49b0/</guid>
+    <pubDate>Thu, 06 Mar 2025 09:00:00 GMT</pubDate>
+    <description>In today’s cloud-driven world, automating operational tasks and optimizing CI/CD pipelines is crucial for efficient DevOps practices.</description>
+  </item>
+  <item>
+    <title>Flux CD: A GitOps Continuous Deployment Tool for Kubernetes</title>
+    <link>https://irajeshsood.com/blog/flux-cd-a-gitops-continuous-deployment-tool-for-kubernetes-2690d5a4e159/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/flux-cd-a-gitops-continuous-deployment-tool-for-kubernetes-2690d5a4e159/</guid>
+    <pubDate>Thu, 06 Mar 2025 09:00:00 GMT</pubDate>
+    <description>In the cloud-native era, GitOps has become the de facto standard for managing Kubernetes deployments.</description>
+  </item>
+  <item>
+    <title>Advanced Docker: A Deep Dive with Real-World Examples</title>
+    <link>https://irajeshsood.com/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/</guid>
+    <pubDate>Wed, 05 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Docker has revolutionized the way we develop, package, and deploy applications.</description>
+  </item>
+  <item>
+    <title>Advanced Docker Commands: Mastering Containers Like a Pro</title>
+    <link>https://irajeshsood.com/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/</guid>
+    <pubDate>Wed, 05 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Docker is an essential tool for modern DevOps, enabling seamless containerization of applications.</description>
+  </item>
+  <item>
+    <title>Docker Containers: A Complete Guide</title>
+    <link>https://irajeshsood.com/blog/docker-containers-a-complete-guide-03c643363ace/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/docker-containers-a-complete-guide-03c643363ace/</guid>
+    <pubDate>Wed, 05 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Docker has revolutionized the way we develop, deploy, and manage applications by providing a lightweight, portable, and efficient containerization platform.</description>
+  </item>
+  <item>
+    <title>Scaling Jenkins Pipelines for Hundreds of Apps</title>
+    <link>https://irajeshsood.com/blog/architecting-and-scaling-jenkins-pipelines-for-hundreds-of-applications-5121f33c63de/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/architecting-and-scaling-jenkins-pipelines-for-hundreds-of-applications-5121f33c63de/</guid>
+    <pubDate>Mon, 03 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Jenkins is a powerful automation server that enables CI/CD for applications.</description>
+  </item>
+  <item>
+    <title>ELK Stack: A Complete Guide with Real-World Use Cases</title>
+    <link>https://irajeshsood.com/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/</guid>
+    <pubDate>Mon, 03 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security.</description>
+  </item>
+  <item>
+    <title>Mastering Observability: Prometheus to CloudWatch</title>
+    <link>https://irajeshsood.com/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/</guid>
+    <pubDate>Mon, 03 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively.</description>
+  </item>
+  <item>
+    <title>CI/CD Pipelines with SonarQube &amp; Artifactory</title>
+    <link>https://irajeshsood.com/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/</guid>
+    <pubDate>Sat, 01 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Modern DevOps practices require seamless integration of CI/CD pipelines with SonarQube, container registries, and artifact registries.</description>
+  </item>
+  <item>
+    <title>DORA Metrics: Measuring DevOps Performance</title>
+    <link>https://irajeshsood.com/blog/dora-metrics-measuring-devops-performance-7a161a09c858/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/dora-metrics-measuring-devops-performance-7a161a09c858/</guid>
+    <pubDate>Sat, 01 Mar 2025 09:00:00 GMT</pubDate>
+    <description>DORA (DevOps Research and Assessment) metrics provide a data-driven approach to measuring software delivery and operational performance.</description>
+  </item>
+  <item>
+    <title>Kubernetes Common Errors &amp; How to Fix Them</title>
+    <link>https://irajeshsood.com/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/</guid>
+    <pubDate>Sat, 01 Mar 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes is a powerful but complex system, and errors are inevitable.</description>
+  </item>
+  <item>
+    <title>Chaos Engineering: Breaking Things to Build Resilience</title>
+    <link>https://irajeshsood.com/blog/chaos-engineering-breaking-things-to-build-resilience-8364e5c1b773/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/chaos-engineering-breaking-things-to-build-resilience-8364e5c1b773/</guid>
+    <pubDate>Thu, 27 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Chaos Engineering is the practice of deliberately introducing failures in a system to test its resilience and recovery mechanisms.</description>
+  </item>
+  <item>
+    <title>Observability in Kubernetes: Prometheus &amp; Grafana</title>
+    <link>https://irajeshsood.com/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/</guid>
+    <pubDate>Thu, 27 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments.</description>
+  </item>
+  <item>
+    <title>Proactive Resilience: Preventing Failures Before They Happen</title>
+    <link>https://irajeshsood.com/blog/proactive-resilience-preventing-failures-before-they-happen-ecf58f5dadf3/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/proactive-resilience-preventing-failures-before-they-happen-ecf58f5dadf3/</guid>
+    <pubDate>Thu, 27 Feb 2025 09:00:00 GMT</pubDate>
+    <description>In the world of cloud computing and distributed systems, resilience is critical.</description>
+  </item>
+  <item>
+    <title>Amazon DevOps Guru: A Deep Dive with Real-World Examples</title>
+    <link>https://irajeshsood.com/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/</guid>
+    <pubDate>Thu, 20 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Amazon DevOps Guru is an AI-powered operations service that helps identify and fix issues in applications running on AWS.</description>
+  </item>
+  <item>
+    <title>Cloud Engineer vs DevOps vs SRE vs MLOps: Roles</title>
+    <link>https://irajeshsood.com/blog/cloud-engineer-vs-devops-vs-sre-vs-devsecops-vs-mlops-understanding-the-roles-e9c30dd6bde3/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/cloud-engineer-vs-devops-vs-sre-vs-devsecops-vs-mlops-understanding-the-roles-e9c30dd6bde3/</guid>
+    <pubDate>Thu, 20 Feb 2025 09:00:00 GMT</pubDate>
+    <description>In the evolving tech landscape, roles such as Cloud Engineer, DevOps, Site Reliability Engineer (SRE), DevSecOps, and MLOps have gained prominence.</description>
+  </item>
+  <item>
+    <title>Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency</title>
+    <link>https://irajeshsood.com/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/</guid>
+    <pubDate>Thu, 20 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Managing Kubernetes clusters via the command line can be complex and time-consuming.</description>
+  </item>
+  <item>
+    <title>Mastering Ansible: Advanced Techniques and Best Practices</title>
+    <link>https://irajeshsood.com/blog/mastering-ansible-advanced-techniques-and-best-practices-518c63de6333/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-ansible-advanced-techniques-and-best-practices-518c63de6333/</guid>
+    <pubDate>Wed, 19 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Ansible has become an indispensable tool for DevOps professionals, enabling efficient automation of complex infrastructure tasks.</description>
+  </item>
+  <item>
+    <title>Mastering Kubernetes Package Management with Helm</title>
+    <link>https://irajeshsood.com/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/</guid>
+    <pubDate>Wed, 19 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes simplifies container orchestration, but managing applications at scale can be challenging.</description>
+  </item>
+  <item>
+    <title>Setting Up Kubernetes with kubeadm: A Complete Guide</title>
+    <link>https://irajeshsood.com/blog/setting-up-kubernetes-with-kubeadm-a-complete-guide-420d37a657c3/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/setting-up-kubernetes-with-kubeadm-a-complete-guide-420d37a657c3/</guid>
+    <pubDate>Wed, 19 Feb 2025 09:00:00 GMT</pubDate>
+    <description>kubeadm is a powerful tool that simplifies Kubernetes cluster setup. It is ideal for production-grade clusters as well as local testing.</description>
+  </item>
+  <item>
+    <title>Ansible: A Comprehensive Guide</title>
+    <link>https://irajeshsood.com/blog/ansible-a-comprehensive-guide-685e7114a8b2/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/ansible-a-comprehensive-guide-685e7114a8b2/</guid>
+    <pubDate>Tue, 18 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Ansible is a powerful automation tool that simplifies complex tasks, from configuration management to application deployment.</description>
+  </item>
+  <item>
+    <title>Mastering Kubernetes with Kind: Cluster Setup</title>
+    <link>https://irajeshsood.com/blog/mastering-kubernetes-with-kind-local-cluster-setup-advanced-commands-60a32cc9aa16/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-kubernetes-with-kind-local-cluster-setup-advanced-commands-60a32cc9aa16/</guid>
+    <pubDate>Tue, 18 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes is the go-to platform for container orchestration, but setting up a full-fledged cluster can be complex.</description>
+  </item>
+  <item>
+    <title>Helm in Kubernetes: A Complete Guide</title>
+    <link>https://irajeshsood.com/blog/helm-in-kubernetes-a-complete-guide-3ddcd90773b1/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/helm-in-kubernetes-a-complete-guide-3ddcd90773b1/</guid>
+    <pubDate>Mon, 17 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Helm is the package manager for Kubernetes, making it easier to define, install, and manage Kubernetes applications.</description>
+  </item>
+  <item>
+    <title>Advanced Terraform Commands &amp; Data Sources</title>
+    <link>https://irajeshsood.com/blog/mastering-advanced-terraform-commands-variables-tfvars-and-data-sources-with-aws-examples-a712d76193be/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-advanced-terraform-commands-variables-tfvars-and-data-sources-with-aws-examples-a712d76193be/</guid>
+    <pubDate>Sun, 16 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Terraform is a powerful Infrastructure as Code (IaC) tool that enables automation and scalability.</description>
+  </item>
+  <item>
+    <title>Mastering Advanced kubectl Commands: Efficient Kubernetes Management</title>
+    <link>https://irajeshsood.com/blog/mastering-advanced-kubectl-commands-efficient-kubernetes-management-58be91bd92e2/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-advanced-kubectl-commands-efficient-kubernetes-management-58be91bd92e2/</guid>
+    <pubDate>Sun, 16 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes is a powerful orchestration platform, and kubectl is its command-line interface (CLI).</description>
+  </item>
+  <item>
+    <title>Mastering Minikube: A Complete Guide with Practical Examples</title>
+    <link>https://irajeshsood.com/blog/mastering-minikube-a-complete-guide-with-practical-examples-05de49969ddd/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-minikube-a-complete-guide-with-practical-examples-05de49969ddd/</guid>
+    <pubDate>Sun, 16 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Minikube is a lightweight Kubernetes implementation that lets you run a cluster locally for development and testing.</description>
+  </item>
+  <item>
+    <title>Kubernetes for Beginners: Local Setup to AWS</title>
+    <link>https://irajeshsood.com/blog/kubernetes-for-beginners-setting-up-a-local-environment-and-deploying-on-aws-afac8c2c5ace/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/kubernetes-for-beginners-setting-up-a-local-environment-and-deploying-on-aws-afac8c2c5ace/</guid>
+    <pubDate>Sat, 15 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Kubernetes (K8s) is the industry-standard container orchestration platform, widely used for managing containerized applications at scale.</description>
+  </item>
+  <item>
+    <title>Mastering Terraform: Install, Config &amp; Workspaces</title>
+    <link>https://irajeshsood.com/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/</guid>
+    <pubDate>Sat, 15 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently.</description>
+  </item>
+  <item>
+    <title>Mastering Terragrunt: Advanced Terraform Management</title>
+    <link>https://irajeshsood.com/blog/mastering-terragrunt-advanced-terraform-management-7c12872dcc52/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mastering-terragrunt-advanced-terraform-management-7c12872dcc52/</guid>
+    <pubDate>Sat, 15 Feb 2025 09:00:00 GMT</pubDate>
+    <description>Terragrunt simplifies and enhances Terraform usage with better code reusability, DRY configurations, and easier multi-environment deployments.</description>
+  </item>
+</channel>
+</rss>

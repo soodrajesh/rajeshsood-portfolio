@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Blog: Kubernetes, AWS, Terraform &amp; DevOps | Rajesh Sood</title>
+  <meta name="description" content="Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Staff Cloud & DevOps Engineer." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/" />
+  <link rel="alternate" type="application/rss+xml" title="Rajesh Sood" href="/blog/feed.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Blog: Kubernetes, AWS, Terraform &amp; DevOps" />
+  <meta property="og:description" content="Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Staff Cloud & DevOps Engineer." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog: Kubernetes, AWS, Terraform &amp; DevOps" />
+  <meta name="twitter:description" content="Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Staff Cloud & DevOps Engineer." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Blog","name":"Rajesh Sood's Blog","url":"https://irajeshsood.com/blog/","author":{"@type":"Person","name":"Rajesh Sood","url":"https://irajeshsood.com/"}}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <p class="kicker">Blog</p>
+      <h1>Kubernetes, AWS, Terraform &amp; DevOps</h1>
+      <p class="lede">67 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
+      <h2 class="section-label" id="kubernetes">Kubernetes <span class="count">11</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/">
+          <span class="post-row-title">KEDA and Karpenter on GKE: Event-Driven Autoscaling</span>
+          <span class="post-row-desc">Scale pods on Pub/Sub queue depth with KEDA and provision right-sized nodes with Karpenter on GKE Standard, both dropping to zero when idle.</span>
+          <span class="post-row-date">Sep 23, 2026</span>
+        </a>
+        <a class="post-row" href="/blog/optimizing-and-troubleshooting-kubernetes-deployments-and-cluster-operations-4fd702fd5def/">
+          <span class="post-row-title">Troubleshooting Kubernetes Deployments</span>
+          <span class="post-row-desc">Kubernetes is a powerful container orchestration platform, but managing and troubleshooting deployments can be challenging.</span>
+          <span class="post-row-date">Mar 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/">
+          <span class="post-row-title">Kubernetes Management: A Comprehensive Guide with Real-World Examples</span>
+          <span class="post-row-desc">Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets.</span>
+          <span class="post-row-date">Mar 13, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/kubernetes-pods-failing-advanced-troubleshooting-with-real-world-scenarios-4945b4fa4530/">
+          <span class="post-row-title">Kubernetes Pods Failing: Advanced Troubleshooting</span>
+          <span class="post-row-desc">Kubernetes (K8s) is a powerful container orchestration tool, but even experienced DevOps engineers encounter failing pods.</span>
+          <span class="post-row-date">Mar 13, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/kubernetes-common-errors-how-to-fix-them-8425673036dd/">
+          <span class="post-row-title">Kubernetes Common Errors &amp; How to Fix Them</span>
+          <span class="post-row-desc">Kubernetes is a powerful but complex system, and errors are inevitable.</span>
+          <span class="post-row-date">Mar 1, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-k9s-the-ultimate-kubernetes-cli-tool-for-efficiency-dd2f4c34db35/">
+          <span class="post-row-title">Mastering K9s: The Ultimate Kubernetes CLI Tool for Efficiency</span>
+          <span class="post-row-desc">Managing Kubernetes clusters via the command line can be complex and time-consuming.</span>
+          <span class="post-row-date">Feb 20, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/setting-up-kubernetes-with-kubeadm-a-complete-guide-420d37a657c3/">
+          <span class="post-row-title">Setting Up Kubernetes with kubeadm: A Complete Guide</span>
+          <span class="post-row-desc">kubeadm is a powerful tool that simplifies Kubernetes cluster setup. It is ideal for production-grade clusters as well as local testing.</span>
+          <span class="post-row-date">Feb 19, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-kubernetes-with-kind-local-cluster-setup-advanced-commands-60a32cc9aa16/">
+          <span class="post-row-title">Mastering Kubernetes with Kind: Cluster Setup</span>
+          <span class="post-row-desc">Kubernetes is the go-to platform for container orchestration, but setting up a full-fledged cluster can be complex.</span>
+          <span class="post-row-date">Feb 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-advanced-kubectl-commands-efficient-kubernetes-management-58be91bd92e2/">
+          <span class="post-row-title">Mastering Advanced kubectl Commands: Efficient Kubernetes Management</span>
+          <span class="post-row-desc">Kubernetes is a powerful orchestration platform, and kubectl is its command-line interface (CLI).</span>
+          <span class="post-row-date">Feb 16, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-minikube-a-complete-guide-with-practical-examples-05de49969ddd/">
+          <span class="post-row-title">Mastering Minikube: A Complete Guide with Practical Examples</span>
+          <span class="post-row-desc">Minikube is a lightweight Kubernetes implementation that lets you run a cluster locally for development and testing.</span>
+          <span class="post-row-date">Feb 16, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/kubernetes-for-beginners-setting-up-a-local-environment-and-deploying-on-aws-afac8c2c5ace/">
+          <span class="post-row-title">Kubernetes for Beginners: Local Setup to AWS</span>
+          <span class="post-row-desc">Kubernetes (K8s) is the industry-standard container orchestration platform, widely used for managing containerized applications at scale.</span>
+          <span class="post-row-date">Feb 15, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="dev-tools">Dev Tools <span class="count">3</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/i-got-tired-of-grepping-runbooks-so-i-built-a-tool-that-cites-its-sources/">
+          <span class="post-row-title">I Built a Runbook Search Tool That Cites Sources</span>
+          <span class="post-row-desc">It’s 2:47 AM, PagerDuty just fired, and you know you wrote a runbook for this exact situation months ago — you just can’t remember where.</span>
+          <span class="post-row-date">Aug 23, 2026</span>
+        </a>
+        <a class="post-row" href="/blog/free-network-troubleshooting-tool-that-runs-entirely-in-your-browser/">
+          <span class="post-row-title">Free Network Troubleshooting Tool That Runs Entirely in Your Browser</span>
+          <span class="post-row-desc">When something breaks at 2am, the last thing you want is six tabs open trying to figure out whether it&#x27;s DNS, SSL, or the site just being down.</span>
+          <span class="post-row-date">Mar 27, 2026</span>
+        </a>
+        <a class="post-row" href="/blog/running-ollama-locally-how-to-run-powerful-llms-on-your-laptop-no-subscription/">
+          <span class="post-row-title">Running Ollama Locally: LLMs on Your Laptop</span>
+          <span class="post-row-desc">Run ChatGPT-level AI locally using Ollama. No subscriptions, no data leaks, no internet required.</span>
+          <span class="post-row-date">Jan 22, 2026</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="cursor-ides">Cursor &amp; IDEs <span class="count">4</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/cursor-how-to-optimize-your-ai-coding-workflow-for-consumption-pricing/">
+          <span class="post-row-title">Optimizing Cursor for Consumption Pricing</span>
+          <span class="post-row-desc">If you log into Cursor soon, you are going to notice a massive shift under the hood.</span>
+          <span class="post-row-date">Jul 11, 2026</span>
+        </a>
+        <a class="post-row" href="/blog/exploring-cursor-cli-the-ai-powered-terminal-tool-thats-changing-how-we-code/">
+          <span class="post-row-title">Exploring Cursor CLI: An AI-Powered Terminal</span>
+          <span class="post-row-desc">If you’ve spent way too many hours glued to the terminal, you know how clunky it feels to switch contexts for AI help on your code.</span>
+          <span class="post-row-date">Aug 29, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/advanced-tips-and-tricks-for-cursor-ide-7dc236ff9870/">
+          <span class="post-row-title">Advanced Tips and Tricks for Cursor IDE</span>
+          <span class="post-row-desc">I’ve been using Terraform, Python, Bash, Kubernetes, and Jenkins for years — lately, Cursor IDE has become my go-to for boosting productivity.</span>
+          <span class="post-row-date">Aug 23, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/ai-powered-ides-cursor-vs-windsurf-vs-kiro-f7f7795f0c9c/">
+          <span class="post-row-title">AI-Powered IDEs: Cursor vs Windsurf vs Kiro</span>
+          <span class="post-row-desc">As a developer, I can tell you: AI-powered IDEs are a godsend.</span>
+          <span class="post-row-date">Aug 22, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="mcp-protocols">MCP &amp; Protocols <span class="count">2</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/the-ultimate-guide-to-model-context-protocol-mcp/">
+          <span class="post-row-title">Ultimate Guide to Model Context Protocol (MCP)</span>
+          <span class="post-row-desc">The AI landscape shifted dramatically with the introduction of the Model Context Protocol (MCP) , open-sourced by Anthropic.</span>
+          <span class="post-row-date">Jul 8, 2026</span>
+        </a>
+        <a class="post-row" href="/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/">
+          <span class="post-row-title">AI Document Processing System: MCP, ECS &amp; S3</span>
+          <span class="post-row-desc">How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol</span>
+          <span class="post-row-date">Aug 15, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="claude-code-agents">Claude Code &amp; Agents <span class="count">1</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/mastering-claude-code-from-beginner-basics-to-advanced-agentic-workflows/">
+          <span class="post-row-title">Mastering Claude Code: Basics to Agentic Flows</span>
+          <span class="post-row-desc">Anthropic’s Claude Code stands out for one reason: it lives in your terminal and behaves like a real engineering partner.</span>
+          <span class="post-row-date">Dec 14, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="ai-ml-infrastructure">AI/ML Infrastructure <span class="count">6</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/building-an-ai-powered-document-processing-pipeline-with-aws-ecs-and-amazon-bedrock/">
+          <span class="post-row-title">AI Document Pipeline with AWS ECS &amp; Bedrock</span>
+          <span class="post-row-desc">In today’s data-driven world, processing and extracting insights from documents at scale is a common challenge.</span>
+          <span class="post-row-date">Oct 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/building-an-end-to-end-mlops-pipeline-on-aws-sagemaker/">
+          <span class="post-row-title">Building an End-to-End MLOps Pipeline on AWS SageMaker</span>
+          <span class="post-row-desc">An open-source pipeline that automates training on SageMaker end to end — Terraform for infra, Docker for a custom PyTorch model.</span>
+          <span class="post-row-date">Sep 7, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/">
+          <span class="post-row-title">Building Large Language Models (LLMs) in Machine Learning</span>
+          <span class="post-row-desc">Large Language Models (LLMs) have revolutionized natural language processing, enabling text generation, summarization, and code completion.</span>
+          <span class="post-row-date">Mar 21, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/building-and-deploying-large-language-models-llms-a-real-world-implementation-208026ee7a61/">
+          <span class="post-row-title">Building and Deploying LLMs: A Real-World Guide</span>
+          <span class="post-row-desc">Large Language Models (LLMs) like GPT, LLaMA, and Falcon have revolutionized AI-powered applications, enabling chatbots, content generation, and more.</span>
+          <span class="post-row-date">Mar 21, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/deploying-a-text-generation-ai-app-with-aws-eks-ecr-gitops-kubernetes-docker-and-terraform-7cd6012ad392/">
+          <span class="post-row-title">Deploying a Text-Gen AI App with AWS EKS &amp; GitOps</span>
+          <span class="post-row-desc">A real-world implementation of a text generation AI app powered by a Generative AI API — OpenAI, AWS Bedrock, or Hugging Face.</span>
+          <span class="post-row-date">Mar 21, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/setting-up-aws-sagemaker-studio-notebooks-deploying-apps-training-models-6d5c3f50207c/">
+          <span class="post-row-title">Setting Up AWS SageMaker Studio &amp; Training</span>
+          <span class="post-row-desc">AWS SageMaker is a fully managed service that allows developers and data scientists to build, train, and deploy machine learning (ML) models at scale.</span>
+          <span class="post-row-date">Mar 9, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="devops-culture-practice">DevOps Culture &amp; Practice <span class="count">4</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/devops-learnings-from-the-phoenix-and-unicorn-project/">
+          <span class="post-row-title">DevOps learnings from The Phoenix and Unicorn Project</span>
+          <span class="post-row-desc">Ever feel like your AI/ML projects are a mythical beast — part unicorn dream, part phoenix inferno?</span>
+          <span class="post-row-date">Oct 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/generative-ai-for-devops-cloud-engineers-future-career-skills-roadmap-406461aa7b66/">
+          <span class="post-row-title">Generative AI Skills Roadmap for DevOps Engineers</span>
+          <span class="post-row-desc">Generative AI is reshaping industries, and DevOps/Cloud Engineers are no exception.</span>
+          <span class="post-row-date">Mar 13, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/dora-metrics-measuring-devops-performance-7a161a09c858/">
+          <span class="post-row-title">DORA Metrics: Measuring DevOps Performance</span>
+          <span class="post-row-desc">DORA (DevOps Research and Assessment) metrics provide a data-driven approach to measuring software delivery and operational performance.</span>
+          <span class="post-row-date">Mar 1, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/cloud-engineer-vs-devops-vs-sre-vs-devsecops-vs-mlops-understanding-the-roles-e9c30dd6bde3/">
+          <span class="post-row-title">Cloud Engineer vs DevOps vs SRE vs MLOps: Roles</span>
+          <span class="post-row-desc">In the evolving tech landscape, roles such as Cloud Engineer, DevOps, Site Reliability Engineer (SRE), DevSecOps, and MLOps have gained prominence.</span>
+          <span class="post-row-date">Feb 20, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="gitops-delivery">GitOps &amp; Delivery <span class="count">4</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/simplifying-kubernetes-with-argocd-your-go-to-gitops-solution-a1ebc2ab9d74/">
+          <span class="post-row-title">Simplifying Kubernetes with ArgoCD: Your Go-To GitOps Solution</span>
+          <span class="post-row-desc">Managing Kubernetes deployments across multiple environments can feel like herding cats.</span>
+          <span class="post-row-date">Aug 22, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/deploying-a-sample-app-with-aws-eks-terraform-argocd-gitlab-kubernetes-docker-ecr-bdc21527af41/">
+          <span class="post-row-title">Deploying an App with AWS EKS, Terraform &amp; ArgoCD</span>
+          <span class="post-row-desc">In modern DevOps workflows, Infrastructure as Code (IaC) and GitOps practices streamline software delivery.</span>
+          <span class="post-row-date">Mar 9, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/argo-cd-the-ultimate-gitops-continuous-deployment-tool-880b2f949a18/">
+          <span class="post-row-title">Argo CD: The Ultimate GitOps Continuous Deployment Tool</span>
+          <span class="post-row-desc">In the modern DevOps landscape, GitOps has emerged as a revolutionary approach to continuous delivery.</span>
+          <span class="post-row-date">Mar 6, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/flux-cd-a-gitops-continuous-deployment-tool-for-kubernetes-2690d5a4e159/">
+          <span class="post-row-title">Flux CD: A GitOps Continuous Deployment Tool for Kubernetes</span>
+          <span class="post-row-desc">In the cloud-native era, GitOps has become the de facto standard for managing Kubernetes deployments.</span>
+          <span class="post-row-date">Mar 6, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="iac-config-management">IaC &amp; Config Management <span class="count">11</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/managing-aws-infrastructure-with-crossplane-a-kubernetes-native-alternative-to-terraform-912ca406e295/">
+          <span class="post-row-title">Managing AWS Infra with Crossplane vs Terraform</span>
+          <span class="post-row-desc">For years, I’ve used Terraform to manage cloud infrastructure. It’s powerful and battle-tested — but I always felt there was a gap.</span>
+          <span class="post-row-date">Aug 15, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/azure-devops-ci-cd-pipeline-with-terraform-f66e9e72b9b7/">
+          <span class="post-row-title">Azure DevOps CI/CD pipeline with Terraform</span>
+          <span class="post-row-desc">An end-to-end Azure DevOps CI/CD pipeline with Terraform for a sample e-commerce application, using advanced patterns.</span>
+          <span class="post-row-date">Mar 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/implementing-and-managing-crossplane-automation-for-cloud-native-applications-84296928e016/">
+          <span class="post-row-title">Crossplane Automation for Cloud-Native Apps</span>
+          <span class="post-row-desc">As cloud-native applications continue to evolve, managing multi-cloud and hybrid environments efficiently becomes critical.</span>
+          <span class="post-row-date">Mar 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/">
+          <span class="post-row-title">Immutable Infrastructure with Blue-Green Deployments using Terraform</span>
+          <span class="post-row-desc">Immutable Infrastructure ensures deployed instances remain unchanged after deployment, reducing configuration drift and improving stability.</span>
+          <span class="post-row-date">Mar 17, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/deploying-a-sample-app-with-aws-eks-terraform-kubernetes-docker-ecr-a26c03c3b14e/">
+          <span class="post-row-title">Deploying a Sample App with AWS EKS &amp; Terraform</span>
+          <span class="post-row-desc">In modern DevOps workflows, Infrastructure as Code (IaC) and CI/CD pipelines play a crucial role in ensuring scalable, repeatable, and automated deployments.</span>
+          <span class="post-row-date">Mar 9, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/aws-cdk-the-future-of-infrastructure-as-code-72c9d68828f5/">
+          <span class="post-row-title">AWS CDK: The Future of Infrastructure as Code</span>
+          <span class="post-row-desc">AWS Cloud Development Kit (CDK) is revolutionizing how developers define cloud infrastructure.</span>
+          <span class="post-row-date">Mar 7, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-ansible-advanced-techniques-and-best-practices-518c63de6333/">
+          <span class="post-row-title">Mastering Ansible: Advanced Techniques and Best Practices</span>
+          <span class="post-row-desc">Ansible has become an indispensable tool for DevOps professionals, enabling efficient automation of complex infrastructure tasks.</span>
+          <span class="post-row-date">Feb 19, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/ansible-a-comprehensive-guide-685e7114a8b2/">
+          <span class="post-row-title">Ansible: A Comprehensive Guide</span>
+          <span class="post-row-desc">Ansible is a powerful automation tool that simplifies complex tasks, from configuration management to application deployment.</span>
+          <span class="post-row-date">Feb 18, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-advanced-terraform-commands-variables-tfvars-and-data-sources-with-aws-examples-a712d76193be/">
+          <span class="post-row-title">Advanced Terraform Commands &amp; Data Sources</span>
+          <span class="post-row-desc">Terraform is a powerful Infrastructure as Code (IaC) tool that enables automation and scalability.</span>
+          <span class="post-row-date">Feb 16, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-terraform-installation-configuration-advanced-commands-workspaces-7c6a694fa822/">
+          <span class="post-row-title">Mastering Terraform: Install, Config &amp; Workspaces</span>
+          <span class="post-row-desc">Terraform is a powerful tool for Infrastructure as Code (IaC) that allows you to build, change, and version your infrastructure safely and efficiently.</span>
+          <span class="post-row-date">Feb 15, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-terragrunt-advanced-terraform-management-7c12872dcc52/">
+          <span class="post-row-title">Mastering Terragrunt: Advanced Terraform Management</span>
+          <span class="post-row-desc">Terragrunt simplifies and enhances Terraform usage with better code reusability, DRY configurations, and easier multi-environment deployments.</span>
+          <span class="post-row-date">Feb 15, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="ops-security">Ops &amp; Security <span class="count">4</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/cloud-security-engineer-job-responsibilities-a-comprehensive-guide-2542de599670/">
+          <span class="post-row-title">Cloud Security Engineer Job Responsibilities: A Comprehensive Guide</span>
+          <span class="post-row-desc">With the rise of cloud computing, security has become a top concern for organizations.</span>
+          <span class="post-row-date">Mar 17, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/automated-ssl-certificate-rotation-using-certbot-on-ubuntu-b373c4da63b8/">
+          <span class="post-row-title">Automated SSL Certificate Rotation Using Certbot on Ubuntu</span>
+          <span class="post-row-desc">SSL certificates are crucial for encrypting web traffic and ensuring secure communication between clients and servers.</span>
+          <span class="post-row-date">Mar 15, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/open-policy-agent-opa-a-comprehensive-guide-for-cloud-and-kubernetes-security-36881c23eb10/">
+          <span class="post-row-title">Open Policy Agent (OPA): A Security Guide</span>
+          <span class="post-row-desc">Security, compliance, and policy enforcement are crucial aspects of managing cloud and containerized environments.</span>
+          <span class="post-row-date">Mar 15, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-http-proxy-servers-apache-vs-nginx-ab1d80eae21a/">
+          <span class="post-row-title">Mastering HTTP Proxy Servers: Apache vs. Nginx</span>
+          <span class="post-row-desc">In modern web architectures, HTTP proxy servers play a crucial role in load balancing, caching, security, and request routing.</span>
+          <span class="post-row-date">Mar 7, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="databases">Databases <span class="count">2</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/mastering-mysql-basics-advanced-commands-and-best-practices-e7efac670a86/">
+          <span class="post-row-title">Mastering MySQL: Basics, Advanced Commands, and Best Practices</span>
+          <span class="post-row-desc">MySQL is one of the most widely used relational database management systems (RDBMS) in the world.</span>
+          <span class="post-row-date">Mar 17, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/">
+          <span class="post-row-title">AWS Databases: Types &amp; Best Practices</span>
+          <span class="post-row-desc">AWS offers a wide range of database solutions for different workloads — from relational databases to NoSQL and in-memory databases.</span>
+          <span class="post-row-date">Mar 15, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="ci-cd">CI/CD <span class="count">4</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/azure-devops-the-ultimate-guide-a32b1d067609/">
+          <span class="post-row-title">Azure DevOps: The Ultimate Guide</span>
+          <span class="post-row-desc">Azure DevOps has become a go-to platform for managing CI/CD, infrastructure automation, and agile workflows.</span>
+          <span class="post-row-date">Mar 7, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/automate-operational-tasks-using-azure-automation-optimize-azure-devops-pipelines-063fd83a49b0/">
+          <span class="post-row-title">Azure Automation &amp; DevOps Pipeline Optimization</span>
+          <span class="post-row-desc">In today’s cloud-driven world, automating operational tasks and optimizing CI/CD pipelines is crucial for efficient DevOps practices.</span>
+          <span class="post-row-date">Mar 6, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/architecting-and-scaling-jenkins-pipelines-for-hundreds-of-applications-5121f33c63de/">
+          <span class="post-row-title">Scaling Jenkins Pipelines for Hundreds of Apps</span>
+          <span class="post-row-desc">Jenkins is a powerful automation server that enables CI/CD for applications.</span>
+          <span class="post-row-date">Mar 3, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/">
+          <span class="post-row-title">CI/CD Pipelines with SonarQube &amp; Artifactory</span>
+          <span class="post-row-desc">Modern DevOps practices require seamless integration of CI/CD pipelines with SonarQube, container registries, and artifact registries.</span>
+          <span class="post-row-date">Mar 1, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="containers-docker">Containers &amp; Docker <span class="count">3</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/advanced-docker-a-deep-dive-with-real-world-examples-eada025f09ca/">
+          <span class="post-row-title">Advanced Docker: A Deep Dive with Real-World Examples</span>
+          <span class="post-row-desc">Docker has revolutionized the way we develop, package, and deploy applications.</span>
+          <span class="post-row-date">Mar 5, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/advanced-docker-commands-mastering-containers-like-a-pro-c5ebb9a66b46/">
+          <span class="post-row-title">Advanced Docker Commands: Mastering Containers Like a Pro</span>
+          <span class="post-row-desc">Docker is an essential tool for modern DevOps, enabling seamless containerization of applications.</span>
+          <span class="post-row-date">Mar 5, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/docker-containers-a-complete-guide-03c643363ace/">
+          <span class="post-row-title">Docker Containers: A Complete Guide</span>
+          <span class="post-row-desc">Docker has revolutionized the way we develop, deploy, and manage applications by providing a lightweight, portable, and efficient containerization platform.</span>
+          <span class="post-row-date">Mar 5, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="observability-monitoring">Observability &amp; Monitoring <span class="count">4</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/elk-stack-a-complete-guide-with-real-world-use-cases-8d51da1f07da/">
+          <span class="post-row-title">ELK Stack: A Complete Guide with Real-World Use Cases</span>
+          <span class="post-row-desc">Modern applications generate vast amounts of logs, making log aggregation, analysis, and visualization critical for operational efficiency and security.</span>
+          <span class="post-row-date">Mar 3, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/mastering-observability-prometheus-grafana-loki-opentelemetry-and-aws-cloudwatch-0ed6806c9bf9/">
+          <span class="post-row-title">Mastering Observability: Prometheus to CloudWatch</span>
+          <span class="post-row-desc">Observability is a key aspect of modern cloud-native applications. It helps organizations monitor performance, detect anomalies, and troubleshoot effectively.</span>
+          <span class="post-row-date">Mar 3, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/">
+          <span class="post-row-title">Observability in Kubernetes: Prometheus &amp; Grafana</span>
+          <span class="post-row-desc">Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments.</span>
+          <span class="post-row-date">Feb 27, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/amazon-devops-guru-a-deep-dive-with-real-world-examples-c0748016ffa2/">
+          <span class="post-row-title">Amazon DevOps Guru: A Deep Dive with Real-World Examples</span>
+          <span class="post-row-desc">Amazon DevOps Guru is an AI-powered operations service that helps identify and fix issues in applications running on AWS.</span>
+          <span class="post-row-date">Feb 20, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="resilience-reliability">Resilience &amp; Reliability <span class="count">2</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/chaos-engineering-breaking-things-to-build-resilience-8364e5c1b773/">
+          <span class="post-row-title">Chaos Engineering: Breaking Things to Build Resilience</span>
+          <span class="post-row-desc">Chaos Engineering is the practice of deliberately introducing failures in a system to test its resilience and recovery mechanisms.</span>
+          <span class="post-row-date">Feb 27, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/proactive-resilience-preventing-failures-before-they-happen-ecf58f5dadf3/">
+          <span class="post-row-title">Proactive Resilience: Preventing Failures Before They Happen</span>
+          <span class="post-row-desc">In the world of cloud computing and distributed systems, resilience is critical.</span>
+          <span class="post-row-date">Feb 27, 2025</span>
+        </a>
+      </div>
+
+      <h2 class="section-label" id="helm-packaging">Helm &amp; Packaging <span class="count">2</span></h2>
+      <div class="post-list">
+        <a class="post-row" href="/blog/mastering-kubernetes-package-management-with-helm-a-comprehensive-guide-7d89f4d85f28/">
+          <span class="post-row-title">Mastering Kubernetes Package Management with Helm</span>
+          <span class="post-row-desc">Kubernetes simplifies container orchestration, but managing applications at scale can be challenging.</span>
+          <span class="post-row-date">Feb 19, 2025</span>
+        </a>
+        <a class="post-row" href="/blog/helm-in-kubernetes-a-complete-guide-3ddcd90773b1/">
+          <span class="post-row-title">Helm in Kubernetes: A Complete Guide</span>
+          <span class="post-row-desc">Helm is the package manager for Kubernetes, making it easier to define, install, and manage Kubernetes applications.</span>
+          <span class="post-row-date">Feb 17, 2025</span>
+        </a>
+      </div>
+
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

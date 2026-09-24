@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Building Large Language Models (LLMs) in Machine Learning | Rajesh Sood</title>
+  <meta name="description" content="Large Language Models (LLMs) have revolutionized natural language processing, enabling text generation, summarization, and code completion." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Large Language Models (LLMs) in Machine Learning" />
+  <meta property="og:description" content="Large Language Models (LLMs) have revolutionized natural language processing, enabling text generation, summarization, and code completion." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Building Large Language Models (LLMs) in Machine Learning" />
+  <meta property="article:published_time" content="2025-03-21" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Building Large Language Models (LLMs) in Machine Learning" />
+  <meta name="twitter:description" content="Large Language Models (LLMs) have revolutionized natural language processing, enabling text generation, summarization, and code completion." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building Large Language Models (LLMs) in Machine Learning",
+  "datePublished": "2025-03-21",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Large Language Models (LLMs) have revolutionized natural language processing, enabling text generation, summarization, and code completion."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">AI/ML Infrastructure</p>
+      <h1>Building Large Language Models (LLMs) in Machine Learning</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-21">Mar 21, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/building-large-language-models-llms-in-machine-learning-e20d85671d1a/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Large Language Models (LLMs) have revolutionized natural language processing (NLP), enabling advanced capabilities such as text generation, summarization, code completion, and more. In this guide, we will explore:</p>
+<ul><li><strong>Understanding LLMs and their architecture</strong></li><li><strong>Building an LLM from scratch</strong></li><li><strong>Optimizing training performance</strong></li><li><strong>Deploying LLMs at scale</strong></li><li><strong>Real-world case studies and troubleshooting</strong></li><li><strong>FAQs and best practices</strong></li></ul>
+<h2>1. Understanding Large Language Models</h2>
+<h2>1.1. What Are LLMs?</h2>
+<p>LLMs are deep learning models trained on vast amounts of text data to generate human-like language. Examples include OpenAI’s GPT, Google’s PaLM, and Meta’s LLaMA.</p>
+<p><strong>Key Characteristics:</strong></p>
+<ul><li>Use Transformer architecture (e.g., attention mechanisms)</li><li>Trained on massive datasets</li><li>Require high computational resources</li></ul>
+<h2>1.2. Transformer Architecture Overview</h2>
+<p>LLMs rely on the Transformer model, which consists of:</p>
+<ul><li><strong>Self-attention mechanisms</strong> to capture contextual dependencies</li><li><strong>Feedforward neural networks</strong> for processing embeddings</li><li><strong>Positional encodings</strong> to preserve word order</li></ul>
+<h3>Example: Self-Attention Calculation</h3>
+<pre><code>import torch
+import torch.nn.functional as F</code></pre>
+<pre><code>query = torch.rand(1, 10)
+key = torch.rand(1, 10)
+value = torch.rand(1, 10)</code></pre>
+<pre><code>score = torch.matmul(query, key.T) / torch.sqrt(torch.tensor(10.0))
+attention_weights = F.softmax(score, dim=-1)
+output = torch.matmul(attention_weights, value)
+print(output)</code></pre>
+<h2>2. Building an LLM from Scratch</h2>
+<h2>2.1. Data Collection and Preprocessing</h2>
+<p>To build an LLM, you need:</p>
+<p>✅ Large text datasets (Common Crawl, Wikipedia, BooksCorpus)</p>
+<p>✅ Tokenization (e.g., Byte Pair Encoding, SentencePiece)</p>
+<p>✅ Data augmentation for better generalization</p>
+<h3>Example: Tokenizing Text Using Hugging Face Tokenizer</h3>
+<pre><code>from transformers import GPT2Tokenizer</code></pre>
+<pre><code>tokenizer = GPT2Tokenizer.from_pretrained(&quot;gpt2&quot;)
+text = &quot;Building LLMs is exciting!&quot;
+tokens = tokenizer.tokenize(text)
+print(tokens)</code></pre>
+<h2>2.2. Model Training</h2>
+<p>Training an LLM requires:</p>
+<p>✅ High-performance GPUs/TPUs</p>
+<p>✅ Distributed training frameworks (DeepSpeed, Megatron-LM)</p>
+<p>✅ Gradient checkpointing to optimize memory usage</p>
+<h3>Example: Training a GPT Model with PyTorch</h3>
+<pre><code>from transformers import GPT2LMHeadModel, Trainer, TrainingArguments</code></pre>
+<pre><code>model = GPT2LMHeadModel.from_pretrained(&quot;gpt2&quot;)
+training_args = TrainingArguments(output_dir=&quot;./results&quot;, num_train_epochs=1)
+trainer = Trainer(model=model, args=training_args)
+trainer.train()</code></pre>
+<h2>3. Optimizing Performance</h2>
+<h2>3.1. Distributed Training Techniques</h2>
+<p>✅ <strong>Data Parallelism</strong> (Replicate model, split data)</p>
+<p>✅ <strong>Model Parallelism</strong> (Split model layers across devices)</p>
+<p>✅ <strong>Pipeline Parallelism</strong> (Execute layers sequentially across GPUs)</p>
+<h2>3.2. Hyperparameter Tuning</h2>
+<ul><li>Learning Rate Warmup</li><li>Layer Normalization</li><li>Mixed Precision Training</li></ul>
+<h2>4. Deploying LLMs at Scale</h2>
+<h2>4.1. Serving LLMs Efficiently</h2>
+<p>✅ Model quantization (FP16, INT8)</p>
+<p>✅ Caching responses for frequent queries</p>
+<p>✅ Using inference frameworks like <strong>ONNX Runtime</strong> or <strong>TensorRT</strong></p>
+<h3>Example: Running an Optimized Model on ONNX</h3>
+<pre><code>import onnxruntime as ort</code></pre>
+<pre><code>session = ort.InferenceSession(&quot;model.onnx&quot;)
+input_data = {&quot;input&quot;: ...}  # Example input tensor
+outputs = session.run(None, input_data)
+print(outputs)</code></pre>
+<h2>4.2. Fine-Tuning for Specific Tasks</h2>
+<p>Fine-tune models for domain-specific applications like:</p>
+<ul><li><strong>Medical Text Analysis</strong> (BioBERT)</li><li><strong>Financial Data Processing</strong> (BloombergGPT)</li><li><strong>Legal Document Understanding</strong> (CaseLawGPT)</li></ul>
+<h2>5. Real-World Case Studies and Troubleshooting</h2>
+<h2>5.1. Case Study: Scaling GPT for Customer Support</h2>
+<p><strong>Challenge:</strong></p>
+<ul><li>High latency due to large model size</li><li>Expensive inference costs</li></ul>
+<p><strong>Solution:</strong></p>
+<p>✅ <strong>Used model distillation</strong> to create a smaller version</p>
+<p>✅ <strong>Deployed using AWS Inferentia for cost savings</strong></p>
+<p>✅ <strong>Implemented caching to reuse responses</strong></p>
+<h2>5.2. Troubleshooting Common Issues</h2>
+<p>❌ <strong>Out of memory errors</strong> → ✅ Reduce batch size, enable gradient checkpointing</p>
+<p>❌ <strong>Slow inference speed</strong> → ✅ Use quantization, optimize model with ONNX</p>
+<p>❌ <strong>Model hallucinations</strong> → ✅ Use prompt engineering, apply reinforcement learning from human feedback (RLHF)</p>
+<h2>6. FAQs and Best Practices</h2>
+<h2>❓ How much data is needed to train an LLM?</h2>
+<p>✅ Typically, hundreds of gigabytes to terabytes of text data are required.</p>
+<h2>❓ What hardware is needed?</h2>
+<p>✅ At least 8 GPUs with 24GB VRAM or TPUs for efficient training.</p>
+<h2>❓ Can I train an LLM on my laptop?</h2>
+<p>❌ No, training requires large compute clusters. However, you can fine-tune small models.</p>
+<h2>❓ What is the best framework for training LLMs?</h2>
+<p>✅ PyTorch, TensorFlow, DeepSpeed, and Hugging Face Transformers.</p>
+<h2>❓ How do I reduce LLM inference costs?</h2>
+<p>✅ Use model compression, quantization, and hardware accelerators like AWS Inferentia or NVIDIA TensorRT.</p>
+<h2>Conclusion</h2>
+<p>Building and deploying Large Language Models requires expertise in deep learning, data engineering, and cloud infrastructure. By leveraging <strong>transformer architectures, distributed training techniques, and optimization strategies</strong>, you can build scalable LLMs for various applications.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/building-large-language-models-llms-in-machine-learning-e20d85671d1a" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>AWS Databases: Types &amp; Best Practices | Rajesh Sood</title>
+  <meta name="description" content="AWS offers a wide range of database solutions for different workloads — from relational databases to NoSQL and in-memory databases." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS Databases: Types &amp; Best Practices" />
+  <meta property="og:description" content="AWS offers a wide range of database solutions for different workloads — from relational databases to NoSQL and in-memory databases." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AWS Databases: Types &amp; Best Practices" />
+  <meta property="article:published_time" content="2025-03-15" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AWS Databases: Types &amp; Best Practices" />
+  <meta name="twitter:description" content="AWS offers a wide range of database solutions for different workloads — from relational databases to NoSQL and in-memory databases." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AWS Databases: Types & Best Practices",
+  "datePublished": "2025-03-15",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "AWS offers a wide range of database solutions for different workloads — from relational databases to NoSQL and in-memory databases."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Databases</p>
+      <h1>AWS Databases: Types &amp; Best Practices</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-15">Mar 15, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Amazon Web Services (AWS) offers a wide range of database solutions catering to different workloads, from traditional relational databases to NoSQL and in-memory databases. Understanding the types of databases, their use cases, and management commands is essential for AWS Cloud Engineers, DevOps professionals, and Database Administrators.</p>
+<h2>What This Guide Covers:</h2>
+<ul><li>Types of databases in AWS and their use cases</li><li>Basic and advanced commands with examples</li><li>Best practices for database management in AWS</li><li>Connecting to databases from a local machine and from AWS instances (EC2/ECS)</li><li>FAQs and troubleshooting common issues</li></ul>
+<h2>1. Types of Databases in AWS</h2>
+<p>AWS provides both managed and self-managed database options. Below are the primary database types:</p>
+<h2>A. Relational Databases (SQL-based)</h2>
+<p>Used for structured data with <a href="https://www.mongodb.com/resources/products/capabilities/acid-compliance">ACID compliance</a>.</p>
+<ul><li><strong>Amazon RDS (Relational Database Service)</strong> — Managed SQL databases like MySQL, PostgreSQL, MariaDB, SQL Server, and Oracle.</li><li><strong>Amazon Aurora</strong> — High-performance, cloud-native relational database compatible with MySQL and PostgreSQL.</li></ul>
+<h2>B. NoSQL Databases</h2>
+<p>Designed for scalability and flexibility.</p>
+<ul><li><strong>Amazon DynamoDB</strong> — Key-Value and Document NoSQL database with single-digit millisecond performance.</li><li><strong>Amazon ElastiCache</strong> — Managed in-memory database service for caching (Redis/Memcached).</li><li><strong>Amazon Neptune</strong> — Graph database for applications needing relationship-based queries.</li><li><strong>Amazon Timestream</strong> — Serverless database for time-series data.</li></ul>
+<h2>C. Data Warehousing &amp; Analytics</h2>
+<p>For high-performance analytics and data processing.</p>
+<ul><li><strong>Amazon Redshift</strong> — Fully managed petabyte-scale data warehouse.</li><li><strong>AWS Glue</strong> — ETL (Extract, Transform, Load) service for processing large-scale data.</li><li><strong>Amazon Athena</strong> — Query data stored in S3 using SQL.</li></ul>
+<h2>D. Ledger &amp; Blockchain Databases</h2>
+<p>For immutable and transparent records.</p>
+<ul><li><strong>Amazon QLDB (Quantum Ledger Database)</strong> — Fully managed ledger database.</li><li><strong>Amazon Managed Blockchain</strong> — Blockchain service for decentralized applications.</li></ul>
+<h2>2. Common Database Commands and Examples</h2>
+<h2>A. Amazon RDS — MySQL Commands</h2>
+<h3>1. Connecting to an RDS MySQL instance from a laptop</h3>
+<pre><code>mysql -h mydb-instance.cxyz123.us-east-1.rds.amazonaws.com -u admin -p</code></pre>
+<h3>2. Creating a Database and Table</h3>
+<pre><code>CREATE DATABASE myapp;
+USE myapp;
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE
+);</code></pre>
+<h3>3. Running Queries</h3>
+<pre><code>INSERT INTO users (name, email) VALUES (&#x27;Alice&#x27;, &#x27;alice@example.com&#x27;);
+SELECT * FROM users;</code></pre>
+<h3>4. Creating a Read Replica for RDS</h3>
+<pre><code>aws rds create-db-instance-read-replica --db-instance-identifier mydb-replica \
+--source-db-instance-identifier mydb-instance --region us-east-1</code></pre>
+<h2>B. Amazon DynamoDB — NoSQL Commands</h2>
+<h3>1. Creating a Table</h3>
+<pre><code>aws dynamodb create-table --table-name Users \
+--attribute-definitions AttributeName=UserId,AttributeType=S \
+--key-schema AttributeName=UserId,KeyType=HASH \
+--billing-mode PAY_PER_REQUEST</code></pre>
+<h3>2. Inserting an Item</h3>
+<pre><code>aws dynamodb put-item --table-name Users --item &#x27;{&quot;UserId&quot;: {&quot;S&quot;: &quot;123&quot;}, &quot;Name&quot;: {&quot;S&quot;: &quot;Alice&quot;}}&#x27;</code></pre>
+<h3>3. Querying Data</h3>
+<pre><code>aws dynamodb get-item --table-name Users --key &#x27;{&quot;UserId&quot;: {&quot;S&quot;: &quot;123&quot;}}&#x27;</code></pre>
+<h2>C. Amazon Redshift — Data Warehouse Commands</h2>
+<h3>1. Connecting to a Redshift Cluster</h3>
+<pre><code>psql -h my-redshift-cluster.endpoint.amazonaws.com -U admin -d mydatabase</code></pre>
+<h3>2. Creating a Table and Loading Data</h3>
+<pre><code>CREATE TABLE sales (id INT, amount DECIMAL(10,2), date DATE);
+COPY sales FROM &#x27;s3://mybucket/sales.csv&#x27;
+CREDENTIALS &#x27;aws_iam_role=arn:aws:iam::123456789012:role/MyRedshiftRole&#x27;
+CSV;</code></pre>
+<h2>D. Amazon ElastiCache (Redis) Commands</h2>
+<h3>1. Connecting to Redis from an EC2 instance</h3>
+<pre><code>redis-cli -h mycache-cluster.abcdef.ng.0001.use1.cache.amazonaws.com -p 6379</code></pre>
+<h3>2. Setting and Getting a Key-Value Pair</h3>
+<pre><code>SET user:1001 &quot;Alice&quot;
+GET user:1001</code></pre>
+<h2>3. Best Practices for AWS Databases</h2>
+<h2>✅ Security Best Practices</h2>
+<ul><li>Enable <strong>IAM authentication</strong> where supported.</li><li>Use <strong>AWS Secrets Manager</strong> for credentials management.</li><li>Enable <strong>TLS/SSL</strong> for encrypted connections.</li><li>Implement <strong>VPC security groups</strong> to control database access.</li></ul>
+<h2>✅ Performance Optimization</h2>
+<ul><li>Use <strong>Read Replicas</strong> for better read performance.</li><li>Enable <strong>Multi-AZ deployment</strong> for high availability.</li><li>Use <strong>ElastiCache</strong> to offload database reads.</li></ul>
+<h2>✅ Backup &amp; Disaster Recovery</h2>
+<ul><li>Enable <strong>automated backups</strong> in RDS.</li><li>Use <strong>Point-in-Time Recovery</strong> in DynamoDB.</li><li>Regularly <strong>snapshot databases</strong> before updates.</li></ul>
+<h2>4. Connecting from Laptop and EC2/ECS to AWS Databases</h2>
+<h2>A. Connecting from Laptop</h2>
+<ol><li>Install MySQL client: <code>sudo apt install mysql-client</code></li><li>Connect to RDS:</li></ol>
+<blockquote><code>mysql -h my-rds-instance.cxyz123.us-east-1.rds.amazonaws.com -u admin -p</code></blockquote>
+<p>3. Ensure Security Group allows <strong>your IP</strong> (modify inbound rules in AWS Console).</p>
+<h2>B. Connecting from EC2</h2>
+<ol><li>SSH into EC2:</li></ol>
+<blockquote><code>ssh -i my-key.pem ec2-user@ec2-54-123-45-67.compute-1.amazonaws.com</code></blockquote>
+<p>2. Connect to RDS or DynamoDB:</p>
+<blockquote><code>mysql -h my-rds-instance.cxyz123.us-east-1.rds.amazonaws.com -u admin -p aws dynamodb scan --table-name Users</code></blockquote>
+<p>3. Ensure <strong>Security Group</strong> allows EC2 private IP.</p>
+<h2>5. FAQs &amp; Troubleshooting</h2>
+<h2>❓ Why can’t I connect to my RDS database from my laptop?</h2>
+<p>✅ Ensure <strong>RDS Security Group</strong> allows your IP.</p>
+<p>✅ Check if <strong>Public Access</strong> is enabled in RDS settings.</p>
+<p>✅ Verify credentials and database endpoint.</p>
+<h2>❓ How do I enable automatic backups for RDS?</h2>
+<pre><code>aws rds modify-db-instance --db-instance-identifier mydb-instance --backup-retention-period 7</code></pre>
+<h2>❓ What’s the difference between Amazon RDS and Aurora?</h2>
+<p>✅ <strong>Aurora</strong> offers better performance (5x faster than MySQL, 3x faster than PostgreSQL).</p>
+<p>✅ <strong>Aurora</strong> supports <strong>auto-scaling</strong>, while RDS does not.</p>
+<h2>Conclusion</h2>
+<p>AWS provides a diverse set of database solutions for different use cases. By understanding their capabilities, best practices, and troubleshooting techniques, you can ensure optimal performance, security, and availability in your AWS cloud environment.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/comprehensive-guide-to-databases-in-aws-types-commands-and-best-practices-2fea3a4ec744" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

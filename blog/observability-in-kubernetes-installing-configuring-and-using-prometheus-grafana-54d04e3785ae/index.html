@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Observability in Kubernetes: Prometheus &amp; Grafana | Rajesh Sood</title>
+  <meta name="description" content="Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Observability in Kubernetes: Prometheus &amp; Grafana" />
+  <meta property="og:description" content="Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Observability in Kubernetes: Prometheus &amp; Grafana" />
+  <meta property="article:published_time" content="2025-02-27" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Observability in Kubernetes: Prometheus &amp; Grafana" />
+  <meta name="twitter:description" content="Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Observability in Kubernetes: Prometheus & Grafana",
+  "datePublished": "2025-02-27",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Observability &amp; Monitoring</p>
+      <h1>Observability in Kubernetes: Prometheus &amp; Grafana</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-02-27">Feb 27, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Observability is a key aspect of modern infrastructure. Prometheus and Grafana are widely used for monitoring and visualization in Kubernetes environments. This guide walks you through installing, configuring, and using Prometheus and Grafana for observability.</p>
+<h2>Prerequisites</h2>
+<p>Before proceeding, ensure you have:</p>
+<ul><li>A running Kubernetes cluster (EKS, AKS, GKE, or Minikube)</li><li>kubectl configured for your cluster</li><li>Helm installed</li></ul>
+<h2>Step 1: Install Prometheus &amp; Grafana using Helm</h2>
+<h2>Add the Helm repository</h2>
+<pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update</code></pre>
+<h2>Install Prometheus</h2>
+<pre><code>helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace</code></pre>
+<p>This installs Prometheus, Alertmanager, and required exporters.</p>
+<h2>Install Grafana</h2>
+<p>Grafana is included in <code>kube-prometheus-stack</code>, but if needed separately:</p>
+<pre><code>helm install grafana grafana/grafana --namespace monitoring</code></pre>
+<h2>Step 2: Access Prometheus &amp; Grafana</h2>
+<h2>Get Prometheus service URL</h2>
+<pre><code>kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090</code></pre>
+<p>Access Prometheus at: <a href="http://localhost:9090">http://localhost:9090</a></p>
+<h2>Get Grafana credentials &amp; URL</h2>
+<pre><code>kubectl get secret --namespace monitoring prometheus-grafana -o jsonpath=&quot;{.data.admin-password}&quot; | base64 --decode ; echo</code></pre>
+<pre><code>kubectl port-forward -n monitoring svc/prometheus-grafana 3000:80</code></pre>
+<p>Access Grafana at: <a href="http://localhost:3000">http://localhost:3000</a> (Default username: <code>admin</code>, password: from above command)</p>
+<h2>Step 3: Configure Dashboards</h2>
+<ol><li>Log into Grafana</li><li>Add Prometheus as a Data Source</li></ol>
+<ul><li>Navigate to <strong>Configuration → Data Sources</strong></li><li>Select <strong>Prometheus</strong></li><li>Set URL as <code><a href="http://prometheus-kube-prometheus-prometheus.monitoring:9090">http://prometheus-kube-prometheus-prometheus.monitoring:9090</a></code></li><li>Click <strong>Save &amp; Test</strong></li></ul>
+<p>3. Import prebuilt dashboards from <strong>Grafana Dashboard Repository</strong></p>
+<h2>Step 4: Setup Alerting with Alertmanager</h2>
+<p>Prometheus uses Alertmanager for notifications.</p>
+<h2>Create Alerting Rules</h2>
+<p>Example: Alert if CPU usage exceeds 80%</p>
+<pre><code>apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: high-cpu-usage
+  namespace: monitoring
+spec:
+  groups:
+    - name: CPUAlerts
+      rules:
+        - alert: HighCPUUsage
+          expr: avg(rate(container_cpu_usage_seconds_total[5m])) * 100 &gt; 80
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: &quot;High CPU Usage Detected&quot;</code></pre>
+<pre><code>kubectl apply -f high-cpu-alert.yaml</code></pre>
+<h2>Configure Alertmanager for Slack</h2>
+<p>Modify <code>values.yaml</code> and set Slack webhook:</p>
+<pre><code>alertmanager:
+  config:
+    receivers:
+      - name: &quot;slack&quot;
+        slack_configs:
+          - send_resolved: true
+            channel: &quot;#alerts&quot;
+            api_url: &quot;https://hooks.slack.com/services/XXXX/XXXX/XXXX&quot;</code></pre>
+<p>Apply the changes:</p>
+<pre><code>helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring -f values.yaml</code></pre>
+<h2>Advanced Commands</h2>
+<h2>List all running Prometheus pods</h2>
+<pre><code>kubectl get pods -n monitoring -l app.kubernetes.io/name=prometheus</code></pre>
+<h2>Query metrics in Prometheus</h2>
+<pre><code>kubectl exec -n monitoring -it prometheus-kube-prometheus-prometheus-0 -- sh -c &#x27;promql &quot;up&quot;&#x27;</code></pre>
+<h2>Restart Prometheus</h2>
+<pre><code>kubectl rollout restart deployment prometheus-kube-prometheus-prometheus -n monitoring</code></pre>
+<h2>Restart Grafana</h2>
+<pre><code>kubectl rollout restart deployment prometheus-grafana -n monitoring</code></pre>
+<h2>FAQs</h2>
+<h2>1. What is Prometheus used for?</h2>
+<p>Prometheus is a monitoring system that collects and stores metrics data from applications, enabling real-time analysis and alerting.</p>
+<h2>2. What is Grafana used for?</h2>
+<p>Grafana is an open-source visualization tool that allows users to create interactive dashboards for monitoring data from Prometheus and other sources.</p>
+<h2>3. How do I customize Prometheus alerts?</h2>
+<p>Modify the <code>PrometheusRule</code> configurations and apply them using <code>kubectl apply -f &lt;file&gt;.yaml</code>.</p>
+<h2>4. How do I scale Prometheus?</h2>
+<p>Increase replica count in Helm values or deploy Thanos for high availability.</p>
+<h2>5. How do I persist data in Prometheus?</h2>
+<p>Use persistent storage:</p>
+<pre><code>helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --set prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.resources.requests.storage=50Gi</code></pre>
+<h2>Conclusion</h2>
+<p>Prometheus and Grafana provide powerful observability in Kubernetes environments. By following this guide, you have successfully installed, configured, and started monitoring your infrastructure. 🚀</p>
+
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/observability-in-kubernetes-installing-configuring-and-using-prometheus-grafana-54d04e3785ae" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

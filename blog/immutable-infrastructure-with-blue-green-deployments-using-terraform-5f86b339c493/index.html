@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Immutable Infrastructure with Blue-Green Deployments using Terraform | Rajesh Sood</title>
+  <meta name="description" content="Immutable Infrastructure ensures deployed instances remain unchanged after deployment, reducing configuration drift and improving stability." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Immutable Infrastructure with Blue-Green Deployments using Terraform" />
+  <meta property="og:description" content="Immutable Infrastructure ensures deployed instances remain unchanged after deployment, reducing configuration drift and improving stability." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Immutable Infrastructure with Blue-Green Deployments using Terraform" />
+  <meta property="article:published_time" content="2025-03-17" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Immutable Infrastructure with Blue-Green Deployments using Terraform" />
+  <meta name="twitter:description" content="Immutable Infrastructure ensures deployed instances remain unchanged after deployment, reducing configuration drift and improving stability." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Immutable Infrastructure with Blue-Green Deployments using Terraform",
+  "datePublished": "2025-03-17",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Immutable Infrastructure ensures deployed instances remain unchanged after deployment, reducing configuration drift and improving stability."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">IaC &amp; Config Management</p>
+      <h1>Immutable Infrastructure with Blue-Green Deployments using Terraform</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-17">Mar 17, 2025</time><span>·</span><span>3 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>In modern DevOps practices, <strong>Immutable Infrastructure</strong> ensures that deployed instances remain unchanged after deployment, reducing configuration drift and improving stability. <strong>Blue-Green Deployments</strong> allow teams to switch traffic between two identical environments (Blue &amp; Green), minimizing downtime and reducing the risk of failed deployments.</p>
+<p>Using <strong>Terraform</strong>, we can automate the provisioning of immutable infrastructure and manage Blue-Green deployments seamlessly.</p>
+<h2>What This Guide Covers:</h2>
+<ul><li>The concept of <strong>Immutable Infrastructure</strong></li><li>How <strong>Blue-Green Deployments</strong> work</li><li>Terraform implementation for Blue-Green Deployments</li><li>Best practices and real-world examples</li><li>FAQs and troubleshooting</li></ul>
+<h2>1. Understanding Immutable Infrastructure and Blue-Green Deployments</h2>
+<h2>Immutable Infrastructure</h2>
+<p>Unlike traditional deployments where servers are modified over time, immutable infrastructure ensures that servers are <strong>replaced</strong> rather than modified, eliminating configuration drift. If an update is needed, a <strong>new instance is provisioned</strong> with the required changes, and the old one is decommissioned.</p>
+<h2>Blue-Green Deployment Strategy</h2>
+<ul><li><strong>Blue Environment</strong>: The currently running production environment.</li><li><strong>Green Environment</strong>: The new version deployed in parallel.</li><li><strong>Traffic Switching</strong>: After successful validation, traffic is switched to the Green environment.</li><li><strong>Rollback</strong>: If issues arise, switching back to Blue is immediate.</li></ul>
+<h2>2. Implementing Blue-Green Deployments using Terraform</h2>
+<h2>Prerequisites</h2>
+<ul><li>Terraform installed (<code>&gt;=1.0</code>)</li><li>AWS CLI configured with appropriate IAM permissions</li><li>AWS EC2 instances, ALB (Application Load Balancer), and Auto Scaling Group setup</li></ul>
+<h2>Step-by-Step Implementation</h2>
+<h3>1. Define Variables (variables.tf)</h3>
+<pre><code>variable &quot;region&quot; {
+  default = &quot;us-east-1&quot;
+}</code></pre>
+<pre><code>variable &quot;ami_id&quot; {
+  description = &quot;Amazon Machine Image ID for EC2&quot;
+}</code></pre>
+<pre><code>variable &quot;instance_type&quot; {
+  default = &quot;t2.micro&quot;
+}</code></pre>
+<h3>2. Create an Auto Scaling Group with Two Environments (blue-green.tf)</h3>
+<pre><code>resource &quot;aws_launch_template&quot; &quot;blue&quot; {
+  name          = &quot;blue-environment&quot;
+  image_id      = var.ami_id
+  instance_type = var.instance_type
+}</code></pre>
+<pre><code>resource &quot;aws_launch_template&quot; &quot;green&quot; {
+  name          = &quot;green-environment&quot;
+  image_id      = var.ami_id
+  instance_type = var.instance_type
+}</code></pre>
+<pre><code>resource &quot;aws_autoscaling_group&quot; &quot;blue&quot; {
+  desired_capacity     = 2
+  max_size            = 3
+  min_size            = 2
+  launch_template {
+    id      = aws_launch_template.blue.id
+    version = &quot;$Latest&quot;
+  }
+}</code></pre>
+<pre><code>resource &quot;aws_autoscaling_group&quot; &quot;green&quot; {
+  desired_capacity     = 2
+  max_size            = 3
+  min_size            = 2
+  launch_template {
+    id      = aws_launch_template.green.id
+    version = &quot;$Latest&quot;
+  }
+}</code></pre>
+<h3>3. Create an Application Load Balancer (alb.tf)</h3>
+<pre><code>resource &quot;aws_lb&quot; &quot;blue_green_lb&quot; {
+  name               = &quot;blue-green-lb&quot;
+  internal           = false
+  load_balancer_type = &quot;application&quot;
+  security_groups    = [aws_security_group.lb_sg.id]
+  subnets            = aws_subnet.public[*].id
+}</code></pre>
+<pre><code>resource &quot;aws_lb_target_group&quot; &quot;blue&quot; {
+  name     = &quot;blue-tg&quot;
+  port     = 80
+  protocol = &quot;HTTP&quot;
+  vpc_id   = aws_vpc.main.id
+}</code></pre>
+<pre><code>resource &quot;aws_lb_target_group&quot; &quot;green&quot; {
+  name     = &quot;green-tg&quot;
+  port     = 80
+  protocol = &quot;HTTP&quot;
+  vpc_id   = aws_vpc.main.id
+}</code></pre>
+<h3>4. Traffic Switching Mechanism (switch_traffic.tf)</h3>
+<pre><code>resource &quot;aws_lb_listener&quot; &quot;blue&quot; {
+  load_balancer_arn = aws_lb.blue_green_lb.arn
+  port              = 80
+  protocol          = &quot;HTTP&quot;
+  default_action {
+    type             = &quot;forward&quot;
+    target_group_arn = aws_lb_target_group.blue.arn
+  }
+}</code></pre>
+<pre><code>resource &quot;aws_lb_listener&quot; &quot;green&quot; {
+  load_balancer_arn = aws_lb.blue_green_lb.arn
+  port              = 8080
+  protocol          = &quot;HTTP&quot;
+  default_action {
+    type             = &quot;forward&quot;
+    target_group_arn = aws_lb_target_group.green.arn
+  }
+}</code></pre>
+<h2>5. Deploy Using Terraform</h2>
+<p>Run the following Terraform commands:</p>
+<pre><code>tf init
+tf plan
+tf apply -auto-approve</code></pre>
+<h2>6. Switching Traffic to Green</h2>
+<pre><code>resource &quot;aws_lb_listener_rule&quot; &quot;switch&quot; {
+  listener_arn = aws_lb_listener.blue.arn
+  priority     = 100
+  conditions {
+    field  = &quot;host-header&quot;
+    values = [&quot;myapp.example.com&quot;]
+  }
+  actions {
+    type             = &quot;forward&quot;
+    target_group_arn = aws_lb_target_group.green.arn
+  }
+}</code></pre>
+<p>Apply the change:</p>
+<pre><code>tf apply -auto-approve</code></pre>
+<h2>3. Best Practices</h2>
+<p>✅ <strong>Use Immutable AMIs:</strong> Pre-build the application into an AMI to ensure consistency.✅ <strong>Automate with CI/CD:</strong> Integrate Terraform with GitHub Actions or Jenkins for seamless deployments.✅ <strong>Monitor Deployments:</strong> Use AWS CloudWatch to track instance health and application performance.✅ <strong>Enable Rollback:</strong> Ensure traffic can be easily switched back in case of failures.</p>
+<h2>4. FAQs &amp; Troubleshooting</h2>
+<h2>❓ How do I roll back to the Blue environment?</h2>
+<p>✅ Modify the listener rule to point back to the <strong>blue target group</strong> and reapply Terraform.</p>
+<pre><code>tf apply -auto-approve</code></pre>
+<h2>❓ What if the Green deployment fails?</h2>
+<p>✅ Ensure logs from CloudWatch and EC2 instances provide insights.✅ Check security groups, IAM permissions, and instance health.</p>
+<h2>❓ Can I automate traffic switching?</h2>
+<p>✅ Yes! AWS CodeDeploy or Lambda can dynamically modify the ALB listener rules.</p>
+<h2>5. Conclusion</h2>
+<p>Blue-Green Deployments with Terraform ensure <strong>zero-downtime deployments</strong> while maintaining the benefits of <strong>Immutable Infrastructure</strong>. By integrating <strong>Auto Scaling Groups, ALB, and Terraform</strong>, we can automate and streamline deployments, enabling high availability and scalability in cloud environments.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/immutable-infrastructure-with-blue-green-deployments-using-terraform-5f86b339c493" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>AI Document Processing System: MCP, ECS &amp; S3 | Rajesh Sood</title>
+  <meta name="description" content="How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol" />
+  <link rel="canonical" href="https://irajeshsood.com/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AI Document Processing System: MCP, ECS &amp; S3" />
+  <meta property="og:description" content="How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol" />
+  <meta property="og:url" content="https://irajeshsood.com/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AI Document Processing System: MCP, ECS &amp; S3" />
+  <meta property="article:published_time" content="2025-08-15" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Document Processing System: MCP, ECS &amp; S3" />
+  <meta name="twitter:description" content="How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol" />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Document Processing System: MCP, ECS & S3",
+  "datePublished": "2025-08-15",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol"
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">MCP &amp; Protocols</p>
+      <h1>AI Document Processing System: MCP, ECS &amp; S3</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-08-15">Aug 15, 2025</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Building an AI-Powered Document Processing System with MCP, ECS, and S3</h2>
+<p><em>How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol</em></p>
+<h2>The Problem That Started It All</h2>
+<p>You know that feeling when you have tons of documents scattered across S3 buckets and you wish you could just ask an AI:</p>
+<p><em>“Hey, can you summarize that report from last week?”</em></p>
+<p>Well, that’s exactly what got me started on this project.</p>
+<p>I wanted to bridge the gap between AI models (like Amazon Bedrock) and my document storage in S3 — without building yet another custom API that would be a pain to maintain.</p>
+<p>That’s where the <strong>Model Context Protocol (MCP)</strong> came into play.</p>
+<h2>What is MCP and Why Should You Care?</h2>
+<p>The Model Context Protocol is basically a standardized way for AI models to interact with external data sources.</p>
+<p>Think of it as a <strong>universal translator</strong> between AI models and your data. Instead of building custom integrations for every AI service, you build one MCP server and any MCP-compatible AI can talk to it.</p>
+<p>It’s like having a waiter at a restaurant who speaks multiple languages — your AI orders in <em>“AI speak”</em>, and the MCP server translates that into <em>“S3 speak”</em> to fetch your documents.</p>
+<h2>The Architecture: Serverless All The Way Down</h2>
+<p>Here’s what I ended up building:</p>
+<pre><code>S3 Bucket → Lambda Function → ECS Fargate → API Gateway → AI Model
+     ↓           ↓              ↓             ↓
+CloudWatch ← SNS Alerts ← Load Balancer ← Authentication</code></pre>
+<p>Let’s break it down:</p>
+<h2>1. S3 Bucket — The Document Vault</h2>
+<p>This is where all the magic starts. I configured the S3 bucket with:</p>
+<ul><li><strong>Server-side encryption</strong> (because security matters)</li><li><strong>Versioning enabled</strong> (because mistakes happen)</li><li><strong>Event notifications</strong> that trigger our Lambda function</li></ul>
+<h2>2. Lambda Function — The Trigger Happy Component</h2>
+<p>Whenever someone uploads a file to S3, this Lambda function wakes up and says:</p>
+<p><em>“Hey ECS, we got a new file to process!”</em></p>
+<p>It’s like having a <strong>doorbell for your S3 bucket</strong>.</p>
+<pre><code>import boto3
+import json
+import os</code></pre>
+<pre><code>def lambda_handler(event, context):
+    &quot;&quot;&quot;
+    Lambda function triggered when a new file is uploaded to S3.
+    Updates the ECS service to ensure it&#x27;s running to process the new file.
+    &quot;&quot;&quot;
+    try:
+        cluster = os.environ.get(&#x27;ECS_CLUSTER&#x27;)
+        service = os.environ.get(&#x27;ECS_SERVICE&#x27;)</code></pre>
+<pre><code>        if not all([cluster, service]):
+            raise ValueError(&quot;Missing required environment variables&quot;)</code></pre>
+<pre><code>        ecs = boto3.client(&#x27;ecs&#x27;)</code></pre>
+<pre><code>        ecs.update_service(
+            cluster=cluster,
+            service=service,
+            forceNewDeployment=True
+        )</code></pre>
+<pre><code>        return {
+            &quot;statusCode&quot;: 200,
+            &quot;body&quot;: json.dumps(&quot;Successfully triggered ECS service update&quot;),
+        }</code></pre>
+<pre><code>    except Exception as e:
+        print(f&quot;Error: {str(e)}&quot;)
+        raise e</code></pre>
+<h2>3. ECS Fargate — The Workhorse</h2>
+<p>This is where the actual MCP server runs. I chose Fargate because:</p>
+<ul><li>No servers to manage (<strong>serverless FTW!</strong>)</li><li>Auto-scaling when things get busy</li><li>Pay only for what you use</li></ul>
+<p>The MCP server is a <strong>Flask app</strong> that implements the MCP protocol, with endpoints like:</p>
+<ul><li><code>/health</code> — Monitoring</li><li><code>/summarize/&lt;filename&gt;</code> — The main event</li></ul>
+<h2>4. API Gateway — The Bouncer</h2>
+<p>Handles authentication, rate limiting, and makes sure no random internet person is summarizing my documents.</p>
+<h2>Infrastructure as Code — Because Manual is Painful</h2>
+<p>I used <strong>Terraform</strong> for everything. Clicking around the AWS console gets old fast.</p>
+<p>Infrastructure modules include:</p>
+<ul><li>ECR repository for Docker images</li><li>ECS cluster and service definitions</li><li>S3 bucket with proper policies</li><li>API Gateway with authentication</li><li>CloudWatch logging and monitoring</li><li>SNS for alerts</li></ul>
+<p>ECS Task Definition in Terraform:</p>
+<pre><code>resource &quot;aws_ecs_task_definition&quot; &quot;mcp_task&quot; {
+  family                   = &quot;${var.project_name}-${var.environment}-task&quot;
+  network_mode             = &quot;awsvpc&quot;
+  requires_compatibilities = [&quot;FARGATE&quot;]
+  cpu                      = var.ecs_task_cpu
+  memory                   = var.ecs_task_memory
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = aws_iam_role.ecs_task_role.arn</code></pre>
+<pre><code>  container_definitions = jsonencode([
+    {
+      name      = &quot;mcp-server&quot;
+      image     = var.container_image
+      essential = true
+      portMappings = [
+        {
+          containerPort = var.container_port
+          hostPort      = var.container_port
+          protocol      = &quot;tcp&quot;
+        }
+      ]
+      environment = [
+        { name = &quot;AWS_REGION&quot;,      value = data.aws_region.current.name },
+        { name = &quot;S3_BUCKET_NAME&quot;,  value = var.s3_bucket_name }
+      ]
+      logConfiguration = {
+        logDriver = &quot;awslogs&quot;
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.mcp_logs.name
+          awslogs-region        = data.aws_region.current.name
+          awslogs-stream-prefix = &quot;ecs&quot;
+        }
+      }
+    }
+  ])
+}</code></pre>
+<h2>The Code That Makes It Tick</h2>
+<p>MCP server endpoint:</p>
+<pre><code>@app.route(&#x27;/summarize/&lt;filename&gt;&#x27;, methods=[&#x27;GET&#x27;])
+def summarize_file(filename):
+    try:
+        response = s3_client.get_object(Bucket=S3_BUCKET, Key=filename)
+        content = response[&#x27;Body&#x27;].read().decode(&#x27;utf-8&#x27;)
+        
+        return jsonify({
+            &quot;status&quot;: &quot;success&quot;,
+            &quot;filename&quot;: filename,
+            &quot;content&quot;: content,
+            &quot;timestamp&quot;: time.time()
+        })
+    except Exception as e:
+        logger.error(f&quot;Error processing file {filename}: {str(e)}&quot;)
+        return jsonify({&quot;error&quot;: str(e)}), 500</code></pre>
+<h2>CI/CD Pipeline</h2>
+<p>GitHub Actions handles:</p>
+<ol><li>Build &amp; test code</li><li>Build &amp; push Docker images to ECR</li><li>Deploy infrastructure with Terraform</li><li>Update ECS services</li></ol>
+<pre><code>name: CI/CD Pipeline</code></pre>
+<pre><code>on:
+  push:
+    branches: [ &quot;main&quot;, &quot;develop&quot; ]
+  pull_request:
+    branches: [ &quot;main&quot;, &quot;develop&quot; ]</code></pre>
+<p><em>(full pipeline code in </em><a href="https://github.com/soodrajesh/mcp-ecs-s3-api-poc"><em>repo</em></a><em>)</em></p>
+<h2>Monitoring &amp; Observability</h2>
+<ul><li><strong>CloudWatch Logs</strong> for everything</li><li><strong>CloudWatch Metrics</strong> for API calls, processing times</li><li><strong>SNS Alerts</strong> for failures</li><li><strong>Health Checks</strong> for ECS services</li></ul>
+<h2>Lessons Learned</h2>
+<ol><li>Start monitoring early</li><li>Test for circular dependencies (S3 → Lambda → ECS)</li><li>Mock external services</li><li>Document APIs better</li></ol>
+<h2>Real-World Use Cases</h2>
+<ul><li>Legal contract analysis</li><li>Marketing document insights</li><li>Academic research workflows</li><li>Compliance reporting</li></ul>
+<h2>Performance &amp; Costs</h2>
+<ul><li>Cold start: ~2–3s</li><li>Warm requests: ~200–500ms</li><li>Cost: ~$20–30/month moderate usage</li><li>Scaling: 100+ concurrent requests easily</li></ul>
+<h2>Security</h2>
+<ul><li>API Gateway auth</li><li>IAM least privilege</li><li>S3 restrictive policies</li><li>VPC isolation</li><li>Encryption at rest &amp; transit</li></ul>
+<h2>FAQ</h2>
+<p><strong>**Q: Why use MCP instead of just building a REST API?**</strong></p>
+<p>A: MCP provides a standardized protocol that any compatible AI model can use. It’s like building to a standard instead of reinventing the wheel every time.</p>
+<p><strong>**Q: How much does this cost to run?**</strong></p>
+<p>A: For moderate usage (few hundred requests per day), you’re looking at $20–30/month. Most of that is ECS Fargate compute time.</p>
+<p><strong>**Q: Can this handle large files?**</strong></p>
+<p>A: Currently it’s designed for text files up to a few MB. For larger files, you’d want to implement streaming or chunking.</p>
+<p><strong>**Q: What about security?**</strong></p>
+<p>A: The setup includes API Gateway authentication, IAM roles, VPC isolation, and encrypted storage. It’s production-ready from a security standpoint.</p>
+<p><strong>**Q: How do I add support for different file types?**</strong></p>
+<p>A: You’d extend the MCP server to handle different MIME types and add appropriate parsers (PDF, DOCX, etc.).</p>
+<p><strong>**Q: Can I use this with OpenAI instead of Bedrock?**</strong></p>
+<p>A: Absolutely! The MCP server is AI-agnostic. You just need to point your AI client to the MCP endpoints.</p>
+<p><strong>**Q: What happens if ECS tasks crash?**</strong></p>
+<p>A: The service will automatically restart failed tasks, and the load balancer will route traffic away from unhealthy instances.</p>
+<p><strong>**Q: How do I monitor this in production?**</strong></p>
+<p>A: CloudWatch dashboards, SNS alerts, and the health check endpoints give you full visibility into system health.</p>
+<p><strong>**Q: Is this overkill for simple document processing?**</strong></p>
+<p>A: Maybe! But it’s designed to scale. If you just need to process a few files, a simple Lambda function might be enough.</p>
+<p><strong>**Q: Can I deploy this in multiple AWS regions?**</strong></p>
+<p>A: The Terraform code would need modifications for multi-region deployment, but the architecture supports it.</p>
+<p><em>This project is open source on my </em><a href="https://github.com/soodrajesh/mcp-ecs-s3-api-poc"><em>GitHub</em></a><em>. Fork it, break it, improve it!</em></p>
+<p>🚀 <strong>Try it yourself:</strong> <a href="https://github.com/soodrajesh/mcp-ecs-s3-api-poc">GitHub Repo</a> 💬 <strong>Feedback?</strong> Connect with me</p>
+<p><em>Written by Rajesh Sood</em></p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

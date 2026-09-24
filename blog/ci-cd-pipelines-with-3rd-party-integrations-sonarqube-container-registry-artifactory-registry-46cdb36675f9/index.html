@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>CI/CD Pipelines with SonarQube &amp; Artifactory | Rajesh Sood</title>
+  <meta name="description" content="Modern DevOps practices require seamless integration of CI/CD pipelines with SonarQube, container registries, and artifact registries." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CI/CD Pipelines with SonarQube &amp; Artifactory" />
+  <meta property="og:description" content="Modern DevOps practices require seamless integration of CI/CD pipelines with SonarQube, container registries, and artifact registries." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CI/CD Pipelines with SonarQube &amp; Artifactory" />
+  <meta property="article:published_time" content="2025-03-01" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CI/CD Pipelines with SonarQube &amp; Artifactory" />
+  <meta name="twitter:description" content="Modern DevOps practices require seamless integration of CI/CD pipelines with SonarQube, container registries, and artifact registries." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CI/CD Pipelines with SonarQube & Artifactory",
+  "datePublished": "2025-03-01",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Modern DevOps practices require seamless integration of CI/CD pipelines with SonarQube, container registries, and artifact registries."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">CI/CD</p>
+      <h1>CI/CD Pipelines with SonarQube &amp; Artifactory</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-01">Mar 1, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Modern DevOps practices require seamless integration of CI/CD pipelines with third-party tools like SonarQube (for code quality), container registries (for image management), and artifact registries (for package management). In this blog, we’ll explore how to define and create such pipelines with real-world examples and advanced configurations.</p>
+<h2>Why Integrate 3rd Party Tools in CI/CD?</h2>
+<p>Integrating third-party tools into your CI/CD pipelines provides:</p>
+<ul><li><strong>Automated code quality analysis</strong> (SonarQube)</li><li><strong>Secure and efficient artifact storage</strong> (Artifact Registry, JFrog Artifactory, AWS ECR, etc.)</li><li><strong>Container security scanning and version control</strong></li><li><strong>Streamlined deployments with automated triggers</strong></li><li><strong>Improved compliance and governance</strong></li></ul>
+<h2>Setting Up the CI/CD Pipeline with 3rd Party Integrations</h2>
+<h2>1. Prerequisites</h2>
+<ul><li>A <strong>GitHub/GitLab/Bitbucket</strong> repository with a sample application</li><li>A <strong>CI/CD tool</strong> (Jenkins, GitHub Actions, GitLab CI/CD, ArgoCD, etc.)</li><li><strong>SonarQube Server</strong> (Self-hosted or SonarCloud)</li><li><strong>Docker &amp; Kubernetes</strong> installed (for containerization and deployment)</li><li><strong>Container Registry</strong> (AWS ECR, GCP Artifact Registry, DockerHub, etc.)</li><li><strong>Access credentials</strong> to these services</li></ul>
+<h2>Step-by-Step Guide</h2>
+<h2>Step 1: Setting Up SonarQube Integration</h2>
+<h3>1.1 Install and Configure SonarQube</h3>
+<pre><code># Run SonarQube locally using Docker
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts</code></pre>
+<ul><li>Access SonarQube at <code><a href="http://localhost:9000">http://localhost:9000</a></code></li><li>Generate a <strong>SonarQube token</strong> for authentication</li></ul>
+<h3>1.2 Configure SonarQube in CI/CD Pipeline (GitHub Actions Example)</h3>
+<p>Add the following <strong>GitHub Actions workflow</strong> (<code>.github/workflows/sonarqube.yml</code>):</p>
+<pre><code>name: SonarQube Analysis</code></pre>
+<pre><code>on:
+  push:
+    branches:
+      - main</code></pre>
+<pre><code>jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Set Up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: &#x27;11&#x27;
+          distribution: &#x27;adopt&#x27;
+      
+      - name: Run SonarQube Scan
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=my_project \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}</code></pre>
+<h2>Step 2: Pushing Images to a Container Registry</h2>
+<h3>2.1 Authenticating and Pushing Docker Images</h3>
+<p>Example for <strong>AWS ECR</strong>:</p>
+<pre><code># Authenticate Docker to AWS ECR
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin &lt;account-id&gt;.dkr.ecr.us-east-1.amazonaws.com</code></pre>
+<pre><code># Build and push Docker image
+docker build -t my-app .
+docker tag my-app:latest &lt;account-id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+docker push &lt;account-id&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest</code></pre>
+<p>For <strong>GCP Artifact Registry</strong>:</p>
+<pre><code># Authenticate and push to Google Artifact Registry
+gcloud auth configure-docker us-central1-docker.pkg.dev</code></pre>
+<pre><code>docker tag my-app us-central1-docker.pkg.dev/my-project/my-repo/my-app</code></pre>
+<pre><code>docker push us-central1-docker.pkg.dev/my-project/my-repo/my-app</code></pre>
+<h2>Step 3: Deploying Artifacts to Artifact Registry</h2>
+<p>For <strong>JFrog Artifactory</strong>:</p>
+<pre><code>curl -u admin:password -X PUT &quot;https://my-jfrog-instance/artifactory/my-repo/my-app.jar&quot; -T target/my-app.jar</code></pre>
+<p>For <strong>AWS CodeArtifact</strong>:</p>
+<pre><code>aws codeartifact login --tool npm --repository my-repo --domain my-domain --domain-owner &lt;AWS_ACCOUNT_ID&gt;
+npm publish</code></pre>
+<h2>Step 4: Automating CI/CD with Jenkins</h2>
+<p>Example <code>Jenkinsfile</code> for a full pipeline:</p>
+<pre><code>pipeline {
+    agent any
+    environment {
+        ECR_REGISTRY = &#x27;&lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.us-east-1.amazonaws.com&#x27;
+        IMAGE_NAME = &#x27;my-app&#x27;
+    }
+    stages {
+        stage(&#x27;Checkout Code&#x27;) {
+            steps {
+                git &#x27;https://github.com/my-repo.git&#x27;
+            }
+        }
+        stage(&#x27;Build and Test&#x27;) {
+            steps {
+                sh &#x27;mvn clean test&#x27;
+            }
+        }
+        stage(&#x27;SonarQube Scan&#x27;) {
+            steps {
+                sh &#x27;mvn sonar:sonar -Dsonar.projectKey=my_project&#x27;
+            }
+        }
+        stage(&#x27;Build Docker Image&#x27;) {
+            steps {
+                sh &#x27;docker build -t $ECR_REGISTRY/$IMAGE_NAME:latest .&#x27;
+            }
+        }
+        stage(&#x27;Push to ECR&#x27;) {
+            steps {
+                sh &#x27;docker push $ECR_REGISTRY/$IMAGE_NAME:latest&#x27;
+            }
+        }
+    }
+}</code></pre>
+<h2>Advanced Commands and Configurations</h2>
+<h2>1. Automating Image Security Scans</h2>
+<p>Integrate <strong>Trivy</strong> with CI/CD:</p>
+<pre><code>trivy image --format table &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.us-east-1.amazonaws.com/my-app:latest</code></pre>
+<h2>2. Enforcing Policy-as-Code with OPA Gatekeeper</h2>
+<pre><code>kubectl apply -f constraint-template.yaml
+kubectl apply -f constraint.yaml</code></pre>
+<h2>FAQs</h2>
+<h2>1. How do I integrate SonarQube in GitLab CI/CD?</h2>
+<p>Modify <code>.gitlab-ci.yml</code>:</p>
+<pre><code>sonarqube:
+  script:
+    - sonar-scanner -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN</code></pre>
+<h2>2. How do I enable security scanning in AWS ECR?</h2>
+<p>Enable scan on push:</p>
+<pre><code>aws ecr put-image-scanning-configuration --repository-name my-repo --image-scanning-configuration scanOnPush=true</code></pre>
+<h2>3. How do I manage multiple container registries in Jenkins?</h2>
+<p>Use environment variables for dynamic registry authentication.</p>
+<h2>4. Can I use multiple artifact registries in a single pipeline?</h2>
+<p>Yes! Use conditions to push artifacts to different registries based on environment or branch.</p>
+<h2>Conclusion</h2>
+<p>Integrating <strong>SonarQube, container registries, and artifact registries</strong> into CI/CD pipelines enhances security, quality, and automation. This guide provided real-world examples to set up a robust DevOps workflow. 🚀</p>
+<p>Let me know if you have questions! 💡</p>
+
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/ci-cd-pipelines-with-3rd-party-integrations-sonarqube-container-registry-artifactory-registry-46cdb36675f9" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

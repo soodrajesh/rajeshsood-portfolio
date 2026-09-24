@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Kubernetes Management: A Comprehensive Guide with Real-World Examples | Rajesh Sood</title>
+  <meta name="description" content="Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Management: A Comprehensive Guide with Real-World Examples" />
+  <meta property="og:description" content="Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Kubernetes Management: A Comprehensive Guide with Real-World Examples" />
+  <meta property="article:published_time" content="2025-03-13" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kubernetes Management: A Comprehensive Guide with Real-World Examples" />
+  <meta name="twitter:description" content="Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets." />
+  <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kubernetes Management: A Comprehensive Guide with Real-World Examples",
+  "datePublished": "2025-03-13",
+  "author": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rajesh Sood",
+    "url": "https://irajeshsood.com/"
+  },
+  "url": "https://irajeshsood.com/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/",
+  "image": "https://irajeshsood.com/og-image.png",
+  "description": "Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Kubernetes</p>
+      <h1>Kubernetes Management: A Comprehensive Guide with Real-World Examples</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-03-13">Mar 13, 2025</time><span>·</span><span>2 min read</span></div>
+      <article class="article-body">
+<figure><img src="/blog/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<h2>Introduction</h2>
+<p>Managing a Kubernetes environment requires expertise in handling Pods, Clusters, Services, Monitoring, Namespaces, Deployments, Configurations, and Secrets. This guide covers essential commands and real-world examples to help DevOps professionals streamline Kubernetes management.</p>
+<h2>1️⃣ Pod Management</h2>
+<p>Pods are the smallest deployable units in Kubernetes. Managing Pods efficiently ensures application reliability and scalability.</p>
+<h2>🔹 Creating a Pod</h2>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app-pod
+  labels:
+    app: my-app
+spec:
+  containers:
+    - name: my-app-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80</code></pre>
+<pre><code>kubectl apply -f pod.yaml</code></pre>
+<h2>🔹 Viewing Pod Status</h2>
+<pre><code>kubectl get pods</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>NAME           READY   STATUS    RESTARTS   AGE
+my-app-pod     1/1     Running   0          10s</code></pre>
+<h2>🔹 Describe Pod</h2>
+<pre><code>kubectl describe pod my-app-pod</code></pre>
+<h2>🔹 Deleting a Pod</h2>
+<pre><code>kubectl delete pod my-app-pod</code></pre>
+<h2>2️⃣ Cluster Management</h2>
+<p>A Kubernetes cluster consists of nodes that run containerized applications.</p>
+<h2>🔹 View Cluster Info</h2>
+<pre><code>kubectl cluster-info</code></pre>
+<h2>🔹 List Nodes</h2>
+<pre><code>kubectl get nodes</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>NAME              STATUS   ROLES    AGE    VERSION
+worker-node-1     Ready    &lt;none&gt;   10d    v1.26.0</code></pre>
+<h2>🔹 Drain a Node for Maintenance</h2>
+<pre><code>kubectl drain worker-node-1 --ignore-daemonsets --delete-emptydir-data</code></pre>
+<h2>🔹 Uncordon a Node (Re-enable scheduling)</h2>
+<pre><code>kubectl uncordon worker-node-1</code></pre>
+<h2>3️⃣ Service Management</h2>
+<p>Services expose applications running in pods within the cluster or to external users.</p>
+<h2>🔹 Create a Service</h2>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80</code></pre>
+<pre><code>kubectl apply -f service.yaml</code></pre>
+<h2>🔹 List Services</h2>
+<pre><code>kubectl get services</code></pre>
+<h2>🔹 Describe a Service</h2>
+<pre><code>kubectl describe service my-service</code></pre>
+<h2>🔹 Delete a Service</h2>
+<pre><code>kubectl delete service my-service</code></pre>
+<h2>4️⃣ Resource Monitoring</h2>
+<p>Monitoring ensures cluster health and resource optimization.</p>
+<h2>🔹 View Pod Logs</h2>
+<pre><code>kubectl logs my-app-pod</code></pre>
+<h2>🔹 Monitor Live Logs</h2>
+<pre><code>kubectl logs -f my-app-pod</code></pre>
+<h2>🔹 View Resource Usage</h2>
+<pre><code>kubectl top pod</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>NAME           CPU(cores)   MEMORY(bytes)
+my-app-pod     100m        200Mi</code></pre>
+<h2>5️⃣ Namespace Management</h2>
+<p>Namespaces help manage different environments within a cluster.</p>
+<h2>🔹 List Namespaces</h2>
+<pre><code>kubectl get namespaces</code></pre>
+<h2>🔹 Create a Namespace</h2>
+<pre><code>kubectl create namespace dev-environment</code></pre>
+<h2>🔹 Delete a Namespace</h2>
+<pre><code>kubectl delete namespace dev-environment</code></pre>
+<h2>6️⃣ Deployment Management</h2>
+<p>Deployments manage updates and scaling of applications.</p>
+<h2>🔹 Create a Deployment</h2>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80</code></pre>
+<pre><code>kubectl apply -f deployment.yaml</code></pre>
+<h2>🔹 List Deployments</h2>
+<pre><code>kubectl get deployments</code></pre>
+<h2>🔹 Scale a Deployment</h2>
+<pre><code>kubectl scale deployment my-app-deployment --replicas=5</code></pre>
+<h2>🔹 Delete a Deployment</h2>
+<pre><code>kubectl delete deployment my-app-deployment</code></pre>
+<h2>7️⃣ Configuration &amp; Secrets Management</h2>
+<h2>🔹 Create a ConfigMap</h2>
+<pre><code>kubectl create configmap app-config --from-literal=ENV=production</code></pre>
+<h2>🔹 View ConfigMaps</h2>
+<pre><code>kubectl get configmaps</code></pre>
+<h2>🔹 Create a Secret</h2>
+<pre><code>kubectl create secret generic db-secret --from-literal=username=admin --from-literal=password=securepass</code></pre>
+<h2>🔹 View Secrets</h2>
+<pre><code>kubectl get secrets</code></pre>
+<h2>❓ FAQs</h2>
+<h2>1️⃣ How do I restart all pods in a namespace?</h2>
+<pre><code>kubectl delete pods --all -n my-namespace</code></pre>
+<h2>2️⃣ How do I scale a deployment?</h2>
+<pre><code>kubectl scale deployment my-app-deployment --replicas=5</code></pre>
+<h2>3️⃣ How do I check logs of a failing pod?</h2>
+<pre><code>kubectl logs -f my-app-pod</code></pre>
+<h2>4️⃣ How do I check cluster events?</h2>
+<pre><code>kubectl get events --sort-by=.metadata.creationTimestamp</code></pre>
+<h2>5️⃣ How do I find which node a pod is running on?</h2>
+<pre><code>kubectl get pod my-app-pod -o wide</code></pre>
+<h2>6️⃣ How do I restart a pod without deleting it?</h2>
+<pre><code>kubectl rollout restart deployment my-app-deployment</code></pre>
+<h2>🎯 Conclusion</h2>
+<p>Managing Kubernetes effectively requires understanding pods, clusters, services, monitoring, namespaces, deployments, and secrets. This guide provided real-world examples, troubleshooting steps, and best practices.</p>
+<p>Stay tuned for more Kubernetes deep dives! 🚀🔥</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+        <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/kubernetes-management-a-comprehensive-guide-with-real-world-examples-1345678f46d9" target="_blank" rel="noopener">Medium</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
