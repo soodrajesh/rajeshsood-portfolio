@@ -33,6 +33,13 @@
   wire('cat-tree', 'cat', 'cat');
   wire('arc-tree', 'arc', 'arc');
 
+  // Deep link from a post's "More on <category>" button: /blog/#cat=k8s
+  var m = /[#&]cat=([\w-]+)/.exec(location.hash);
+  if (m) {
+    var target = document.querySelector('#cat-tree .f-btn[data-cat="' + m[1] + '"]');
+    if (target) target.click();
+  }
+
   input.addEventListener('input', function () {
     state.q = input.value.trim().toLowerCase();
     apply();
