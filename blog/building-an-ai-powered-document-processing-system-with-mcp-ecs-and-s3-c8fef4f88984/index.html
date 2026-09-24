@@ -92,7 +92,7 @@
       <h1>AI Document Processing System: MCP, ECS &amp; S3</h1>
       <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2025-08-15">Aug 15, 2025</time><span>·</span><span>5 min read</span></div>
       <article class="article-body">
-<figure><img src="/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
+<figure><img width="800" height="800" loading="lazy" decoding="async" src="/blog/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984/images/img-1.jpg" loading="lazy" alt="Screenshot from the article" /></figure>
 <h2>Building an AI-Powered Document Processing System with MCP, ECS, and S3</h2>
 <p><em>How I built a serverless architecture that lets AI models intelligently fetch and summarize documents from S3 using the Model Context Protocol</em></p>
 <h2>The Problem That Started It All</h2>
@@ -217,7 +217,7 @@ def summarize_file(filename):
     branches: [ &quot;main&quot;, &quot;develop&quot; ]
   pull_request:
     branches: [ &quot;main&quot;, &quot;develop&quot; ]</code></pre>
-<p><em>(full pipeline code in </em><a href="https://github.com/soodrajesh/mcp-ecs-s3-api-poc"><em>repo</em></a><em>)</em></p>
+<p><em>(full pipeline code in </em><em>repo</em><em>)</em></p>
 <h2>Monitoring &amp; Observability</h2>
 <ul><li><strong>CloudWatch Logs</strong> for everything</li><li><strong>CloudWatch Metrics</strong> for API calls, processing times</li><li><strong>SNS Alerts</strong> for failures</li><li><strong>Health Checks</strong> for ECS services</li></ul>
 <h2>Lessons Learned</h2>
@@ -249,8 +249,8 @@ def summarize_file(filename):
 <p>A: Maybe! But it’s designed to scale. If you just need to process a few files, a simple Lambda function might be enough.</p>
 <p><strong>**Q: Can I deploy this in multiple AWS regions?**</strong></p>
 <p>A: The Terraform code would need modifications for multi-region deployment, but the architecture supports it.</p>
-<p><em>This project is open source on my </em><a href="https://github.com/soodrajesh/mcp-ecs-s3-api-poc"><em>GitHub</em></a><em>. Fork it, break it, improve it!</em></p>
-<p>🚀 <strong>Try it yourself:</strong> <a href="https://github.com/soodrajesh/mcp-ecs-s3-api-poc">GitHub Repo</a> 💬 <strong>Feedback?</strong> Connect with me</p>
+<p><em>This project is open source on my </em><em>GitHub</em><em>. Fork it, break it, improve it!</em></p>
+<p>🚀 <strong>Try it yourself:</strong> GitHub Repo 💬 <strong>Feedback?</strong> Connect with me</p>
 <p><em>Written by Rajesh Sood</em></p>
         <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
         <p class="article-source-note">Originally published on <a href="https://medium.com/@soodrajesh/building-an-ai-powered-document-processing-system-with-mcp-ecs-and-s3-c8fef4f88984" target="_blank" rel="noopener">Medium</a>.</p>
