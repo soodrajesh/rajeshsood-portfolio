@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>GKE Platform Engineering: Binary Authorization &amp; Canary | Rajesh Sood</title>
+  <meta name="description" content="An internal developer platform on GKE Autopilot: signed-image supply chain, GitOps, canary releases with automatic rollback, a WAF-protected Gateway — deployed live, 28/28 tests passing." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="GKE Platform Engineering: Binary Authorization &amp; Canary" />
+  <meta property="og:description" content="An internal developer platform on GKE Autopilot: signed-image supply chain, GitOps, canary releases with automatic rollback, a WAF-protected Gateway — deployed live, 28/28 tests passing." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/architecture.png" />
+  <meta property="og:image:width" content="3400" />
+  <meta property="og:image:height" content="3280" />
+  <meta property="og:image:alt" content="GKE Autopilot platform architecture: admission gates, GitOps, canary delivery, Gateway/Cloud Armor" />
+  <meta property="article:published_time" content="2026-09-25" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GKE Platform Engineering: Binary Authorization &amp; Canary" />
+  <meta name="twitter:description" content="An internal developer platform on GKE Autopilot: signed-image supply chain, GitOps, canary releases with automatic rollback, a WAF-protected Gateway — deployed live, 28/28 tests passing." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "GKE Platform Engineering: Binary Authorization & Canary",
+  "datePublished": "2026-09-25",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/",
+  "image": "https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/architecture.png",
+  "description": "An internal developer platform on GKE Autopilot: signed-image supply chain, GitOps, canary releases with automatic rollback, a WAF-protected Gateway — deployed live, 28/28 tests passing."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>GKE Platform Engineering: Binary Authorization &amp; Canary</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-25">Sep 25, 2026</time><span>·</span><span>10 min read</span></div>
+      <article class="article-body">
+<figure><img width="3400" height="3280" loading="lazy" decoding="async" alt="Architecture diagram: GKE Autopilot cluster, three admission gates, Argo CD GitOps, Cloud Deploy canary, Gateway and Cloud Armor" src="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/architecture.png"/><figcaption>Every pod passes three independent admission gates before it runs: Pod Security, ValidatingAdmissionPolicy, then Binary Authorization.</figcaption></figure>
+<p>Most "GKE demos" stop at a cluster with a Deployment and a Service. That proves Kubernetes works. It doesn't prove the cluster is safe to hand to five other teams. I wanted to build the thing an actual platform team owns: a cluster where nobody can run an unsigned image, nobody can break the org's rules even by accident, deployments roll out gradually and roll back on their own, and the edge is protected by a WAF — all provable from the command line, not just described in a README.</p>
+<p>So I built <a href="https://github.com/soodrajesh/gcp-gke-platform-engineering" target="_blank" rel="noopener">gcp-gke-platform-engineering</a>: a GKE Autopilot cluster with a signed-image-only supply chain, GitOps for the platform layer, progressive delivery with automatic canary and rollback, a WAF-protected Gateway, and golden-signal observability. Everything is provisioned by one script and destroyed by one script. It went live in europe-west1 on 2026-09-25/26, and its own test suite — 28 checks against the running cluster — passed 28 of 28.</p>
+<h2>Three gates, not one</h2>
+<p>The core idea is that "policy enforcement" shouldn't be a single YAML file you hope catches everything. Every pod that tries to schedule on this cluster has to clear three independent, structurally different gates:</p>
+<ul>
+<li><strong>Pod Security Admission</strong> — the built-in Kubernetes control. Every application namespace runs at the <code>restricted</code> profile: no privileged containers, no host namespaces, no running as root.</li>
+<li><strong>ValidatingAdmissionPolicy</strong> — native CEL rules running inside the API server itself, not a separate webhook. No <code>:latest</code> tags, a <code>team</code> label is mandatory on every workload, and no bare <code>LoadBalancer</code> Services (everything goes through the shared Gateway). A 9-case behavioural suite runs against a real API server in CI, not a mock.</li>
+<li><strong>Binary Authorization</strong> — the supply-chain gate. Cloud Build builds, scans, and signs each image <em>digest</em> with a Cloud KMS key; Binary Authorization admits only digests carrying that signature. Tags are immutable, so there's no way to swap what a tag points to after the fact.</li>
+</ul>
+<p>The live test suite proves this isn't decorative. An unsigned image is rejected with an explicit <code>No attestations found</code> message; a deploy that references a mutable tag instead of a digest is denied; and the pipeline's own build — signed the normal way — is admitted without any manual override.</p>
+<h2>Soft multi-tenancy, the way it actually works</h2>
+<p>Each team gets a namespace with Pod Security <code>restricted</code>, a ResourceQuota, a default-deny NetworkPolicy, and its own identity via Workload Identity Federation for GKE — IAM roles are granted straight to <code>ns/&lt;namespace&gt;/sa/&lt;serviceaccount&gt;</code>, no service-account keys anywhere. The live checks make the isolation concrete rather than assumed: <code>team-a</code>'s workload can read its own GCS bucket; <code>team-b</code>, using the exact same code path but a different namespace identity, gets a 403. That's the test that actually matters — not that the IAM binding exists, but that the wrong identity is refused.</p>
+<h2>Releases that catch their own mistakes</h2>
+<p>Google Cloud Deploy owns the application pipeline: staging deploys automatically, production requires a human approval, and once approved, traffic shifts 25% → 50% → 100% with a soak period between steps. To prove this isn't just configuration, I ran a real bad-release drill: a deliberately faulty build was pushed through to the 25% canary stage, and the live test suite watched 25% of responses come back faulty while the other 75% stayed healthy. Rolling back was a single command — and in production that rollback itself requires the same approval gate as a forward release, which is a detail easy to get wrong (make rollback "safe" and you've just built an unaudited backdoor around your own approval process).</p>
+<figure><img loading="lazy" decoding="async" alt="Live canary drill: 25 percent of traffic hitting a faulty release, then rollback to zero errors" src="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/live-canary-drill.png"/><figcaption>The canary drill, captured live: a bad release serving faulty responses at the 25% stage, then a clean rollback.</figcaption></figure>
+<p>The platform layer itself — namespaces, network policies, the shared Gateway, monitoring — is managed the GitOps way, through an Argo CD app-of-apps with self-heal and prune turned on, scoped to its own <code>AppProject</code> so it can't reach outside its lane. If someone hand-edits a NetworkPolicy on the live cluster, Argo CD notices the drift and heals it back to what's in Git — I exercised this directly in <a href="https://github.com/soodrajesh/gcp-gke-platform-engineering/blob/main/docs/runbooks/03-gitops-changes.md" target="_blank" rel="noopener">runbook 03</a>.</p>
+<figure><img loading="lazy" decoding="async" alt="Argo CD app-of-apps view showing the platform layer's managed applications" src="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/argocd-app-of-apps.png"/><figcaption>Argo CD's app-of-apps: the platform layer as one tree, self-healing and pruning against Git.</figcaption></figure>
+<h2>Edge protection and observability that isn't a dashboard nobody looks at</h2>
+<p>Traffic reaches the cluster through a global external Application Load Balancer, provisioned via the Kubernetes Gateway API, sitting behind Cloud Armor with OWASP SQL-injection and XSS rule sets plus rate limiting. The live suite fires actual attack-shaped requests at the edge and confirms they're blocked before they reach a pod.</p>
+<figure><img loading="lazy" decoding="async" alt="Cloud Armor blocking SQL injection and XSS payloads at the Gateway edge" src="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/images/live-waf-edge.png"/><figcaption>Attack-shaped requests hitting the Gateway, and Cloud Armor's WAF rules stopping them before a pod ever sees them.</figcaption></figure>
+<p>Behind the edge, Google's Managed Prometheus scrapes RED metrics (rate, errors, duration) from the demo "shop" service and feeds Cloud Monitoring PromQL alerting and a dashboard. The live test confirms the metrics are actually queryable through PromQL against the deployed workload — not just that a ServiceMonitor object exists somewhere.</p>
+<h2>Eight design calls, each with a trade-off I'm not hiding</h2>
+<p>The repo's ADRs are where the honest trade-offs live, and I think that's the part most architecture write-ups skip:</p>
+<table>
+<thead><tr><th>Decision</th><th>What it costs</th></tr></thead>
+<tbody>
+<tr><td>Autopilot over Standard</td><td>No custom nodes or GPUs — there's a documented escape hatch, but you feel the ceiling</td></tr>
+<tr><td>Argo CD for the platform, Cloud Deploy for apps</td><td>Two tools instead of one, with a hard ownership boundary between them</td></tr>
+<tr><td>Authorized networks + Google IPs for control-plane access, not a fully private endpoint</td><td>Wider API surface exposed than a private-pool setup</td></tr>
+<tr><td>KMS-signed attestations, digest-pinned releases</td><td>The allow-list for trusted upstream add-ons is a reviewed but real hole</td></tr>
+<tr><td>Pod-count canary; HPA only in staging</td><td>Traffic split is approximate, not exact percentage-based</td></tr>
+<tr><td>Native CEL ValidatingAdmissionPolicy, not Gatekeeper/Kyverno</td><td>No mutation or generation webhooks — validation only</td></tr>
+<tr><td>Shared Gateway + Cloud Armor</td><td>HTTP only in this demo — no domain means no managed cert</td></tr>
+<tr><td>Namespace tenancy + per-tenant Workload Identity principal</td><td>Soft multi-tenancy, not hard isolation (no gVisor sandbox, no separate node pools)</td></tr>
+</tbody>
+</table>
+<h2>What a live deployment actually caught</h2>
+<p>None of the seven bugs this build hit were things I could have found by reading documentation. Autopilot enforces resource-request limits that Standard doesn't warn you about. GKE injects fields into admitted objects that then trip your own <code>ignoreDifferences</code> config in Argo CD if you don't account for them. NodeLocal DNS listens on <code>169.254.20.10</code>, and a default-deny egress NetworkPolicy will silently break DNS resolution cluster-wide unless you explicitly allow it. Managed Prometheus runs in a namespace called <code>gke-gmp-system</code>, not the name you'd guess. And GitHub's OIDC subject claims are immutable in a way that broke the Workload Identity Federation trust relationship until I adjusted the attribute condition — documented as <a href="https://github.com/soodrajesh/gcp-gke-platform-engineering/blob/main/docs/runbooks/09-troubleshooting.md#l9" target="_blank" rel="noopener">L9 in the troubleshooting runbook</a>. Every one of these is the kind of thing that looks obvious in retrospect and invisible in a design doc.</p>
+<p>One thing I want to be straightforward about: the full CI/CD <code>release</code> job — the one that would push a build through Workload Identity Federation end to end against a live cluster — was proven for keyless authentication and service-account impersonation, but was not run end to end against a live stack in this session. I'd rather say that plainly than imply more coverage than the evidence supports.</p>
+<h2>What's deliberately left out</h2>
+<p>The cluster's control-plane endpoint uses an authorized-networks allow-list rather than a fully private endpoint with private connectivity pools. There's no domain in this demo, so the Gateway serves HTTP only — no managed certificate. Binary Authorization checks for a valid signature but doesn't yet require a separate SLSA provenance or vulnerability attestation (that pairing shows up in the companion <a href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">Cloud Run secure-delivery build</a>). Tenancy is soft — no service mesh, no gVisor sandboxing between namespaces. All of these are named in the repo's <a href="https://github.com/soodrajesh/gcp-gke-platform-engineering/blob/main/docs/threat-model.md" target="_blank" rel="noopener">threat model</a> rather than glossed over.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-gke-platform-engineering<br/>cd gcp-gke-platform-engineering<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → cluster → GitOps → signed build → staging → prod canary → live tests<br/>./scripts/down.sh  # 94 resources, nothing billable left</code></pre>
+<p>Autopilot bills per pod request, so a session left running for a day costs a few euros in pods, Cloud NAT, the load balancer, and Cloud Armor — bounded by a Terraform-managed budget with alerts. <code>down.sh</code> specifically removes the load balancer and network endpoint groups the Gateway controller creates outside Terraform's view before it destroys the VPC, because otherwise teardown just hangs.</p>
+<p>The point of building this the hard way — live, torn down, rebuilt from scratch, every claim checked against the running system — is that "it should work" and "it worked, here's the test output" are different sentences. This repo only makes the second kind.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Sep 26, 2026</span></div>
+            <h3>Enterprise RAG Platform: Access Control, DLP &amp; Cost</h3>
+            <p>A governed GenAI knowledge platform where forbidden chunks are never retrieved — enforced in SQL, proven with real distinct identities.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+          <a class="post-card" href="/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/">
+            <div class="post-card-meta"><span class="chip">Kubernetes</span><span>Sep 23, 2026</span></div>
+            <h3>KEDA and Karpenter on GKE: Event-Driven Autoscaling</h3>
+            <p>Scale pods on Pub/Sub queue depth with KEDA and provision right-sized nodes with Karpenter on GKE Standard, both dropping to zero when idle.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-platform-eng">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

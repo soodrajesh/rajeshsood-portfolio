@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore | Rajesh Sood</title>
+  <meta name="description" content="An event-driven order platform on GCP with no servers to run: a Cloud Workflows saga that retries and compensates, and never oversells stock — deployed live, 49/49 tests." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore" />
+  <meta property="og:description" content="An event-driven order platform on GCP with no servers to run: a Cloud Workflows saga that retries and compensates, and never oversells stock — deployed live, 49/49 tests." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="3040" />
+  <meta property="og:image:alt" content="Serverless orders platform architecture: API Gateway, Cloud Run services, Cloud Workflows saga, Firestore" />
+  <meta property="article:published_time" content="2026-09-27" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore" />
+  <meta name="twitter:description" content="An event-driven order platform on GCP with no servers to run: a Cloud Workflows saga that retries and compensates, and never oversells stock — deployed live, 49/49 tests." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Serverless Orders Platform: Cloud Run, Workflows Saga & Firestore",
+  "datePublished": "2026-09-27",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/",
+  "image": "https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/architecture.png",
+  "description": "An event-driven order platform on GCP with no servers to run: a Cloud Workflows saga that retries and compensates, and never oversells stock — deployed live, 49/49 tests."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-27">Sep 27, 2026</time><span>·</span><span>10 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Serverless orders platform architecture: API Gateway, Cloud Run orders/inventory/payments services, Cloud Workflows saga, Firestore" src="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/architecture.png"/><figcaption>Orders accepted with 202, processed by a saga that retries transient failures and compensates business ones.</figcaption></figure>
+<p>Order processing is the canonical distributed-systems problem dressed up as a boring CRUD app. Charge the card, reserve the stock, confirm the order — and any one of those three can fail independently, at any point, including in the middle. Handle that with a straight-line function and you'll either oversell stock under load or leave orders in a permanently ambiguous state when a payment provider has a bad afternoon.</p>
+<p><a href="https://github.com/soodrajesh/gcp-serverless-orders-platform" target="_blank" rel="noopener">gcp-serverless-orders-platform</a> is an event-driven order platform with no servers to run: a JWT-protected API Gateway in front of Cloud Run, orders accepted with an immediate <code>202</code>, and the actual work — reserve stock, charge, confirm — run by a Cloud Workflows saga that retries transient failures and compensates business ones. It deployed live in europe-west1 through a two-phase Terraform build, and its 49-check test suite passed 49 of 49, including a concurrency test that races 120 simultaneous orders against 60 units of stock.</p>
+<h2>Async by design, not by accident</h2>
+<p>The API returns <code>202 Accepted</code> immediately and the client polls for status — there's no synchronous chain where the caller's request thread is blocked waiting on a payment provider's latency. A mandatory <code>Idempotency-Key</code> header means a retried request (network blip, client retry logic, whatever) resolves to the same order instead of creating a second one. Every order id is validated as a UUID before it touches anything — junk input or path-traversal-shaped ids get a 404 immediately, never reaching Firestore and never returning a 500 that would leak information about internal structure.</p>
+<h2>The saga: retries for transient failure, compensation for business failure</h2>
+<p>This is the design decision the whole repo is built around, and it's worth being precise about the distinction it draws. A <strong>transient failure</strong> — a payment provider returning a 503 because it's momentarily overloaded — gets retried with backoff. A <strong>business failure</strong> — the card is declined, or the item is out of stock — is not a bug to retry around; it's a valid outcome that needs to <em>compensate</em>: release the stock reservation, mark the order <code>FAILED</code> with a reason, and leave the workflow execution itself recorded as <code>SUCCEEDED</code>, because the saga did exactly what it was supposed to do.</p>
+<pre><code>PASS  out-of-stock declined     → compensate → order FAILED (reason), execution SUCCEEDED<br/>PASS  flaky payment (503 x2)    → retried with backoff → order CONFIRMED, 2 attempts logged<br/>PASS  stock race 40 vs 25 units  → 25 confirmed / 15 failed / 0 oversold<br/>PASS  stress: 120 vs 60 units    → 60 confirmed / 60 failed / 0 oversold</code></pre>
+<figure><img loading="lazy" decoding="async" alt="Live saga execution trace: reserve, charge, confirm, with retries and compensation" src="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/live-saga-executions.png"/><figcaption>A real workflow execution trace — reserve → charge → confirm, with the retry and compensation branches visible.</figcaption></figure>
+<p>That last line is the one I'd point to first if I only had one number to prove this works: 120 orders racing for 60 units of stock, and the result is exactly 60 confirmed, 60 failed, zero oversold. No partial reservation, no double-booked unit. That's Firestore transactions doing the actual work — the saga orchestrates the business logic, but the no-overselling guarantee comes from transactional, per-order stock reservations underneath it.</p>
+<figure><img loading="lazy" decoding="async" alt="Stress test: 120 orders racing 60 units of stock, zero oversold" src="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/live-stress.png"/><figcaption>120 orders, 60 units, zero oversold — the number that actually proves the transactional design.</figcaption></figure>
+<h2>Only a known client gets in</h2>
+<p>The Gateway verifies a JWT signed specifically by the <code>sop-client</code> service account — checking issuer, signing keys, and audience — rather than accepting any Google-issued ID token. That distinction matters: a bare ID-token check would let any authenticated Google identity through, which is a much wider trust boundary than "this specific client, using this specific key." Nothing internal is public: <code>/internal/*</code> routes don't even appear in the API spec the Gateway enforces, and each internal service has its own dedicated invoker identity rather than sharing one broad service account.</p>
+<figure><img loading="lazy" decoding="async" alt="Gateway rejecting requests without a valid signed JWT, then accepting a properly signed one" src="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/images/live-edge-auth.png"/><figcaption>401/403 with a stated reason for an invalid or missing token; 202 for a properly signed one.</figcaption></figure>
+<h2>Three decisions</h2>
+<table>
+<thead><tr><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Cloud Workflows orchestrates the saga explicitly; business failures are handled outcomes, not exceptions</td></tr>
+<tr><td>The Gateway trusts JWTs signed by one specific service account, not any Google ID token</td></tr>
+<tr><td>Idempotent order creation, transactional stock reservation, idempotent payment calls</td></tr>
+</tbody></table>
+<h2>A bug a from-scratch build actually found</h2>
+<p>Even with the saga design above, the very first from-scratch run of this repo surfaced a real bug: under contention, the saga could crash rather than cleanly compensate. It's documented with root cause and fix in <a href="https://github.com/soodrajesh/gcp-serverless-orders-platform/blob/main/docs/runbooks/05-incident-response.md" target="_blank" rel="noopener">runbook 05</a>. The general lesson that came out of this build (and shows up across the other repos in this series too) is that a from-scratch run finds bugs that incremental fixes on an already-running stack simply hide — if you only ever patch forward, you never re-test the path that got you into the broken state in the first place.</p>
+<h2>What's honestly missing</h2>
+<p>There's no end-user authentication layer (Identity Platform) — this proves service-to-service trust, not consumer login. No per-client rate quotas, which would need API keys layered on top of the JWT check. No WAF, since that needs a load balancer in front of the Gateway. And the one gap I'd flag as most important to understand: there's no transactional outbox. A failed publish after an order is created gets undone cleanly (503, retry with the same idempotency key) — but a process crash <em>between</em> creating the order and publishing the event would still leave a <code>PENDING</code> order that needs manual re-driving, which is exactly what runbook 05 covers. It's single-region, and payments/inventory are simulated rather than calling a real provider.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-serverless-orders-platform<br/>cd gcp-serverless-orders-platform<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → image build → 3 services + saga + trigger + gateway → seed → live tests (~20 min, mostly API Gateway)<br/>./scripts/down.sh  # delete everything, including the Firestore database</code></pre>
+<p>Well under €1 for a full build-test-teardown cycle — Cloud Run scales to zero, and a Terraform-managed budget bounds the total. The API Gateway provisioning step is genuinely the slow part of standing this up; everything else is fast by comparison.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/">
+            <div class="post-card-meta"><span class="chip">GCP: Data &amp; Streaming</span><span>Sep 26, 2026</span></div>
+            <h3>Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters</h3>
+            <p>An event pipeline you can trust — enforced schema, a replayable raw landing zone, dead-lettering, and PII-masked authorized views for analysts.</p>
+          </a>
+          <a class="post-card" href="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/">
+            <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span></div>
+            <h3>FinOps Cost-Anomaly Detector on Google Cloud</h3>
+            <p>A z-score baseline over daily cost per service, SKU and GKE namespace — catching every injected anomaly with zero false positives.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-serverless">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

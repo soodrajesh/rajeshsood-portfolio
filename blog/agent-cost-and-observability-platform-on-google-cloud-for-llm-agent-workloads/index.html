@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Agent Cost &amp; Observability Platform for LLM Agents | Rajesh Sood</title>
+  <meta name="description" content="Cost governance for LLM agent workloads on GCP: every Gemini call logged with token cost, prompt injection blocked before it spends a cent, quality scored by an LLM judge — deployed live, 18/18 tests." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Agent Cost &amp; Observability Platform for LLM Agents" />
+  <meta property="og:description" content="Cost governance for LLM agent workloads on GCP: every Gemini call logged with token cost, prompt injection blocked before it spends a cent, quality scored by an LLM judge — deployed live, 18/18 tests." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/images/architecture.png" />
+  <meta property="og:image:width" content="3640" />
+  <meta property="og:image:height" content="2600" />
+  <meta property="og:image:alt" content="Agent cost and observability platform architecture: 3-agent Gemini pipeline on Cloud Run, BigQuery logging, guardrails, golden-set evaluation" />
+  <meta property="article:published_time" content="2026-09-27" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agent Cost &amp; Observability Platform for LLM Agents" />
+  <meta name="twitter:description" content="Cost governance for LLM agent workloads on GCP: every Gemini call logged with token cost, prompt injection blocked before it spends a cent, quality scored by an LLM judge — deployed live, 18/18 tests." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Agent Cost & Observability Platform for LLM Agents",
+  "datePublished": "2026-09-27",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/",
+  "image": "https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/images/architecture.png",
+  "description": "Cost governance for LLM agent workloads on GCP: every Gemini call logged with token cost, prompt injection blocked before it spends a cent, quality scored by an LLM judge — deployed live, 18/18 tests."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Agent Cost &amp; Observability Platform for LLM Agents</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-27">Sep 27, 2026</time><span>·</span><span>9 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Agent cost and observability platform architecture: planner/worker/reviewer Gemini pipeline on Cloud Run, BigQuery logging, guardrails, golden-set evaluation" src="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/images/architecture.png"/><figcaption>Every Gemini call logged with cost and identity; guardrails on both input and output; quality scored by an LLM judge over time.</figcaption></figure>
+<p>Once an LLM agent goes from "notebook experiment" to "thing running in production," three questions stop being optional: what is it actually costing per call, is it safe from someone hiding instructions inside its inputs, and is the quality holding up as the underlying model or the prompts change. Most agent projects answer none of these until something goes wrong — a surprise bill, a jailbreak that made it into a screenshot, a quality regression nobody measured because nobody was measuring quality in the first place.</p>
+<p><a href="https://github.com/soodrajesh/gcp-agent-cost-observability-platform" target="_blank" rel="noopener">gcp-agent-cost-observability-platform</a> is the answer I built: an observability and cost-governance platform for a real 3-agent (planner → tool-using worker → reviewer) Gemini pipeline on Cloud Run. Every call is logged to BigQuery with token counts, computed cost, latency, and agent/step identity; input and output guardrails catch prompt injection and data exfiltration; and a scheduled golden-set evaluation scores quality with an LLM-as-judge. It's the token/quality/safety complement to its sibling repo, <a href="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/">gcp-finops-cost-anomaly-detector</a> — that one watches infrastructure and cloud spend broadly, this one watches LLM spend specifically. It deployed live in europe-west1 against the Vertex AI global endpoint, and a from-scratch teardown-then-rebuild passed its 18-check test suite 18 of 18.</p>
+<h2>A real 3-agent pipeline, not a single prompt</h2>
+<p>The pipeline is planner → tool-using worker → reviewer: the planner breaks down the request, the worker actually calls tools against a synthetic spend-data fixture, and the reviewer checks the worker's answer against tool ground truth rather than re-deriving the answer from scratch. That last detail is the structural mitigation behind <a href="https://github.com/soodrajesh/gcp-agent-cost-observability-platform/blob/main/docs/adr/0001-gemini-2.5-flash-global-endpoint.md" target="_blank" rel="noopener">ADR 0001</a>'s trade-off: the pipeline runs on <code>gemini-2.5-flash</code>, a fast, cheap model with weaker reasoning than a pro-tier alternative, and the reviewer's job of comparing against ground truth rather than independently re-solving the problem is what makes that weaker-reasoning trade-off safe to take.</p>
+<h2>Every call, accounted for</h2>
+<p>A logging middleware wraps every single Gemini call — prompt, response, input/output/thinking token counts, cost computed from published Vertex AI pricing, latency, and which agent and step made the call — and writes it to a BigQuery <code>llm_calls</code> table. The live test confirms this isn't aspirational: a real <code>/ask</code> call produces at least three logged rows with nonzero cost, one per agent in the pipeline. That per-step granularity is what actually makes a cost investigation possible later — "the pipeline cost $0.04" is a number; "the reviewer step cost 3x the planner step because it re-reads the full tool output" is an insight you can act on.</p>
+<h2>Guardrails that stop spend before it happens</h2>
+<p>A heuristic input guardrail runs <em>before</em> any call reaches Gemini — a matched prompt-injection attempt is blocked with zero Vertex AI spend, which the live test confirms directly: a canonical injection attempt produces zero logged Gemini calls, not a logged call with a refused answer. That distinction matters for cost governance specifically, not just safety — a guardrail that blocks <em>after</em> the model call still spent the tokens.</p>
+<pre><code>test §4: canonical prompt-injection attempt<br/>  → blocked at input stage, 0 logged Gemini calls, $0 spend</code></pre>
+<p>On the output side, a second guardrail checks Vertex AI's own safety ratings plus an explicit secret-shaped-string rubric against the final answer, catching output-stage exfiltration risk that an input-only check would miss entirely. <a href="https://github.com/soodrajesh/gcp-agent-cost-observability-platform/blob/main/docs/adr/0003-heuristic-input-guardrail.md" target="_blank" rel="noopener">ADR 0003</a> is candid about the limit here: a heuristic, regex-based input guardrail catches known injection phrasings, not novel ones — which is precisely why there's an independent output guardrail as a backstop rather than betting everything on catching bad input before it's processed.</p>
+<h2>Quality measured, not assumed</h2>
+<p>A separate Cloud Run Job runs a fixed 8-question golden set against the <em>deployed</em> service — not a local test double — and scores each answer with an LLM-as-judge, writing results to a BigQuery <code>eval_scores</code> table over time. In the live run behind this post, all 8 questions scored 5/5/5 across every judged dimension. To give the resulting trend chart history on day one, 20 days of clearly-labelled synthetic evaluation data (<code>is_synthetic = true</code> on every row) seed the backfill — and the live test explicitly asserts <code>is_synthetic</code> is never null on any row, so a synthetic backfill and a genuine live-judged run can never blur together by accident months later when someone's looking at the trend line and needs to know which is which.</p>
+<h2>Six decisions</h2>
+<table>
+<thead><tr><th>Decision</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td><code>gemini-2.5-flash</code> on the global endpoint, verified live before writing any pipeline code</td><td>Weaker reasoning than pro-tier — mitigated by the reviewer comparing to tool ground truth, not re-deriving answers</td></tr>
+<tr><td>Synthetic fixture for the agent's task data, synthetic seed history for the eval trend</td><td>Proves the method, not a genuine multi-week quality trend</td></tr>
+<tr><td>Heuristic (regex) input guardrail, not an LLM classifier</td><td>Limited to known injection phrasings — the output guardrail is the real backstop</td></tr>
+<tr><td>Threshold alert policies, not a trailing z-score baseline</td><td>No adaptive baseline — a single session has no history to build one from yet</td></tr>
+<tr><td>No GitHub-Actions Workload Identity Federation; CI is lint/validate/scan only</td><td>CI never touches the live project, by design</td></tr>
+<tr><td>Authenticated-only Cloud Run service; a Job, not a Function, for evaluation</td><td>Requires an ID token to demo — deliberately no bare public URL</td></tr>
+</tbody></table>
+<h2>Eight real bugs, each with a name</h2>
+<p>Getting this live took eight bugs a design review would never have caught: a quota-project gotcha in how the Vertex AI SDK resolves billing; log-metric label mismatches that silently broke alert routing; a Cloud Monitoring restriction where <code>DISTRIBUTION</code>-type metrics can't be used the same way as scalar ones in an alert policy; Google's own front end silently reserving the <code>/healthz</code> path (the same gotcha that shows up in the serverless-orders build); two separate Vertex AI SDK host/version bugs; a rule about human-identity versus service-account ID token audiences that isn't obvious until you hit it; and log-based-metric propagation lag that made an alert look broken when it was just slow to catch up. Each one is documented with root cause and fix in <a href="https://github.com/soodrajesh/gcp-agent-cost-observability-platform/blob/main/docs/runbooks/03-troubleshooting.md" target="_blank" rel="noopener">runbook 03</a> — the kind of list that's only honest if you actually hit every item on it live.</p>
+<h2>What's deliberately not proven here</h2>
+<p>Golden-set evaluation quality is proven against 8 fixed questions over a small synthetic fixture — a real deployment needs a larger, evolving, human-reviewed benchmark, and this repo says so rather than implying broader coverage. The input guardrail is curated heuristics, not a trained classifier, so novel injection phrasing can slip past it to the output backstop. Alert policies are simple thresholds, not adaptive baselines. There's no VPC Service Controls perimeter around BigQuery, no rate limiting beyond Cloud Run's own concurrency ceiling, and indirect prompt injection via tool output plus live exfiltration provocation weren't adversarially tested end to end — both are named explicitly in the <a href="https://github.com/soodrajesh/gcp-agent-cost-observability-platform/blob/main/docs/threat-model.md" target="_blank" rel="noopener">threat model's</a> known-gaps section rather than left implicit.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-agent-cost-observability-platform<br/>cd gcp-agent-cost-observability-platform<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → build both images → deploy service+job+scheduler → seed history → golden set → live tests<br/>./scripts/down.sh  # delete everything, including the BigQuery dataset and its data</code></pre>
+<p>Well under $0.01 in Vertex AI spend for a full build-test-teardown session — <code>gemini-2.5-flash</code> bills at $0.30 per million input tokens and $2.50 per million output tokens, and a full <code>/ask</code> call plus an 8-question golden-set run together total a few thousand tokens. Cloud Run, BigQuery, Monitoring, and Scheduler usage don't come close to their free tiers, and a Terraform-managed Billing Budget bounds total spend as a backstop regardless of what the pipeline itself does.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/">
+            <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span></div>
+            <h3>FinOps Cost-Anomaly Detector on Google Cloud</h3>
+            <p>A z-score baseline over daily cost per service, SKU and GKE namespace — catching every injected anomaly with zero false positives.</p>
+          </a>
+          <a class="post-card" href="/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Sep 26, 2026</span></div>
+            <h3>Enterprise RAG Platform: Access Control, DLP &amp; Cost</h3>
+            <p>A governed GenAI knowledge platform where forbidden chunks are never retrieved — enforced in SQL, proven with real distinct identities.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-finops">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

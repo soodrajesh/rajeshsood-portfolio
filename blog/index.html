@@ -67,7 +67,7 @@
       <div class="blog-hero">
         <p class="kicker">Blog</p>
         <h1>Kubernetes, AWS, Terraform &amp; DevOps</h1>
-        <p class="lede">67 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
+        <p class="lede">75 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
       </div>
       <div class="blog-layout">
         <aside class="blog-side" aria-label="Filter posts">
@@ -79,7 +79,15 @@
             <summary>Filter by topic &amp; date</summary>
           <p class="side-label">Browse</p>
           <div class="f-tree" id="cat-tree">
-<button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>67</b></button>
+<button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>75</b></button>
+<details class="f-group" open><summary><span>Google Cloud Platform</span><b>8</b></summary>
+<button class="f-btn f-sub" type="button" data-cat="gcp-ai"><span>AI &amp; RAG</span><b>1</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-platform-eng"><span>Platform Engineering</span><b>1</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-data"><span>Data &amp; Streaming</span><b>1</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-serverless"><span>Serverless</span><b>1</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-security"><span>Security &amp; Networking</span><b>2</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-finops"><span>FinOps</span><b>2</b></button>
+</details>
 <details class="f-group" open><summary><span>Kubernetes &amp; GitOps</span><b>17</b></summary>
 <button class="f-btn f-sub" type="button" data-cat="k8s"><span>Kubernetes</span><b>11</b></button>
 <button class="f-btn f-sub" type="button" data-cat="gitops"><span>GitOps &amp; Delivery</span><b>4</b></button>
@@ -107,9 +115,9 @@
           </div>
           <p class="side-label">Archive</p>
           <div class="f-tree" id="arc-tree">
-<button class="f-btn is-active" type="button" data-arc="all"><span>All time</span><b>67</b></button>
-<details class="f-group" open><summary><span>2026</span><b>6</b></summary>
-<button class="f-btn f-sub" type="button" data-arc="2026-09"><span>September</span><b>1</b></button>
+<button class="f-btn is-active" type="button" data-arc="all"><span>All time</span><b>75</b></button>
+<details class="f-group" open><summary><span>2026</span><b>14</b></summary>
+<button class="f-btn f-sub" type="button" data-arc="2026-09"><span>September</span><b>9</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-08"><span>August</span><b>1</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-07"><span>July</span><b>2</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-03"><span>March</span><b>1</b></button>
@@ -128,6 +136,46 @@
           <p class="side-note"><a href="/blog/feed.xml">RSS feed →</a></p>
         </aside>
         <section class="post-cards" id="post-list" aria-live="polite">
+        <a class="post-card" href="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/" data-cat="gcp gcp-finops" data-arc="2026 2026-09" data-text="agent cost &amp; observability platform for llm agents cost governance for llm agent workloads on gcp: every gemini call logged with token cost, prompt injection blocked before it spends a cent, quality scored by an llm judge.">
+          <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span><span>9 min read</span></div>
+          <h2>Agent Cost &amp; Observability Platform for LLM Agents</h2>
+          <p>Every Gemini call logged with token counts and cost, guardrails that block prompt injection before it spends a cent, quality scored by an LLM judge.</p>
+        </a>
+        <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/" data-cat="gcp gcp-security" data-arc="2026 2026-09" data-text="secure delivery to cloud run: binary auth &amp; canary a software supply chain you can prove: two signed attestations verified by binary authorization, digest-pinned canary releases, one bad release caught and rolled back.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span><span>9 min read</span></div>
+          <h2>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h2>
+          <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+        </a>
+        <a class="post-card" href="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/" data-cat="gcp gcp-finops" data-arc="2026 2026-09" data-text="finops cost-anomaly detector on google cloud a z-score baseline over daily gcp/gke spend per service, sku and namespace, pumped through bigquery, pub/sub and cloud monitoring.">
+          <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span><span>8 min read</span></div>
+          <h2>FinOps Cost-Anomaly Detector on Google Cloud</h2>
+          <p>A z-score baseline over daily cost per service, SKU and GKE namespace — catching every injected anomaly with zero false positives.</p>
+        </a>
+        <a class="post-card" href="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/" data-cat="gcp gcp-serverless" data-arc="2026 2026-09" data-text="serverless orders platform: cloud run, workflows saga &amp; firestore an event-driven order platform on gcp with no servers to run: a cloud workflows saga that retries and compensates, and never oversells stock.">
+          <div class="post-card-meta"><span class="chip">GCP: Serverless</span><span>Sep 27, 2026</span><span>10 min read</span></div>
+          <h2>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</h2>
+          <p>An order-processing platform with no servers to run — a saga that retries transient failures, compensates business failures, and never oversells stock.</p>
+        </a>
+        <a class="post-card" href="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/" data-cat="gcp gcp-data" data-arc="2026 2026-09" data-text="streaming data platform: pub/sub to bigquery with dead letters an event pipeline you can trust on gcp: enforced avro schema, a replayable raw landing zone, dead-lettering, pii-masked authorized views.">
+          <div class="post-card-meta"><span class="chip">GCP: Data &amp; Streaming</span><span>Sep 26, 2026</span><span>9 min read</span></div>
+          <h2>Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters</h2>
+          <p>An event pipeline you can trust — enforced schema, a replayable raw landing zone, dead-lettering, and PII-masked authorized views for analysts.</p>
+        </a>
+        <a class="post-card" href="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/" data-cat="gcp gcp-security" data-arc="2026 2026-09" data-text="hub-and-spoke network landing zone on google cloud three vpcs joined by network connectivity center in star topology, so prod and dev reach shared services but never each other.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 26, 2026</span><span>9 min read</span></div>
+          <h2>Hub-and-Spoke Network Landing Zone on Google Cloud</h2>
+          <p>Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three ways.</p>
+        </a>
+        <a class="post-card" href="/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/" data-cat="gcp gcp-ai" data-arc="2026 2026-09" data-text="enterprise rag platform: access control, dlp &amp; cost a governed genai knowledge platform on gcp: forbidden chunks never retrieved, pii redacted twice, no internet route for the model.">
+          <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Sep 26, 2026</span><span>11 min read</span></div>
+          <h2>Enterprise RAG Platform: Access Control, DLP &amp; Cost</h2>
+          <p>A governed GenAI knowledge platform where forbidden chunks are never retrieved — enforced in SQL, proven with real distinct identities.</p>
+        </a>
+        <a class="post-card" href="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/" data-cat="gcp gcp-platform-eng" data-arc="2026 2026-09" data-text="gke platform engineering: binary authorization &amp; canary an internal developer platform on gke autopilot: signed-image supply chain, gitops, canary releases with automatic rollback, a waf-protected gateway.">
+          <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Sep 25, 2026</span><span>10 min read</span></div>
+          <h2>GKE Platform Engineering: Binary Authorization &amp; Canary</h2>
+          <p>An internal developer platform on GKE Autopilot: signed images, GitOps, canary releases with automatic rollback, a WAF-protected Gateway.</p>
+        </a>
         <a class="post-card" href="/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/" data-cat="k8s-gitops k8s" data-arc="2026 2026-09" data-text="keda and karpenter on gke: event-driven autoscaling scale pods on pub/sub queue depth with keda and provision right-sized nodes with karpenter on gke standard, both dropping to zero when idle.">
           <div class="post-card-meta"><span class="chip">Kubernetes</span><span>Sep 23, 2026</span><span>6 min read</span></div>
           <h2>KEDA and Karpenter on GKE: Event-Driven Autoscaling</h2>

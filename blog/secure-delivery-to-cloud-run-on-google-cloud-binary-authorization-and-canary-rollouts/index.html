@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Secure Delivery to Cloud Run: Binary Auth &amp; Canary | Rajesh Sood</title>
+  <meta name="description" content="A software supply chain you can prove: two signed attestations verified by Binary Authorization, digest-pinned canary releases, one bad release caught and rolled back — live on GCP." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Secure Delivery to Cloud Run: Binary Auth &amp; Canary" />
+  <meta property="og:description" content="A software supply chain you can prove: two signed attestations verified by Binary Authorization, digest-pinned canary releases, one bad release caught and rolled back — live on GCP." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="3220" />
+  <meta property="og:image:alt" content="Secure delivery pipeline architecture: Cloud Build attestation, Binary Authorization, Cloud Deploy canary to Cloud Run" />
+  <meta property="article:published_time" content="2026-09-27" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Secure Delivery to Cloud Run: Binary Auth &amp; Canary" />
+  <meta name="twitter:description" content="A software supply chain you can prove: two signed attestations verified by Binary Authorization, digest-pinned canary releases, one bad release caught and rolled back — live on GCP." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Secure Delivery to Cloud Run: Binary Auth & Canary",
+  "datePublished": "2026-09-27",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/",
+  "image": "https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/architecture.png",
+  "description": "A software supply chain you can prove: two signed attestations verified by Binary Authorization, digest-pinned canary releases, one bad release caught and rolled back — live on GCP."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-27">Sep 27, 2026</time><span>·</span><span>9 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Secure delivery architecture: Cloud Build tests, scans, signs; Binary Authorization admits only attested digests; Cloud Deploy runs the canary" src="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/architecture.png"/><figcaption>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate.</figcaption></figure>
+<p>"We scan our images for vulnerabilities" is a sentence that's true in almost every organization and enforced in almost none of them. A scan that produces a report nobody reads before deploying isn't a gate — it's a compliance artifact. The actual question that matters is a narrower one: can an image that failed the scan, or that nobody signed, physically run in production at all? Most pipelines can't answer yes to that with certainty, because the enforcement point and the deploy point are different systems that trust each other by convention rather than by cryptographic proof.</p>
+<p><a href="https://github.com/soodrajesh/gcp-cloudrun-secure-delivery" target="_blank" rel="noopener">gcp-cloudrun-secure-delivery</a> closes that gap: nothing reaches production unless it was built by this specific pipeline <em>and</em> passed a vulnerability gate — two independently signed attestations, verified by Binary Authorization on every single revision, not just at deploy time for show. Releases travel through Cloud Deploy by immutable digest, staging deploys automatically, production requires a human approval, and a bad release is caught by a 25% canary and rolled back with one command. It deployed live in europe-west1, shipped a real release end to end through staging → approval → canary → 100% production, and its bad-release drill ran for real: a faulty release was caught at the canary-25 stage and rolled back.</p>
+<h2>Two attestors, not one</h2>
+<p>The design deliberately splits trust into two independent claims rather than one combined check: <code>built-by-pipeline</code> proves provenance (this exact digest came from this exact build), and <code>scan-passed</code> proves the vulnerability gate ran and the image cleared it. Both are signed with Cloud KMS keys that only the build service account may use. Binary Authorization requires <em>both</em> attestations to admit an image — which means a rogue image signed with a stolen provenance key but missing the scan attestation still gets denied, and vice versa. The live test suite proves this concretely by attempting three distinct kinds of rogue image and confirming each is denied, by name, with a stated reason rather than a generic rejection.</p>
+<figure><img loading="lazy" decoding="async" alt="Binary Authorization denying three kinds of rogue image, each with a named reason" src="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/live-admission-denials.png"/><figcaption>Three distinct rogue images, three named denials — not a single generic rejection.</figcaption></figure>
+<h2>The gate runs before the image is ever pushed</h2>
+<p>The vulnerability scan (Trivy) runs against the local image <em>before</em> it's pushed to any registry — a CRITICAL-severity vulnerability with an available fix fails the build outright. That ordering is the point of <a href="https://github.com/soodrajesh/gcp-cloudrun-secure-delivery/blob/main/docs/adr/0002-gate-before-push.md" target="_blank" rel="noopener">ADR 0002</a>: a vulnerable image that never reaches a registry can't accidentally get deployed by someone who skips the pipeline, whereas a gate that runs after push is only as strong as everyone's discipline about not pulling from the registry directly.</p>
+<figure><img loading="lazy" decoding="async" alt="Trivy vulnerability gate failing a build on a CRITICAL fixable vulnerability, before push" src="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/live-vuln-gate.png"/><figcaption>The gate runs on the local image, before push — a failing image never reaches a registry.</figcaption></figure>
+<h2>Tamper-evident by construction</h2>
+<p>Every image gets a CycloneDX SBOM and SLSA build provenance, stored per exact digest — so "what's actually running" and "what do we claim is running" are answerable from the same artifact instead of from separate, driftable documentation. Deploys reference the digest, never a mutable tag, which the ADRs call out plainly: immutable tags plus digest-pinned deploys mean a rollback is just re-pointing traffic at a previous digest through the normal, approved release path — not a special-cased emergency procedure with its own risk profile.</p>
+<h2>The canary drill, run for real</h2>
+<p>Cloud Deploy owns the progression: staging automatically, production only after a human approves, then a canary that steps 25% → 50% → 100% with a soak period between stages. I ran the failure case deliberately: pushed a faulty release into the canary, watched it serve a portion of traffic with faulty responses at the 25% stage, and rolled it back with a single command.</p>
+<figure><img loading="lazy" decoding="async" alt="Bad release canary drill: 25 percent faulty responses, then rollback" src="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/images/live-drill.png"/><figcaption>The bad-release drill — a faulty build caught at canary-25 and rolled back through the normal, approved path.</figcaption></figure>
+<p>Rollback in production requires the same approval gate as a forward release, which is worth stating explicitly because it's tempting to make rollback frictionless in the name of incident response — and doing that quietly builds an unaudited bypass around the approval process you built everything else to enforce.</p>
+<h2>A real permission gap the first live run found</h2>
+<p>The build's first live run surfaced something no design review caught: the canary's own auto-advance automation didn't have permission to advance itself. It's the kind of gap that only shows up when a canary actually tries to progress on a live stack — fixed and documented in <a href="https://github.com/soodrajesh/gcp-cloudrun-secure-delivery/blob/main/docs/adr/0003-digest-pinned-canary.md" target="_blank" rel="noopener">ADR 0003</a> and <a href="https://github.com/soodrajesh/gcp-cloudrun-secure-delivery/blob/main/docs/runbooks/07-troubleshooting.md" target="_blank" rel="noopener">runbook 07</a>.</p>
+<h2>Four decisions</h2>
+<table>
+<thead><tr><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Two independent attestors, not one combined check</td></tr>
+<tr><td>The vulnerability gate runs before the image is ever pushed</td></tr>
+<tr><td>Digest-pinned releases; Cloud Deploy owns the canary progression</td></tr>
+<tr><td>Immutable tags; rollback is a normal, approved rollout, not a special case</td></tr>
+</tbody></table>
+<h2>What's honestly out of scope</h2>
+<p>There's no source-code provenance layer here — branch protection, signed commits — this repo starts trust at the build, not at the commit. No automated smoke tests gate promotion between stages; the approval step is a human judgement call, not an automated check. The vulnerability gate specifically blocks CRITICAL-with-an-available-fix, which means a CRITICAL finding with no fix yet, or a HIGH-severity finding, doesn't block the build by design. It's single-region, and the demo quote service behind all of this is intentionally a toy — the interesting engineering is entirely in the pipeline around it.</p>
+<p>One detail worth flagging for anyone adapting this: Binary Authorization here is a <strong>project-wide, single policy</strong>, not scoped to just this repo's rules. <code>down.sh</code> reverts the project to allow-all rather than leaving a half-configured policy behind — which matters if you're running this alongside other Binary Authorization-dependent work in the same project.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-cloudrun-secure-delivery<br/>cd gcp-cloudrun-secure-delivery<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → secure build → staging → approve → prod canary → live tests<br/>./scripts/down.sh  # delete everything, revert Binary Authorization to allow-all</code></pre>
+<p>Well under €1 for a full build-test-drill-teardown cycle. Cloud Run scales to zero between requests, and a Terraform-managed budget with alerts is created alongside everything else.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/">
+            <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Sep 25, 2026</span></div>
+            <h3>GKE Platform Engineering: Binary Authorization &amp; Canary</h3>
+            <p>An internal developer platform on GKE Autopilot: signed images, GitOps, canary releases with automatic rollback, a WAF-protected Gateway.</p>
+          </a>
+          <a class="post-card" href="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 26, 2026</span></div>
+            <h3>Hub-and-Spoke Network Landing Zone on Google Cloud</h3>
+            <p>Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three ways.</p>
+          </a>
+          <a class="post-card" href="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/">
+            <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span></div>
+            <h3>Agent Cost &amp; Observability Platform for LLM Agents</h3>
+            <p>Every Gemini call logged with token counts and cost, guardrails that block prompt injection before it spends a cent, quality scored by an LLM judge.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-security">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

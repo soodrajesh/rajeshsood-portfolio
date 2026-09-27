@@ -6,7 +6,63 @@
   <atom:link href="https://irajeshsood.com/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Staff Cloud &amp; DevOps Engineer.</description>
   <language>en</language>
-  <lastBuildDate>Wed, 23 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 27 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Agent Cost &amp; Observability Platform for LLM Agents</title>
+    <link>https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/</guid>
+    <pubDate>Sun, 27 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Every Gemini call logged with token counts and cost, guardrails that block prompt injection before it spends a cent, quality scored by an LLM judge.</description>
+  </item>
+  <item>
+    <title>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</title>
+    <link>https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/</guid>
+    <pubDate>Sun, 27 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</description>
+  </item>
+  <item>
+    <title>FinOps Cost-Anomaly Detector on Google Cloud</title>
+    <link>https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/</guid>
+    <pubDate>Sun, 27 Sep 2026 09:00:00 GMT</pubDate>
+    <description>A z-score baseline over daily cost per service, SKU and GKE namespace — catching every injected anomaly with zero false positives.</description>
+  </item>
+  <item>
+    <title>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</title>
+    <link>https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/</guid>
+    <pubDate>Sun, 27 Sep 2026 09:00:00 GMT</pubDate>
+    <description>An order-processing platform with no servers to run — a saga that retries transient failures, compensates business failures, and never oversells stock.</description>
+  </item>
+  <item>
+    <title>Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters</title>
+    <link>https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/</guid>
+    <pubDate>Sat, 26 Sep 2026 09:00:00 GMT</pubDate>
+    <description>An event pipeline you can trust — enforced schema, a replayable raw landing zone, dead-lettering, and PII-masked authorized views for analysts.</description>
+  </item>
+  <item>
+    <title>Hub-and-Spoke Network Landing Zone on Google Cloud</title>
+    <link>https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/</guid>
+    <pubDate>Sat, 26 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three ways.</description>
+  </item>
+  <item>
+    <title>Enterprise RAG Platform: Access Control, DLP &amp; Cost</title>
+    <link>https://irajeshsood.com/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/</guid>
+    <pubDate>Sat, 26 Sep 2026 09:00:00 GMT</pubDate>
+    <description>A governed GenAI knowledge platform where forbidden chunks are never retrieved — enforced in SQL, proven with real distinct identities.</description>
+  </item>
+  <item>
+    <title>GKE Platform Engineering: Binary Authorization &amp; Canary</title>
+    <link>https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/</guid>
+    <pubDate>Fri, 25 Sep 2026 09:00:00 GMT</pubDate>
+    <description>An internal developer platform on GKE Autopilot: signed images, GitOps, canary releases with automatic rollback, a WAF-protected Gateway.</description>
+  </item>
   <item>
     <title>KEDA and Karpenter on GKE: Event-Driven Autoscaling</title>
     <link>https://irajeshsood.com/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/</link>

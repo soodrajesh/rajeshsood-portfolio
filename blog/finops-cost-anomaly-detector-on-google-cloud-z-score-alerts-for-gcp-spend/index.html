@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>FinOps Cost-Anomaly Detector on Google Cloud | Rajesh Sood</title>
+  <meta name="description" content="A z-score baseline over daily GCP/GKE spend per service, SKU and namespace, pumped through BigQuery, Pub/Sub and Cloud Monitoring — deployed live, 21/21 tests, 3/3 anomalies caught." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="FinOps Cost-Anomaly Detector on Google Cloud" />
+  <meta property="og:description" content="A z-score baseline over daily GCP/GKE spend per service, SKU and namespace, pumped through BigQuery, Pub/Sub and Cloud Monitoring — deployed live, 21/21 tests, 3/3 anomalies caught." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="2600" />
+  <meta property="og:image:alt" content="FinOps cost anomaly detector architecture: Cloud Run Job z-score detection over BigQuery billing export, Pub/Sub, Cloud Monitoring alerts" />
+  <meta property="article:published_time" content="2026-09-27" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FinOps Cost-Anomaly Detector on Google Cloud" />
+  <meta name="twitter:description" content="A z-score baseline over daily GCP/GKE spend per service, SKU and namespace, pumped through BigQuery, Pub/Sub and Cloud Monitoring — deployed live, 21/21 tests, 3/3 anomalies caught." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "FinOps Cost-Anomaly Detector on Google Cloud",
+  "datePublished": "2026-09-27",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/",
+  "image": "https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/images/architecture.png",
+  "description": "A z-score baseline over daily GCP/GKE spend per service, SKU and namespace, pumped through BigQuery, Pub/Sub and Cloud Monitoring — deployed live, 21/21 tests, 3/3 anomalies caught."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>FinOps Cost-Anomaly Detector on Google Cloud</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-27">Sep 27, 2026</time><span>·</span><span>8 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="FinOps cost anomaly detector architecture: Cloud Run Job evaluating z-score baselines over BigQuery billing data, publishing to Pub/Sub and Cloud Monitoring" src="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/images/architecture.png"/><figcaption>A scheduled job, a trailing baseline, and an alert path that reaches someone — not a dashboard nobody checks.</figcaption></figure>
+<p>Cloud bills surprise people in one of two ways: either a single line item quietly triples over a month and nobody notices until Finance asks about it, or a genuine incident (a runaway job, a misconfigured autoscaler) burns through budget in a day. Catching the second kind fast, and the first kind at all, both require the same underlying thing: a baseline for what "normal" spend looks like per service, per SKU, per team — and something that actually pages a human when today deviates from that baseline.</p>
+<p><a href="https://github.com/soodrajesh/gcp-finops-cost-anomaly-detector" target="_blank" rel="noopener">gcp-finops-cost-anomaly-detector</a> is a scheduled Cloud Run Job that evaluates daily cost per service, SKU, and — the detail I think matters most here — GKE namespace cost-allocation label, against a 14-day trailing z-score baseline. Flagged days write to BigQuery, publish to Pub/Sub, and page through a Cloud Monitoring log-based-metric alert, with a Terraform-managed Billing Budget and dashboard running alongside. It deployed live in europe-west1, and its 21-check test suite passed 21 of 21 — including all three deliberately injected synthetic anomalies caught, with zero false positives.</p>
+<h2>Namespace-level cost allocation, not just per-service</h2>
+<p>Most FinOps tooling stops at "which GCP service is spending money" — Compute Engine, BigQuery, Cloud Run. That's necessary but not sufficient once you're running a shared GKE cluster across multiple teams, because "GKE spend went up" tells a platform team nothing about which team's workload caused it. This detector goes one level deeper, evaluating anomalies per GKE namespace cost-allocation label as well — so a spike traceable to <code>team-b</code>'s namespace shows up as <code>team-b</code>'s anomaly, not an undifferentiated "Kubernetes Engine" line that someone then has to manually investigate.</p>
+<h2>Handling day one honestly</h2>
+<p>A trailing 14-day z-score baseline has an obvious problem: on day one, there's no history to trail. Rather than either faking confidence or refusing to run until real data accumulates, the detector seeds a clearly labelled synthetic billing table — every row carries <code>is_synthetic = true</code> — that stands in for a real billing export until genuine history exists. The design decision here (documented in <a href="https://github.com/soodrajesh/gcp-finops-cost-anomaly-detector/blob/main/docs/adr/0002-synthetic-seed-data-for-anomaly-baseline.md" target="_blank" rel="noopener">ADR 0002</a>) is explicit about what this does and doesn't prove: it proves the detection <em>method</em> works correctly against known injected spikes, not that the system has caught a genuine, naturally occurring anomaly yet. The test suite enforces that the flag is never ambiguous — <code>is_synthetic</code> is asserted non-null on every row, so synthetic and real data can never silently blur together later.</p>
+<pre><code>test §4: 3 deliberately injected synthetic anomalies<br/>  → 3/3 correctly flagged, 0 false positives, 0 missed</code></pre>
+<h2>Findings that reach someone, and go somewhere</h2>
+<p>A structured log line becomes a log-based metric, which feeds a Cloud Monitoring alert policy that emails on detection — and a second, independent alert policy pages if the detector job itself crashes, which is a distinction worth having: "the detector found nothing" and "the detector didn't run" are very different failure modes and deserve different alerts. Every flagged anomaly is also published to Pub/Sub, which the live test verifies by pulling the message back out of a dedicated verification subscription — proving the integration point actually emits something a downstream system (Slack, a ticketing system) could consume, even though this build deliberately stops short of wiring one up.</p>
+<h2>Four decisions, honestly framed</h2>
+<table>
+<thead><tr><th>Decision</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td>Cloud Run Job, not a Cloud Function or a long-running service</td><td>No built-in cross-invocation retry/backoff — reruns have to be idempotent by design</td></tr>
+<tr><td>Clearly-labelled synthetic seed data for the baseline</td><td>Proves the method, not that it's caught a genuine anomaly yet</td></tr>
+<tr><td>A log-based metric for paging, Pub/Sub for integration — two mechanisms, not one merged path</td><td>Two things to keep in sync instead of one</td></tr>
+<tr><td>No GitHub-Actions Workload Identity Federation; CI is lint/validate/scan only</td><td>By design — CI never touches the live project, which is a smaller blast radius than a CI misconfiguration that could</td></tr>
+</tbody></table>
+<h2>The bug that only a live run found</h2>
+<p>The first real deployment surfaced a genuine bug: the custom-metrics writer crashed the job <em>after</em> it had already written its detection results to BigQuery. Which means the detection worked, but the job's own exit status lied about it — a false failure signal that would have paged on-call for a run that actually succeeded. It's fixed and documented in <a href="https://github.com/soodrajesh/gcp-finops-cost-anomaly-detector/blob/main/docs/runbooks/04-troubleshooting.md" target="_blank" rel="noopener">runbook 04</a>, and the from-scratch run this README's status line refers to already has the fix in place. It's a good example of why "the tests pass" and "the tests pass on a live rebuild from nothing" are different claims — the second one is what actually validates the fix stuck.</p>
+<h2>What this doesn't claim to be</h2>
+<p>Detection is proven against clean, synthetic, deliberately-injected spikes — not the genuinely noisy seasonality real production billing has (release-train weeks, month-end batch jobs, a Black-Friday-shaped traffic curve). There's no seasonality-aware model here, just a trailing z-score with a percentage-deviation fallback for flat series. There's no live webhook wired to Slack or a ticketing system — the Pub/Sub integration point exists and is proven, but deliberately isn't connected to anything for this build. No CMEK on the BigQuery dataset, no VPC Service Controls perimeter, single region, and no CI-driven live deploy, for the same "CI never touches the live project" reasoning as the alerting design.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-finops-cost-anomaly-detector<br/>cd gcp-finops-cost-anomaly-detector<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → seed synthetic billing data → build → job + scheduler → detect → live tests<br/>./scripts/down.sh  # delete everything, including the BigQuery dataset and its data</code></pre>
+<p>Well under €0.10 for a full build-test-teardown session — a Cloud Run Job only bills while an execution runs, and BigQuery/Pub/Sub/Monitoring usage doesn't come close to their free tiers. A Terraform-managed Billing Budget bounds total spend regardless, which is a slightly amusing but deliberate detail: a cost-anomaly detector that itself has a hard spend ceiling.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/">
+            <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span></div>
+            <h3>Agent Cost &amp; Observability Platform for LLM Agents</h3>
+            <p>Every Gemini call logged with token counts and cost, guardrails that block prompt injection before it spends a cent, quality scored by an LLM judge.</p>
+          </a>
+          <a class="post-card" href="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/">
+            <div class="post-card-meta"><span class="chip">GCP: Serverless</span><span>Sep 27, 2026</span></div>
+            <h3>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</h3>
+            <p>An order-processing platform with no servers to run — a saga that retries transient failures, compensates business failures, and never oversells stock.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-finops">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

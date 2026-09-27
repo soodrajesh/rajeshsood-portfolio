@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Hub-and-Spoke Network Landing Zone on Google Cloud | Rajesh Sood</title>
+  <meta name="description" content="Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three independent ways, live." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Hub-and-Spoke Network Landing Zone on Google Cloud" />
+  <meta property="og:description" content="Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three independent ways, live." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/images/architecture.png" />
+  <meta property="og:image:width" content="3400" />
+  <meta property="og:image:height" content="3120" />
+  <meta property="og:image:alt" content="Hub-and-spoke network architecture: Network Connectivity Center star topology, IAP, Cloud NAT, DNS peering" />
+  <meta property="article:published_time" content="2026-09-26" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hub-and-Spoke Network Landing Zone on Google Cloud" />
+  <meta name="twitter:description" content="Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three independent ways, live." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hub-and-Spoke Network Landing Zone on Google Cloud",
+  "datePublished": "2026-09-26",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/",
+  "image": "https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/images/architecture.png",
+  "description": "Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three independent ways, live."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Hub-and-Spoke Network Landing Zone on Google Cloud</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-26">Sep 26, 2026</time><span>·</span><span>9 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Hub-and-spoke architecture: three VPCs joined via Network Connectivity Center star topology" src="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/images/architecture.png"/><figcaption>Hub = center, prod and dev = edges. Edges reach the hub; they never reach each other.</figcaption></figure>
+<p>Landing zones are the least glamorous thing you can build on a cloud and the thing everything else quietly depends on. Get the network foundation wrong and no amount of good application security fixes it — a compromised dev environment that can route to prod is a landing-zone failure dressed up as an app-security incident. I wanted to build a landing zone shaped the way a real platform team would build one: environment isolation that's provable, not just diagrammed; admin access with no bastion host and no public IPs; and every claim checked against the running network, not against a Terraform plan.</p>
+<p><a href="https://github.com/soodrajesh/gcp-network-landing-zone" target="_blank" rel="noopener">gcp-network-landing-zone</a> is three VPCs — hub, prod, dev — joined by Network Connectivity Center in a star topology, default-deny firewall policies with logged denials, private-only VMs reached through Identity-Aware Proxy, centralized private DNS, Cloud NAT egress, and flow logs landing in BigQuery. It applied 71 resources on the first from-scratch run in europe-west1, and its live test suite passed 42 of 42.</p>
+<h2>Isolation, proven three separate ways</h2>
+<p>The claim "prod and dev can't reach each other" is easy to state and easy to get subtly wrong — a peering misconfiguration, a firewall rule that's broader than intended, a route that leaks. So this repo doesn't prove it once. It proves it three independent ways that would each have to be wrong simultaneously for the isolation claim to be false:</p>
+<table>
+<thead><tr><th>from \ to</th><th>hub</th><th>prod</th><th>dev</th></tr></thead>
+<tbody>
+<tr><td><strong>hub</strong></td><td>–</td><td>✅</td><td>✅</td></tr>
+<tr><td><strong>prod</strong></td><td>✅</td><td>–</td><td>❌</td></tr>
+<tr><td><strong>dev</strong></td><td>✅</td><td>❌</td><td>–</td></tr>
+</tbody></table>
+<ol>
+<li><strong>Google's Connectivity Tests</strong> — a managed service that traces the actual forwarding path a packet would take and reports whether it's deliverable, independent of anything this repo wrote.</li>
+<li><strong>The VPC route tables themselves</strong> — confirming there's no route for prod's CIDR present anywhere inside the dev VPC (and vice versa), which is the mechanism NCC's star topology relies on: edges only get routes to the center, never to each other.</li>
+<li><strong>Real packets</strong> — a live <code>curl</code> from inside one spoke to a service in the other spoke, which returns <code>000</code> (connection refused, not even a TCP handshake).</li>
+</ol>
+<p>That last one is the test I'd trust most, because route tables and managed connectivity checks can both be technically correct while still missing something a live packet would catch — an overly permissive firewall rule that a route table check doesn't evaluate, for instance. The spoke firewalls independently admit only the hub CIDR, which functions as a second, structurally different isolation layer beneath the NCC topology itself: even if NCC's routing had a gap, the firewall policy is the backstop.</p>
+<h2>No bastion, no public IPs, still auditable</h2>
+<p>Every VM in this landing zone has no external IP address, runs as a Shielded VM, and has project-wide SSH keys blocked at the metadata level. Administrative access goes exclusively through Identity-Aware Proxy with OS Login, so "who can SSH into this box" is answered entirely by IAM — there's no separate bastion host to patch, harden, and audit as its own attack surface. Every live check in the test suite runs over an actual IAP tunnel, which is a meaningfully different claim than "IAP is configured": it means the entire test suite itself only works because IAP-based access actually functions end to end.</p>
+<h2>Denials you can see, not denials that vanish</h2>
+<p>The default, implicit deny in a GCP firewall policy is silent — nothing logs it, nothing tells you a request was dropped. This repo replaces that silence with an explicit deny-all rule at the bottom of every firewall policy, and that explicit rule <em>is</em> logged. The logs feed a log-based metric, which feeds a Cloud Monitoring alert. In other words: instead of trusting that the implicit deny is doing its job, the repo makes the deny an event you can query, graph, and alert on.</p>
+<figure><img loading="lazy" decoding="async" alt="Firewall denial logs and the alert policy built from them" src="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/images/live-firewall-denials.png"/><figcaption>Explicit, logged deny — the implicit deny that ships by default is invisible; this one isn't.</figcaption></figure>
+<h2>DNS as one place, not three</h2>
+<p>Rather than each spoke owning its own DNS zone (which drifts, inevitably), there's a single private DNS zone in the hub, DNS-peered into both prod and dev. One name, one source of truth, plus query logging so you can see who resolved what. ADR 0004 in the repo puts it plainly: <em>a name is not a route</em> — DNS peering resolves names across the hub, but it's the NCC topology and firewall policy, not DNS, that actually decides whether the resulting IP is reachable. It's a subtle distinction that's easy to blur if you're not careful about which layer is doing which job.</p>
+<figure><img loading="lazy" decoding="async" alt="Connectivity Tests and route tables confirming NCC star isolation" src="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/images/live-ncc-routes.png"/><figcaption>Route tables confirming what the topology promises: no prod route in dev, no dev route in prod.</figcaption></figure>
+<h2>Four decisions, stated plainly</h2>
+<table>
+<thead><tr><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Network Connectivity Center star topology over VPC peering, Shared VPC, or a full mesh</td></tr>
+<tr><td>IAP + OS Login instead of a bastion host or public IPs</td></tr>
+<tr><td>Explicit, logged deny-all in every firewall policy</td></tr>
+<tr><td>One private DNS zone in the hub, peered out — a name is not a route</td></tr>
+</tbody></table>
+<p>The NCC-star choice is the one worth dwelling on. VPC peering doesn't transit — hub-and-spoke peering alone would leave you managing N² relationships as spokes grow, and peering can't be chained through a hub. Shared VPC collapses the isolation boundary you're trying to build in the first place. A full mesh scales even worse than peering. NCC's star topology gives you a hub that intentionally can reach every spoke, and spokes that structurally cannot reach each other, without hand-managing routes — the isolation is a property of the topology itself, not something reinforced only by policy.</p>
+<h2>Getting the test suite honest</h2>
+<p>The build hit a subtlety worth naming: on the first pass, one of the isolation checks passed — but for the wrong reason. A DNS resolution failure between spokes was being read by the test as "connection blocked" when what had actually happened was that the query never resolved at all, which says nothing about whether the underlying network path was actually closed. It's the kind of false positive that's dangerous precisely because it looks like a passing security test. The fix, and the general lesson, is documented in <a href="https://github.com/soodrajesh/gcp-network-landing-zone/blob/main/docs/runbooks/08-troubleshooting.md" target="_blank" rel="noopener">runbook 08</a>: when a security check passes suspiciously easily, verify it isn't passing for the wrong reason before you trust it.</p>
+<h2>What's deliberately not here</h2>
+<p>There's no on-prem connectivity (Cloud VPN or Interconnect) — this landing zone models multi-environment isolation inside GCP, not hybrid connectivity. There's no centralized egress inspection via Cloud NGFW Enterprise or a network virtual appliance. VPC Service Controls and organization policies are out of scope — they need Organization Admin, which this project doesn't have. It's single-region, and the workloads used to prove reachability are tiny HTTP probes, not real services.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-network-landing-zone<br/>cd gcp-network-landing-zone<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # state bucket → 3 VPCs + NCC hub → firewall/NAT/DNS/logging → live tests<br/>./scripts/down.sh  # delete everything</code></pre>
+<p>Running costs an estimated €0.5–1/day from list prices — Cloud NAT, flow-log ingestion into BigQuery, the NCC hub itself — bounded by a Terraform-managed budget alert, and €0 once <code>down.sh</code> finishes. For a landing zone specifically, I think the estimate-vs-measured distinction matters enough to say plainly: this is a list-price estimate, not a bill I measured, and the repo says so rather than implying more precision than it has.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+          <a class="post-card" href="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/">
+            <div class="post-card-meta"><span class="chip">GCP: Data &amp; Streaming</span><span>Sep 26, 2026</span></div>
+            <h3>Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters</h3>
+            <p>An event pipeline you can trust — enforced schema, a replayable raw landing zone, dead-lettering, and PII-masked authorized views for analysts.</p>
+          </a>
+          <a class="post-card" href="/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/">
+            <div class="post-card-meta"><span class="chip">Kubernetes</span><span>Sep 23, 2026</span></div>
+            <h3>KEDA and Karpenter on GKE: Event-Driven Autoscaling</h3>
+            <p>Scale pods on Pub/Sub queue depth with KEDA and provision right-sized nodes with Karpenter on GKE Standard, both dropping to zero when idle.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-security">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

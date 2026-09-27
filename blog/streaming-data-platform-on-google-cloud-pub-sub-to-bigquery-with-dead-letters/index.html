@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters | Rajesh Sood</title>
+  <meta name="description" content="An event pipeline you can trust on GCP: enforced Avro schema, a replayable raw landing zone, dead-lettering, PII-masked authorized views — deployed live, 30/30 tests passing." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters" />
+  <meta property="og:description" content="An event pipeline you can trust on GCP: enforced Avro schema, a replayable raw landing zone, dead-lettering, PII-masked authorized views — deployed live, 30/30 tests passing." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="3000" />
+  <meta property="og:image:alt" content="Streaming data platform architecture: Pub/Sub schema, BigQuery subscription, Cloud Run enricher, dead-letter topic, authorized views" />
+  <meta property="article:published_time" content="2026-09-26" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters" />
+  <meta name="twitter:description" content="An event pipeline you can trust on GCP: enforced Avro schema, a replayable raw landing zone, dead-lettering, PII-masked authorized views — deployed live, 30/30 tests passing." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters",
+  "datePublished": "2026-09-26",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/",
+  "image": "https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/architecture.png",
+  "description": "An event pipeline you can trust on GCP: enforced Avro schema, a replayable raw landing zone, dead-lettering, PII-masked authorized views — deployed live, 30/30 tests passing."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-26">Sep 26, 2026</time><span>·</span><span>9 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Streaming data platform architecture: schema-enforced Pub/Sub topic, BigQuery subscription landing zone, Cloud Run enricher, dead-letter topic, curated tables, authorized views" src="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/architecture.png"/><figcaption>Bad data stopped at the door; poison messages dead-lettered, not dropped; PII never reaches analysts.</figcaption></figure>
+<p>Streaming pipelines fail in boring, expensive ways: a producer ships a malformed event and it either crashes the consumer or silently corrupts a downstream table; a transient error causes a message to vanish instead of retrying; an analyst querying "for a quick look" ends up with a customer's raw phone number in a spreadsheet. None of these are exotic failure modes — they're the default outcome of a pipeline that doesn't design for them up front.</p>
+<p><a href="https://github.com/soodrajesh/gcp-streaming-data-platform" target="_blank" rel="noopener">gcp-streaming-data-platform</a> is built around a simple principle: enforce structure at the edge, never lose a message even when something downstream is broken, and never let raw PII reach a human who doesn't need it. Pub/Sub with an enforced Avro schema feeds a BigQuery subscription for a raw, replayable landing zone; a Cloud Run enricher with retries and dead-lettering produces curated tables; PII-masked authorized views are what analysts actually query. It went live in europe-west1 with data resident in BigQuery EU, and its 30-check test suite passed 30 of 30 — with the dead-letter replay in runbook 04 executed for real, not just described.</p>
+<h2>Bad data stopped at the door</h2>
+<p>The schema lives on the Pub/Sub topic itself, not in application code somewhere downstream. A publish attempt with the wrong shape or the wrong field type fails immediately with <code>INVALID_ARGUMENT</code> — before the message is accepted, before it can propagate anywhere. That's a meaningfully different guarantee than validating in a consumer, where a bad message has already been accepted and now has to be handled as an exception case somewhere down the chain.</p>
+<h2>Nothing lost, exactly-once results from at-least-once delivery</h2>
+<p>Every message the topic accepts lands untouched in a raw BigQuery table via a native BigQuery subscription — no custom code, no Dataflow job. The live test is blunt about this: 316 messages published, 316 rows landed. But Pub/Sub only guarantees at-least-once delivery, which means duplicates are a certainty over time, not an edge case. Rather than fight that at the ingestion layer, the raw table keeps every duplicate, and de-duplication happens at read time by <code>event_id</code> when curated tables are built — the test sequence makes the arithmetic visible: 316 raw rows in, 306 after removing exact publish-retry duplicates, 300 in the final curated mart. Each number is checkable against the last.</p>
+<h2>Poison doesn't block the pipeline and doesn't vanish</h2>
+<p>A message that's schema-valid but semantically broken — a foreign key that doesn't resolve, a value the enricher can't process — gets a 422 from the enricher, is retried a bounded number of times, and if it still fails, lands in a dead-letter topic and a <code>raw.dead_letters</code> table, with an alert fired. Crucially, BigQuery write failures dead-letter too, not just enricher failures — the failure mode is handled symmetrically wherever it originates in the pipeline, not just at the one place that was easiest to instrument.</p>
+<figure><img loading="lazy" decoding="async" alt="Dead-letter table showing poison messages captured with failure reason" src="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/live-dead-letters.png"/><figcaption>Poison messages land here with a reason, not in the void.</figcaption></figure>
+<p>And the replay path isn't theoretical — I ran it for real against the live system: pull dead-lettered messages back out, fix or reprocess, and republish. The point of dead-lettering instead of dropping is that a bad message is recoverable data, not a permanently lost event.</p>
+<figure><img loading="lazy" decoding="async" alt="Dead-letter replay executed against the live pipeline" src="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/live-replay.png"/><figcaption>The replay runbook, executed for real — not a description of what it would do.</figcaption></figure>
+<h2>PII never reaches an analyst</h2>
+<p>Analysts query authorized views, not the underlying tables, and there are no direct table grants at all. The <code>customer_key</code> field is hashed before it's exposed through the view layer. The live test proves this from the analyst's actual vantage point: querying as an impersonated analyst identity returns the masked, hashed data — there's no path through which the raw column is reachable from that identity, because the identity never has table-level access to check.</p>
+<figure><img loading="lazy" decoding="async" alt="Analyst-identity query returning masked, hashed data through an authorized view" src="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/images/live-analyst-access.png"/><figcaption>Queried as the analyst identity, not as an admin pretending to check the analyst's view.</figcaption></figure>
+<h2>Fast enough to matter, not fast for its own sake</h2>
+<p>Event-to-enriched-row latency measured p50 2.2 s and p95 5.6 s warm — numbers that matter for setting a realistic SLA, and numbers I'd rather publish honestly (including the p95 tail) than round down to a headline figure. A pipeline that's "usually fast" but occasionally takes 5+ seconds behaves very differently for a downstream consumer with a tight timeout than one that's consistently mediocre.</p>
+<h2>Four decisions</h2>
+<table>
+<thead><tr><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>BigQuery subscription for raw landing — no Dataflow job, no custom code</td></tr>
+<tr><td>Enforce the Avro schema at the topic, not in a downstream consumer</td></tr>
+<tr><td>Retry → dead-letter → replay, with attempt counts treated as approximate, not exact</td></tr>
+<tr><td>Authorized views for analysts, never direct table grants</td></tr>
+</tbody></table>
+<p>The dead-letter attempt-count caveat is worth calling out specifically: Pub/Sub's delivery attempt counter is a best-effort value, not a precise ledger, and this repo says so rather than building alerting logic that silently assumes more precision than the platform actually gives you.</p>
+<h2>What's out of scope, on purpose</h2>
+<p>No CMEK, no VPC Service Controls, no BigQuery column-level policy tags — all organization-level controls this project-scoped build doesn't reach. The <code>customer_key</code> hash is unsalted, which is fine for a demo and wrong for real PII (a keyed hash is the documented fix). It's single-region, streaming inserts are best-effort deduplicated rather than exactly-once (the curated mart is treated as the source of truth, not the raw stream), and the event producer is synthetic.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-streaming-data-platform<br/>cd gcp-streaming-data-platform<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → image build → Cloud Run + subscriptions → live tests<br/>./scripts/down.sh  # delete everything, including dataset contents</code></pre>
+<p>Well under €1 for a full build-test-teardown cycle — Cloud Run scales to zero between events, and a Terraform-managed budget with alerts bounds the total regardless. The infrastructure is cheap; the discipline of never losing a message and never leaking a column is the part worth the effort.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 26, 2026</span></div>
+            <h3>Hub-and-Spoke Network Landing Zone on Google Cloud</h3>
+            <p>Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three ways.</p>
+          </a>
+          <a class="post-card" href="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/">
+            <div class="post-card-meta"><span class="chip">GCP: Serverless</span><span>Sep 27, 2026</span></div>
+            <h3>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</h3>
+            <p>An order-processing platform with no servers to run — a saga that retries transient failures, compensates business failures, and never oversells stock.</p>
+          </a>
+          <a class="post-card" href="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/">
+            <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span></div>
+            <h3>FinOps Cost-Anomaly Detector on Google Cloud</h3>
+            <p>A z-score baseline over daily cost per service, SKU and GKE namespace — catching every injected anomaly with zero false positives.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-data">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 75 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
