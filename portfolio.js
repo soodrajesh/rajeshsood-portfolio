@@ -36,6 +36,7 @@
     const archDrawer = document.getElementById('arch-drawer');
     const archBackdrop = document.getElementById('arch-backdrop');
     const archImg = document.getElementById('arch-drawer-img');
+    const archImgWrap = document.querySelector('.arch-drawer-img-wrap');
     const archTitle = document.getElementById('arch-drawer-title');
     const archRepoLink = document.getElementById('arch-drawer-repo');
     const archBlogLink = document.getElementById('arch-drawer-blog');
@@ -43,8 +44,29 @@
     const archCloseBtn = document.getElementById('arch-drawer-close');
     let archTriggerEl = null;
 
+    // The diagrams are near-square, but the drawer's own width/height ratio
+    // is not — sizing the drawer to a fixed width lets the image (scaled by
+    // object-fit:contain) leave big blank margins either side. Instead, size
+    // the drawer's WIDTH to match the loaded image's aspect ratio against
+    // the height the layout already gives it, so there's no letterboxing.
+    function fitArchDrawerToImage() {
+      if (!archDrawer.classList.contains('open')) return;
+      const naturalW = archImg.naturalWidth;
+      const naturalH = archImg.naturalHeight;
+      if (!naturalW || !naturalH) return;
+      const availH = archImgWrap.clientHeight;
+      if (!availH) return;
+      const chrome = archDrawer.offsetWidth - archImgWrap.clientWidth; // header/body horizontal padding, ~width-independent
+      const idealWidth = availH * (naturalW / naturalH) + chrome;
+      const maxWidth = window.innerWidth * 0.96;
+      archDrawer.style.width = Math.max(480, Math.min(idealWidth, maxWidth)) + 'px';
+    }
+    archImg.addEventListener('load', fitArchDrawerToImage);
+    window.addEventListener('resize', fitArchDrawerToImage);
+
     function openArchDrawer(card) {
       archTriggerEl = card;
+      archDrawer.style.width = ''; // reset to default while the new image loads
       archImg.src = card.dataset.arch;
       archImg.alt = card.dataset.title + ' architecture diagram';
       archTitle.textContent = card.dataset.title;
@@ -61,6 +83,7 @@
       archDrawer.setAttribute('aria-hidden', 'false');
       archCloseBtn.focus();
       document.body.style.overflow = 'hidden';
+      fitArchDrawerToImage(); // image may already be cached/decoded, no second 'load' event
       if (window.gtag) window.gtag('event', 'project_arch_preview', { project: card.dataset.title });
     }
 
