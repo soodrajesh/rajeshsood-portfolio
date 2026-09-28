@@ -12,7 +12,7 @@
        uses. -->
   <script src="/theme-init.js"></script>
   <title>Rajesh Sood — Senior Cloud & DevOps Engineer</title>
-  <meta name="description" content="Rajesh Sood — Senior Cloud & DevOps Engineer · AI/ML Platform Engineering · AWS · Kubernetes · Terraform · SRE. Portfolio of projects, experience and skills." />
+  <meta name="description" content="Rajesh Sood — Senior Cloud & DevOps Engineer · Platform Engineering · SRE · MLOps & AI/ML Infrastructure · AWS · Kubernetes · Terraform. Portfolio of projects, experience and skills." />
   <meta name="keywords" content="senior engineer, cloud architect, devops, AWS, Kubernetes, Terraform, SRE, platform engineering, AI/ML, infrastructure" />
   <meta name="author" content="Rajesh Sood" />
   <meta name="robots" content="index, follow" />
@@ -680,6 +680,10 @@
       color: var(--muted);
       line-height: 1.65;
     }
+    .timeline-desc ul { margin: 0; padding-left: 18px; }
+    .timeline-desc li { margin-bottom: 5px; }
+    .timeline-desc li::marker { color: var(--border-strong); }
+    .timeline-desc .timeline-lede { margin: 0 0 8px; }
 
     /* ── Projects grid ── */
     .projects-grid {
@@ -1127,11 +1131,12 @@
         <div class="hero-content">
           <div class="hero-eyebrow">Open to opportunities</div>
           <h1>Rajesh Sood, MBA</h1>
-          <p class="hero-role">Senior Cloud &amp; DevOps Engineer · AI/ML Platform Engineering · Dublin, Ireland</p>
+          <p class="hero-role">Senior Cloud &amp; DevOps Engineer · Platform Engineering · SRE · MLOps &amp; AI/ML Infrastructure · Dublin, Ireland</p>
           <p class="hero-bio">
             15+ years building secure, scalable cloud infrastructure for enterprises across FinTech, Telecom, and Global Manufacturing.
-            <strong>Sets platform-wide DevOps and reliability standards</strong> across multi-account AWS — architecting the platforms and technical
-            decisions that let engineering orgs ship fast without breaking things. Hands-on GenAI integration using Amazon Bedrock and Claude.
+            At Workday I <strong>own the AWS platform, security posture and release engineering</strong> for Content Tools — from a governed
+            self-service AWS environment built from zero, to a production AWS Bedrock failure-analysis system embedded in CI/CD, to a
+            15,000+ finding vulnerability remediation program. AWS Certified Solutions Architect – Professional.
           </p>
           <div class="hero-actions">
             <a class="btn-resume" href="/Rajesh_Sood_Resume_2026.pdf" target="_blank" rel="noopener">
@@ -1149,16 +1154,16 @@
       <h2 class="section-label">impact_at_a_glance</h2>
       <div class="metrics-strip">
         <div class="metric-card">
-          <span class="metric-value">$200K+</span>
-          <div class="metric-label">Cloud cost savings delivered</div>
+          <span class="metric-value">$200K</span>
+          <div class="metric-label">Annual cloud cost savings (Reserved Instance strategy)</div>
         </div>
         <div class="metric-card">
-          <span class="metric-value">99.99%</span>
-          <div class="metric-label">Uptime SLA maintained</div>
+          <span class="metric-value">15,000+</span>
+          <div class="metric-label">Vulnerability findings closed (RBVM, 3 platforms)</div>
         </div>
         <div class="metric-card">
-          <span class="metric-value">35%</span>
-          <div class="metric-label">Faster deploy cycles</div>
+          <span class="metric-value">10+</span>
+          <div class="metric-label">Production pipelines with Bedrock failure analysis</div>
         </div>
         <div class="metric-card">
           <span class="metric-value">15+</span>
@@ -1176,67 +1181,88 @@
       <div class="skills-grid">
         <span class="skill-pill">AWS</span>
         <span class="skill-pill">EC2 / EKS / ECS</span>
+        <span class="skill-pill">VPC / PrivateLink / Route 53</span>
+        <span class="skill-pill">IAM</span>
         <span class="skill-pill">Lambda</span>
         <span class="skill-pill">S3 / RDS</span>
-        <span class="skill-pill">Amazon Bedrock</span>
-        <span class="skill-pill">SageMaker</span>
         <span class="skill-pill">Azure</span>
         <span class="skill-pill">GCP</span>
         <span class="skill-pill">Oracle OCI</span>
       </div>
 
-      <div class="skills-category">ai / genai</div>
+      <div class="skills-category">ai / ml infrastructure</div>
       <div class="skills-grid">
+        <span class="skill-pill">AWS Bedrock (Claude)</span>
+        <span class="skill-pill">SageMaker</span>
+        <span class="skill-pill">AWS Batch</span>
+        <span class="skill-pill">AWS DMS</span>
+        <span class="skill-pill">Azure ML → SageMaker Migration</span>
+        <span class="skill-pill">Vertex AI</span>
         <span class="skill-pill">RAG Pipeline Design</span>
-        <span class="skill-pill">Claude / Titan LLM</span>
+        <span class="skill-pill">MCP</span>
         <span class="skill-pill">GitHub Copilot</span>
         <span class="skill-pill">Cursor</span>
       </div>
 
-      <div class="skills-category">iac &amp; orchestration</div>
+      <div class="skills-category">iac &amp; policy-as-code</div>
       <div class="skills-grid">
         <span class="skill-pill">Terraform</span>
         <span class="skill-pill">CloudFormation</span>
+        <span class="skill-pill">Checkov</span>
         <span class="skill-pill">Ansible</span>
         <span class="skill-pill">Kubernetes</span>
         <span class="skill-pill">Docker</span>
         <span class="skill-pill">Helm</span>
       </div>
 
-      <div class="skills-category">ci/cd &amp; gitops</div>
+      <div class="skills-category">ci/cd &amp; release engineering</div>
       <div class="skills-grid">
         <span class="skill-pill">Jenkins</span>
         <span class="skill-pill">GitHub Actions</span>
         <span class="skill-pill">ArgoCD</span>
         <span class="skill-pill">GitLab CI</span>
+        <span class="skill-pill">Groovy Pipelines</span>
+        <span class="skill-pill">RPM / AMI Builds</span>
       </div>
 
-      <div class="skills-category">observability &amp; finops</div>
+      <div class="skills-category">reliability &amp; observability</div>
       <div class="skills-grid">
         <span class="skill-pill">Prometheus</span>
         <span class="skill-pill">Grafana</span>
         <span class="skill-pill">CloudWatch</span>
         <span class="skill-pill">Splunk</span>
         <span class="skill-pill">Datadog</span>
+        <span class="skill-pill">OpenTelemetry</span>
         <span class="skill-pill">SLO / SLI / Error Budget</span>
-        <span class="skill-pill">FinOps Governance</span>
+        <span class="skill-pill">Incident Command</span>
+        <span class="skill-pill">On-call Rotation</span>
       </div>
 
-      <div class="skills-category">security</div>
+      <div class="skills-category">security &amp; compliance</div>
       <div class="skills-grid">
         <span class="skill-pill">Wiz</span>
         <span class="skill-pill">Snyk</span>
         <span class="skill-pill">SonarQube</span>
         <span class="skill-pill">OWASP ZAP</span>
+        <span class="skill-pill">CISA KEV / CVE Remediation</span>
+        <span class="skill-pill">RBVM</span>
+        <span class="skill-pill">IAM Governance</span>
         <span class="skill-pill">CIS Benchmarks</span>
-        <span class="skill-pill">IAM Zero-Trust</span>
         <span class="skill-pill">SOC 2 / GDPR / HIPAA</span>
+      </div>
+
+      <div class="skills-category">finops</div>
+      <div class="skills-grid">
+        <span class="skill-pill">FinOps Governance</span>
+        <span class="skill-pill">Reserved Instances &amp; Savings Plans</span>
+        <span class="skill-pill">Resource Lifecycle Automation</span>
       </div>
 
       <div class="skills-category">languages</div>
       <div class="skills-grid" style="margin-bottom: 56px;">
         <span class="skill-pill">Python</span>
         <span class="skill-pill">Bash</span>
+        <span class="skill-pill">Groovy</span>
         <span class="skill-pill">YAML / HCL</span>
       </div>
 
@@ -1250,26 +1276,20 @@
           </div>
         </div>
         <div class="cert-card">
-          <div class="cert-icon">AZ</div>
-          <div>
-            <div class="cert-name">Microsoft Azure Certified</div>
-            <div class="cert-meta">Microsoft</div>
-          </div>
-        </div>
-        <div class="cert-card">
           <div class="cert-icon">GCP</div>
           <div>
-            <div class="cert-name">Google Cloud Certified</div>
-            <div class="cert-meta">Google Cloud</div>
+            <div class="cert-name">Google Cloud Skill Badges</div>
+            <div class="cert-meta">Build a Website · Set Up an App Dev Environment · Feb 2026</div>
           </div>
         </div>
         <div class="cert-card">
-          <div class="cert-icon">OCI</div>
+          <div class="cert-icon">AZ</div>
           <div>
-            <div class="cert-name">Oracle Cloud Infrastructure Certified</div>
-            <div class="cert-meta">Oracle</div>
+            <div class="cert-name">Exam 533: Implementing Microsoft Azure Infrastructure Solutions</div>
+            <div class="cert-meta">Microsoft · Exam passed · Jul 2017</div>
           </div>
         </div>
+        <p style="grid-column: 1 / -1; font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin: 0;">Previously certified: Google Cloud Professional Cloud Architect · Oracle OCI Architect Professional &amp; Associate · AWS Developer &amp; SysOps Administrator – Associate · Juniper JNCIA-DevOps · Aviatrix Multicloud Network Associate. All credentials verifiable on <a href="https://www.credly.com/users/rajeshsood" target="_blank" rel="noopener" style="color: var(--accent);">Credly ↗</a></p>
       </div>
 
       <h2 class="section-label">education</h2>
@@ -1302,17 +1322,21 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-header">
-            <div class="timeline-role">Senior Cloud &amp; DevOps Engineer</div>
+            <div class="timeline-role">DevOps Engineer</div>
             <span class="timeline-period">Oct 2023 – Present</span>
           </div>
           <div class="timeline-company">Workday · Dublin, Ireland</div>
           <div class="timeline-desc">
-            Architecting AI/ML platform infrastructure with SageMaker and integrating GenAI capabilities via Amazon Bedrock and Claude.
-            Driving SRE practices on EKS — maintaining 99.99% uptime SLA, owning incident command, and setting reliability standards.
-            Delivered 35% cycle-time reduction through CI/CD platform modernisation (Jenkins, GitHub Actions, Terraform).
-            Built AI-powered security automation with Wiz and Snyk, reducing vulnerability remediation time significantly.
-            Achieved $100K+ FinOps savings through Reserved Instance strategy and right-sizing governance.
-            Accelerated IaC velocity 25% using GitHub Copilot, Cursor, and Bedrock-assisted workflows.
+            <p class="timeline-lede">Own AWS infrastructure, security posture, release engineering and AI/ML-augmented tooling for Workday's Content Tools platform estate.</p>
+            <ul>
+              <li><strong>AI/ML infrastructure:</strong> designed a production ML inference system on AWS Bedrock (Claude), embedded directly in CI/CD — stage-scoped log capture, traceback extraction and named failure-pattern detection — live across 10+ production pipelines, cutting manual failure triage.</li>
+              <li><strong>MLOps:</strong> led the migration of ML workloads from Azure ML to AWS SageMaker — AWS DMS database migration, AWS Batch training jobs and SageMaker notebooks — owning networking, IAM, storage and compute; added OpenTelemetry tracing into Splunk plus model-latency and token-cost tracking.</li>
+              <li><strong>Platform engineering:</strong> designed and built a governed, self-service AWS environment from zero (VPN, IAM, PrivateLink, Route 53, ALB, identity integration) as sole technical owner from design through production handoff.</li>
+              <li><strong>Security:</strong> set CISA KEV-first, risk-based remediation strategy for an org-wide RBVM program across 3 platforms, closing ~15,000+ findings; host hygiene alone removed 350–400 findings per platform with no code change.</li>
+              <li><strong>IaC:</strong> led the CloudFormation → Terraform migration and introduced Checkov policy-as-code, moving security compliance from manual review to pipeline-enforced.</li>
+              <li><strong>Release engineering:</strong> own the release pipeline for 3 core platforms (RPM builds on Amazon Linux 2023, AMI packaging, EC2 rollout, ALB/CloudWatch, QA, production certification); sole owner of the Jenkins controller/agent fleet; closed 700+ infrastructure tickets.</li>
+              <li>Decommissioned legacy content-management and data-warehouse systems and non-standard compute to reduce attack surface and recurring cost.</li>
+            </ul>
           </div>
         </div>
 
@@ -1324,10 +1348,11 @@
           </div>
           <div class="timeline-company">Protego Technologies Ltd · Dublin, Ireland</div>
           <div class="timeline-desc">
-            SRE for a high-availability FinTech client — designed observability architecture that reduced MTTR by 45%.
-            Led migration from Datadog to Splunk SignalFx, cutting monitoring costs while improving signal coverage.
-            Implemented shift-left security in CI/CD (Snyk, SonarQube, OWASP ZAP), reducing vulnerabilities by 40%.
-            Automated Kubernetes HPA scaling and built Prometheus monitoring pipelines, improving team efficiency by 20%.
+            <ul>
+              <li>Built and supported multiple EKS clusters and a global observability stack (Splunk + Datadog + Prometheus) with SLO/SLI alerting for high-availability FinTech workloads, reducing MTTR by 45%.</li>
+              <li>Integrated Snyk, SonarQube and OWASP ZAP as shift-left controls in CI/CD, reducing production vulnerabilities by 40%.</li>
+              <li>Owned EKS cluster operations — capacity planning, incident command and a runbook-driven on-call rotation.</li>
+            </ul>
           </div>
         </div>
 
@@ -1339,10 +1364,12 @@
           </div>
           <div class="timeline-company">Hilti Asia IT Services (HAITS) · Kuala Lumpur, Malaysia</div>
           <div class="timeline-desc">
-            Led cloud operations, security, and compliance across Hilti's global AWS infrastructure spanning 10+ regions (CIS, ISO, SOC 2, GDPR).
-            Delivered $120K annual cost savings through Reserved Instance strategy and intelligent auto-scaling.
-            Standardised CI/CD pipelines using CloudFormation across regions, reducing provisioning time by 60%.
-            Built self-healing infrastructure with AWS Lambda for automated compliance remediation.
+            <ul>
+              <li>Delivered $120K in annual savings through Reserved Instance strategy and resource lifecycle automation across multi-region AWS.</li>
+              <li>Authored CloudFormation templates enforcing security and compliance baselines across 10+ AWS regions and business units.</li>
+              <li>Led the IAM governance program to meet enterprise SOC 2 and internal audit standards.</li>
+              <li>Built self-healing infrastructure with AWS Lambda for automated compliance remediation.</li>
+            </ul>
           </div>
         </div>
 
@@ -1354,24 +1381,27 @@
           </div>
           <div class="timeline-company">Maxis · Kuala Lumpur, Malaysia</div>
           <div class="timeline-desc">
-            Designed and deployed 30+ applications on AWS and multi-cloud platforms with high availability.
-            Led Reserved Instance strategy, reducing monthly cloud spend by 15%.
-            Automated infrastructure provisioning using CloudFormation, Ansible, and Terraform.
-            Performed vulnerability assessments and security hardening, reducing security incidents by 50%.
+            <ul>
+              <li>Architected and migrated 30+ enterprise applications to AWS with HA/DR configurations and zero-downtime cutovers.</li>
+              <li>Spearheaded the Reserved Instance purchasing program, reducing cloud expenditure by 15% ($80K annually).</li>
+              <li>Automated infrastructure provisioning with CloudFormation, Ansible and Terraform.</li>
+              <li>Performed vulnerability assessments and security hardening, reducing security incidents by 50%.</li>
+            </ul>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-header">
-            <div class="timeline-role">ITO Service Delivery Consultant III</div>
+            <div class="timeline-role">IT Service Delivery Consultant III (L3)</div>
             <span class="timeline-period">Feb 2017 – Jun 2018</span>
           </div>
-          <div class="timeline-company">DXC Technology · Cyberjaya, Malaysia</div>
+          <div class="timeline-company">DXC Technology (formerly HPE) · Cyberjaya, Malaysia</div>
           <div class="timeline-desc">
-            Supported hybrid cloud environments (AWS, VMware, Hyper-V) for multiple enterprise clients.
-            Monitored 300+ AWS instances using CloudWatch &amp; Zabbix.
-            Improved security posture with CIS benchmarks and developed automation scripts for proactive health checks.
+            <ul>
+              <li>Provided L3 architectural support across hybrid environments (AWS, Hyper-V, VMware), managing 300+ EC2 instances across 8 enterprise accounts, monitored with CloudWatch and Zabbix.</li>
+              <li>Developed health-check and remediation scripts that reduced application downtime and manual escalation; applied CIS benchmarks to improve security posture.</li>
+            </ul>
           </div>
         </div>
 
@@ -1383,8 +1413,10 @@
           </div>
           <div class="timeline-company">Softenger (at HPE) · Cyberjaya, Malaysia</div>
           <div class="timeline-desc">
-            Level 3 VMware Administrator managing virtualisation operations for enterprise clients.
-            Ensured high availability of vSphere environments and supported cloud migration initiatives.
+            <ul>
+              <li>Level 3 VMware Administrator managing virtualisation operations for enterprise clients.</li>
+              <li>Ensured high availability of vSphere environments and supported cloud migration initiatives.</li>
+            </ul>
           </div>
         </div>
 
@@ -1396,8 +1428,24 @@
           </div>
           <div class="timeline-company">Optum / UnitedHealth Group · Noida, India</div>
           <div class="timeline-desc">
-            Provided enterprise IaaS cloud automation using HP BSA Suite, VMware vSphere, and vRA.
-            Managed Windows &amp; Linux provisioning, optimising infrastructure performance and security for healthcare systems (HIPAA-compliant).
+            <ul>
+              <li>Provided enterprise IaaS cloud automation using HP BSA Suite, VMware vSphere and vRealize Automation for self-service provisioning.</li>
+              <li>Managed Windows &amp; Linux provisioning, optimising infrastructure performance and security for healthcare systems (HIPAA-compliant).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-role">Associate Professional</div>
+            <span class="timeline-period">Oct 2012 – Nov 2014</span>
+          </div>
+          <div class="timeline-company">CSC India (now DXC) · India</div>
+          <div class="timeline-desc">
+            <ul>
+              <li>Windows/Linux environments and VMware vSphere administration.</li>
+            </ul>
           </div>
         </div>
 
@@ -1405,11 +1453,13 @@
           <div class="timeline-dot"></div>
           <div class="timeline-header">
             <div class="timeline-role">Systems Engineer</div>
-            <span class="timeline-period">2010 – 2014</span>
+            <span class="timeline-period">Jul 2010 – Oct 2012</span>
           </div>
-          <div class="timeline-company">Dell International / HCL India · India</div>
+          <div class="timeline-company">Dell International &amp; HCL India · India</div>
           <div class="timeline-desc">
-            Early career roles in enterprise IT infrastructure, systems administration, and technical support across large-scale environments.
+            <ul>
+              <li>Enterprise technical support, Active Directory and network device administration.</li>
+            </ul>
           </div>
         </div>
 
