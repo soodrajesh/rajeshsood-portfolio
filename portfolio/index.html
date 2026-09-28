@@ -282,16 +282,7 @@
       scrollbar-width: none;
     }
     .tab-nav::-webkit-scrollbar { display: none; }
-    /* The tablist wraps only the real in-page tabs (ARIA requires every
-       child of [role=tablist] to be role=tab); "blog" is a real navigation
-       link, not a tab, so it sits as a flex sibling outside the tablist and
-       is put back in its visual slot with order instead of DOM position. */
     .tab-nav [role="tablist"] { display: contents; }
-    #tabbtn-about { order: 1; }
-    #tabbtn-experience { order: 2; }
-    #tabbtn-projects { order: 3; }
-    .tab-link { order: 4; }
-    #tabbtn-contact { order: 5; }
 
     .tab-btn {
       background: none;
@@ -1112,9 +1103,9 @@
           <button class="tab-btn" id="tabbtn-about" role="tab" aria-selected="true" aria-controls="tab-about" data-tab="about">about</button>
           <button class="tab-btn" id="tabbtn-experience" role="tab" aria-selected="false" aria-controls="tab-experience" tabindex="-1" data-tab="experience">experience</button>
           <button class="tab-btn" id="tabbtn-projects" role="tab" aria-selected="false" aria-controls="tab-projects" tabindex="-1" data-tab="projects">projects</button>
+          <button class="tab-btn" id="tabbtn-blog" role="tab" aria-selected="false" aria-controls="tab-blog" tabindex="-1" data-tab="blog">blog</button>
           <button class="tab-btn" id="tabbtn-contact" role="tab" aria-selected="false" aria-controls="tab-contact" tabindex="-1" data-tab="contact">contact</button>
         </div>
-        <a class="tab-link" href="/blog/">blog</a>
       </nav>
     </div>
   </div>
@@ -1855,7 +1846,101 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-         TAB 4 — CONTACT
+         TAB 4 — BLOG
+    ════════════════════════════════════════════ -->
+    <section class="tab-panel" id="tab-blog" role="tabpanel" aria-labelledby="tabbtn-blog">
+
+      <h1 class="sr-only">Blog</h1>
+
+      <h2 class="section-label">latest_posts</h2>
+
+      <p class="section-hint">Deep dives on cloud, platform engineering and AI infrastructure — each backed by a real, live-verified build.</p>
+
+      <div class="projects-grid">
+
+        <a class="project-card" href="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 27, 2026</div>
+          <div class="project-title">Agent Cost &amp; Observability Platform for LLM Agents</div>
+          <div class="project-desc">Every Gemini call logged with token counts and cost, guardrails that block prompt injection before it spends a cent, quality scored by an LLM judge.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">FinOps</span><span class="project-tag">LLM Agents</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 27, 2026</div>
+          <div class="project-title">Secure Delivery to Cloud Run: Binary Auth &amp; Canary</div>
+          <div class="project-desc">Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">Supply Chain</span><span class="project-tag">Binary Authorization</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 27, 2026</div>
+          <div class="project-title">FinOps Cost-Anomaly Detector on Google Cloud</div>
+          <div class="project-desc">A z-score baseline over daily cost per service, SKU and GKE namespace — catching every injected anomaly with zero false positives.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">FinOps</span><span class="project-tag">BigQuery</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 27, 2026</div>
+          <div class="project-title">Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</div>
+          <div class="project-desc">An order-processing platform with no servers to run — a saga that retries transient failures, compensates business failures, and never oversells stock.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">Serverless</span><span class="project-tag">Saga</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 26, 2026</div>
+          <div class="project-title">Streaming Data Platform: Pub/Sub to BigQuery with Dead Letters</div>
+          <div class="project-desc">An event pipeline you can trust — enforced schema, a replayable raw landing zone, dead-lettering, and PII-masked authorized views for analysts.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">Data Engineering</span><span class="project-tag">Pub/Sub</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 26, 2026</div>
+          <div class="project-title">Hub-and-Spoke Network Landing Zone on Google Cloud</div>
+          <div class="project-desc">Three VPCs joined by Network Connectivity Center in star topology, so prod and dev reach shared services but never each other — proven three ways.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">Networking</span><span class="project-tag">Zero Trust</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 26, 2026</div>
+          <div class="project-title">Enterprise RAG Platform: Access Control, DLP &amp; Cost</div>
+          <div class="project-desc">A governed GenAI knowledge platform where forbidden chunks are never retrieved — enforced in SQL, proven with real distinct identities.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">RAG</span><span class="project-tag">DLP</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 25, 2026</div>
+          <div class="project-title">GKE Platform Engineering: Binary Authorization &amp; Canary</div>
+          <div class="project-desc">An internal developer platform on GKE Autopilot: signed images, GitOps, canary releases with automatic rollback, a WAF-protected Gateway.</div>
+          <div class="project-tags"><span class="project-tag">GCP</span><span class="project-tag">GKE</span><span class="project-tag">Platform Engineering</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+        <a class="project-card" href="/blog/event-driven-autoscaling-on-gke-combining-keda-and-karpenter/" target="_blank" rel="noopener">
+          <div class="project-num">Sep 23, 2026</div>
+          <div class="project-title">KEDA and Karpenter on GKE: Event-Driven Autoscaling</div>
+          <div class="project-desc">Scale pods on Pub/Sub queue depth with KEDA and provision right-sized nodes with Karpenter on GKE Standard, both dropping to zero when idle.</div>
+          <div class="project-tags"><span class="project-tag">Kubernetes</span><span class="project-tag">KEDA</span><span class="project-tag">Karpenter</span></div>
+          <div class="project-footer"><span class="project-link">Read post ↗</span></div>
+        </a>
+
+      </div>
+
+      <a class="btn-consulting" href="/blog/" style="margin-bottom: 40px;">
+        Browse all 75 posts
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         TAB 5 — CONTACT
     ════════════════════════════════════════════ -->
     <section class="tab-panel" id="tab-contact" role="tabpanel" aria-labelledby="tabbtn-contact">
 
