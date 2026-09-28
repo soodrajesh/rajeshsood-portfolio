@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Keyless CI/CD to Cloud Run: Workload Identity, Sigstore &amp; SLSA | Rajesh Sood</title>
+  <meta name="description" content="GitHub Actions reaches Cloud Run with zero stored credentials: Workload Identity Federation pinned to one workflow file, keyless Sigstore signing, SBOM and SLSA provenance — deployed live, 42/42 tests, four drills that prove the boundary holds." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Keyless CI/CD to Cloud Run: Workload Identity, Sigstore & SLSA" />
+  <meta property="og:description" content="GitHub Actions reaches Cloud Run with zero stored credentials: Workload Identity Federation pinned to one workflow file, keyless Sigstore signing, SBOM and SLSA provenance — deployed live, 42/42 tests, four drills that prove the boundary holds." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="2700" />
+  <meta property="og:image:alt" content="Keyless CI/CD architecture: GitHub Actions authenticating to Google Cloud via Workload Identity Federation pinned to one workflow file, with Sigstore signing, SBOM and SLSA provenance, and a verify-before-deploy gate" />
+  <meta property="article:published_time" content="2026-09-28" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Keyless CI/CD to Cloud Run: Workload Identity, Sigstore & SLSA" />
+  <meta name="twitter:description" content="GitHub Actions reaches Cloud Run with zero stored credentials: Workload Identity Federation pinned to one workflow file, keyless Sigstore signing, SBOM and SLSA provenance — deployed live, 42/42 tests, four drills that prove the boundary holds." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Keyless CI/CD to Cloud Run: Workload Identity, Sigstore & SLSA",
+  "datePublished": "2026-09-28",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/",
+  "image": "https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/images/architecture.png",
+  "description": "GitHub Actions reaches Cloud Run with zero stored credentials: Workload Identity Federation pinned to one workflow file, keyless Sigstore signing, SBOM and SLSA provenance — deployed live, 42/42 tests, four drills that prove the boundary holds."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Keyless CI/CD to Cloud Run: Workload Identity, Sigstore &amp; SLSA</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-28">Sep 28, 2026</time><span>·</span><span>10 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Keyless CI/CD architecture: GitHub Actions to Cloud Run via Workload Identity Federation pinned to one workflow file, Sigstore keyless signing, SBOM and SLSA provenance, verify before deploy" src="/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/images/architecture.png"/><figcaption>Two gates, not one: who the repository is, and which exact workflow file is running.</figcaption></figure>
+<p>The standard Workload Identity Federation tutorial trusts "any workflow in repo X" — which quietly means every workflow file, every branch, and every pull request from a stranger's fork all get a path to the same production credentials. The interesting engineering isn't wiring up WIF at all; it's narrowing that trust down to exactly the one workflow file, on exactly one branch, that should ever be allowed to become that identity — and then proving, live, that everything else genuinely gets refused.</p>
+<p><a href="https://github.com/soodrajesh/gcp-keyless-cicd-supply-chain" target="_blank" rel="noopener">gcp-keyless-cicd-supply-chain</a> ships a release pipeline with no stored Google credential anywhere: GitHub's own OIDC token exchanges for a short-lived Google access token, gated first by the repository's immutable numeric id and owner, then by the exact workflow file (<code>job_workflow_ref</code>) on <code>main</code>. Every image is signed keyless with Sigstore, carries an SBOM and SLSA build provenance as signed attestations, and the deploy workflow verifies all three before it will ship a digest. It deployed live in europe-west1, repository <code>soodrajesh/gcp-keyless-cicd-supply-chain</code>, and the test suite passed 42 of 42 — including four separate live drills designed to try to break the boundary, not just exercise the happy path.</p>
+<h2>Two gates, and the second one is the workflow file itself</h2>
+<p>Gate one is the provider's attribute condition: it accepts a token only when <code>repository_id</code> and <code>repository_owner_id</code> match — numeric ids, not names, so a repository that's renamed or deleted-and-recreated can't inherit the trust. Gate two is per service account: the publisher's <code>workloadIdentityUser</code> binding names exactly one principal, <code>release.yml@refs/heads/main</code>; the deployer's names exactly one too, <code>deploy.yml@refs/heads/main</code>. <code>job_workflow_ref</code> is specifically the file that <em>contains the running job</em> — for a reusable workflow, that's the called file — so <code>release.yml</code> calling <code>deploy.yml</code> as a reusable workflow means the deploy job's own token correctly carries <code>deploy.yml</code>'s identity, not <code>release.yml</code>'s.</p>
+<h2>Four drills, not one happy path</h2>
+<p>A pipeline that only demonstrates a successful release proves almost nothing about the boundary. This one runs four adversarial checks against the live deployment: a workflow file that exists in the repository but isn't in either IAM binding tries to impersonate both service accounts and is refused for both (with the real IAM denial captured in the log, not just a green checkmark taken on faith); the deploy workflow dispatched from a branch instead of <code>main</code> fails at the authentication step itself, before it ever reaches signature verification; an unsigned image pushed straight from a laptop is refused at "Verify signature," with production left serving whatever it served before; and an image validly signed via real Sigstore — but by a different, unrelated service identity than the pipeline's own — is <em>also</em> refused, because verification pins the exact certificate identity and issuer, not "any valid signature."</p>
+<pre><code>RESULT unsigned    conclusion=failure failed_step=Verify signature<br/>RESULT other       conclusion=failure failed_step=Verify signature  (signed by a real, different identity)<br/>RESULT genuine     conclusion=success                              (the pipeline's own image, same workflow)</code></pre>
+<h2>Six decisions, honestly framed</h2>
+<table>
+<thead><tr><th>Decision</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td>Sigstore's public-good instance, not Binary Authorization with KMS keys</td><td>No key management at all, but enforcement lives in the workflow rather than the platform — see below</td></tr>
+<tr><td>Deploy by digest; tags immutable</td><td>A tag can never be silently repointed, at the cost of needing a fresh unique tag per run</td></tr>
+<tr><td>Pull requests get zero cloud credentials, even from forks</td><td><code>ci.yml</code> lints, tests and scans, but genuinely cannot obtain a Google token</td></tr>
+<tr><td>Every third-party Action pinned to a full commit SHA</td><td>Enforced in CI by a one-line pin checker, not just a convention</td></tr>
+<tr><td>The digest input is validated against <code>^sha256:[0-9a-f]{64}$</code> and passed via <code>env</code></td><td>Never interpolated into a shell string, closing an obvious injection path</td></tr>
+<tr><td>The rogue-signer drill signs as a different <em>service account</em>, not a human</td><td>A cleaner negative control than reusing the operator's own identity for "someone else"</td></tr>
+</tbody></table>
+<h2>The stated gap</h2>
+<p>Enforcement here lives in the deploy <em>workflow</em>, not the platform: a human or service holding <code>roles/run.developer</code> on the Cloud Run service directly could still deploy an unsigned image without going through <code>deploy.yml</code> at all. In this build that role is scoped to the deployer service account (itself only impersonable by <code>deploy.yml</code> on <code>main</code>) and the project owner — but closing the gap fully needs Binary Authorization with an attestor that trusts this Sigstore identity, turning "the pipeline refuses rogue images" into "the platform refuses them no matter how someone tries." That's exactly the model the <a href="/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/">security posture scanner</a> would then be able to verify is actually configured project-wide.</p>
+<h2>Two bugs a live rebuild found</h2>
+<p>The Workload Identity pool's display name — built as <code>GitHub Actions (owner/repo)</code> — exceeded Google's 32-character limit on the very first apply, a validation the API only surfaces at creation time. And the negative-control workflow initially ran <code>google-github-actions/auth</code> without <code>token_format: access_token</code>, which only writes a local credentials file and never actually calls IAM — so the drill reported "success" while proving nothing about authorization. Forcing the real token exchange turned a green-but-meaningless check into a genuine one that now fails exactly when it should.</p>
+<h2>What this doesn't claim to be</h2>
+<p>A compromised <code>main</code> branch can still change <code>release.yml</code> itself — branch protection is a repository setting this build can't prove from the outside, and it's the real control here. Gate one (the repository id check) is asserted by reading the provider's condition, not attacked with a genuine second repository, since this token lacks safe permission to create and delete one. And because Sigstore's public-good instance is used, the repository and its signing metadata are public — don't lift this exact setup into a private repository without a private Sigstore deployment.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-keyless-cicd-supply-chain<br/>cd gcp-keyless-cicd-supply-chain<br/>gcloud config set project &lt;your-project&gt;    # push this repo to your own GitHub first<br/>./scripts/up.sh    # infra → the REAL release pipeline runs on GitHub Actions → live tests + 4 drills<br/>./scripts/down.sh  # delete everything, including the GitHub repository variables</code></pre>
+<p>Free-tier: Cloud Run scales to zero, Artifact Registry storage is small, and Workload Identity and Sigstore cost nothing to use.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 28, 2026</span></div>
+            <h3>Cloud Security Posture Scanner on Google Cloud</h3>
+            <p>Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle.</p>
+          </a>
+          <a class="post-card" href="/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Sep 28, 2026</span></div>
+            <h3>Hardened MCP Servers on Cloud Run</h3>
+            <p>Every MCP call verified twice, scoped per caller, rate-limited in Firestore, and audited to BigQuery without ever logging argument values.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-security">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 78 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

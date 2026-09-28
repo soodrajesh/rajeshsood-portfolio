@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Cloud Security Posture Scanner on Google Cloud | Rajesh Sood</title>
+  <meta name="description" content="Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle, alerts, and a private dashboard — deployed live, 45/45 tests." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cloud Security Posture Scanner on Google Cloud" />
+  <meta property="og:description" content="Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle, alerts, and a private dashboard — deployed live, 45/45 tests." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="2780" />
+  <meta property="og:image:alt" content="Cloud security posture scanner architecture: Cloud Asset Inventory and Checkov feeding OPA/Rego rules into a common BigQuery finding schema with alerts and a private dashboard" />
+  <meta property="article:published_time" content="2026-09-28" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cloud Security Posture Scanner on Google Cloud" />
+  <meta name="twitter:description" content="Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle, alerts, and a private dashboard — deployed live, 45/45 tests." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cloud Security Posture Scanner on Google Cloud",
+  "datePublished": "2026-09-28",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/",
+  "image": "https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/images/architecture.png",
+  "description": "Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle, alerts, and a private dashboard — deployed live, 45/45 tests."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Cloud Security Posture Scanner on Google Cloud</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-28">Sep 28, 2026</time><span>·</span><span>10 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Cloud security posture scanner architecture: Cloud Asset Inventory feeding OPA/Rego rules, a common finding schema in BigQuery, Pub/Sub and log-based alerts, and a private dashboard" src="/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/images/architecture.png"/><figcaption>Two independent sources — the live cloud and the Terraform that describes it — land in one schema, with a lifecycle instead of a log line.</figcaption></figure>
+<p>Most posture scanners answer one question well: what's wrong right now. Fewer answer the questions that actually matter to a security team living with the output day after day — is this the same finding I saw yesterday, did the thing I fixed last week actually stay fixed, and does my IaC scanner agree with what's really running in the cloud. Those questions need identity and a lifecycle, not just a fresh list every time a scan runs.</p>
+<p><a href="https://github.com/soodrajesh/gcp-security-posture-scanner" target="_blank" rel="noopener">gcp-security-posture-scanner</a> reads a GCP project through Cloud Asset Inventory (both the RESOURCE and IAM_POLICY views, across 8 resource types and 4 IAM-policy types), evaluates 16 CIS-GCP-mapped rules written in Rego, and merges the result into a BigQuery table where every finding has a stable fingerprint and a lifecycle: open, resolved, reopened, with <code>first_seen</code> preserved across all of it. A second source — Checkov over Terraform — lands in the exact same schema, so a change caught before it deploys and a misconfiguration found live in the cloud are one queryable table, not two dashboards you have to mentally merge. It deployed live in europe-west1, and the test suite passed 45 of 45, including a full harden → resolve → regress → reopen drill against real, Terraform-created misconfigurations.</p>
+<h2>A fingerprint, not a row</h2>
+<p>Each finding's identity is <code>sha256(source | rule_id | resource | subject)[:16]</code> — deliberately including <code>subject</code>, because one resource can violate one rule in more than one way (two different roles on the same project IAM policy, say). Every scan runs a single <code>MERGE</code>: fingerprints present in this scan are opened or refreshed with <code>first_seen</code> left untouched; fingerprints that were open but are absent from this scan, for the same source and project, are marked resolved. A regression doesn't create a new row — it reopens the same one, with its original discovery date intact. The alternative (delete and reinsert everything each scan) would lose exactly the information a security team cares about: how long was this actually open, and is today's alert new or something we already knew about.</p>
+<h2>What the org's own guardrails ruled out — and what that's worth knowing</h2>
+<p>The scanner ships a small lab of deliberately misconfigured Terraform resources so it has something real to find on a fresh project. The first live apply failed twice: the organization's own policies forbid creating a bucket with uniform bucket-level access disabled (HTTP 412) and forbid creating a service-account key at all (HTTP 400). Rather than fight the guardrails, the lab moved to misconfigurations the org actually allows — a public bucket binding, a BigQuery dataset shared with <code>allAuthenticatedUsers</code>, a public Cloud Run service, Editor granted to a service account — and the two blocked rules stayed in the rule set, proven by 33 Rego unit tests instead of a live finding. That failure is itself a small, honest piece of posture information: this organization already prevents those two specific misconfigurations at the platform level, which is worth knowing on its own.</p>
+<h2>Sources that can't resolve each other's findings</h2>
+<p>The <code>MERGE</code> that closes a finding is scoped to <code>(source, project)</code> — a clean Checkov run over Terraform can never mark a live Cloud Asset Inventory finding resolved, and vice versa. That matters because the two sources answer genuinely different questions: Checkov catches a mistake before it's deployed; the live scanner catches drift, manual changes, and anything that predates the current Terraform. Conflating them would let a passing CI run silently paper over a real, currently-open misconfiguration in the cloud.</p>
+<h2>Six decisions, honestly framed</h2>
+<table>
+<thead><tr><th>Decision</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td>Rules are Rego, run by the <code>opa</code> binary, not Python or SQL</td><td>A learning curve, in exchange for one file a security engineer can review without reading the scanner's code</td></tr>
+<tr><td>Read the Asset API directly rather than its BigQuery export</td><td>Scope is exactly the asset types listed in <code>inventory.py</code> — a type not listed is invisible, not clean</td></tr>
+<tr><td>Two rules kept unit-test-only rather than dropped</td><td>Honest about what this org's own policies already prevent, at the cost of two rules with no live evidence</td></tr>
+<tr><td>Lifecycle via one <code>MERGE</code>, not delete-and-reinsert</td><td>More SQL complexity, in exchange for <code>first_seen</code> and true opened/resolved counts</td></tr>
+<tr><td>Checkov severities are a static map in code</td><td>Checkov's open-source output usually carries no severity at all</td></tr>
+<tr><td>No suppression/accept-risk workflow</td><td>An accepted risk stays visibly open rather than silently hidden — deliberately, for now</td></tr>
+</tbody></table>
+<h2>Three bugs a live run found that a mocked test never would have</h2>
+<p>A hand-written fixture assumed the BigQuery dataset ACL lived in the RESOURCE view of the asset, the way Compute and Storage do. It doesn't — it's only in the IAM_POLICY view — so <code>GCP-BQ-001</code> never fired against a fixture built from the public API docs. It was caught by re-capturing the fixture from a real inventory snapshot and diffing the expected rule IDs, which is now exactly what the Python test suite does. Checkov turned up two more: it prints one JSON document per <code>-d</code> directory scanned, which broke a naive <code>json.load</code> with "Extra data"; and it reports the same file under different relative paths depending on which directory was scanned, which briefly turned one real finding into two duplicate rows until the merge started preferring Checkov's own repo-relative path and de-duplicating by fingerprint before staging.</p>
+<figure><img loading="lazy" decoding="async" alt="Deployed dashboard showing 4 critical, 8 high, 18 medium and 4 low open findings from both cai-rego and checkov sources, with rule id, evidence, CIS mapping and first-seen date" src="/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/images/dashboard-top.png"/><figcaption>The private dashboard — no public binding, reached only through <code>gcloud run services proxy</code> — showing real findings from both sources on the live project.</figcaption></figure>
+<h2>What this doesn't claim to be</h2>
+<p>Scope is one project and exactly the asset types the code lists — nothing broader is scanned, and nothing outside that list is "confirmed clean," it's simply not looked at. This is configuration posture, not runtime threat detection: it will never see a compromised process on a VM. There's no suppression workflow, so an accepted risk stays open in the dashboard rather than being formally signed off. And GitHub Actions CI here validates, tests and scans — it deliberately doesn't deploy, the same "keep CI out of the blast radius" reasoning the <a href="/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/">keyless CI/CD build</a> takes further by actually wiring up a live, credential-free deploy path.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-security-posture-scanner<br/>cd gcp-security-posture-scanner<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # infra → lab misconfigurations → image → scan → Checkov ingest → live tests → lifecycle drill<br/>./scripts/dashboard.sh    # http://localhost:8088, your own identity attached<br/>./scripts/down.sh  # delete everything, including the lab</code></pre>
+<p>Under €1 for a full build-test-drill-teardown cycle — the scan job and dashboard scale to zero, and BigQuery/Pub/Sub/Cloud Asset usage stays far below free-tier limits.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 28, 2026</span></div>
+            <h3>Keyless CI/CD to Cloud Run: Workload Identity, Sigstore &amp; SLSA</h3>
+            <p>GitHub Actions reaches Cloud Run with zero stored credentials — pinned to one workflow file, keyless signing, and drills that prove a rogue image gets refused.</p>
+          </a>
+          <a class="post-card" href="/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Sep 28, 2026</span></div>
+            <h3>Hardened MCP Servers on Cloud Run</h3>
+            <p>Every MCP call verified twice, scoped per caller, rate-limited in Firestore, and audited to BigQuery without ever logging argument values.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-security">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 78 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

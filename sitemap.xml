@@ -55,6 +55,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+<url>
+    <loc>https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+<url>
+    <loc>https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+<url>
     <loc>https://irajeshsood.com/blog/finops-cost-anomaly-detector-on-google-cloud-z-score-alerts-for-gcp-spend/</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>yearly</changefreq>

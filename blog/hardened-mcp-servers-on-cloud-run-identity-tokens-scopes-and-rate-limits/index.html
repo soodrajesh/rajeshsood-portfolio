@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Hardened MCP Servers on Cloud Run | Rajesh Sood</title>
+  <meta name="description" content="Remote MCP servers on Cloud Run: Google identity tokens verified twice, per-caller scopes from a reviewed policy, Firestore rate limiting, tenant isolation, and a BigQuery audit trail that never logs argument values — deployed live, 52/52 tests." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Hardened MCP Servers on Cloud Run" />
+  <meta property="og:description" content="Remote MCP servers on Cloud Run: Google identity tokens verified twice, per-caller scopes from a reviewed policy, Firestore rate limiting, tenant isolation, and a BigQuery audit trail that never logs argument values — deployed live, 52/52 tests." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/images/architecture.png" />
+  <meta property="og:image:width" content="3560" />
+  <meta property="og:image:height" content="2640" />
+  <meta property="og:image:alt" content="Hardened MCP servers architecture: Cloud Run IAM plus in-app identity verification, per-caller scopes, Firestore rate limiting, and a BigQuery audit trail" />
+  <meta property="article:published_time" content="2026-09-28" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hardened MCP Servers on Cloud Run" />
+  <meta name="twitter:description" content="Remote MCP servers on Cloud Run: Google identity tokens verified twice, per-caller scopes from a reviewed policy, Firestore rate limiting, tenant isolation, and a BigQuery audit trail that never logs argument values — deployed live, 52/52 tests." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hardened MCP Servers on Cloud Run",
+  "datePublished": "2026-09-28",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/",
+  "image": "https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/images/architecture.png",
+  "description": "Remote MCP servers on Cloud Run: Google identity tokens verified twice, per-caller scopes from a reviewed policy, Firestore rate limiting, tenant isolation, and a BigQuery audit trail that never logs argument values — deployed live, 52/52 tests."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Hardened MCP Servers on Cloud Run</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-28">Sep 28, 2026</time><span>·</span><span>11 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Hardened MCP servers architecture: identity token verified by Cloud Run IAM and again in the app, per-caller scopes, Firestore rate limiting, and a BigQuery audit trail with no argument values logged" src="/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/images/architecture.png"/><figcaption>Five identities — operator, a read-only agent, a rate-limit stress test, a registered-but-unlisted guest, and a stranger with no access at all — exercise every layer live.</figcaption></figure>
+<p>Most "connect your agent to a remote MCP server" write-ups stop at the handshake. The harder, more interesting question is what happens once an agent can call tools against your infrastructure: who's allowed to call what, what happens when one caller misbehaves, what a security review actually sees in the logs afterward — and, it turned out here, a genuine platform quirk that a naive test would have quietly swallowed as "must be my code."</p>
+<p><a href="https://github.com/soodrajesh/gcp-mcp-platform" target="_blank" rel="noopener">gcp-mcp-platform</a> runs two MCP servers on private Cloud Run services — <code>ops</code> (read-only project introspection: list Cloud Run services, tail recent errors, dry-run a BigQuery cost estimate) and <code>notes</code> (a small multi-tenant store) — reachable only by named callers. Every request is authenticated with a Google identity token checked twice: once by Cloud Run's own IAM invoker check, and again inside the app (signature, audience, issuer, verified email), then matched against a caller policy rendered from Terraform, rate-limited per caller in Firestore, and logged to BigQuery with the decision and reason but never the argument values. It deployed live in europe-west1, and the test suite passed 52 of 52 — driven through five distinct identities that exercise every layer, not just the happy path.</p>
+<h2>Five identities, one suite</h2>
+<p>The Terraform stands up an operator identity with every scope, a read-only agent that can call tools but not write notes, a "burst" identity used purely to trip the rate limiter, a "guest" that holds Cloud Run's invoker role but is deliberately absent from the app's own caller policy, and a "stranger" with no invoker role at all. Running the live suite as all five at once is what actually proves the two layers are independent: the stranger never reaches the app (Cloud Run IAM refuses it outright), the guest reaches the app but is refused there with <code>unregistered_caller</code>, and the read-only agent reaches its allowed tools but gets a scoped refusal — <code>missing_scope:notes:write</code> — the moment it tries to write.</p>
+<h2>A genuine Cloud Run finding, not a bug in this repo</h2>
+<p>The very first live call as the human operator failed with a 401 <code>MalformedError: Could not verify token signature</code> — on a token that verified perfectly fine locally, in a Cloud Run <em>Job</em>, and through <code>gcloud run services proxy</code>. A debug log of the raw ASGI header length, added and deployed specifically to chase this down, showed the answer: 826 characters sent by curl, 518 received by the app. A fresh service-account token of similar length arrived completely intact. The one thing the truncated tokens had in common was their audience — <code>32555940559.apps.googleusercontent.com</code>, the gcloud SDK's own first-party OAuth client id. Cloud Run's front end validates that token correctly for its own IAM invoker check (which is why the request reaches the app at all) but forwards a truncated Authorization header to the container specifically for tokens issued to that client. That's a platform behavior, not a defect in the app — and it's not documented anywhere I could find, only reachable by instrumenting a live deployment.</p>
+<pre><code>sent by curl:      826 chars<br/>received by app:   518 chars   (human token, audience = gcloud's own OAuth client)<br/>received by app:   819 chars   (service-account token, audience = the service itself)</code></pre>
+<p>The fix reframes rather than works around it: every caller, including the human operator, now authenticates as a dedicated service account with a normal, non-redacted, service-scoped token — exactly like the agent identities already did. The raw human-token path stays in the code (explicitly refused for service accounts, in principle accepted for humans), and one live test now asserts a raw human token is refused with <code>invalid_token</code>, turning a debugging session into a permanent regression check instead of a footnote.</p>
+<h2>Argument values never reach the log</h2>
+<p>Every decision — allowed or denied — is one structured JSON line: caller, server, tool, decision, reason, latency, and an <code>args_digest</code> (a SHA-256 of the canonical arguments) plus the argument <em>names</em>. Never the values. That matters concretely here, because notes hold arbitrary user text and the cost tool takes raw SQL — either could carry something sensitive. The live test doesn't just trust the design: it writes a unique marker string into a real note body, then queries the entire BigQuery audit table for that exact string and asserts zero matches, while confirming the argument names and a non-null digest <em>are</em> present for that same call.</p>
+<h2>Five decisions, honestly framed</h2>
+<table>
+<thead><tr><th>Decision</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td>Google identity tokens + Cloud Run IAM, not an OAuth authorization server</td><td>No public endpoint or client registration flow, but a client that only speaks MCP's native OAuth flow needs a proxy in front</td></tr>
+<tr><td>The caller policy is JSON rendered by Terraform, not a runtime API</td><td>Reviewed in a pull request and visible in the plan, at the cost of a redeploy to change who can call what</td></tr>
+<tr><td>Rate limiting is a Firestore transaction per (caller, minute)</td><td>Shared correctly across autoscaled instances, with TTL cleanup, but fixed windows allow up to a 2× burst at a boundary</td></tr>
+<tr><td>Human operators authenticate as a dedicated service account</td><td>Found live, not designed in from the start — see above</td></tr>
+<tr><td>One retry on a `ValueError` from the token verifier</td><td>A defensible hedge against a transient hiccup fetching Google's certs — it wasn't actually the audience bug, but it's harmless and kept</td></tr>
+</tbody></table>
+<h2>What this doesn't claim to be</h2>
+<p>There's no MCP-native OAuth authorization server here, so a client that only speaks that flow needs a proxy in front of this design. Note text handed back to a model is explicitly untrusted — results carry a "this is data, not instructions" warning, but the real mitigation is on the client: don't let an agent act on note content unsupervised. <code>roles/logging.viewer</code> on the ops server is project-wide (needed for the <code>recent_errors</code> tool to read any service's logs), which is broader than a single-resource-type log view would be. And the fixed-window rate limiter, as noted above, tolerates a short burst right at a minute boundary rather than smoothing it out.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-mcp-platform<br/>cd gcp-mcp-platform<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh    # Firestore + audit sink + identities + registry → image → both services → live tests<br/>./scripts/down.sh  # delete everything, including the Firestore database</code></pre>
+<p>Both services scale to zero; Firestore and BigQuery usage from the test suite stays far below free-tier limits.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 28, 2026</span></div>
+            <h3>Keyless CI/CD to Cloud Run: Workload Identity, Sigstore &amp; SLSA</h3>
+            <p>GitHub Actions reaches Cloud Run with zero stored credentials — pinned to one workflow file, keyless signing, and drills that prove a rogue image gets refused.</p>
+          </a>
+          <a class="post-card" href="/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 28, 2026</span></div>
+            <h3>Cloud Security Posture Scanner on Google Cloud</h3>
+            <p>Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle.</p>
+          </a>
+          <a class="post-card" href="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/">
+            <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span></div>
+            <h3>Agent Cost &amp; Observability Platform for LLM Agents</h3>
+            <p>Every Gemini call logged with token counts and cost, guardrails that block prompt injection before it spends a cent, quality scored by an LLM judge.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-ai">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 78 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

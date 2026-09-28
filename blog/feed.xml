@@ -6,7 +6,28 @@
   <atom:link href="https://irajeshsood.com/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Senior Cloud &amp; DevOps Engineer.</description>
   <language>en</language>
-  <lastBuildDate>Sun, 27 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 28 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Hardened MCP Servers on Cloud Run</title>
+    <link>https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/</guid>
+    <pubDate>Mon, 28 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Every MCP call verified twice, scoped per caller, rate-limited in Firestore, and audited to BigQuery without ever logging argument values.</description>
+  </item>
+  <item>
+    <title>Keyless CI/CD to Cloud Run: Workload Identity, Sigstore &amp; SLSA</title>
+    <link>https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/</guid>
+    <pubDate>Mon, 28 Sep 2026 09:00:00 GMT</pubDate>
+    <description>GitHub Actions reaches Cloud Run with zero stored credentials — pinned to one workflow file, keyless signing, and drills that prove a rogue image gets refused.</description>
+  </item>
+  <item>
+    <title>Cloud Security Posture Scanner on Google Cloud</title>
+    <link>https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/</guid>
+    <pubDate>Mon, 28 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle.</description>
+  </item>
   <item>
     <title>Agent Cost &amp; Observability Platform for LLM Agents</title>
     <link>https://irajeshsood.com/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/</link>

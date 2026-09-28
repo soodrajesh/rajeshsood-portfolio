@@ -67,7 +67,7 @@
       <div class="blog-hero">
         <p class="kicker">Blog</p>
         <h1>Kubernetes, AWS, Terraform &amp; DevOps</h1>
-        <p class="lede">75 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
+        <p class="lede">78 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
       </div>
       <div class="blog-layout">
         <aside class="blog-side" aria-label="Filter posts">
@@ -79,13 +79,13 @@
             <summary>Filter by topic &amp; date</summary>
           <p class="side-label">Browse</p>
           <div class="f-tree" id="cat-tree">
-<button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>75</b></button>
-<details class="f-group" open><summary><span>Google Cloud Platform</span><b>8</b></summary>
-<button class="f-btn f-sub" type="button" data-cat="gcp-ai"><span>AI &amp; RAG</span><b>1</b></button>
+<button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>78</b></button>
+<details class="f-group" open><summary><span>Google Cloud Platform</span><b>11</b></summary>
+<button class="f-btn f-sub" type="button" data-cat="gcp-ai"><span>AI &amp; RAG</span><b>2</b></button>
 <button class="f-btn f-sub" type="button" data-cat="gcp-platform-eng"><span>Platform Engineering</span><b>1</b></button>
 <button class="f-btn f-sub" type="button" data-cat="gcp-data"><span>Data &amp; Streaming</span><b>1</b></button>
 <button class="f-btn f-sub" type="button" data-cat="gcp-serverless"><span>Serverless</span><b>1</b></button>
-<button class="f-btn f-sub" type="button" data-cat="gcp-security"><span>Security &amp; Networking</span><b>2</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-security"><span>Security &amp; Networking</span><b>4</b></button>
 <button class="f-btn f-sub" type="button" data-cat="gcp-finops"><span>FinOps</span><b>2</b></button>
 </details>
 <details class="f-group" open><summary><span>Kubernetes &amp; GitOps</span><b>17</b></summary>
@@ -115,9 +115,9 @@
           </div>
           <p class="side-label">Archive</p>
           <div class="f-tree" id="arc-tree">
-<button class="f-btn is-active" type="button" data-arc="all"><span>All time</span><b>75</b></button>
-<details class="f-group" open><summary><span>2026</span><b>14</b></summary>
-<button class="f-btn f-sub" type="button" data-arc="2026-09"><span>September</span><b>9</b></button>
+<button class="f-btn is-active" type="button" data-arc="all"><span>All time</span><b>78</b></button>
+<details class="f-group" open><summary><span>2026</span><b>17</b></summary>
+<button class="f-btn f-sub" type="button" data-arc="2026-09"><span>September</span><b>12</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-08"><span>August</span><b>1</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-07"><span>July</span><b>2</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-03"><span>March</span><b>1</b></button>
@@ -136,6 +136,21 @@
           <p class="side-note"><a href="/blog/feed.xml">RSS feed →</a></p>
         </aside>
         <section class="post-cards" id="post-list" aria-live="polite">
+        <a class="post-card" href="/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/" data-cat="gcp gcp-ai" data-arc="2026 2026-09" data-text="hardened mcp servers on cloud run remote mcp servers on cloud run: google identity tokens verified twice, per-caller scopes, firestore rate limiting, tenant isolation, and a bigquery audit trail that never logs argument values.">
+          <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Sep 28, 2026</span><span>11 min read</span></div>
+          <h2>Hardened MCP Servers on Cloud Run</h2>
+          <p>Every MCP call verified twice, scoped per caller, rate-limited in Firestore, and audited to BigQuery without ever logging argument values.</p>
+        </a>
+        <a class="post-card" href="/blog/keyless-ci-cd-to-cloud-run-workload-identity-sigstore-and-slsa/" data-cat="gcp gcp-security" data-arc="2026 2026-09" data-text="keyless ci/cd to cloud run: workload identity, sigstore &amp; slsa github actions reaches cloud run with zero stored credentials: workload identity federation pinned to one workflow file, keyless sigstore signing, sbom and slsa provenance.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 28, 2026</span><span>10 min read</span></div>
+          <h2>Keyless CI/CD to Cloud Run: Workload Identity, Sigstore &amp; SLSA</h2>
+          <p>GitHub Actions reaches Cloud Run with zero stored credentials — pinned to one workflow file, keyless signing, and drills that prove a rogue image gets refused.</p>
+        </a>
+        <a class="post-card" href="/blog/cloud-security-posture-scanner-on-google-cloud-cai-rego-and-checkov/" data-cat="gcp gcp-security" data-arc="2026 2026-09" data-text="cloud security posture scanner on google cloud cloud asset inventory and checkov feed 16 cis-mapped rego rules into one bigquery finding schema with an open/resolved/reopened lifecycle, alerts, and a private dashboard.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 28, 2026</span><span>10 min read</span></div>
+          <h2>Cloud Security Posture Scanner on Google Cloud</h2>
+          <p>Cloud Asset Inventory and Checkov feed 16 CIS-mapped Rego rules into one BigQuery finding schema with an open/resolved/reopened lifecycle.</p>
+        </a>
         <a class="post-card" href="/blog/agent-cost-and-observability-platform-on-google-cloud-for-llm-agent-workloads/" data-cat="gcp gcp-finops" data-arc="2026 2026-09" data-text="agent cost &amp; observability platform for llm agents cost governance for llm agent workloads on gcp: every gemini call logged with token cost, prompt injection blocked before it spends a cent, quality scored by an llm judge.">
           <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Sep 27, 2026</span><span>9 min read</span></div>
           <h2>Agent Cost &amp; Observability Platform for LLM Agents</h2>
