@@ -282,6 +282,16 @@
       scrollbar-width: none;
     }
     .tab-nav::-webkit-scrollbar { display: none; }
+    /* The tablist wraps only the real in-page tabs (ARIA requires every
+       child of [role=tablist] to be role=tab); "blog" is a real navigation
+       link, not a tab, so it sits as a flex sibling outside the tablist and
+       is put back in its visual slot with order instead of DOM position. */
+    .tab-nav [role="tablist"] { display: contents; }
+    #tabbtn-about { order: 1; }
+    #tabbtn-experience { order: 2; }
+    #tabbtn-projects { order: 3; }
+    .tab-link { order: 4; }
+    #tabbtn-contact { order: 5; }
 
     .tab-btn {
       background: none;
@@ -1093,12 +1103,14 @@
   <!-- Sticky Tab Nav -->
   <div class="tab-nav-wrap" role="navigation" aria-label="Section tabs">
     <div class="wrapper tab-nav-inner">
-      <nav class="tab-nav" role="tablist" aria-label="Portfolio sections">
-        <button class="tab-btn" id="tabbtn-about" role="tab" aria-selected="true" aria-controls="tab-about" data-tab="about">about</button>
-        <button class="tab-btn" id="tabbtn-experience" role="tab" aria-selected="false" aria-controls="tab-experience" tabindex="-1" data-tab="experience">experience</button>
-        <button class="tab-btn" id="tabbtn-projects" role="tab" aria-selected="false" aria-controls="tab-projects" tabindex="-1" data-tab="projects">projects</button>
+      <nav class="tab-nav" aria-label="Portfolio sections">
+        <div role="tablist" aria-label="Portfolio sections">
+          <button class="tab-btn" id="tabbtn-about" role="tab" aria-selected="true" aria-controls="tab-about" data-tab="about">about</button>
+          <button class="tab-btn" id="tabbtn-experience" role="tab" aria-selected="false" aria-controls="tab-experience" tabindex="-1" data-tab="experience">experience</button>
+          <button class="tab-btn" id="tabbtn-projects" role="tab" aria-selected="false" aria-controls="tab-projects" tabindex="-1" data-tab="projects">projects</button>
+          <button class="tab-btn" id="tabbtn-contact" role="tab" aria-selected="false" aria-controls="tab-contact" tabindex="-1" data-tab="contact">contact</button>
+        </div>
         <a class="tab-link" href="/blog/">blog</a>
-        <button class="tab-btn" id="tabbtn-contact" role="tab" aria-selected="false" aria-controls="tab-contact" tabindex="-1" data-tab="contact">contact</button>
       </nav>
     </div>
   </div>
