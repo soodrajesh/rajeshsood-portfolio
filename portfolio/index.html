@@ -779,42 +779,46 @@
       margin: -8px 0 18px;
     }
 
-    /* ── Architecture preview drawer ── */
+    /* ── Architecture preview modal ── */
     .arch-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15,23,42,0.5);
+      background: rgba(0,0,0,0.72);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.2s ease;
       z-index: 90;
     }
     .arch-backdrop.open { opacity: 1; visibility: visible; }
 
     .arch-drawer {
       position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: min(560px, 94vw);
+      top: 3vh;
+      left: 50%;
+      width: min(1280px, 96vw);
+      max-height: 94vh;
       background: var(--surface);
-      border-left: 1px solid var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       box-shadow: var(--shadow-md);
-      transform: translateX(100%);
-      transition: transform 0.28s ease;
+      transform: translate(-50%, 12px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
       z-index: 91;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
+      overflow: hidden;
     }
-    .arch-drawer.open { transform: translateX(0); }
+    .arch-drawer.open { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 
     .arch-drawer-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      padding: 22px 24px 0;
+      padding: 20px 24px 0;
+      flex-shrink: 0;
     }
     .arch-drawer-title {
       font-family: var(--display);
@@ -840,14 +844,17 @@
     .arch-drawer-close:hover { color: var(--text); border-color: var(--accent); }
 
     .arch-drawer-body {
-      padding: 16px 24px 28px;
+      padding: 16px 24px 24px;
+      overflow: auto;
+      flex: 1;
     }
     .arch-drawer-img-wrap {
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: #fff;
-      overflow: hidden;
-      margin-bottom: 18px;
+      overflow: auto;
+      margin-bottom: 16px;
+      max-height: 68vh;
     }
     .arch-drawer-img-wrap img {
       display: block;
@@ -878,7 +885,8 @@
     .arch-drawer-actions a[hidden] { display: none; }
 
     @media (max-width: 640px) {
-      .arch-drawer { width: 100vw; }
+      .arch-drawer { top: 0; height: 100vh; max-height: 100vh; border-radius: 0; }
+      .arch-drawer-img-wrap { max-height: 50vh; }
     }
 
     /* ── Contact ── */
@@ -1915,170 +1923,15 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
           Read the write-up ↗
         </a>
+        <a id="arch-drawer-fullsize" href="#" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          Open full size ↗
+        </a>
       </div>
     </div>
   </aside>
 
   <script src="/theme-toggle.js"></script>
-  <script>
-    // Tab switching with full ARIA + arrow-key navigation
-    const tabs = Array.from(document.querySelectorAll('.tab-btn'));
-    const panels = document.querySelectorAll('.tab-panel');
-
-    function activateTab(btn) {
-      const target = btn.dataset.tab;
-
-      tabs.forEach(t => {
-        t.setAttribute('aria-selected', 'false');
-        t.tabIndex = -1;
-      });
-      panels.forEach(p => p.classList.remove('active'));
-
-      btn.setAttribute('aria-selected', 'true');
-      btn.tabIndex = 0;
-      document.getElementById('tab-' + target).classList.add('active');
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    tabs.forEach((btn, idx) => {
-      btn.addEventListener('click', () => activateTab(btn));
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const dir = e.key === 'ArrowRight' ? 1 : -1;
-          const next = tabs[(idx + dir + tabs.length) % tabs.length];
-          next.focus();
-          activateTab(next);
-        }
-      });
-    });
-
-    // Architecture preview drawer — click a project card with a data-arch
-    // image to slide in its diagram instead of leaving the page immediately.
-    const archDrawer = document.getElementById('arch-drawer');
-    const archBackdrop = document.getElementById('arch-backdrop');
-    const archImg = document.getElementById('arch-drawer-img');
-    const archTitle = document.getElementById('arch-drawer-title');
-    const archRepoLink = document.getElementById('arch-drawer-repo');
-    const archBlogLink = document.getElementById('arch-drawer-blog');
-    const archCloseBtn = document.getElementById('arch-drawer-close');
-    let archTriggerEl = null;
-
-    function openArchDrawer(card) {
-      archTriggerEl = card;
-      archImg.src = card.dataset.arch;
-      archImg.alt = card.dataset.title + ' architecture diagram';
-      archTitle.textContent = card.dataset.title;
-      archRepoLink.href = card.dataset.repo;
-      if (card.dataset.blog) {
-        archBlogLink.href = card.dataset.blog;
-        archBlogLink.hidden = false;
-      } else {
-        archBlogLink.hidden = true;
-      }
-      archDrawer.classList.add('open');
-      archBackdrop.classList.add('open');
-      archDrawer.setAttribute('aria-hidden', 'false');
-      archCloseBtn.focus();
-      document.body.style.overflow = 'hidden';
-      if (window.gtag) window.gtag('event', 'project_arch_preview', { project: card.dataset.title });
-    }
-
-    function closeArchDrawer() {
-      archDrawer.classList.remove('open');
-      archBackdrop.classList.remove('open');
-      archDrawer.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      if (archTriggerEl) { archTriggerEl.focus(); archTriggerEl = null; }
-    }
-
-    document.querySelectorAll('.project-card[data-arch]').forEach(card => {
-      card.addEventListener('click', () => openArchDrawer(card));
-    });
-    archCloseBtn.addEventListener('click', closeArchDrawer);
-    archBackdrop.addEventListener('click', closeArchDrawer);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && archDrawer.classList.contains('open')) closeArchDrawer();
-    });
-
-    // Scroll-based animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.animation = 'slideInUp 0.5s ease-out forwards';
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.project-card, .skill-pill').forEach((el, idx) => {
-      if (idx > 0) {
-        el.style.opacity = '0';
-        observer.observe(el);
-      }
-    });
-
-    // Contact form — posts to gogenops.com/api/contact, the shared
-    // contact-form backend for the user's sites (see gogenops's
-    // api/_lib/allowedOrigins.ts for the origin allowlist authorizing this).
-    const contactToggle = document.getElementById('contact-form-toggle');
-    const contactForm = document.getElementById('contact-form');
-    if (contactToggle && contactForm) {
-      contactToggle.addEventListener('click', () => {
-        const expanded = contactToggle.getAttribute('aria-expanded') === 'true';
-        contactToggle.setAttribute('aria-expanded', String(!expanded));
-        contactToggle.textContent = expanded ? 'contact me →' : 'hide contact form';
-        contactForm.hidden = expanded;
-      });
-
-      contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = document.getElementById('contact-form-submit');
-        const status = document.getElementById('contact-form-status');
-        const payload = {
-          name: document.getElementById('contact-name').value,
-          email: document.getElementById('contact-email').value,
-          message: document.getElementById('contact-message').value,
-          company: document.getElementById('contact-company').value,
-          pageUrl: window.location.href,
-        };
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-        status.textContent = '';
-        status.className = 'contact-form-status';
-        try {
-          const res = await fetch('https://gogenops.com/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          const result = await res.json();
-          if (res.ok && result.ok) {
-            status.textContent = "Message sent — thanks, I'll get back to you soon.";
-            status.className = 'contact-form-status ok';
-            contactForm.reset();
-            if (window.gtag) window.gtag('event', 'contact_submit', { source: 'portfolio' });
-          } else {
-            status.textContent = result.error || 'Something went wrong — please try again.';
-            status.className = 'contact-form-status error';
-          }
-        } catch {
-          status.textContent = 'Could not reach the server — please try again later.';
-          status.className = 'contact-form-status error';
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send';
-        }
-      });
-    }
-
-  </script>
+  <script src="/portfolio.js" defer></script>
 </body>
 </html>
