@@ -764,6 +764,123 @@
     }
     .project-card:hover .project-link { color: var(--accent); }
 
+    button.project-card {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      margin: 0;
+    }
+    button.project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .section-hint {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: -8px 0 18px;
+    }
+
+    /* ── Architecture preview drawer ── */
+    .arch-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
+      z-index: 90;
+    }
+    .arch-backdrop.open { opacity: 1; visibility: visible; }
+
+    .arch-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(560px, 94vw);
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      transform: translateX(100%);
+      transition: transform 0.28s ease;
+      z-index: 91;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .arch-drawer.open { transform: translateX(0); }
+
+    .arch-drawer-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 24px 0;
+    }
+    .arch-drawer-title {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+    .arch-drawer-close {
+      appearance: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .arch-drawer-close:hover { color: var(--text); border-color: var(--accent); }
+
+    .arch-drawer-body {
+      padding: 16px 24px 28px;
+    }
+    .arch-drawer-img-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .arch-drawer-img-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .arch-drawer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .arch-drawer-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-ink);
+      background: var(--accent-dim);
+      border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 999px;
+      padding: 7px 14px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .arch-drawer-actions a:hover { border-color: var(--accent); }
+    .arch-drawer-actions a[hidden] { display: none; }
+
+    @media (max-width: 640px) {
+      .arch-drawer { width: 100vw; }
+    }
+
     /* ── Contact ── */
     .contact-grid {
       display: grid;
@@ -1280,132 +1397,136 @@
 
       <h2 class="section-label">github_projects</h2>
 
+      <p class="section-hint">Click a card to preview its architecture diagram.</p>
+
       <div class="projects-grid">
 
-        <a class="project-card" href="https://github.com/soodrajesh/GitOps-EKS-ArgoCD-Flask-Deployment" target="_blank" rel="noopener">
+        <button type="button" class="project-card flagship" data-arch="/portfolio/images/architecture/gke-platform-engineering.png" data-title="GKE Platform Engineering" data-repo="https://github.com/soodrajesh/gcp-gke-platform-engineering" data-blog="https://irajeshsood.com/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/">
+          <span class="card-badge">flagship</span>
           <div class="project-num">01</div>
-          <div class="project-title">GitOps EKS ArgoCD Flask Deployment</div>
+          <div class="project-title">GKE Platform Engineering</div>
           <div class="project-desc">
-            Terraform-provisioned EKS + ECR with ArgoCD reconciling plain Kubernetes manifests. CI runs real tests and <code>terraform validate</code> on every push.
+            An internal developer platform on GKE Autopilot: three independent admission gates (Pod Security, policy-as-code, Binary Authorization), Argo CD GitOps, and Cloud Deploy canary releases with a real bad-release rollback drill — verified live, 28/28 tests.
           </div>
           <div class="project-tags">
-            <span class="project-tag">EKS</span>
-            <span class="project-tag">ArgoCD</span>
+            <span class="project-tag">GKE Autopilot</span>
+            <span class="project-tag">Binary Authorization</span>
+            <span class="project-tag">Argo CD</span>
+            <span class="project-tag">Cloud Deploy</span>
             <span class="project-tag">Terraform</span>
-            <span class="project-tag">ECR</span>
-            <span class="project-tag">GitHub Actions</span>
           </div>
           <div class="project-footer">
             <span class="project-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              View on GitHub ↗
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Preview architecture →
             </span>
           </div>
-        </a>
+        </button>
 
-        <a class="project-card" href="https://github.com/soodrajesh/Bedrock-Terraform-Infrastructure" target="_blank" rel="noopener">
+        <button type="button" class="project-card" data-arch="/portfolio/images/architecture/enterprise-rag-platform.png" data-title="Enterprise RAG Platform" data-repo="https://github.com/soodrajesh/gcp-enterprise-rag-platform" data-blog="https://irajeshsood.com/blog/enterprise-rag-platform-on-google-cloud-access-control-dlp-and-cost/">
           <div class="project-num">02</div>
-          <div class="project-title">Bedrock Terraform Infrastructure</div>
+          <div class="project-title">Enterprise RAG Platform</div>
           <div class="project-desc">
-            Complete Terraform solution for deploying AWS Bedrock AI services with security best practices, multi-environment support (dev/staging/prod), and automated compliance checks.
+            A governed GenAI knowledge platform on GCP: access control enforced in SQL before retrieval, DLP redaction, and no internet route for the model — proven live with real distinct identities, 11/11 evaluation.
           </div>
           <div class="project-tags">
-            <span class="project-tag">Bedrock</span>
+            <span class="project-tag">RAG</span>
+            <span class="project-tag">Vertex AI</span>
+            <span class="project-tag">BigQuery</span>
+            <span class="project-tag">DLP</span>
             <span class="project-tag">Terraform</span>
-            <span class="project-tag">IAM</span>
-            <span class="project-tag">CloudWatch</span>
           </div>
           <div class="project-footer">
             <span class="project-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              View on GitHub ↗
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Preview architecture →
             </span>
           </div>
-        </a>
+        </button>
 
-        <a class="project-card" href="https://github.com/soodrajesh/AWS-Sagemaker-MLOps-Pipeline" target="_blank" rel="noopener">
+        <button type="button" class="project-card" data-arch="/portfolio/images/architecture/cloudrun-secure-delivery.png" data-title="Secure Delivery to Cloud Run" data-repo="https://github.com/soodrajesh/gcp-cloudrun-secure-delivery" data-blog="https://irajeshsood.com/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
           <div class="project-num">03</div>
-          <div class="project-title">AWS SageMaker MLOps Pipeline</div>
+          <div class="project-title">Secure Delivery to Cloud Run</div>
           <div class="project-desc">
-            End-to-end SageMaker training pipeline (XGBoost plus a custom PyTorch container), provisioned with Terraform and shell automation from data prep through model registration.
+            A software supply chain you can prove: two independently signed attestations verified by Binary Authorization, digest-pinned canary releases, and a real bad-release rollback drill.
           </div>
           <div class="project-tags">
-            <span class="project-tag">SageMaker</span>
-            <span class="project-tag">XGBoost</span>
-            <span class="project-tag">PyTorch</span>
-            <span class="project-tag">Terraform</span>
-            <span class="project-tag">Python</span>
+            <span class="project-tag">Binary Authorization</span>
+            <span class="project-tag">Cloud Deploy</span>
+            <span class="project-tag">Cloud KMS</span>
+            <span class="project-tag">Cloud Build</span>
+            <span class="project-tag">SLSA</span>
           </div>
           <div class="project-footer">
             <span class="project-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              View on GitHub ↗
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Preview architecture →
             </span>
           </div>
-        </a>
+        </button>
 
-        <a class="project-card" href="https://github.com/soodrajesh/DevSecOps-Platform-Jenkins-SonarQube" target="_blank" rel="noopener">
+        <button type="button" class="project-card" data-arch="/portfolio/images/architecture/network-landing-zone.png" data-title="Hub-and-Spoke Network Landing Zone" data-repo="https://github.com/soodrajesh/gcp-network-landing-zone" data-blog="https://irajeshsood.com/blog/hub-and-spoke-network-landing-zone-on-google-cloud-with-network-connectivity-center/">
           <div class="project-num">04</div>
-          <div class="project-title">DevSecOps Platform — Jenkins + SonarQube</div>
+          <div class="project-title">Hub-and-Spoke Network Landing Zone</div>
           <div class="project-desc">
-            Self-hosted Jenkins, SonarQube, and a stack of shift-left security scanners on a single EC2 host, with the single-host POC tradeoffs documented rather than hidden.
+            Three VPCs joined by Network Connectivity Center in star topology — prod and dev reach shared services but never each other, proven three independent ways.
           </div>
           <div class="project-tags">
-            <span class="project-tag">Jenkins</span>
-            <span class="project-tag">SonarQube</span>
-            <span class="project-tag">DevSecOps</span>
-            <span class="project-tag">Checkov</span>
-            <span class="project-tag">EC2</span>
+            <span class="project-tag">Network Connectivity Center</span>
+            <span class="project-tag">IAP</span>
+            <span class="project-tag">Cloud NAT</span>
+            <span class="project-tag">Terraform</span>
+            <span class="project-tag">Zero Trust</span>
           </div>
           <div class="project-footer">
             <span class="project-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              View on GitHub ↗
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Preview architecture →
             </span>
           </div>
-        </a>
+        </button>
 
-        <a class="project-card" href="https://github.com/soodrajesh/Kubernetes-Prometheus-Grafana-Monitoring" target="_blank" rel="noopener">
+        <button type="button" class="project-card" data-arch="/portfolio/images/architecture/serverless-orders-platform.png" data-title="Serverless Orders Platform" data-repo="https://github.com/soodrajesh/gcp-serverless-orders-platform" data-blog="https://irajeshsood.com/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/">
           <div class="project-num">05</div>
-          <div class="project-title">Kubernetes Prometheus Grafana Monitoring</div>
+          <div class="project-title">Serverless Orders Platform</div>
           <div class="project-desc">
-            Enterprise monitoring stack with Prometheus, Grafana, AlertManager, and Node Exporter. One-command deployment, RBAC security, pre-built dashboards, and multi-channel alerting (Email, Slack, PagerDuty).
+            An event-driven order platform with no servers to run: a Cloud Workflows saga that retries transient failures and compensates business ones, with zero overselling proven under a 120-order stress test.
           </div>
           <div class="project-tags">
-            <span class="project-tag">Kubernetes</span>
-            <span class="project-tag">Prometheus</span>
-            <span class="project-tag">Grafana</span>
-            <span class="project-tag">Helm</span>
-            <span class="project-tag">RBAC</span>
+            <span class="project-tag">Cloud Run</span>
+            <span class="project-tag">Cloud Workflows</span>
+            <span class="project-tag">Firestore</span>
+            <span class="project-tag">API Gateway</span>
+            <span class="project-tag">Terraform</span>
           </div>
           <div class="project-footer">
             <span class="project-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              View on GitHub ↗
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Preview architecture →
             </span>
           </div>
-        </a>
+        </button>
 
-        <a class="project-card" href="https://github.com/soodrajesh/aws-cost-audit-overview" target="_blank" rel="noopener">
+        <button type="button" class="project-card" data-arch="/portfolio/images/architecture/streaming-data-platform.png" data-title="Streaming Data Platform" data-repo="https://github.com/soodrajesh/gcp-streaming-data-platform" data-blog="https://irajeshsood.com/blog/streaming-data-platform-on-google-cloud-pub-sub-to-bigquery-with-dead-letters/">
           <div class="project-num">06</div>
-          <div class="project-title">AWS Cost Optimization CLI</div>
+          <div class="project-title">Streaming Data Platform</div>
           <div class="project-desc">
-            A Python CLI, not a Terraform demo: scans an AWS account for waste and prices each finding against the live AWS Price List API, exporting a report. 54 tests, all run in CI. Now the engine behind a paid audit service — this repo covers architecture, IAM policy, and a sample finding.
+            An event pipeline you can trust: enforced Avro schema, a replayable raw landing zone, dead-lettering, and PII-masked authorized views for analysts.
           </div>
           <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">FinOps</span>
-            <span class="project-tag">AWS Price List API</span>
-            <span class="project-tag">CLI</span>
-            <span class="project-tag">CI</span>
+            <span class="project-tag">Pub/Sub</span>
+            <span class="project-tag">BigQuery</span>
+            <span class="project-tag">Cloud Run</span>
+            <span class="project-tag">Terraform</span>
+            <span class="project-tag">Data Engineering</span>
           </div>
           <div class="project-footer">
             <span class="project-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              See how it works ↗
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Preview architecture →
             </span>
           </div>
-        </a>
+        </button>
 
       </div>
 
@@ -1773,6 +1894,31 @@
 
   </main>
 
+  <div class="arch-backdrop" id="arch-backdrop"></div>
+  <aside class="arch-drawer" id="arch-drawer" role="dialog" aria-modal="true" aria-labelledby="arch-drawer-title" aria-hidden="true">
+    <div class="arch-drawer-header">
+      <h2 class="arch-drawer-title" id="arch-drawer-title"></h2>
+      <button type="button" class="arch-drawer-close" id="arch-drawer-close" aria-label="Close preview">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="arch-drawer-body">
+      <div class="arch-drawer-img-wrap">
+        <img id="arch-drawer-img" src="" alt="" loading="lazy" />
+      </div>
+      <div class="arch-drawer-actions">
+        <a id="arch-drawer-repo" href="#" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          View on GitHub ↗
+        </a>
+        <a id="arch-drawer-blog" href="#" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          Read the write-up ↗
+        </a>
+      </div>
+    </div>
+  </aside>
+
   <script src="/theme-toggle.js"></script>
   <script>
     // Tab switching with full ARIA + arrow-key navigation
@@ -1806,6 +1952,54 @@
           activateTab(next);
         }
       });
+    });
+
+    // Architecture preview drawer — click a project card with a data-arch
+    // image to slide in its diagram instead of leaving the page immediately.
+    const archDrawer = document.getElementById('arch-drawer');
+    const archBackdrop = document.getElementById('arch-backdrop');
+    const archImg = document.getElementById('arch-drawer-img');
+    const archTitle = document.getElementById('arch-drawer-title');
+    const archRepoLink = document.getElementById('arch-drawer-repo');
+    const archBlogLink = document.getElementById('arch-drawer-blog');
+    const archCloseBtn = document.getElementById('arch-drawer-close');
+    let archTriggerEl = null;
+
+    function openArchDrawer(card) {
+      archTriggerEl = card;
+      archImg.src = card.dataset.arch;
+      archImg.alt = card.dataset.title + ' architecture diagram';
+      archTitle.textContent = card.dataset.title;
+      archRepoLink.href = card.dataset.repo;
+      if (card.dataset.blog) {
+        archBlogLink.href = card.dataset.blog;
+        archBlogLink.hidden = false;
+      } else {
+        archBlogLink.hidden = true;
+      }
+      archDrawer.classList.add('open');
+      archBackdrop.classList.add('open');
+      archDrawer.setAttribute('aria-hidden', 'false');
+      archCloseBtn.focus();
+      document.body.style.overflow = 'hidden';
+      if (window.gtag) window.gtag('event', 'project_arch_preview', { project: card.dataset.title });
+    }
+
+    function closeArchDrawer() {
+      archDrawer.classList.remove('open');
+      archBackdrop.classList.remove('open');
+      archDrawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (archTriggerEl) { archTriggerEl.focus(); archTriggerEl = null; }
+    }
+
+    document.querySelectorAll('.project-card[data-arch]').forEach(card => {
+      card.addEventListener('click', () => openArchDrawer(card));
+    });
+    archCloseBtn.addEventListener('click', closeArchDrawer);
+    archBackdrop.addEventListener('click', closeArchDrawer);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && archDrawer.classList.contains('open')) closeArchDrawer();
     });
 
     // Scroll-based animations
