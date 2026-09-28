@@ -11,9 +11,9 @@
        for a frame on every load. Same file the root irajeshsood.com page
        uses. -->
   <script src="/theme-init.js"></script>
-  <title>Rajesh Sood — Staff Cloud & DevOps Engineer</title>
-  <meta name="description" content="Rajesh Sood — Staff Cloud & DevOps Engineer · AI/ML Platform Engineering · AWS · Kubernetes · Terraform · SRE. Portfolio of projects, experience and skills." />
-  <meta name="keywords" content="staff engineer, cloud architect, devops, AWS, Kubernetes, Terraform, SRE, platform engineering, AI/ML, infrastructure" />
+  <title>Rajesh Sood — Senior Cloud & DevOps Engineer</title>
+  <meta name="description" content="Rajesh Sood — Senior Cloud & DevOps Engineer · AI/ML Platform Engineering · AWS · Kubernetes · Terraform · SRE. Portfolio of projects, experience and skills." />
+  <meta name="keywords" content="senior engineer, cloud architect, devops, AWS, Kubernetes, Terraform, SRE, platform engineering, AI/ML, infrastructure" />
   <meta name="author" content="Rajesh Sood" />
   <meta name="robots" content="index, follow" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -21,18 +21,18 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Rajesh Sood — Staff Cloud & DevOps Engineer" />
-  <meta property="og:description" content="Staff Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, and AI/ML platform engineering." />
+  <meta property="og:title" content="Rajesh Sood — Senior Cloud & DevOps Engineer" />
+  <meta property="og:description" content="Senior Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, and AI/ML platform engineering." />
   <meta property="og:url" content="https://irajeshsood.com/portfolio/" />
   <meta property="og:site_name" content="Rajesh Sood" />
   <meta property="og:image" content="https://irajeshsood.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Rajesh Sood — Staff Cloud & DevOps Engineer" />
+  <meta property="og:image:alt" content="Rajesh Sood — Senior Cloud & DevOps Engineer" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Rajesh Sood — Staff Cloud & DevOps Engineer" />
-  <meta name="twitter:description" content="Staff Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, and AI/ML platform engineering." />
+  <meta name="twitter:title" content="Rajesh Sood — Senior Cloud & DevOps Engineer" />
+  <meta name="twitter:description" content="Senior Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, and AI/ML platform engineering." />
   <meta name="twitter:image" content="https://irajeshsood.com/og-image.png" />
   <link rel="canonical" href="https://irajeshsood.com/portfolio/" />
 
@@ -71,8 +71,8 @@
     "@type": "Person",
     "name": "Rajesh Sood",
     "additionalName": "MBA",
-    "jobTitle": "Staff Cloud & DevOps Engineer",
-    "description": "Staff Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, SRE, and AI/ML platform engineering.",
+    "jobTitle": "Senior Cloud & DevOps Engineer",
+    "description": "Senior Cloud & DevOps Engineer specializing in AWS, Kubernetes, Terraform, SRE, and AI/ML platform engineering.",
     "url": "https://irajeshsood.com/portfolio/",
     "email": "mailto:soodrajesh87@gmail.com",
     "address": { "@type": "PostalAddress", "addressLocality": "Dublin", "addressCountry": "IE" },
@@ -793,10 +793,10 @@
 
     .arch-drawer {
       position: fixed;
-      top: 3vh;
+      top: 4vh;
       left: 50%;
-      width: min(1280px, 96vw);
-      max-height: 94vh;
+      width: min(1600px, 96vw);
+      height: 92vh;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -845,26 +845,36 @@
 
     .arch-drawer-body {
       padding: 16px 24px 24px;
-      overflow: auto;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
     .arch-drawer-img-wrap {
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: #fff;
-      overflow: auto;
       margin-bottom: 16px;
-      max-height: 68vh;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
     .arch-drawer-img-wrap img {
       display: block;
-      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
       height: auto;
+      object-fit: contain;
     }
     .arch-drawer-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      flex-shrink: 0;
     }
     .arch-drawer-actions a {
       display: inline-flex;
@@ -885,8 +895,7 @@
     .arch-drawer-actions a[hidden] { display: none; }
 
     @media (max-width: 640px) {
-      .arch-drawer { top: 0; height: 100vh; max-height: 100vh; border-radius: 0; }
-      .arch-drawer-img-wrap { max-height: 50vh; }
+      .arch-drawer { top: 0; height: 100vh; border-radius: 0; }
     }
 
     /* ── Contact ── */
@@ -1106,7 +1115,7 @@
         <div class="hero-content">
           <div class="hero-eyebrow">Open to opportunities</div>
           <h1>Rajesh Sood, MBA</h1>
-          <p class="hero-role">Staff Cloud &amp; DevOps Engineer · AI/ML Platform Engineering · Dublin, Ireland</p>
+          <p class="hero-role">Senior Cloud &amp; DevOps Engineer · AI/ML Platform Engineering · Dublin, Ireland</p>
           <p class="hero-bio">
             15+ years building secure, scalable cloud infrastructure for enterprises across FinTech, Telecom, and Global Manufacturing.
             <strong>Sets platform-wide DevOps and reliability standards</strong> across multi-account AWS — architecting the platforms and technical
