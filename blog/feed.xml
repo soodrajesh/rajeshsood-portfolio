@@ -6,7 +6,14 @@
   <atom:link href="https://irajeshsood.com/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Senior Cloud &amp; DevOps Engineer.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 28 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 29 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills</title>
+    <link>https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/</guid>
+    <pubDate>Tue, 29 Sep 2026 09:00:00 GMT</pubDate>
+    <description>A real chaos drill that watched a multi-window burn-rate alert actually fire and resolve, then drafted its own postmortem from real telemetry.</description>
+  </item>
   <item>
     <title>Hardened MCP Servers on Cloud Run</title>
     <link>https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/</link>

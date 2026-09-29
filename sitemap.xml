@@ -55,6 +55,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://irajeshsood.com/blog/hardened-mcp-servers-on-cloud-run-identity-tokens-scopes-and-rate-limits/</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>yearly</changefreq>

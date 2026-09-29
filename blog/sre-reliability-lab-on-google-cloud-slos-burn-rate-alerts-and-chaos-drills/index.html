@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills | Rajesh Sood</title>
+  <meta name="description" content="A Cloud Run call chain with SLOs as code, multi-window multi-burn-rate alerting per the Google SRE Workbook, and a real chaos drill that watched the alert actually fire and resolve — plus a postmortem drafted by Gemini from real telemetry." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills" />
+  <meta property="og:description" content="A Cloud Run call chain with SLOs as code, multi-window multi-burn-rate alerting per the Google SRE Workbook, and a real chaos drill that watched the alert actually fire and resolve — plus a postmortem drafted by Gemini from real telemetry." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/images/architecture.png" />
+  <meta property="og:image:width" content="2800" />
+  <meta property="og:image:height" content="1800" />
+  <meta property="og:image:alt" content="SRE reliability lab architecture: frontend, orders and inventory Cloud Run services, SLOs and burn-rate alert policies, chaos drill and postmortem generator" />
+  <meta property="article:published_time" content="2026-09-29" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills" />
+  <meta name="twitter:description" content="A Cloud Run call chain with SLOs as code, multi-window multi-burn-rate alerting per the Google SRE Workbook, and a real chaos drill that watched the alert actually fire and resolve — plus a postmortem drafted by Gemini from real telemetry." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SRE Reliability Lab: SLOs, Burn-Rate Alerts & Chaos Drills",
+  "datePublished": "2026-09-29",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/",
+  "image": "https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/images/architecture.png",
+  "description": "A Cloud Run call chain with SLOs as code, multi-window multi-burn-rate alerting per the Google SRE Workbook, and a real chaos drill that watched the alert actually fire and resolve — plus a postmortem drafted by Gemini from real telemetry."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-09-29">Sep 29, 2026</time><span>·</span><span>9 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="SRE reliability lab architecture: frontend, orders and inventory Cloud Run services, SLOs and burn-rate alert policies, chaos drill and postmortem generator" src="/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/images/architecture.png"/><figcaption>frontend → orders → inventory, each with its own SLOs and multi-window burn-rate alert policies.</figcaption></figure>
+<p>Most demo dashboards that claim to show SRE practice show the console tab where you clicked "create alert policy." That proves the policy exists, not that it works. The only way to know an alert actually fires when it should — and, just as importantly, actually clears when the problem is gone — is to break something on purpose and watch the whole loop close.</p>
+<p><a href="https://github.com/soodrajesh/gcp-sre-reliability-lab" target="_blank" rel="noopener">gcp-sre-reliability-lab</a> is a small <code>frontend → orders → inventory</code> call chain on Cloud Run, instrumented the way a real SRE team would instrument it: SLOs defined as Terraform, alerting that follows the Google SRE Workbook's multi-window multi-burn-rate pattern rather than a single noisy threshold, a chaos endpoint gated behind IAM and a shared secret, and a script that drafts a postmortem from real Cloud Monitoring and Logging data once an incident is over. I ran the chaos drill for real — not a `sleep 5` stand-in — and watched the alert's actual query cross its threshold, then recover.</p>
+<h2>SLOs are Terraform, not console clicks</h2>
+<p>Each of the three services gets two SLOs, both reading Cloud Run's own built-in <code>request_count</code> and <code>request_latencies</code> metrics — no invented custom metrics, because Cloud Run already emits everything a request-based SLI needs once the service is parsing structured JSON logs. That's a deliberate simplification: the SLI should measure what users actually experience, and "did the request succeed, and how fast" is exactly what those two metrics already answer.</p>
+<table>
+<thead><tr><th>Service</th><th>Availability SLO</th><th>Latency SLO</th></tr></thead>
+<tbody>
+<tr><td>frontend</td><td>99% non-5xx, 30d rolling</td><td>95% &lt; 300ms, 30d rolling</td></tr>
+<tr><td>orders</td><td>99% non-5xx, 30d rolling</td><td>95% &lt; 300ms, 30d rolling</td></tr>
+<tr><td>inventory</td><td>99% non-5xx, 30d rolling</td><td>95% &lt; 300ms, 30d rolling</td></tr>
+</tbody>
+</table>
+<h2>Multi-window multi-burn-rate, not a single threshold</h2>
+<p>A naive alert — "page me if the error rate exceeds 5% for 5 minutes" — has two failure modes at once: it's too twitchy for a genuinely noisy minute, and too slow for an error budget that's being consumed fast. The SRE Workbook's fix is to require <em>two</em> windows to agree: a long window that filters noise, and a short window that catches things fast, both evaluated against how quickly the error budget is actually burning.</p>
+<p>Twelve alert policies come out of this — two burn speeds × two SLO types × three services — each one an <code>AND</code> of a long-window condition and a short-window condition against the same <code>select_slo_burn_rate</code> query:</p>
+<pre><code>fast burn:  1h window AND 5m window, both &gt; 14.4x   (2% of a 30d budget in 1h)<br/>slow burn:  6h window AND 30m window, both &gt; 6x      (10% of a 30d budget in 6h)</code></pre>
+<p>A single bad minute can't trip either policy on its own — the short window has to <em>agree</em> with the long window before the condition fires, which is exactly the property that keeps this from paging someone over one flaky request.</p>
+<h2>The drill: burn a real error budget, not a fake one</h2>
+<p>The obvious way to fake this would be to hit the same <code>select_slo_burn_rate</code> API once, or trust the app's own claim that "chaos is on." Neither proves the alert policy itself would have fired — so instead <code>scripts/chaos.sh</code> injects a real 80% error rate on <code>orders</code> and keeps real load running against it, then samples the exact query, window, alignment and threshold the alert policy's own conditions use, repeatedly, for the duration.</p>
+<pre><code>09:47:43Z   Chaos injected on orders: error_rate=0.8
+09:47–10:00 Both 1h and 5m burn-rate conditions sampled every ~90s,
+            consistently above 14.4x simultaneously — peak ~50x/52x
+09:52:12Z   Chaos flag cleared... on one Cloud Run instance
+09:52–09:56 Other instances still armed — real 500s continue (confirmed in logs)
+09:56:52Z   Clear request sent 25x to round-robin across every instance
+10:02:19Z   5m burn-rate window rolls past the last real error → reads 0
+            AND condition false → policy back to not-firing (re-confirmed 10:03:50Z)</code></pre>
+<p>The gap between 09:52 and 09:56 wasn't planned. This app's chaos flag lives in memory, per Cloud Run instance — a limitation the README already flagged honestly as a known gap before the drill ran. Under sustained load, Cloud Run had scaled <code>orders</code> to more than one instance, and my first "clear chaos" request only reached one of them; the others kept returning real 500s for another four minutes until enough repeated requests round-robined across all of them. That's the kind of thing a chaos drill is supposed to surface — a distributed-systems wrinkle a diagram would never show — so it's documented in the drill report rather than smoothed over.</p>
+<p>One honesty note worth being explicit about: <code>gcloud</code> and the Monitoring API expose alert policy <em>definitions</em>, not a scriptable "list open incidents" endpoint for this policy type, and the configured notification email goes to an account outside this session's reach. So "fired" here means directly querying the same computation the alerting engine performs — same filter, same window, same threshold — and watching both conditions cross it together, repeatedly, not inferring it from one moved number.</p>
+<h2>A postmortem drafted from data, not from a prompt</h2>
+<p><code>scripts/postmortem.py</code> pulls the real numbers first — request/error counts per minute from Cloud Monitoring, sample log lines from Cloud Logging — and only then hands them to Gemini 2.5 Flash to draft the narrative sections, under a heading that says exactly that. Run against the real 09:47:43Z–10:02:19Z window:</p>
+<pre><code>Total requests: 4,863
+Total 5xx:      1,682
+Error rate:     34.59%
+Errors cease exactly at 09:58:00Z (0 of 316 requests)</code></pre>
+<p>The model's root-cause section correctly inferred the trigger from raw data alone — it noticed a cluster of <code>chaos_updated</code> log events setting <code>error_rate</code> back to <code>0.0</code> right before the error rate dropped, and flagged fault injection as the likely cause without being told that's what happened. It also flagged, accurately, that the log data alone doesn't show when the chaos injection <em>began</em> — a real gap in what a log-only postmortem can reconstruct, and a fair thing for the draft to say rather than paper over.</p>
+<h2>Ingress is not the access boundary — IAM is</h2>
+<p><code>orders</code> and <code>inventory</code> are reachable over their public <code>.run.app</code> URLs (<code>INGRESS_TRAFFIC_ALL</code>), which sounds looser than it is. Cloud Run's <code>INGRESS_TRAFFIC_INTERNAL_ONLY</code> doesn't actually treat calls from another Cloud Run service as "internal" unless the caller has Direct VPC egress into the same VPC — a real, easy-to-miss gotcha that broke the call chain outright on first deploy. The fix is to stop relying on network ingress for access control at all: <code>roles/run.invoker</code>, scoped to <code>frontend</code>'s exact service account, is the actual boundary. An unauthenticated direct call to <code>orders</code> gets a 403; a call routed through <code>frontend</code> succeeds. Ingress controls what can reach the service's front door; IAM controls who's allowed through it — treating the second as the real gate is the more honest model when the first one has a gap in it.</p>
+<h2>What's honestly missing</h2>
+<p>One project, one region — no multi-region failover story here. The SLIs are request-count and latency only; no saturation or queue-depth SLI, because Cloud Run's autoscaling already absorbs most of what those would catch at this scale. The chaos-admin token is a Terraform-generated environment variable, not Secret Manager — fine for a lab with a small blast radius, not the production answer. And the in-memory, per-instance chaos state that caused the four-minute clear delay above is a real limitation of this specific lab, not a claim about chaos engineering in general.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-sre-reliability-lab<br/>cd gcp-sre-reliability-lab<br/>gcloud config set project &lt;your-project&gt;<br/>./scripts/up.sh                                # infra → 3 services → SLOs/alerts → chaos proof<br/>./scripts/chaos.sh error 360                   # re-run the drill on demand<br/>./scripts/postmortem.py --since &lt;RFC3339&gt; --until &lt;RFC3339&gt;<br/>./scripts/down.sh                              # delete everything</code></pre>
+<p>Cloud Run scales to zero between drills, and Cloud Monitoring/Logging usage at this size sits inside the always-free tier — this whole build, test, chaos-drill, teardown cycle ran without leaving anything billable behind.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/gke-platform-engineering-on-google-cloud-binary-authorization-and-canary-releases/">
+            <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Sep 25, 2026</span></div>
+            <h3>GKE Platform Engineering: Binary Authorization &amp; Canary</h3>
+            <p>An internal developer platform on GKE Autopilot: signed-image supply chain, GitOps, canary releases with automatic rollback, a WAF-protected gateway.</p>
+          </a>
+          <a class="post-card" href="/blog/secure-delivery-to-cloud-run-on-google-cloud-binary-authorization-and-canary-rollouts/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Sep 27, 2026</span></div>
+            <h3>Secure Delivery to Cloud Run: Binary Auth &amp; Canary</h3>
+            <p>Nothing reaches production unless it was built by this pipeline and passed a vulnerability gate — two signed attestations, one bad release caught and rolled back.</p>
+          </a>
+          <a class="post-card" href="/blog/serverless-orders-platform-on-google-cloud-cloud-run-workflows-saga-and-firestore/">
+            <div class="post-card-meta"><span class="chip">GCP: Serverless</span><span>Sep 27, 2026</span></div>
+            <h3>Serverless Orders Platform: Cloud Run, Workflows Saga &amp; Firestore</h3>
+            <p>An event-driven order platform on GCP with no servers to run: a Cloud Workflows saga that retries and compensates, and never oversells stock.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-platform-eng">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 79 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
