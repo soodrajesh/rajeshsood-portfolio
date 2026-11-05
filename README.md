@@ -1,6 +1,6 @@
 # Rajesh Sood — Portfolio
 
-Personal portfolio website for Rajesh Sood — Staff Cloud & DevOps Engineer · DevSecOps · AI/ML Platform Engineering.
+Personal portfolio website for Rajesh Sood — Senior DevOps & MLOps Engineer · DevSecOps · AI/ML Platform Engineering.
 
 Live at: **[rajeshsood-portfolio.vercel.app](https://rajeshsood-portfolio.vercel.app)**
 
