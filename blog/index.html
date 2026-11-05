@@ -67,7 +67,7 @@
       <div class="blog-hero">
         <p class="kicker">Blog</p>
         <h1>Kubernetes, AWS, Terraform &amp; DevOps</h1>
-        <p class="lede">79 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
+        <p class="lede">91 posts on cloud, platform engineering and AI tooling. Product write-ups (Mac apps, cloud audits, Irish tax calculators) live on the <a href="https://gogenops.com/blog/">GenOps blog</a>.</p>
       </div>
       <div class="blog-layout">
         <aside class="blog-side" aria-label="Filter posts">
@@ -79,14 +79,14 @@
             <summary>Filter by topic &amp; date</summary>
           <p class="side-label">Browse</p>
           <div class="f-tree" id="cat-tree">
-<button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>79</b></button>
-<details class="f-group" open><summary><span>Google Cloud Platform</span><b>12</b></summary>
-<button class="f-btn f-sub" type="button" data-cat="gcp-ai"><span>AI &amp; RAG</span><b>2</b></button>
-<button class="f-btn f-sub" type="button" data-cat="gcp-platform-eng"><span>Platform Engineering</span><b>2</b></button>
-<button class="f-btn f-sub" type="button" data-cat="gcp-data"><span>Data &amp; Streaming</span><b>1</b></button>
+<button class="f-btn is-active" type="button" data-cat="all"><span>All posts</span><b>91</b></button>
+<details class="f-group" open><summary><span>Google Cloud Platform</span><b>24</b></summary>
+<button class="f-btn f-sub" type="button" data-cat="gcp-ai"><span>AI &amp; RAG</span><b>5</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-platform-eng"><span>Platform Engineering</span><b>5</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-data"><span>Data &amp; Streaming</span><b>2</b></button>
 <button class="f-btn f-sub" type="button" data-cat="gcp-serverless"><span>Serverless</span><b>1</b></button>
-<button class="f-btn f-sub" type="button" data-cat="gcp-security"><span>Security &amp; Networking</span><b>4</b></button>
-<button class="f-btn f-sub" type="button" data-cat="gcp-finops"><span>FinOps</span><b>2</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-security"><span>Security &amp; Networking</span><b>8</b></button>
+<button class="f-btn f-sub" type="button" data-cat="gcp-finops"><span>FinOps</span><b>3</b></button>
 </details>
 <details class="f-group" open><summary><span>Kubernetes &amp; GitOps</span><b>17</b></summary>
 <button class="f-btn f-sub" type="button" data-cat="k8s"><span>Kubernetes</span><b>11</b></button>
@@ -115,8 +115,9 @@
           </div>
           <p class="side-label">Archive</p>
           <div class="f-tree" id="arc-tree">
-<button class="f-btn is-active" type="button" data-arc="all"><span>All time</span><b>79</b></button>
-<details class="f-group" open><summary><span>2026</span><b>18</b></summary>
+<button class="f-btn is-active" type="button" data-arc="all"><span>All time</span><b>91</b></button>
+<details class="f-group" open><summary><span>2026</span><b>30</b></summary>
+<button class="f-btn f-sub" type="button" data-arc="2026-11"><span>November</span><b>12</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-09"><span>September</span><b>13</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-08"><span>August</span><b>1</b></button>
 <button class="f-btn f-sub" type="button" data-arc="2026-07"><span>July</span><b>2</b></button>
@@ -136,6 +137,66 @@
           <p class="side-note"><a href="/blog/feed.xml">RSS feed →</a></p>
         </aside>
         <section class="post-cards" id="post-list" aria-live="polite">
+        <a class="post-card" href="/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/" data-cat="gcp gcp-data" data-arc="2026 2026-11" data-text="databricks &amp; mlflow concepts run on gcp: delta lake, dataproc and cloud run a medallion lakehouse on dataproc serverless with delta and biglake, plus self-hosted mlflow 3.17 on cloud run and cloud sql. the gotchas that cost me time.">
+          <div class="post-card-meta"><span class="chip">GCP: Data &amp; Streaming</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run</h2>
+          <p>2.46M taxi trips through bronze, silver and gold on Delta Lake, then an 8-model sweep tracked in MLflow on Cloud Run. Mapped to Databricks concepts, with the failures.</p>
+        </a>
+        <a class="post-card" href="/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/" data-cat="gcp gcp-finops" data-arc="2026 2026-11" data-text="cloud run rightsizer: simulating real traffic to cut cost replays a service&#x27;s real arrival pattern through a cloud run autoscaling and billing simulator to find the cheapest config that still meets your slo.">
+          <div class="post-card-meta"><span class="chip">GCP: FinOps</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost</h2>
+          <p>A request-level simulator of Cloud Run autoscaling and billing finds the cheapest config meeting your SLO, validated against a real service with out-of-sample runs.</p>
+        </a>
+        <a class="post-card" href="/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/" data-cat="gcp gcp-platform-eng" data-arc="2026 2026-11" data-text="deploy risk scorer on google cloud: history model &amp; rollout gates a logistic model trained on 16,730 real commits plus deterministic flags no model can lower, turned into canary %, bake time and reviewers. auc 0.66.">
+          <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates</h2>
+          <p>A model trained on real commit history ranks changes, flags catch the catastrophic ones, and the result becomes canary percentage, bake time and reviewers.</p>
+        </a>
+        <a class="post-card" href="/blog/multi-agent-terraform-plan-review-on-google-cloud-rules-decide-models-explain/" data-cat="gcp gcp-platform-eng" data-arc="2026 2026-11" data-text="multi-agent terraform plan review: rules decide, models explain four specialist agents review a terraform show -json plan in parallel, a critic validates them, and a deterministic judge returns approve, changes or block.">
+          <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Multi-Agent Terraform Plan Review: Rules Decide, Models Explain</h2>
+          <p>Security, cost, reliability and compliance agents review a plan in parallel; a critic drops hallucinations and code alone sets approve, needs_changes or block.</p>
+        </a>
+        <a class="post-card" href="/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/" data-cat="gcp gcp-platform-eng" data-arc="2026 2026-11" data-text="terraform drift triage on google cloud: adopt, revert or investigate terraform plan -refresh-only says something changed. this tool decides adopt, revert, investigate or ignore, and names who did it from cloud audit logs.">
+          <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate</h2>
+          <p>For every drifted resource: a rule-based decision, the principal who changed it from real audit logs, and the exact command or code edit. Models only explain.</p>
+        </a>
+        <a class="post-card" href="/blog/iam-blast-radius-analysis-on-google-cloud-escalation-paths-and-verified-fixes/" data-cat="gcp gcp-security" data-arc="2026 2026-11" data-text="iam blast radius on google cloud: escalation paths &amp; verified fixes if this identity is compromised, what can it become? follows service-account chains, scores blast radius 0-100, and re-simulates every fix before showing it.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>IAM Blast Radius on Google Cloud: Escalation Paths &amp; Verified Fixes</h2>
+          <p>Follows impersonation chains, scores each principal 0-100, and only shows a least-privilege fix after re-simulating the policy to prove it narrows access.</p>
+        </a>
+        <a class="post-card" href="/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/" data-cat="gcp gcp-security" data-arc="2026 2026-11" data-text="secrets sprawl detector on google cloud: env vars, logs &amp; buckets scans cloud run env vars, bucket objects, logs and vm metadata for credentials, ranks them by who can read them, and checks leaked sa keys. 7 of 7 canaries.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets</h2>
+          <p>Credentials leak outside Git: env vars, Terraform state, logs, VM metadata. This scanner ranks findings by who can read the place and never sends a secret to a model.</p>
+        </a>
+        <a class="post-card" href="/blog/data-residency-and-pii-auditor-on-google-cloud-bigquery-and-cloud-storage/" data-cat="gcp gcp-security" data-arc="2026 2026-11" data-text="data residency &amp; pii auditor for bigquery and cloud storage finds personal data in bigquery and gcs by validated patterns, then checks residency, access, cmek and retention. 14 of 14 planted pii columns found.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Data Residency &amp; PII Auditor for BigQuery and Cloud Storage</h2>
+          <p>Validated detectors (Luhn, IBAN mod 97, SSN rules) find PII in BigQuery and GCS, then check region, access and encryption against your policy. Raw values never leave.</p>
+        </a>
+        <a class="post-card" href="/blog/mcp-injection-firewall-on-cloud-run-tool-poisoning-and-rug-pull-defense/" data-cat="gcp gcp-security" data-arc="2026 2026-11" data-text="mcp injection firewall on cloud run: tool poisoning &amp; rug-pull defense a proxy that inspects mcp tool output, tool descriptions and outbound arguments: hidden unicode, beacons, secrets, rug pulls. plus a negative result.">
+          <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>MCP Injection Firewall on Cloud Run: Tool Poisoning &amp; Rug-Pull Defense</h2>
+          <p>A proxy between an agent and its MCP tools that blocks hidden instructions, pins tool definitions, and stops secrets leaving. Includes an honest negative result.</p>
+        </a>
+        <a class="post-card" href="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/" data-cat="gcp gcp-ai" data-arc="2026 2026-11" data-text="mcp gateway on gke: agentgateway, keycloak &amp; per-tool authorization one entry point for ai agents and three mcp servers on gke autopilot: keycloak jwts, role-based tool visibility, per-server id tokens. 70 live checks.">
+          <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization</h2>
+          <p>Agents get a 5-minute Keycloak token and call one URL; the gateway hides tools a role may not use and calls each server with its own Google identity.</p>
+        </a>
+        <a class="post-card" href="/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/" data-cat="gcp gcp-ai" data-arc="2026 2026-11" data-text="agent regression harness on google cloud: statistical diffs for llm agents is the new model or prompt worse? run baseline vs candidate n times, assert on tool traces, and use fisher and benjamini-hochberg to call regressions.">
+          <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents</h2>
+          <p>Same suite against a baseline and a candidate, assertions over every tool trace, Fisher exact tests per case. A careless prompt that refunds a 45-day-old order gets caught.</p>
+        </a>
+        <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/" data-cat="gcp gcp-ai" data-arc="2026 2026-11" data-text="multi-agent incident response on google cloud: adk, a2a &amp; human approval a bad release breaks cloud run, an adk agent reads the logs over mcp and proposes a rollback, code validates it, a human approves. 36/36 live checks.">
+          <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span><span>5 min read</span></div>
+          <h2>Multi-Agent Incident Response on Google Cloud: ADK, A2A &amp; Human Approval</h2>
+          <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+        </a>
         <a class="post-card" href="/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/" data-cat="gcp gcp-platform-eng" data-arc="2026 2026-09" data-text="sre reliability lab: slos, burn-rate alerts &amp; chaos drills a cloud run call chain with slos as code, multi-window multi-burn-rate alerting per the google sre workbook, a real chaos drill that watched the alert fire and resolve, and a postmortem drafted by gemini from real telemetry.">
           <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Sep 29, 2026</span><span>9 min read</span></div>
           <h2>SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills</h2>

@@ -6,7 +6,91 @@
   <atom:link href="https://irajeshsood.com/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Notes on Kubernetes, Terraform, AWS, GitOps, observability and AI developer tools from Rajesh Sood, a Senior Cloud &amp; DevOps Engineer.</description>
   <language>en</language>
-  <lastBuildDate>Tue, 29 Sep 2026 09:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 05 Nov 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run</title>
+    <link>https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>2.46M taxi trips through bronze, silver and gold on Delta Lake, then an 8-model sweep tracked in MLflow on Cloud Run. Mapped to Databricks concepts, with the failures.</description>
+  </item>
+  <item>
+    <title>Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost</title>
+    <link>https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>A request-level simulator of Cloud Run autoscaling and billing finds the cheapest config meeting your SLO, validated against a real service with out-of-sample runs.</description>
+  </item>
+  <item>
+    <title>Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates</title>
+    <link>https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>A model trained on real commit history ranks changes, flags catch the catastrophic ones, and the result becomes canary percentage, bake time and reviewers.</description>
+  </item>
+  <item>
+    <title>Multi-Agent Terraform Plan Review: Rules Decide, Models Explain</title>
+    <link>https://irajeshsood.com/blog/multi-agent-terraform-plan-review-on-google-cloud-rules-decide-models-explain/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/multi-agent-terraform-plan-review-on-google-cloud-rules-decide-models-explain/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>Security, cost, reliability and compliance agents review a plan in parallel; a critic drops hallucinations and code alone sets approve, needs_changes or block.</description>
+  </item>
+  <item>
+    <title>Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate</title>
+    <link>https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>For every drifted resource: a rule-based decision, the principal who changed it from real audit logs, and the exact command or code edit. Models only explain.</description>
+  </item>
+  <item>
+    <title>IAM Blast Radius on Google Cloud: Escalation Paths &amp; Verified Fixes</title>
+    <link>https://irajeshsood.com/blog/iam-blast-radius-analysis-on-google-cloud-escalation-paths-and-verified-fixes/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/iam-blast-radius-analysis-on-google-cloud-escalation-paths-and-verified-fixes/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>Follows impersonation chains, scores each principal 0-100, and only shows a least-privilege fix after re-simulating the policy to prove it narrows access.</description>
+  </item>
+  <item>
+    <title>Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets</title>
+    <link>https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>Credentials leak outside Git: env vars, Terraform state, logs, VM metadata. This scanner ranks findings by who can read the place and never sends a secret to a model.</description>
+  </item>
+  <item>
+    <title>Data Residency &amp; PII Auditor for BigQuery and Cloud Storage</title>
+    <link>https://irajeshsood.com/blog/data-residency-and-pii-auditor-on-google-cloud-bigquery-and-cloud-storage/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/data-residency-and-pii-auditor-on-google-cloud-bigquery-and-cloud-storage/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>Validated detectors (Luhn, IBAN mod 97, SSN rules) find PII in BigQuery and GCS, then check region, access and encryption against your policy. Raw values never leave.</description>
+  </item>
+  <item>
+    <title>MCP Injection Firewall on Cloud Run: Tool Poisoning &amp; Rug-Pull Defense</title>
+    <link>https://irajeshsood.com/blog/mcp-injection-firewall-on-cloud-run-tool-poisoning-and-rug-pull-defense/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mcp-injection-firewall-on-cloud-run-tool-poisoning-and-rug-pull-defense/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>A proxy between an agent and its MCP tools that blocks hidden instructions, pins tool definitions, and stops secrets leaving. Includes an honest negative result.</description>
+  </item>
+  <item>
+    <title>MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization</title>
+    <link>https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>Agents get a 5-minute Keycloak token and call one URL; the gateway hides tools a role may not use and calls each server with its own Google identity.</description>
+  </item>
+  <item>
+    <title>Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents</title>
+    <link>https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>Same suite against a baseline and a candidate, assertions over every tool trace, Fisher exact tests per case. A careless prompt that refunds a 45-day-old order gets caught.</description>
+  </item>
+  <item>
+    <title>Multi-Agent Incident Response on Google Cloud: ADK, A2A &amp; Human Approval</title>
+    <link>https://irajeshsood.com/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/</link>
+    <guid isPermaLink="true">https://irajeshsood.com/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/</guid>
+    <pubDate>Thu, 05 Nov 2026 09:00:00 GMT</pubDate>
+    <description>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</description>
+  </item>
   <item>
     <title>SRE Reliability Lab: SLOs, Burn-Rate Alerts &amp; Chaos Drills</title>
     <link>https://irajeshsood.com/blog/sre-reliability-lab-on-google-cloud-slos-burn-rate-alerts-and-chaos-drills/</link>

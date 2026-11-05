@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate | Rajesh Sood</title>
+  <meta name="description" content="terraform plan -refresh-only says something changed. This tool decides adopt, revert, investigate or ignore, and names who did it from Cloud Audit Logs." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate" />
+  <meta property="og:description" content="terraform plan -refresh-only says something changed. This tool decides adopt, revert, investigate or ignore, and names who did it from Cloud Audit Logs." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/images/triage-incident.png" />
+  <meta property="og:image:width" content="1360" />
+  <meta property="og:image:height" content="2680" />
+  <meta property="og:image:alt" content="Drift Triage UI showing an ALERT with 7 drifted resources: 4 investigate, 2 adopt, 1 ignore, each with the actor from audit logs" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate" />
+  <meta name="twitter:description" content="terraform plan -refresh-only says something changed. This tool decides adopt, revert, investigate or ignore, and names who did it from Cloud Audit Logs." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/images/triage-incident.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/",
+  "image": "https://irajeshsood.com/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/images/triage-incident.png",
+  "description": "terraform plan -refresh-only says something changed. This tool decides adopt, revert, investigate or ignore, and names who did it from Cloud Audit Logs."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Terraform Drift Triage on Google Cloud: Adopt, Revert or Investigate</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Drift Triage UI showing an ALERT with 7 drifted resources: 4 investigate, 2 adopt, 1 ignore, each with the actor from audit logs" src="/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/images/triage-incident.png"/><figcaption>A risky weekend: 7 drifted resources, 4 to investigate, 2 to adopt, 1 to ignore, each attributed to a principal.</figcaption></figure>
+<p><code>terraform plan -refresh-only</code> tells you that something changed outside Terraform. It does not tell you whether that matters, who did it, or what to do. <a href="https://github.com/soodrajesh/gcp-drift-triage" target="_blank" rel="noopener">gcp-drift-triage</a> does the next step. For every drifted resource it decides <strong>adopt</strong>, <strong>revert</strong>, <strong>investigate</strong> or <strong>ignore</strong>, attributes the change to a principal using Cloud Audit Logs, and emits the exact commands and code edits.</p>
+<h2>The pipeline</h2>
+<ol>
+<li><strong>Parse</strong>: <code>terraform show -json</code> gives <code>resource_drift</code>. State and live values are diffed with set semantics for lists, and provider-computed noise (etags, update times) is stripped.</li>
+<li><strong>Classify</strong> with rules: loosening, tightening, cost, reliability, operational, benign or deleted, which gives category, severity and decision. Deterministic.</li>
+<li><strong>Forensics</strong>: query Admin Activity audit logs for who changed it, when, and from which IP. Parallel and best effort.</li>
+<li><strong>Attribute</strong>: a human loosening access by hand is escalated one level.</li>
+<li><strong>Commands</strong>: revert emits <code>plan -target</code>; adopt emits a code edit plus a refresh-only apply; deleted offers recreate or <code>state rm</code>.</li>
+</ol>
+<p>Then in parallel five analyst calls explain the risky ones and a drafter writes PR text for the adopt set, both validated against the plan and audit evidence. A rule-based judge sets the posture: alert, attention or clean.</p>
+<h2>The decision table</h2>
+<table>
+<thead><tr><th>Drift</th><th>Decision</th></tr></thead>
+<tbody>
+<tr><td><code>allUsers</code> or new IAM member, <code>0.0.0.0/0</code> added, <code>deletion_protection</code> off</td><td>investigate (critical/high), revert command first</td></tr>
+<tr><td>Stateful resource deleted in GCP</td><td>investigate (critical): recreate or <code>state rm</code></td></tr>
+<tr><td>Machine type, instance counts or disk size raised</td><td>investigate (medium)</td></tr>
+<tr><td>Label added, safe flag restored, member removed</td><td>adopt, with the exact code edit</td></tr>
+<tr><td>Image changed by a deploy</td><td>adopt (operational)</td></tr>
+<tr><td>Autoscaler node count, etags, update times</td><td>ignore, suggest <code>lifecycle.ignore_changes</code></td></tr>
+<tr><td>Attribute no rule covers</td><td>investigate, never silently adopted</td></tr>
+</tbody></table>
+<h2>Reading the screenshot</h2>
+<p>The sample "incident weekend" plan has 7 drifted resources and an ALERT posture. A firewall rule gained <code>0.0.0.0/0</code> in its source ranges, made by a human at 02:03 from an outside IP; a storage bucket IAM member changed from a named analyst to <code>allUsers</code>; a Cloud SQL instance had <code>deletion_protection</code> flipped to false and a ticket label added; a Pub/Sub topic is missing from GCP with no audit trail. Those four are investigate, with the revert command first and, below it, the code edit to use if the change was intended. Two are adopt: a Cloud Run image bumped from 1.4 to 1.5 by the CI deployer service account, and a cost-center label on a bucket. The GKE node pool's autoscaled node count (3 to 7) is ignored. The page also shows a drafted PR for the adopt set and one rejected model note: it mentioned a principal, <code>analyst@acme.com</code>, that was not in the audit evidence, so it was dropped.</p>
+<h2>Tested against real drift</h2>
+<p>I created a bucket, a Pub/Sub topic and an IAM binding with Terraform in a real project, then changed them by hand with <code>gcloud</code>: disabled bucket versioning, added a label, granted a service account read access and deleted the topic. The refresh-only plan reported all three resources, and the tool classified them correctly and attributed each change to the human who made it from real Admin Activity logs, both locally and on Cloud Run. The real run exposed three bugs that synthetic tests missed: reordered IAM member lists looked like new grants, the audit search used the Terraform name instead of the real resource name, and label drift hides under <code>effective_labels</code>. All are fixed with tests. The demo is reproducible from <code>demo/main.tf</code>.</p>
+<h2>Verification</h2>
+<table>
+<thead><tr><th>Check</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Offline tests</td><td>50 pass: parsing and set semantics, every rule, actor escalation, hostile-model cases, audit provider, API, CLI</td></tr>
+<tr><td>Cross-provider eval, 18 runs</td><td>0 invariant violations: decisions, severities and attribution identical to rules-only</td></tr>
+<tr><td>Real drift end to end</td><td>3 of 3 drifted resources detected and attributed from real audit logs, locally and on Cloud Run</td></tr>
+<tr><td>Deployed</td><td>Unauthenticated and <code>openai</code> provider 403; audit lookups only for the configured project</td></tr>
+</tbody></table>
+<p>In the model eval, gemini-2.5-flash and gpt-5-nano each had 12 notes kept and 2 rejected for naming a principal absent from the audit evidence; no PR text was rejected. Six runs cost about $0.005 on Gemini and $0.001 on gpt-5-nano.</p>
+<h2>Limits</h2>
+<p>It sees only what Terraform manages, so unmanaged resources are out of scope. Rules cover common GCP types and attributes; anything else is classified unknown and sent to investigate. Attribution takes the newest Admin Activity event whose resource name contains the real resource name, so a busy resource can be pinned on a later unrelated change; treat it as a strong lead, not proof. Data Access logs and anything older than the 7-day lookup are not searched. Scalar lists are compared as sets, so an order-sensitive attribute would be missed, and a model note can still paraphrase (one invented a display name from an email address), though it cannot change a decision. It was verified on three synthetic plans and one small real drift.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-drift-triage<br/>cd gcp-drift-triage<br/>.venv/bin/driftriage triage driftriage/samples/incident_weekend.json --llm none   # exit 2 = alert<br/>terraform plan -refresh-only -out=drift.plan &amp;&amp; terraform show -json drift.plan &gt; drift.json<br/>.venv/bin/driftriage triage drift.json --audit-project my-project --llm vertex</code></pre>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/multi-agent-terraform-plan-review-on-google-cloud-rules-decide-models-explain/">
+            <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Terraform Plan Review</h3>
+            <p>Security, cost, reliability and compliance agents review a plan in parallel; a critic drops hallucinations and code alone sets approve, needs_changes or block.</p>
+          </a>
+          <a class="post-card" href="/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/">
+            <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span></div>
+            <h3>Deploy Risk Scorer: History Model &amp; Rollout Gates</h3>
+            <p>A model trained on real commit history ranks changes, flags catch the catastrophic ones, and the result becomes canary percentage, bake time and reviewers.</p>
+          </a>
+          <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Incident Response: ADK, A2A &amp; Approval</h3>
+            <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-platform-eng">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

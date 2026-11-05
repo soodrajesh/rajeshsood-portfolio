@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets | Rajesh Sood</title>
+  <meta name="description" content="Scans Cloud Run env vars, bucket objects, logs and VM metadata for credentials, ranks them by who can read them, and checks leaked SA keys. 7 of 7 canaries." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets" />
+  <meta property="og:description" content="Scans Cloud Run env vars, bucket objects, logs and VM metadata for credentials, ranks them by who can read them, and checks leaked SA keys. 7 of 7 canaries." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/images/scan-live.png" />
+  <meta property="og:image:width" content="1360" />
+  <meta property="og:image:height" content="2053" />
+  <meta property="og:image:alt" content="Secrets Sprawl Detector showing 7 exposed credentials: 1 critical, 5 high, 1 low, with masked previews and fix commands" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets" />
+  <meta name="twitter:description" content="Scans Cloud Run env vars, bucket objects, logs and VM metadata for credentials, ranks them by who can read them, and checks leaked SA keys. 7 of 7 canaries." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/images/scan-live.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/",
+  "image": "https://irajeshsood.com/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/images/scan-live.png",
+  "description": "Scans Cloud Run env vars, bucket objects, logs and VM metadata for credentials, ranks them by who can read them, and checks leaked SA keys. 7 of 7 canaries."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Secrets Sprawl Detector on Google Cloud: Env Vars, Logs &amp; Buckets</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Secrets Sprawl Detector showing 7 exposed credentials: 1 critical, 5 high, 1 low, with masked previews and fix commands" src="/blog/secrets-sprawl-detector-on-google-cloud-env-vars-logs-and-buckets/images/scan-live.png"/><figcaption>Scan of a project with planted canaries: 3,050 items scanned, 7 credentials found in buckets, Cloud Run env vars and logs.</figcaption></figure>
+<p>Secret scanners usually watch Git. In a GCP project credentials also end up in Cloud Run environment variables, bucket objects (Terraform state, <code>.env</code> files), application logs and VM metadata. <a href="https://github.com/soodrajesh/gcp-secrets-sprawl-detector" target="_blank" rel="noopener">gcp-secrets-sprawl-detector</a> scans those places read-only, finds credentials, and ranks each by two things a plain grep cannot know: who can read the place it was found, and what the credential can do. Secret values never leave the scanner: findings carry a masked preview only, and models see redacted metadata.</p>
+<h2>Where it looks and how exposure is judged</h2>
+<table>
+<thead><tr><th>Source</th><th>How</th><th>Exposure means</th></tr></thead>
+<tbody>
+<tr><td>Cloud Run env vars</td><td>Admin API v2; Secret Manager references are skipped (that is the right pattern)</td><td>Holders of run viewer/developer/admin or project viewer/editor/owner</td></tr>
+<tr><td>Bucket objects</td><td>Allow-listed buckets only, text-like files up to 512 KB</td><td>Bucket and project storage roles; public if allUsers is granted</td></tr>
+<tr><td>Cloud Logging</td><td>Recent text and JSON payloads</td><td>Logging viewer roles</td></tr>
+<tr><td>VM / project metadata</td><td>Compute API</td><td>Compute viewer roles</td></tr>
+<tr><td>Local directory</td><td><code>sprawl scan-dir</code></td><td>Unknown</td></tr>
+</tbody></table>
+<p>Detectors cover AWS and Google keys (including service-account key JSON and private keys), GitHub, GitLab, Slack, Stripe, OpenAI, Anthropic, SendGrid and npm tokens, JWTs, database URLs with passwords, and generic high-entropy assignments, skipping placeholders and code that merely handles secrets.</p>
+<h2>Is the leaked key still alive?</h2>
+<p>For a leaked service-account key the scanner asks IAM, using its own identity and never the leaked key, whether the key is still active and what roles the account holds. An active key on an Editor or Owner account is critical; a key that no longer exists is low. In the screenshot the <code>deployer.json</code> key found in the canary bucket is rated low, "key deleted or disabled", with the advice to remove the file because there is nothing to rotate. The other six findings are rated by type and exposure. Only service-account keys get a liveness check; GitHub, Stripe, AWS and database credentials are not validated as live.</p>
+<h2>Reading the live scan</h2>
+<p>The scan covered 47 Cloud Run env vars, 3 bucket objects and 3,000 log entries (639 skipped), 3,050 items in all. It found 7 credentials: a Stripe live key (critical), an AWS access key id and a database URL with password in <code>config/app.env</code>, a <code>GITHUB_TOKEN</code> and a <code>REDIS_URL</code> in the <code>ss-canary</code> service's env vars, a GitHub token that appeared in a log entry, and the dead service-account key. Each shows a masked preview such as <code>sk_l…dc (32 chars)</code>, a readers count ("exposure: limited (5 readers)"), the rotation advice, and a concrete fix: <code>gcloud run services update ss-canary --update-secrets=GITHUB_TOKEN=...</code> for env vars, <code>gcloud storage rm</code> for bucket objects, and a log exclusion for log entries.</p>
+<h2>How I validated it</h2>
+<table>
+<thead><tr><th>Check</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Offline tests</td><td>52 pass, including no-leak properties across API, CLI and model payloads</td></tr>
+<tr><td>Planted canaries in real GCP</td><td>7 of 7 found; 0 unexpected findings in 47 env vars and 3,000 log entries; benign controls not flagged; local and deployed identical</td></tr>
+<tr><td>False-positive sweep, 1,335 real files in 16 of my repos</td><td>First version: 18 false positives from the generic rule. After the fix: 0, plus one real private key correctly found in a gitignored <code>.secrets/</code> directory</td></tr>
+<tr><td>Model eval</td><td>Findings identical to model-free; no secret value, preview or fingerprint ever sent to a model (audited)</td></tr>
+</tbody></table>
+<h2>Limits</h2>
+<p>It is pattern-based: low-entropy passwords made only of letters, secrets split across lines and encoded or encrypted blobs are missed. The "key is active" path was verified with a fake IAM in unit tests only, because this project's org policy blocks creating real keys; the live canary was a fake key file for a real throwaway account. Exposure counts principals holding a role that can read the source, without expanding groups or evaluating conditions. Coverage is bounded to 200 objects per bucket, 512 KB per object and 3,000 log entries per scan; Terraform state in other buckets, Secret Manager contents, image layers and Cloud Build logs are not scanned. The runtime identity needs broad read roles on logs, Cloud Run config and VM metadata, so keep the invoker role tight.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-secrets-sprawl-detector<br/>cd gcp-secrets-sprawl-detector<br/>.venv/bin/sprawl scan-dir ./my-repo<br/>.venv/bin/sprawl scan my-project --sources cloudrun_env,log_entry --hours 24<br/>.venv/bin/sprawl scan my-project --bucket my-bucket --llm vertex   # bucket scanning is opt-in, per bucket</code></pre>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/mcp-injection-firewall-on-cloud-run-tool-poisoning-and-rug-pull-defense/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span></div>
+            <h3>MCP Injection Firewall on Cloud Run</h3>
+            <p>A proxy between an agent and its MCP tools that blocks hidden instructions, pins tool definitions, and stops secrets leaving. Includes an honest negative result.</p>
+          </a>
+          <a class="post-card" href="/blog/data-residency-and-pii-auditor-on-google-cloud-bigquery-and-cloud-storage/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span></div>
+            <h3>Data Residency &amp; PII Auditor</h3>
+            <p>Validated detectors (Luhn, IBAN mod 97, SSN rules) find PII in BigQuery and GCS, then check region, access and encryption against your policy. Raw values never leave.</p>
+          </a>
+          <a class="post-card" href="/blog/iam-blast-radius-analysis-on-google-cloud-escalation-paths-and-verified-fixes/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span></div>
+            <h3>IAM Blast Radius: Escalation Paths &amp; Verified Fixes</h3>
+            <p>Follows impersonation chains, scores each principal 0-100, and only shows a least-privilege fix after re-simulating the policy to prove it narrows access.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-security">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
