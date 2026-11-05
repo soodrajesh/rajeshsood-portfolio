@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates | Rajesh Sood</title>
+  <meta name="description" content="A logistic model trained on 16,730 real commits plus deterministic flags no model can lower, turned into canary %, bake time and reviewers. AUC 0.66." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates" />
+  <meta property="og:description" content="A logistic model trained on 16,730 real commits plus deterministic flags no model can lower, turned into canary %, bake time and reviewers. AUC 0.66." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/images/score-migration.png" />
+  <meta property="og:image:width" content="1360" />
+  <meta property="og:image:height" content="1271" />
+  <meta property="og:image:alt" content="Deploy Risk Scorer showing CRITICAL RISK for a two-line destructive migration, with flags C001 and P003 and rollout gates" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates" />
+  <meta name="twitter:description" content="A logistic model trained on 16,730 real commits plus deterministic flags no model can lower, turned into canary %, bake time and reviewers. AUC 0.66." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/images/score-migration.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/",
+  "image": "https://irajeshsood.com/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/images/score-migration.png",
+  "description": "A logistic model trained on 16,730 real commits plus deterministic flags no model can lower, turned into canary %, bake time and reviewers. AUC 0.66."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Deploy Risk Scorer on Google Cloud: History Model &amp; Rollout Gates</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Deploy Risk Scorer showing CRITICAL RISK for a two-line destructive migration, with flags C001 and P003 and rollout gates" src="/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/images/score-migration.png"/><figcaption>A two-line migration that drops a table. History puts it at the 1st percentile, so the model says low; flags C001 and P003 raise it to critical.</figcaption></figure>
+<p>Before a change ships, how risky is it, and what should the rollout look like? <a href="https://github.com/soodrajesh/gcp-deploy-risk-scorer" target="_blank" rel="noopener">gcp-deploy-risk-scorer</a> scores a change (a git diff, or a commit in a repo) with a model trained on real commit history, adds deterministic flags that no model can lower, and turns the result into rollout gates: first canary percentage, bake time, reviewers, deploy window and rollback plan. A model may explain the result, but it never sees code or file names and cannot change the band.</p>
+<h2>Why two layers</h2>
+<p>The history model ranks ordinary changes by how they historically turned out. The flags catch the rare change that is catastrophic however small it looks. The first screenshot is the example: a two-line migration (<code>DROP TABLE legacy_users; ALTER TABLE orders DROP COLUMN notes;</code>) is in the 1st percentile of risk by history, because in the training data migration files and brand-new files are rarely followed by fixes, and the change is tiny. The model reads it as low. Flag C001 (destructive SQL in a migration) raises it to critical, and P003 (migration files changed) adds a medium. The final band is the maximum of the model band and the highest flag. The gates for critical: 5% first canary, 60 minutes bake, 2 reviewers, a rollback plan, and a scheduled window with the owner on call.</p>
+<h2>The pipeline</h2>
+<ol>
+<li><strong>Features</strong>: size, spread, test ratio, file categories (infra, IAM, migrations, dependencies, CI, config), deletes, binaries, message hints and time of week. With a repo it adds how often the touched files changed and were fixed before, and author familiarity, using history only, never the future.</li>
+<li><strong>Model</strong>: logistic regression with pure-Python inference, predicting the probability the change is followed by a fix or revert. Bands come from rank among the 16,730 training changes: low below the median, medium below p80, high below p95, critical above.</li>
+<li><strong>Flags</strong>: path rules (Terraform deletes, IAM infra, migrations, CI, auth code without tests, very large) and content rules on <em>added</em> lines (DROP and TRUNCATE in migrations, <code>0.0.0.0/0</code> and <code>allUsers</code>, <code>deletion_protection=false</code>, keys in the diff, dependency major bumps).</li>
+<li><strong>Gates</strong> for the band, with notes for weekends, Fridays and nights.</li>
+<li>An optional model note from structured metadata, rejected if it has a link, a number not in the score, or argues the band down.</li>
+</ol>
+<h2>How good is the model, honestly</h2>
+<p>The label is a proxy, not a measured incident: a commit is positive if a later commit whose message says fix, revert, hotfix or regression touches one of the same files within 30 commits and 14 days. I trained on five public repositories (flask, requests, click, werkzeug, httpx) with 16,730 labelled commits.</p>
+<table>
+<thead><tr><th></th><th>Diff-only (hosted)</th><th>Full (adds history)</th></tr></thead>
+<tbody>
+<tr><td>Chronological holdout AUC (train earliest 70%, test latest 30%, 5,022 commits)</td><td>0.655</td><td>0.667</td></tr>
+<tr><td>Lift in the top 10% (base rate 20.8%)</td><td>1.58x</td><td>1.65x</td></tr>
+<tr><td>Brier score (base rate alone: 0.1827)</td><td>0.1771</td><td>0.1735</td></tr>
+<tr><td>Leave-one-repo-out AUC range</td><td>0.63 to 0.74</td><td>0.66 to 0.72</td></tr>
+<tr><td>Baseline: lines changed alone</td><td colspan="2">0.60 to 0.71</td></tr>
+</tbody></table>
+<p>That is real but modest skill. It beats "bigger diffs are riskier" in every split, and it is a triage signal, not an oracle. It is weakest on <code>requests</code> (AUC 0.53 on the time-ordered split, diff-only). What it learned: files changed often before and files with a fix history are riskier, authors who know the files are safer, docs-only changes are safer, and a commit message saying "fix" raises the score, because in this data fixes are often followed by more fixes. I deliberately removed repository age as a feature after it improved headline numbers but turned out to be a time-trend artifact.</p>
+<figure><img loading="lazy" decoding="async" alt="Deploy Risk Scorer scoring a docs-only change as low risk" src="/blog/deploy-risk-scorer-on-google-cloud-commit-history-model-and-rollout-gates/images/score-docs.png"/><figcaption>A README typo fix: low risk (riskier than 23% of historical changes, 19% chance of a follow-up fix), a 100% first canary and 5 minutes of bake. The word 'fix' in the commit message is the biggest upward push.</figcaption></figure>
+<h2>Verification and deployment</h2>
+<p>24 offline tests cover diff parsing, features with no look-ahead, labels and horizons, the model (calibrated; numpy and pure-Python training agree), every flag, floors the model cannot lower, gates, note validation, and the guarantee that no code or paths go to a model. In the note eval (mock, gemini-2.5-flash, gpt-5-nano) the band never changed and one gemini note was rejected. On Cloud Run the service account has only <code>aiplatform.user</code> and <code>logging.logWriter</code>: it reads no project data, the diff arrives in the request, is parsed in memory and is never stored. The deployed service scored the destructive migration critical; unauthenticated and <code>openai</code> requests return 403. In CI the exit code (0 low, 1 medium, 2 high, 3 critical) can fail the job or require approval.</p>
+<h2>Limits</h2>
+<p>The label over-counts normal iteration and under-counts incidents fixed elsewhere, so it does not measure outages. The bundled model is trained on five public Python libraries; retrain on your own history with <code>deployrisk train</code> and check calibration before trusting the probabilities. The flags are patterns and miss destructive changes expressed another way, such as an ORM migration that drops a column. Gates are a policy table by band, not a measured reduction in incidents, and message-based features are easy to game.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-deploy-risk-scorer<br/>cd gcp-deploy-risk-scorer<br/>git diff main... | .venv/bin/deployrisk score --diff - --message "refactor billing"<br/>.venv/bin/deployrisk score --repo . --rev HEAD   # full model with this repo's history</code></pre>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/terraform-drift-triage-on-google-cloud-adopt-revert-or-investigate/">
+            <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span></div>
+            <h3>Terraform Drift Triage: Adopt, Revert or Investigate</h3>
+            <p>For every drifted resource: a rule-based decision, the principal who changed it from real audit logs, and the exact command or code edit. Models only explain.</p>
+          </a>
+          <a class="post-card" href="/blog/multi-agent-terraform-plan-review-on-google-cloud-rules-decide-models-explain/">
+            <div class="post-card-meta"><span class="chip">GCP: Platform Engineering</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Terraform Plan Review</h3>
+            <p>Security, cost, reliability and compliance agents review a plan in parallel; a critic drops hallucinations and code alone sets approve, needs_changes or block.</p>
+          </a>
+          <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Incident Response: ADK, A2A &amp; Approval</h3>
+            <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-platform-eng">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

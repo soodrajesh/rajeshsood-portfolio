@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost | Rajesh Sood</title>
+  <meta name="description" content="Replays a service&#x27;s real arrival pattern through a Cloud Run autoscaling and billing simulator to find the cheapest config that still meets your SLO." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost" />
+  <meta property="og:description" content="Replays a service&#x27;s real arrival pattern through a Cloud Run autoscaling and billing simulator to find the cheapest config that still meets your SLO." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/images/recommendation-web.png" />
+  <meta property="og:image:width" content="1360" />
+  <meta property="og:image:height" content="1990" />
+  <meta property="og:image:alt" content="Cloud Run Rightsizer recommending a change from $207.36 to $16.06 per month for an over-provisioned web service" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost" />
+  <meta name="twitter:description" content="Replays a service&#x27;s real arrival pattern through a Cloud Run autoscaling and billing simulator to find the cheapest config that still meets your SLO." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/images/recommendation-web.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/",
+  "image": "https://irajeshsood.com/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/images/recommendation-web.png",
+  "description": "Replays a service&#x27;s real arrival pattern through a Cloud Run autoscaling and billing simulator to find the cheapest config that still meets your SLO."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Cloud Run Rightsizer: Simulating Real Traffic to Cut Cost</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Cloud Run Rightsizer recommending a change from $207.36 to $16.06 per month for an over-provisioned web service" src="/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/images/recommendation-web.png"/><figcaption>An over-provisioned sample service: $207.36 to $16.06 per month (92%), with the gcloud command and Terraform snippet.</figcaption></figure>
+<p>Most Cloud Run services are sized by guess, and the guess is usually "bigger, to be safe". <a href="https://github.com/soodrajesh/gcp-cloudrun-rightsizer" target="_blank" rel="noopener">gcp-cloudrun-rightsizer</a> reads a service's real configuration and traffic (Cloud Run Admin API and Cloud Monitoring, read-only), replays the actual arrival pattern through a simulator of Cloud Run autoscaling and billing, and recommends the cheapest configuration that still meets an explicit SLO: cold-start share, p95 latency, dropped requests and memory headroom. Every recommendation comes with predicted cold starts, latency and monthly cost, the <code>gcloud</code> command, and a Terraform snippet. It never changes your services.</p>
+<h2>The simulator is the decision-maker</h2>
+<p>The simulator replays traffic request by request: packed routing, background scale-out at about 60% concurrency utilisation, sampled startup times, a 15-minute idle timeout, CPU contention, and request-based versus instance-based billing, with prices from the Cloud Billing Catalog API. A search then varies billing mode, concurrency, CPU and memory, min and max instances and startup boost, simulating each candidate. The cheapest candidate that meets the SLO wins, and a change smaller than max($1, 3%) is not recommended. A model may explain the result and propose one alternative, but the numbers it quotes must appear in the analysis, links are rejected, and a proposed configuration is only listed if it is a legal Cloud Run configuration, simulated, within SLO and cheaper.</p>
+<h2>Reading the recommendation</h2>
+<p>The first screenshot is a sample web app on 2 vCPU with 2 always-on instances and a day/night traffic curve. Current cost is $207.36 a month; the recommendation is 1 vCPU, 1 GiB, 0 minimum instances and request-based billing at $16.06, with p95 moving from 401 ms to 402 ms and cold-start share from 0.00% to 0.01%, both within SLO. Findings RS006 (CPU always allocated but busy under 30% of the time) and RS009 (minimum instances fully warm) explain why. The page lists other feasible options, including a model-proposed one that cuts CPU but keeps instance-based billing at $114.05, and states its assumptions. The bundled samples are synthetic illustrations, not measurements.</p>
+<figure><img loading="lazy" decoding="async" alt="Cloud Run Rightsizer for an under-provisioned checkout service where the current config misses the SLO" src="/blog/cloud-run-rightsizer-on-google-cloud-simulating-real-traffic-to-cut-cost/images/recommendation-checkout.png"/><figcaption>The opposite case: current settings miss the SLO (p95 13,887 ms, 15.4% dropped), so the recommendation costs $71.76 instead of $55.52.</figcaption></figure>
+<p>The second screenshot is the opposite case. The checkout sample is a slow service capped at one instance and near its memory limit. Current settings miss the SLO: p95 is 13,887 ms against a 3,750 ms target, 15.4% of requests are dropped, and 0.5 GiB is below the estimated 0.53 GiB need. The recommendation (1 GiB, concurrency 16, max 20 instances) costs <em>more</em>, $71.76 against $55.52, and brings p95 to 3,296 ms with nothing dropped. The page also shows a rejected model proposal: it suggested a configuration with less than 1 vCPU and concurrency above 1, which is not legal on Cloud Run. CLI exit codes encode this: 0 already optimal, 1 a cheaper config exists, 2 the current config misses the SLO.</p>
+<h2>Does the simulator match reality?</h2>
+<p>A simulator nobody checked is a guess with extra steps. I drove a real Cloud Run service (1 vCPU, 512 MiB, concurrency 4, request-based) with three scripted burst patterns from a cold start and compared Cloud Monitoring's measurements with the prediction.</p>
+<table>
+<thead><tr><th></th><th>A (used to build the model)</th><th>B (also seen)</th><th>C (after the model was frozen)</th></tr></thead>
+<tbody>
+<tr><td>Instances started (measured / predicted)</td><td>11 / 10</td><td>10 / 9</td><td>5 / 5</td></tr>
+<tr><td>Billable instance-seconds</td><td>149 / 172</td><td>79 / 69</td><td>326 / 324</td></tr>
+<tr><td>Warm p50 latency (ms)</td><td>394 / 414</td><td>251 / 263</td><td>842 / 813</td></tr>
+<tr><td>Client p95 (ms)</td><td>2283 / 474</td><td>540 / 293</td><td>981 / 890</td></tr>
+<tr><td>Client p99 (ms)</td><td>15686 / 14710</td><td>2790 / 1407</td><td>1242 / 945</td></tr>
+</tbody></table>
+<p>The first version under-predicted scale-out by half: Cloud Run starts instances in the background at about 60% concurrency utilisation, not only when every instance is full. It also treated startup as a constant when it was 1 s on a warm host and 14 s on a cold one, and it spread requests across instances, which overstates request-based billing. Pattern C was run after those fixes, so it is the one honest out-of-sample check. Counts, billable time and warm latency land within about 15%. Tail latency is under-predicted in bursty patterns (p95 by 9 to 79%, p99 by 6 to 50%), so treat predicted p95 and p99 as optimistic.</p>
+<h2>Other checks</h2>
+<p>44 offline tests cover simulator mechanics, billing, search, SLOs, model-output validation, the collector, API and CLI, including parallel equal to sequential results. The model eval across mock, gemini-2.5-flash and gpt-5-nano had 0 cases where a model changed the recommendation. A live analysis of the test service from real Cloud Monitoring data, on the deployed Rightsizer, returned "already optimal" for a $4-a-month service. The deployed service is private with one invoker, and live mode only analyses projects on an allow-list.</p>
+<h2>Limits</h2>
+<p>Cold-start shares from live analysis are understated because sub-minute bursts are invisible in per-minute metrics; use a stricter SLO or keep a min instance for bursty services. Validation covered one synthetic workload type (a service that mostly waits, so CPU is idle) in one region with three patterns. The CPU-contention model, memory scaling and the 15-minute idle timeout are not validated, and the idle timeout is an observed tendency, not a guarantee. Prices are us-central1 only; free tier, committed use and networking are not modelled. The search is coordinate descent, not a global optimum, and windows are capped at 400k requests.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-cloudrun-rightsizer<br/>cd gcp-cloudrun-rightsizer<br/>.venv/bin/rightsize recommend rightsize/samples/web_overprovisioned.json --llm none<br/>.venv/bin/rightsize collect my-project my-service --hours 48 &gt; snap.json   # read-only</code></pre>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Incident Response: ADK, A2A &amp; Approval</h3>
+            <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+          </a>
+          <a class="post-card" href="/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Agent Regression Harness: Statistical Diffs</h3>
+            <p>Same suite against a baseline and a candidate, assertions over every tool trace, Fisher exact tests per case. A careless prompt that refunds a 45-day-old order gets caught.</p>
+          </a>
+          <a class="post-card" href="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>MCP Gateway on GKE: Per-Tool Authorization</h3>
+            <p>Agents get a 5-minute Keycloak token and call one URL; the gateway hides tools a role may not use and calls each server with its own Google identity.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-finops">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

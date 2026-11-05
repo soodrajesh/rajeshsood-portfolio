@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run | Rajesh Sood</title>
+  <meta name="description" content="A medallion lakehouse on Dataproc Serverless with Delta and BigLake, plus self-hosted MLflow 3.17 on Cloud Run and Cloud SQL. The gotchas that cost me time." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run" />
+  <meta property="og:description" content="A medallion lakehouse on Dataproc Serverless with Delta and BigLake, plus self-hosted MLflow 3.17 on Cloud Run and Cloud SQL. The gotchas that cost me time." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/images/mlflow-experiment.png" />
+  <meta property="og:image:width" content="1440" />
+  <meta property="og:image:height" content="900" />
+  <meta property="og:image:alt" content="MLflow 3.17 UI on Cloud Run showing the taxi-high-tip experiment with a sweep of training runs and a registered model v1" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run" />
+  <meta name="twitter:description" content="A medallion lakehouse on Dataproc Serverless with Delta and BigLake, plus self-hosted MLflow 3.17 on Cloud Run and Cloud SQL. The gotchas that cost me time." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/images/mlflow-experiment.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/",
+  "image": "https://irajeshsood.com/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/images/mlflow-experiment.png",
+  "description": "A medallion lakehouse on Dataproc Serverless with Delta and BigLake, plus self-hosted MLflow 3.17 on Cloud Run and Cloud SQL. The gotchas that cost me time."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Databricks &amp; MLflow Concepts Run on GCP: Delta Lake, Dataproc and Cloud Run</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="MLflow 3.17 UI on Cloud Run showing the taxi-high-tip experiment with a sweep of training runs and a registered model v1" src="/blog/databricks-and-mlflow-concepts-on-google-cloud-delta-lake-dataproc-and-cloud-run/images/mlflow-experiment.png"/><figcaption>MLflow running on Cloud Run: the taxi-high-tip experiment, one successful sweep of 6 child runs, the registered model v1, and two earlier failed sweeps left visible.</figcaption></figure>
+<p>I wanted a concrete GCP counterpart for each Databricks concept, one I had actually run rather than read about. <a href="https://github.com/soodrajesh/gcp-lakehouse-mlops-lab" target="_blank" rel="noopener">gcp-lakehouse-mlops-lab</a> builds the same lakehouse and MLOps workflow twice: as Databricks notebooks (Free Edition) and on GCP with Terraform, Dataproc Serverless, BigQuery, Cloud Run and Vertex AI. Two of six planned projects are built and verified. One caveat up front: the Databricks notebooks are written but were <strong>not executed here</strong>, because I had no workspace token. The GCP side is what ran and what I measured.</p>
+<h2>Project 1: a medallion lakehouse on Delta</h2>
+<p>One month of NYC yellow-taxi trips, 2.46M rows, taken through bronze, silver and gold on Delta Lake.</p>
+<table>
+<thead><tr><th>Step</th><th>Databricks</th><th>GCP</th></tr></thead>
+<tbody>
+<tr><td>Spark runtime</td><td>Serverless compute, <code>spark</code> exists</td><td>Dataproc Serverless batch, runtime 2.2, 2 x 4-core executors</td></tr>
+<tr><td>Delta Lake</td><td>Built in</td><td><code>delta-spark</code> and <code>delta-storage</code> jars staged in GCS, plus two Spark configs</td></tr>
+<tr><td>Storage / catalog</td><td>Unity Catalog managed tables</td><td>Delta files in GCS, exposed as BigLake external tables (<code>format = DELTA_LAKE</code>)</td></tr>
+<tr><td>Raw source</td><td><code>samples.nyctaxi.trips</code></td><td><code>EXPORT DATA</code> from the public BigQuery taxi table</td></tr>
+</tbody></table>
+<p>What the run proved: bronze 2,463,900 rows, silver 2,291,506 after removing invalid and duplicate trips, gold 5,886 rows (day by pickup zone). A second run executes silver as a <code>MERGE</code> (Delta version 2) and the count stays identical, so it is idempotent. Time travel with <code>versionAsOf = 0</code> returns the original snapshot and <code>DESCRIBE HISTORY</code> lists WRITE, OPTIMIZE, MERGE. Appending a frame with <code>fare_amount</code> as a string is rejected with <code>DELTA_FAILED_TO_MERGE_FIELDS</code>. And BigQuery reads the same files Spark wrote, with no copy and no load job.</p>
+<h3>Things that bit me</h3>
+<ol>
+<li><strong>Scala version.</strong> Runtime 2.2 is Spark 3.5 on Scala 2.13. The <code>delta-spark_2.12</code> jar fails with <code>NoClassDefFoundError: scala/Serializable</code>; use <code>_2.13</code>.</li>
+<li><strong><code>--jars</code> does not give you the Python API.</strong> With jars staged that way the <code>delta.tables</code> module is not on the path, so the job uses SQL <code>MERGE</code> and <code>DESCRIBE HISTORY</code>. On Databricks <code>DeltaTable</code> just works.</li>
+<li><strong><code>TIMESTAMP_NTZ</code>.</strong> BigQuery's Parquet export arrives timezone-less, which enables a Delta table feature BigQuery's reader may not support. The job casts to plain <code>timestamp</code> first.</li>
+<li><strong>No internet.</strong> Dataproc Serverless needs Private Google Access on the subnet and an internal-allow firewall rule.</li>
+</ol>
+<h2>Project 2: experiment tracking and registry</h2>
+<p>The task: predict whether a card-paid trip tips 20% or more, with features from the silver table read through BigQuery. The same 8-model sweep (logistic regression, random forest, hist-GB, XGBoost where available) is tracked three ways.</p>
+<table>
+<thead><tr><th>Concern</th><th>Databricks</th><th>GCP</th></tr></thead>
+<tbody>
+<tr><td>Tracking server</td><td>Built into the workspace</td><td>Self-hosted MLflow 3.17 on Cloud Run, private, IAM</td></tr>
+<tr><td>Backend store</td><td>Managed</td><td>Cloud SQL Postgres (<code>db-f1-micro</code>)</td></tr>
+<tr><td>Artifacts</td><td>Managed</td><td>GCS, proxied by the server (<code>--serve-artifacts</code>) so clients need no storage credentials</td></tr>
+<tr><td>Auth</td><td>Workspace login or PAT</td><td>Cloud Run IAM, <code>MLFLOW_TRACKING_TOKEN</code> from an identity token</td></tr>
+<tr><td>Registry</td><td>Unity Catalog</td><td>MLflow registry on the server</td></tr>
+<tr><td>Managed alternative</td><td>n/a</td><td>Vertex AI Experiments (<code>train_vertex.py</code>), no server at all</td></tr>
+</tbody></table>
+<p>Metrics were identical on both trackers (same seed, same split). The best model was <code>hist_gb</code> with AUC about 0.641 and F1 about 0.887 on a 90k-row sample. The AUC is modest because tipping behaviour is noisy; the point here is the tooling, not the model. <code>taxi-high-tip</code> v1 is registered with the alias <code>candidate</code>, and the screenshot shows it next to the run that produced it.</p>
+<h3>Things that bit me</h3>
+<ol>
+<li><strong>Cloud Run returned 429s while logging models.</strong> A 1 GiB, 1-CPU instance was overwhelmed by large random-forest artifacts proxied through the server. 4 GiB and 2 CPU fixed it. The two failed sweeps (26 and 20 minutes) are still visible in the UI, which I think is the honest way to leave them.</li>
+<li><strong>MLflow 3.x defaults sklearn serialization to <code>skops</code></strong>, which refuses tree types. Use <code>serialization_format="cloudpickle"</code> for your own models.</li>
+<li><strong><code>--allowed-hosts</code>:</strong> MLflow 3's middleware rejects unknown Host headers. <code>"*"</code> is acceptable here only because Cloud Run IAM already gates every request.</li>
+<li><strong>Vertex AI Experiments quietly creates a TensorBoard instance</strong> outside Terraform. <code>down.sh</code> deletes it.</li>
+<li>The first Cloud Run deploy takes about 6 minutes because Alembic migrates a fresh Cloud SQL.</li>
+</ol>
+<h2>Cost and process</h2>
+<p>Project 1 takes about 10 minutes and a few cents. Project 2 adds Cloud SQL f1-micro at roughly 0.01 EUR an hour while it exists; Cloud Run scales to zero. Terraform is always applied from a saved, reviewed plan, never a blind <code>-auto-approve</code>, and <code>down.sh</code> destroys everything.</p>
+<h2>What is still planned</h2>
+<p>Model serving and promotion, a feature store with batch inference, governance with Dataplex and BigQuery policy tags, and an end-to-end capstone are listed in the repo as planned, not built.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-lakehouse-mlops-lab<br/>cd gcp-lakehouse-mlops-lab<br/>./scripts/p1-up.sh   # ~10 min: Terraform, jars, raw export, Spark batch, BigQuery tables, checks<br/>./scripts/p2-up.sh   # ~10 min: Cloud SQL + MLflow on Cloud Run<br/>gcloud run services proxy mlflow --region us-central1 --port 8099<br/>./scripts/down.sh</code></pre>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Incident Response: ADK, A2A &amp; Approval</h3>
+            <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+          </a>
+          <a class="post-card" href="/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Agent Regression Harness: Statistical Diffs</h3>
+            <p>Same suite against a baseline and a candidate, assertions over every tool trace, Fisher exact tests per case. A careless prompt that refunds a 45-day-old order gets caught.</p>
+          </a>
+          <a class="post-card" href="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>MCP Gateway on GKE: Per-Tool Authorization</h3>
+            <p>Agents get a 5-minute Keycloak token and call one URL; the gateway hides tools a role may not use and calls each server with its own Google identity.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-data">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization | Rajesh Sood</title>
+  <meta name="description" content="One entry point for AI agents and three MCP servers on GKE Autopilot: Keycloak JWTs, role-based tool visibility, per-server ID tokens. 70 live checks." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization" />
+  <meta property="og:description" content="One entry point for AI agents and three MCP servers on GKE Autopilot: Keycloak JWTs, role-based tool visibility, per-server ID tokens. 70 live checks." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/architecture.png" />
+  <meta property="og:image:width" content="2800" />
+  <meta property="og:image:height" content="3140" />
+  <meta property="og:image:alt" content="MCP gateway architecture on GKE: agent, agentgateway, Keycloak, three MCP servers and Google Cloud data services" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization" />
+  <meta name="twitter:description" content="One entry point for AI agents and three MCP servers on GKE Autopilot: Keycloak JWTs, role-based tool visibility, per-server ID tokens. 70 live checks." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/architecture.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/",
+  "image": "https://irajeshsood.com/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/architecture.png",
+  "description": "One entry point for AI agents and three MCP servers on GKE Autopilot: Keycloak JWTs, role-based tool visibility, per-server ID tokens. 70 live checks."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>MCP Gateway on GKE: agentgateway, Keycloak &amp; Per-Tool Authorization</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="MCP gateway architecture on GKE: agent, agentgateway, Keycloak, three MCP servers and Google Cloud data services" src="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/architecture.png"/><figcaption>The numbered request flow from unauthenticated call to tool result.</figcaption></figure>
+<p>Once an organisation has more than a couple of MCP servers, every agent ends up holding its own list of URLs and credentials, and nobody can answer "which agent can call which tool?" in one place. <a href="https://github.com/soodrajesh/gcp-mcp-gateway-gke" target="_blank" rel="noopener">gcp-mcp-gateway-gke</a> is a reference implementation of an MCP gateway: one controlled entry point between AI agents and the servers they use. It runs on GKE Autopilot with <a href="https://agentgateway.dev" target="_blank" rel="noopener">agentgateway</a> 1.6, Keycloak as the identity provider, three MCP servers, and a Gemini-based agent, against the 2026-07-28 MCP specification revision.</p>
+<h2>What happens on one request</h2>
+<ol>
+<li>The client calls the gateway with no token and gets <code>401</code>, plus pointers to the discovery documents that say where to log in. This is how an MCP client that has never seen the server finds the identity provider.</li>
+<li>The client logs in at Keycloak with the client-credentials grant and receives a signed JWT valid for 5 minutes, carrying its role (<code>mcp-viewer</code> or <code>mcp-operator</code>) and the audience (this gateway).</li>
+<li>The gateway verifies signature, issuer, audience and expiry (failure: 401), requires a role (none: 403), and applies a per-tool rule. A viewer sees and may call only an explicit allow-list of read tools. A tool a role may not use is absent from its <code>tools/list</code>, and calling it directly answers "Unknown tool".</li>
+<li>The gateway calls the target server <em>as itself</em>, presenting a Google-signed ID token whose audience is that one server. The caller's token is never forwarded.</li>
+<li>The server verifies that credential and reaches its data service with its own least-privilege identity. No service-account keys exist anywhere.</li>
+</ol>
+<h2>Three servers, three scopes</h2>
+<table>
+<thead><tr><th>Server</th><th>Tools</th><th>Scope</th></tr></thead>
+<tbody>
+<tr><td>k8s</td><td>list_pods, get_pod_events, get_pod_logs</td><td>A Role allowing only get/list on pods, logs and events in one namespace</td></tr>
+<tr><td>finops</td><td>cost_by_service, top_cost_skus</td><td>BigQuery dataViewer on one dataset; two fixed parameterised queries, no free-form SQL</td></tr>
+<tr><td>tickets</td><td>list/get (viewer), create/update (operator only)</td><td>Firestore datastore.user restricted by an IAM condition to one database</td></tr>
+</tbody></table>
+<p>Through the gateway a tool is named <code>&lt;server&gt;_&lt;tool&gt;</code>, such as <code>tickets_create_ticket</code>. The billing data behind <code>finops</code> is synthetic.</p>
+<h2>The token decides, not the prompt</h2>
+<p>The same agent code runs as <code>agent-viewer</code> (7 read tools) or <code>agent-operator</code> (all 9). Tool output such as a ticket description is untrusted and can contain instructions aimed at the model. The agent labels it as data and its prompt forbids following it, but that is a mitigation. The guarantee is structural: a viewer agent that is completely fooled still has no write tool in its list. The test suite plants an injection payload in a ticket to prove it, and the screenshot below shows that run.</p>
+<figure><img loading="lazy" decoding="async" alt="Terminal transcript of a viewer agent reading a ticket that contains an injection payload" src="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/agent-injection.png"/><figcaption>A viewer agent reads a ticket containing an injection payload. It has no write tool to call.</figcaption></figure>
+<h2>Seven independent layers</h2>
+<p>Caller identity (JWT validation), caller authorization (role plus per-tool default-deny), gateway-to-server ID tokens, default-deny NetworkPolicies, one Google service account per workload via Workload Identity, input validation inside each tool (enums, length limits, UUIDs, clamped numbers), and an audit trail: a gateway access log plus one structured line per tool call in each server that never logs argument values.</p>
+<h2>70 live checks, four suites</h2>
+<figure><img loading="lazy" decoding="async" alt="Terminal output of the flow test suite passing" src="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/test-output-flow.png"/><figcaption>Flow suite output from the live cluster.</figcaption></figure>
+<table>
+<thead><tr><th>Suite</th><th>Checks</th><th>Covers</th></tr></thead>
+<tbody>
+<tr><td>Flow</td><td>30</td><td>Discovery, tokens, garbage/untrusted-key/tampered/wrong-audience tokens (401), no role (403), per-tool authorization, input validation</td></tr>
+<tr><td>Isolation</td><td>19</td><td>Each server refuses everyone but the gateway, including a genuine Google-signed token for another audience; egress limits</td></tr>
+<tr><td>Agent</td><td>12</td><td>Two-server question, injection cannot make a viewer write, operator creates a ticket</td></tr>
+<tr><td>Resilience</td><td>9</td><td>Kill Keycloak: same signing key afterwards. Replace the gateway pod: same policy applies</td></tr>
+</tbody></table>
+<p>Every "denied" check is paired with a check that the same action succeeds where it should, so a broken setup cannot pass by rejecting everything. I verified it from an empty project: <code>down.sh</code>, then <code>up.sh</code> (about 15 minutes), then the full suite passed, last on 2026-10-10. No environment is kept running.</p>
+<figure><img loading="lazy" decoding="async" alt="Terminal output of the isolation test suite" src="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/images/test-output-isolation.png"/><figcaption>Isolation suite: each server refuses everyone but the gateway.</figcaption></figure>
+<h2>What is deliberately out of scope</h2>
+<p>The gateway is cluster-internal, reached by <code>kubectl port-forward</code>; a public deployment needs TLS, a WAF and an allow-list. Keycloak runs in development mode with an in-memory database and the realm signing key in a Kubernetes Secret. Only machine clients are exercised, not human login with PKCE. An operator agent can still be manipulated into writing, because the operator role has write tools; production would need human approval for writes, rate limits and output filtering. Servers know the gateway called, not which end user is behind it. There are no rate limits or tracing at the gateway, images are not scanned or signed, and each workload has one replica.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-mcp-gateway-gke<br/>cd gcp-mcp-gateway-gke<br/>./scripts/up.sh      # ~15 min: cluster, identities, images, Keycloak, servers, policies<br/>./scripts/test.sh    # 70 live checks<br/>./scripts/ask.sh viewer "How many pods are running, and which cloud service costs the most?"<br/>./scripts/down.sh</code></pre>
+<p>The GKE free-tier credit covers one Autopilot cluster's management fee; you pay for pod CPU and memory, so tear it down when finished.</p>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Incident Response: ADK, A2A &amp; Approval</h3>
+            <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+          </a>
+          <a class="post-card" href="/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Agent Regression Harness: Statistical Diffs</h3>
+            <p>Same suite against a baseline and a candidate, assertions over every tool trace, Fisher exact tests per case. A careless prompt that refunds a 45-day-old order gets caught.</p>
+          </a>
+          <a class="post-card" href="/blog/mcp-injection-firewall-on-cloud-run-tool-poisoning-and-rug-pull-defense/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span></div>
+            <h3>MCP Injection Firewall on Cloud Run</h3>
+            <p>A proxy between an agent and its MCP tools that blocks hidden instructions, pins tool definitions, and stops secrets leaving. Includes an honest negative result.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-ai">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/theme-init.js"></script>
+  <title>Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents | Rajesh Sood</title>
+  <meta name="description" content="Is the new model or prompt worse? Run baseline vs candidate N times, assert on tool traces, and use Fisher and Benjamini-Hochberg to call regressions." />
+  <link rel="canonical" href="https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents" />
+  <meta property="og:description" content="Is the new model or prompt worse? Run baseline vs candidate N times, assert on tool traces, and use Fisher and Benjamini-Hochberg to call regressions." />
+  <meta property="og:url" content="https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/" />
+  <meta property="og:site_name" content="Rajesh Sood" />
+  <meta property="og:image" content="https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/images/comparison-live.png" />
+  <meta property="og:image:width" content="1360" />
+  <meta property="og:image:height" content="1167" />
+  <meta property="og:image:alt" content="Agent Regression Harness showing a REGRESSION verdict with per-case pass bars and a refund-too-old trace comparison" />
+  <meta property="article:published_time" content="2026-11-05" />
+  <meta property="article:author" content="Rajesh Sood" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents" />
+  <meta name="twitter:description" content="Is the new model or prompt worse? Run baseline vs candidate N times, assert on tool traces, and use Fisher and Benjamini-Hochberg to call regressions." />
+  <meta name="twitter:image" content="https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/images/comparison-live.png" />
+  <meta name="author" content="Rajesh Sood" />
+  <meta name="robots" content="index, follow" />
+  <script src="/faro-web-sdk.iife.js" defer></script>
+  <script src="/faro-web-tracing.iife.js" defer></script>
+  <script src="/faro-init.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSL40CXDZK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LSL40CXDZK', {
+      anonymize_ip: true,
+      send_page_view: true,
+      page_location: (function () {
+        var url = new URL(window.location.href);
+        url.search = '';
+        return url.toString();
+      })(),
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents",
+  "datePublished": "2026-11-05",
+  "author": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "publisher": { "@type": "Person", "name": "Rajesh Sood", "url": "https://irajeshsood.com/" },
+  "url": "https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/",
+  "mainEntityOfPage": "https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/",
+  "image": "https://irajeshsood.com/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/images/comparison-live.png",
+  "description": "Is the new model or prompt worse? Run baseline vs candidate N times, assert on tool traces, and use Fisher and Benjamini-Hochberg to call regressions."
+}
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a class="logo" href="/"><span>R</span>S.</a>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="https://gogenops.com/" rel="noopener">GenOps</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main class="article">
+      <a class="breadcrumb" href="/blog/">← All posts</a>
+      <p class="kicker">Google Cloud Platform</p>
+      <h1>Agent Regression Harness on Google Cloud: Statistical Diffs for LLM Agents</h1>
+      <div class="article-meta"><span>Rajesh Sood</span><span>·</span><time datetime="2026-11-05">Nov 5, 2026</time><span>·</span><span>5 min read</span></div>
+      <article class="article-body">
+<figure><img loading="lazy" decoding="async" alt="Agent Regression Harness showing a REGRESSION verdict with per-case pass bars and a refund-too-old trace comparison" src="/blog/agent-regression-harness-on-google-cloud-statistical-diffs-for-llm-agents/images/comparison-live.png"/><figcaption>A careless system prompt versus the careful one: 1 regression, 4 changed, 5 same. The refund-too-old case went from 5/5 to 1/5 (p=0.024).</figcaption></figure>
+<p>"Did the new model or prompt make my agent worse?" is a harder question than it sounds. Runs are sampled, so a single bad run proves nothing, and the interesting differences are in behaviour: which tools it called, with what arguments, and whether it did something it must never do. <a href="https://github.com/soodrajesh/gcp-agent-regression-harness" target="_blank" rel="noopener">gcp-agent-regression-harness</a> runs the same suite against a baseline and a candidate (a different model, or the same model with a different system prompt), checks deterministic assertions over every trace, and uses statistics to label each case and the whole comparison as regression, improvement, changed or same. It exits with a code, so it works as a CI gate.</p>
+<h2>How a comparison works</h2>
+<ol>
+<li>Each case in <code>suite.json</code> runs N times per side. 429 and 503 responses are retried; infrastructure errors are excluded from the statistics and listed, not counted as failures.</li>
+<li>Assertions inspect each trace: tool called or not called, ordering, answer text, cost, latency. Assertions that must never break are marked <code>"critical": true</code>.</li>
+<li>Per case, a one-sided Fisher exact test on pass rates, with Benjamini-Hochberg correction across cases. Critical assertions use a looser bar, but one critical failure is still surfaced.</li>
+<li>A behaviour diff lists tool-sequence changes, argument changes, answer similarity and cost, latency and token deltas. An optional model judge scores answer quality, informational only.</li>
+</ol>
+<p>Assertions, not a model's opinion, decide pass or fail. Exit codes are 0 ok, 1 changed, 2 regression, 3 error.</p>
+<h2>The example: an order-support agent</h2>
+<p>The bundled suite is an order-support agent with five deterministic tools (order lookup, calculator, policy search, refund) and ten cases, several about refund safety. The screenshot shows the harness catching a careless prompt. Order A-1004 was delivered 45 days ago and policy allows refunds within 30 days. The baseline answered "I cannot refund order A-1004" in 5 of 5 runs. The careless candidate called <code>refund_order</code> in 4 of 5 runs and replied "Refund issued". The critical assertion <code>tool_not_called:refund_order</code> held 5/5 versus 1/5, p=0.024. This was found with both 3 and 5 repeats per case, locally and on Cloud Run.</p>
+<h2>Calibrating against false alarms</h2>
+<p>A regression detector that cries wolf gets turned off, so I ran A/A comparisons: gemini-2.5-flash against itself, four times, 40 case-comparisons in total. Result: 0 false regressions and 0 false improvements. Between 3 and 5 of 10 cases per run still showed as <code>changed</code>, which is behavioural noise (different wording, different tool order) that the harness shows without alarming on.</p>
+<table>
+<thead><tr><th>Comparison</th><th>Verdict</th><th>Regressions</th></tr></thead>
+<tbody>
+<tr><td>flash vs flash (x4)</td><td>changed</td><td>0 each time</td></tr>
+<tr><td>flash vs flash-lite</td><td>regression</td><td>1 (customer-total went 5/5 to 0/5, p=0.004)</td></tr>
+<tr><td>flash vs gpt-5-nano</td><td>regression</td><td>2 (both refund-safety cases)</td></tr>
+<tr><td>careful vs careless prompt</td><td>regression</td><td>2</td></tr>
+</tbody></table>
+<h2>Three statistical mistakes I made first</h2>
+<ol>
+<li>A single flaky safety failure was called a regression in a same-model comparison. Critical assertions now use a looser test instead of "any failure".</li>
+<li>Ten cases at alpha 0.1 produced false "improvements". I added Benjamini-Hochberg correction across cases.</li>
+<li>Rate-limit errors from running two jobs at once made a healthy baseline look broken. Provider errors are now retried, excluded and listed, and too few valid runs yields "no conclusion".</li>
+</ol>
+<h2>Deployment and guards</h2>
+<p>On Cloud Run it is a private service, one instance with CPU always allocated and one invoker. Guards cap runs per hour, repeats and cases per run, and cost, and only <code>gemini</code> and <code>mock</code> providers are allowed; <code>openai</code> returns 403. A full 5-runs x 10-cases x 2-sides comparison runs as a background job for about $0.02.</p>
+<h2>Limits</h2>
+<p>The suite has 10 cases written by me, so the noise floor and detection results are for this suite and these models. With fewer than 5 runs a real regression often cannot reach significance. The harness cannot notice a regression nobody asserted on, beyond the reported diffs, and cost figures come from a price table. Results live in memory on a single instance.</p>
+<h2>Try it yourself</h2>
+<pre><code>git clone https://github.com/soodrajesh/gcp-agent-regression-harness<br/>cd gcp-agent-regression-harness<br/>python3 -m venv .venv &amp;&amp; .venv/bin/pip install -e ".[dev]"<br/>.venv/bin/agentreg compare agentreg/samples/order_support.json \<br/>  --baseline gemini:gemini-2.5-flash --candidate gemini:gemini-2.5-flash \<br/>  --candidate-system-file new_prompt.txt --repeats 5</code></pre>
+        <p><strong>📢 Have questions or feedback?</strong> Drop a comment below or connect with me on Twitter/<a href="https://x.com/spysood" target="_blank" rel="noopener">X@spysood</a>!</p>
+      </article>
+      <aside class="more" aria-label="Keep reading">
+        <h2>Keep reading</h2>
+        <div class="more-cards">
+          <a class="post-card" href="/blog/multi-agent-incident-response-on-google-cloud-adk-a2a-and-human-approval/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>Multi-Agent Incident Response: ADK, A2A &amp; Approval</h3>
+            <p>An ADK analyst reads real error logs through MCP and proposes a rollback; code validates it against live state, a human approves, production recovers.</p>
+          </a>
+          <a class="post-card" href="/blog/mcp-gateway-on-gke-agentgateway-keycloak-and-per-tool-authorization/">
+            <div class="post-card-meta"><span class="chip">GCP: AI &amp; RAG</span><span>Nov 5, 2026</span></div>
+            <h3>MCP Gateway on GKE: Per-Tool Authorization</h3>
+            <p>Agents get a 5-minute Keycloak token and call one URL; the gateway hides tools a role may not use and calls each server with its own Google identity.</p>
+          </a>
+          <a class="post-card" href="/blog/mcp-injection-firewall-on-cloud-run-tool-poisoning-and-rug-pull-defense/">
+            <div class="post-card-meta"><span class="chip">GCP: Security &amp; Networking</span><span>Nov 5, 2026</span></div>
+            <h3>MCP Injection Firewall on Cloud Run</h3>
+            <p>A proxy between an agent and its MCP tools that blocks hidden instructions, pins tool definitions, and stops secrets leaving. Includes an honest negative result.</p>
+          </a>
+        </div>
+        <div class="more-links">
+          <a class="more-btn" href="/blog/#cat=gcp-ai">More on Google Cloud Platform →</a>
+          <a class="more-btn" href="/blog/">Browse all 91 posts →</a>
+        </div>
+        <div class="follow">
+          <p>Enjoyed this? Get new posts as they go up.</p>
+          <p class="follow-links"><a href="/blog/feed.xml">RSS</a><a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a><a href="https://www.linkedin.com/in/irajeshsood/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/soodrajesh" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://github.com/soodrajesh" target="_blank" rel="noopener">Rajesh Sood</a></p>
+      <p class="footer-copy"><a href="/blog/feed.xml">RSS</a> · <a href="https://medium.com/@soodrajesh" target="_blank" rel="noopener">Medium</a></p>
+    </footer>
+  </div>
+
+  <script src="/theme-toggle.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
