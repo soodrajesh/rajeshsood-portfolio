@@ -119,7 +119,7 @@ so every tab has an accessible level-one heading regardless of which is active
 | Tab | Content |
 |---|---|
 | **about** | Hero (name, role, bio), `impact_at_a_glance` metrics strip (5 stats), skills pills grouped by category (cloud / ai-genai / iac / ci-cd / observability / security / languages), certifications grid, education grid |
-| **experience** | Vertical timeline, 7 roles, 2010–present (Dell/HCL → Optum → Softenger → DXC → Maxis → HAITS → Protego → Workday) |
+| **experience** | Vertical timeline, 7 roles, 2010–present (Dell/HCL → Optum → Softenger → DXC → Maxis → HAITS → Protego → current role) |
 | **projects** | Three project grids: `github_projects` (6 repo cards), `live_apps` (6 cards linking to the maintainer's other live sites), `mac_apps` (7 cards) |
 | **contact** | Availability box, 4 contact cards (email/GitHub/LinkedIn/Medium), plus the collapsible **contact form** (see below) |
 
