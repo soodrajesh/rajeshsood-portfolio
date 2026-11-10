@@ -1,25 +1,19 @@
 # Rajesh Sood — Portfolio
 
-Personal portfolio website for Rajesh Sood — Senior DevOps & MLOps Engineer · DevSecOps · AI/ML Platform Engineering.
-
-Live at: **[rajeshsood-portfolio.vercel.app](https://rajeshsood-portfolio.vercel.app)**
+Source for [irajeshsood.com](https://irajeshsood.com): home page, `/portfolio/`, and `/blog/`.
 
 ## Structure
 
-Single `index.html` with four tab sections:
-
-| Tab | Content |
-|-----|---------|
-| About | Hero, bio, skills, education, resume download |
-| Experience | Vertical timeline of 7 roles (2011–present) |
-| Projects | 6 GitHub project cards with tech tags |
-| Contact | Email, GitHub, LinkedIn, Medium, availability |
+- `index.html`: home page
+- `portfolio/index.html`: tabbed portfolio (about, experience, projects, blog, contact). Project cards open an architecture-diagram preview and link to each GitHub repo.
+- `blog/`: one folder per post, plus `index.html`, `feed.xml`; `sitemap.xml` at the root
+- `ARCHITECTURE.md`, `RUNBOOK.md`: how the site is built and operated (excluded from the deployment via `.vercelignore`)
 
 ## Sub-pages
 
 This repo also serves `/portfolio/` (`portfolio/index.html`) — a separate, more detailed portfolio page with its own content and fonts, not generated from the root page. Its Contact tab has a collapsible "Contact me" form in addition to the existing contact-card links; the form posts cross-origin to `gogenops.com/api/contact`, a shared backend used by several of the maintainer's other sites.
 
-It also proxies (via `vercel.json` rewrites) three separately-deployed apps under this domain: `/subnet-calculator/`, `/checkmyurl/`, `/notesmith/` — each its own repo, own README.
+It also proxies (via `vercel.json` rewrites) four separately-deployed apps under this domain: `/subnet-calculator/`, `/checkmyurl/`, `/notesmith/`, `/invoice-generator/` — each its own repo, own README.
 
 ## Tech Stack
 
@@ -32,19 +26,7 @@ It also proxies (via `vercel.json` rewrites) three separately-deployed apps unde
 1. Push this folder to a GitHub repository
 2. Import the repo in [Vercel](https://vercel.com)
 3. Vercel auto-detects the static site — no build command needed
-4. Set the custom domain or use the generated `*.vercel.app` URL
-
-## Files
-
-```
-my-portfolio/
-├── index.html                    # Full portfolio (single file)
-├── Rajesh_Sood_Resume_2026.pdf   # Resume (linked for download)
-├── og-image.png                  # Social share preview image (1200x630)
-├── vercel.json                   # Vercel config
-├── .gitignore
-└── README.md
-```
+4. Pushing to `main` deploys to production
 
 ## Links
 
